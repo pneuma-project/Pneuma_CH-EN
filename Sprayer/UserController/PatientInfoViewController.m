@@ -9,7 +9,7 @@
 #import "PatientInfoViewController.h"
 #import "PatientInfoModel.h"
 #import "PatientInfoTableViewCell.h"
-
+#import "EditPatientInfoViewController.h"
 static NSString *const cellId = @"cell";
 
 @interface PatientInfoViewController ()<CustemBBI>
@@ -172,6 +172,12 @@ static NSString *const cellId = @"cell";
         }
         [self.tableView reloadData];
     }else{
+        
+        PatientInfoModel * model = self.dataArr[indexPath.row];
+        
+        EditPatientInfoViewController * editVC = [[EditPatientInfoViewController alloc]init];
+        editVC.patientModel = model;
+        [self.navigationController pushViewController:editVC animated:YES];
         
     }
 }
