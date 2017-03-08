@@ -9,6 +9,7 @@
 #import "UserViewController.h"
 #import "BasicInformationViewController.h"
 #import "UserListViewController.h"
+#import "PatientInfoViewController.h"
 
 @interface UserViewController ()
 {
@@ -144,7 +145,8 @@
         BasicInformationViewController *inforVC = [[BasicInformationViewController alloc] init];
         [self.navigationController pushViewController:inforVC animated:YES];
     }else if (indexPath.row == 1){
-    
+        PatientInfoViewController *patientInfoVC = [[PatientInfoViewController alloc] init];
+        [self.navigationController pushViewController:patientInfoVC animated:YES];
     }else if (indexPath.row == 2){
         UserListViewController *userListVC = [[UserListViewController alloc] init];
         [self.navigationController pushViewController:userListVC animated:YES];
