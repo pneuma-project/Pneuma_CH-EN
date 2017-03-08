@@ -79,6 +79,10 @@
 		64F663FD1E63CB8400F4C9E7 /* BaseNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F663FA1E63CB8400F4C9E7 /* BaseNavViewController.m */; };
 		64F663FE1E63CB8400F4C9E7 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F663FC1E63CB8400F4C9E7 /* BaseViewController.m */; };
 		64F664021E63CC6D00F4C9E7 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F664011E63CC6D00F4C9E7 /* RootViewController.m */; };
+		BF79D0E81E6FAA7C00EE468B /* EditPatientInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF79D0E71E6FAA7C00EE468B /* EditPatientInfoViewController.m */; };
+		BF79D0EB1E6FD24900EE468B /* EditDetailPatientInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF79D0EA1E6FD24900EE468B /* EditDetailPatientInfoViewController.m */; };
+		BF79D0EE1E6FE15200EE468B /* EditDetailPatSexInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF79D0ED1E6FE15200EE468B /* EditDetailPatSexInfoViewController.m */; };
+		BF79D0F21E6FF69A00EE468B /* ValuePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF79D0F11E6FF69A00EE468B /* ValuePickerView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -231,6 +235,14 @@
 		64F663FF1E63CBAC00F4C9E7 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		64F664001E63CC6D00F4C9E7 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		64F664011E63CC6D00F4C9E7 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		BF79D0E61E6FAA7C00EE468B /* EditPatientInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditPatientInfoViewController.h; sourceTree = "<group>"; };
+		BF79D0E71E6FAA7C00EE468B /* EditPatientInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPatientInfoViewController.m; sourceTree = "<group>"; };
+		BF79D0E91E6FD24900EE468B /* EditDetailPatientInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditDetailPatientInfoViewController.h; sourceTree = "<group>"; };
+		BF79D0EA1E6FD24900EE468B /* EditDetailPatientInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditDetailPatientInfoViewController.m; sourceTree = "<group>"; };
+		BF79D0EC1E6FE15200EE468B /* EditDetailPatSexInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditDetailPatSexInfoViewController.h; sourceTree = "<group>"; };
+		BF79D0ED1E6FE15200EE468B /* EditDetailPatSexInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditDetailPatSexInfoViewController.m; sourceTree = "<group>"; };
+		BF79D0F01E6FF69A00EE468B /* ValuePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValuePickerView.h; sourceTree = "<group>"; };
+		BF79D0F11E6FF69A00EE468B /* ValuePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValuePickerView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -395,6 +407,7 @@
 		644C9C371E666A440030C3B9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BF79D0EF1E6FF69A00EE468B /* PickerView */,
 				644C9C6F1E6917F70030C3B9 /* ScanView */,
 				644C9C4D1E66B5BF0030C3B9 /* FL_ChatView */,
 				644C9C381E666A6D0030C3B9 /* FL_ScaleCircle.h */,
@@ -496,6 +509,12 @@
 				642580321E6D4AC80019AD06 /* HistoryViewController.m */,
 				642580421E6D72270019AD06 /* PatientInfoViewController.h */,
 				642580431E6D72270019AD06 /* PatientInfoViewController.m */,
+				BF79D0E61E6FAA7C00EE468B /* EditPatientInfoViewController.h */,
+				BF79D0E71E6FAA7C00EE468B /* EditPatientInfoViewController.m */,
+				BF79D0E91E6FD24900EE468B /* EditDetailPatientInfoViewController.h */,
+				BF79D0EA1E6FD24900EE468B /* EditDetailPatientInfoViewController.m */,
+				BF79D0EC1E6FE15200EE468B /* EditDetailPatSexInfoViewController.h */,
+				BF79D0ED1E6FE15200EE468B /* EditDetailPatSexInfoViewController.m */,
 			);
 			path = UserController;
 			sourceTree = "<group>";
@@ -610,6 +629,15 @@
 				64F664011E63CC6D00F4C9E7 /* RootViewController.m */,
 			);
 			path = RootViewController;
+			sourceTree = "<group>";
+		};
+		BF79D0EF1E6FF69A00EE468B /* PickerView */ = {
+			isa = PBXGroup;
+			children = (
+				BF79D0F01E6FF69A00EE468B /* ValuePickerView.h */,
+				BF79D0F11E6FF69A00EE468B /* ValuePickerView.m */,
+			);
+			path = PickerView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -774,8 +802,10 @@
 				644C9C5B1E66B5BF0030C3B9 /* UIImage+Common.m in Sources */,
 				64F663FE1E63CB8400F4C9E7 /* BaseViewController.m in Sources */,
 				644C9CB61E697DDA0030C3B9 /* TrainingViewController.m in Sources */,
+				BF79D0EE1E6FE15200EE468B /* EditDetailPatSexInfoViewController.m in Sources */,
 				644C9C1D1E655E660030C3B9 /* UIView+Category.m in Sources */,
 				644C9CB41E697DDA0030C3B9 /* TrainingStartViewController.m in Sources */,
+				BF79D0EB1E6FD24900EE468B /* EditDetailPatientInfoViewController.m in Sources */,
 				644C9C621E67F8590030C3B9 /* CustemNavItem.m in Sources */,
 				6425801F1E6D0CB90019AD06 /* JSONModel.m in Sources */,
 				642580441E6D72270019AD06 /* PatientInfoViewController.m in Sources */,
@@ -789,6 +819,7 @@
 				642580301E6D3E5C0019AD06 /* UserListViewController.m in Sources */,
 				644C9C581E66B5BF0030C3B9 /* FLChartView.m in Sources */,
 				642580251E6D0CB90019AD06 /* JSONHTTPClient.m in Sources */,
+				BF79D0F21E6FF69A00EE468B /* ValuePickerView.m in Sources */,
 				644C9CB11E697DDA0030C3B9 /* RetrainingViewController.m in Sources */,
 				642580201E6D0CB90019AD06 /* JSONModelArray.m in Sources */,
 				644C9C331E6575E80030C3B9 /* MBProgressHUD.m in Sources */,
@@ -809,6 +840,7 @@
 				644C9CB21E697DDA0030C3B9 /* TrainingFirstViewController.m in Sources */,
 				642580281E6D0CB90019AD06 /* JSONValueTransformer.m in Sources */,
 				64F663C21E63C8A900F4C9E7 /* main.m in Sources */,
+				BF79D0E81E6FAA7C00EE468B /* EditPatientInfoViewController.m in Sources */,
 				644C9CAE1E697DDA0030C3B9 /* ScanResultViewController.m in Sources */,
 				6425802A1E6D0CB90019AD06 /* README.md in Sources */,
 				644C9CAB1E697DDA0030C3B9 /* DeviceViewController.m in Sources */,
