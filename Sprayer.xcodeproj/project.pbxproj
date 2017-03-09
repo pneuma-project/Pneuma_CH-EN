@@ -83,6 +83,9 @@
 		BF79D0EB1E6FD24900EE468B /* EditDetailPatientInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF79D0EA1E6FD24900EE468B /* EditDetailPatientInfoViewController.m */; };
 		BF79D0EE1E6FE15200EE468B /* EditDetailPatSexInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF79D0ED1E6FE15200EE468B /* EditDetailPatSexInfoViewController.m */; };
 		BF79D0F21E6FF69A00EE468B /* ValuePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF79D0F11E6FF69A00EE468B /* ValuePickerView.m */; };
+		BF79D0F51E7101FF00EE468B /* AddPatientInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF79D0F41E7101FF00EE468B /* AddPatientInfoTableViewController.m */; };
+		BF79D0F81E712E1C00EE468B /* DrugInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF79D0F71E712E1C00EE468B /* DrugInfoViewController.m */; };
+		BF79D0FB1E71425B00EE468B /* HistoricalDrugViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF79D0FA1E71425B00EE468B /* HistoricalDrugViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -242,7 +245,13 @@
 		BF79D0EC1E6FE15200EE468B /* EditDetailPatSexInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditDetailPatSexInfoViewController.h; sourceTree = "<group>"; };
 		BF79D0ED1E6FE15200EE468B /* EditDetailPatSexInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditDetailPatSexInfoViewController.m; sourceTree = "<group>"; };
 		BF79D0F01E6FF69A00EE468B /* ValuePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValuePickerView.h; sourceTree = "<group>"; };
-		BF79D0F11E6FF69A00EE468B /* ValuePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValuePickerView.m; sourceTree = "<group>"; };
+		BF79D0F11E6FF69A00EE468B /* ValuePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ValuePickerView.m; path = ../PickerView/ValuePickerView.m; sourceTree = "<group>"; };
+		BF79D0F31E7101FF00EE468B /* AddPatientInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPatientInfoTableViewController.h; sourceTree = "<group>"; };
+		BF79D0F41E7101FF00EE468B /* AddPatientInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPatientInfoTableViewController.m; sourceTree = "<group>"; };
+		BF79D0F61E712E1C00EE468B /* DrugInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrugInfoViewController.h; sourceTree = "<group>"; };
+		BF79D0F71E712E1C00EE468B /* DrugInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrugInfoViewController.m; sourceTree = "<group>"; };
+		BF79D0F91E71425B00EE468B /* HistoricalDrugViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoricalDrugViewController.h; sourceTree = "<group>"; };
+		BF79D0FA1E71425B00EE468B /* HistoricalDrugViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoricalDrugViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -436,6 +445,7 @@
 		644C9C6F1E6917F70030C3B9 /* ScanView */ = {
 			isa = PBXGroup;
 			children = (
+				BF79D0F11E6FF69A00EE468B /* ValuePickerView.m */,
 				644C9C701E6918080030C3B9 /* lightNormal.png */,
 				644C9C711E6918080030C3B9 /* lightSelect.png */,
 				644C9C721E6918080030C3B9 /* noticeMusic.wav */,
@@ -462,6 +472,10 @@
 				644C9C931E697DDA0030C3B9 /* ScanResultViewController.h */,
 				644C9C941E697DDA0030C3B9 /* ScanResultViewController.m */,
 				644C9C951E697DDA0030C3B9 /* ScanResultViewController.xib */,
+				BF79D0F61E712E1C00EE468B /* DrugInfoViewController.h */,
+				BF79D0F71E712E1C00EE468B /* DrugInfoViewController.m */,
+				BF79D0F91E71425B00EE468B /* HistoricalDrugViewController.h */,
+				BF79D0FA1E71425B00EE468B /* HistoricalDrugViewController.m */,
 			);
 			path = DeviceController;
 			sourceTree = "<group>";
@@ -509,6 +523,8 @@
 				642580321E6D4AC80019AD06 /* HistoryViewController.m */,
 				642580421E6D72270019AD06 /* PatientInfoViewController.h */,
 				642580431E6D72270019AD06 /* PatientInfoViewController.m */,
+				BF79D0F31E7101FF00EE468B /* AddPatientInfoTableViewController.h */,
+				BF79D0F41E7101FF00EE468B /* AddPatientInfoTableViewController.m */,
 				BF79D0E61E6FAA7C00EE468B /* EditPatientInfoViewController.h */,
 				BF79D0E71E6FAA7C00EE468B /* EditPatientInfoViewController.m */,
 				BF79D0E91E6FD24900EE468B /* EditDetailPatientInfoViewController.h */,
@@ -635,7 +651,6 @@
 			isa = PBXGroup;
 			children = (
 				BF79D0F01E6FF69A00EE468B /* ValuePickerView.h */,
-				BF79D0F11E6FF69A00EE468B /* ValuePickerView.m */,
 			);
 			path = PickerView;
 			sourceTree = "<group>";
@@ -788,6 +803,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				642580271E6D0CB90019AD06 /* JSONKeyMapper.m in Sources */,
+				BF79D0FB1E71425B00EE468B /* HistoricalDrugViewController.m in Sources */,
 				644C9CB31E697DDA0030C3B9 /* TrainingSecondViewController.m in Sources */,
 				642580211E6D0CB90019AD06 /* JSONModelClassProperty.m in Sources */,
 				644C9CB71E697DDA0030C3B9 /* BasicInformationViewController.m in Sources */,
@@ -811,6 +827,7 @@
 				642580441E6D72270019AD06 /* PatientInfoViewController.m in Sources */,
 				644C9CB81E697DDA0030C3B9 /* UserViewController.m in Sources */,
 				644C9CB51E697DDA0030C3B9 /* TrainingThirdViewController.m in Sources */,
+				BF79D0F81E712E1C00EE468B /* DrugInfoViewController.m in Sources */,
 				642580261E6D0CB90019AD06 /* JSONModel+networking.m in Sources */,
 				644C9C7B1E6918080030C3B9 /* QRCodeReaderView.m in Sources */,
 				642580231E6D0CB90019AD06 /* NSArray+JSONModel.m in Sources */,
@@ -834,6 +851,7 @@
 				642580331E6D4AC80019AD06 /* HistoryViewController.m in Sources */,
 				642580001E6CFF740019AD06 /* DeviceStatusViewController.m in Sources */,
 				644C9C3A1E666A6D0030C3B9 /* FL_ScaleCircle.m in Sources */,
+				BF79D0F51E7101FF00EE468B /* AddPatientInfoTableViewController.m in Sources */,
 				64F664021E63CC6D00F4C9E7 /* RootViewController.m in Sources */,
 				64F663FD1E63CB8400F4C9E7 /* BaseNavViewController.m in Sources */,
 				64F663C51E63C8A900F4C9E7 /* AppDelegate.m in Sources */,

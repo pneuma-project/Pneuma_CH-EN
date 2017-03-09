@@ -7,7 +7,7 @@
 //
 
 #import "ScanResultViewController.h"
-
+#import "DrugInfoViewController.h"
 @interface ScanResultViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *finishBtn;
 @property (weak, nonatomic) IBOutlet UILabel *codeLabel;
@@ -30,7 +30,8 @@
 }
 
 - (IBAction)finishAction:(id)sender {
-    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:0] animated:YES];
+    DrugInfoViewController * vc = [[DrugInfoViewController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
