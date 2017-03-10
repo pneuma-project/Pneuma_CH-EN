@@ -8,6 +8,7 @@
 
 #import "HistoricalDrugViewController.h"
 #import "HistoricalDrugTableViewCell.h"
+#import "HistoricalModel.h"
 @interface HistoricalDrugViewController ()<CustemBBI,UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong)UITableView * myTableView;
@@ -22,7 +23,7 @@
     self.view.backgroundColor = RGBColor(242, 250, 254, 1.0);
     [self setNavTitle:@"Historical Drug/Cartridge Information"];
     [self createSerachView];
-    
+    [self addData];
     
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -72,6 +73,19 @@
     [self.view addSubview:self.myTableView];
 }
 
+#pragma mark ---- 添加数据的方法
+-(void)addData
+{
+    for (int i=0; i<15; i++) {
+        HistoricalModel * model = [[HistoricalModel alloc]init];
+        model.productName = [NSString stringWithFormat:@"Aspirin(Aspirin)%d",i];
+        model.CartridgeNumber = @"543226312";
+        model.Dosage = @"1day 3 tablets";
+        
+        [self.dataArr addObject:model];
+    }
+    [_myTableView reloadData];
+}
 #pragma mark - CustemBBI代理方法
 -(void)BBIdidClickWithName:(NSString *)infoStr
 {
@@ -85,17 +99,18 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return _dataArr.count;
 }
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     HistoricalDrugTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    
-    
-    
+    HistoricalModel * model = [[HistoricalModel alloc]init];
+    model = _dataArr[indexPath.row];
+    cell.ProductInfoLabel.text = model.productName;
+    cell.CartridgeInfoLabel.text = model.CartridgeNumber;
+    cell.DosageInfoLabel.text = model.Dosage;
     
     return cell;
-    
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -113,29 +128,25 @@
 //进入编辑模式，按下出现的编辑按钮后
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   
+    __weak typeof(self) weakself = self;
     [tableView setEditing:NO animated:YES];
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"你确定删除该消息？" preferredStyle:UIAlertControllerStyleAlert];
-        //        [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
-        [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-            //
-            //            [_classArray removeObjectAtIndex:indexPath.row];
-            //            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            MessageModel *model = weakself.dataArray[indexPath.row];
-            [weakself singleDelet:model.mid];
-            
-            
-        }]];
-        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Would you like to remove any information about aspirin?" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *alertAction1 = [UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [weakself.dataArr removeObjectAtIndex:indexPath.row];
+            [_myTableView reloadData];
+        }];
+        UIAlertAction *alertAction2 = [UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                   }];
+        [alertController addAction:alertAction2];
+        [alertController addAction:alertAction1];
         [self presentViewController:alertController animated:YES completion:nil];
     }
 }
 //修改编辑按钮文字
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return @"删除";
+    return @"Delete";
 }
 //设置进入编辑状态时，Cell不会缩进
 - (BOOL)tableView: (UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
