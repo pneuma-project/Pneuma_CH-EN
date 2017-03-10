@@ -88,6 +88,8 @@
 		BF79D0F51E7101FF00EE468B /* AddPatientInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF79D0F41E7101FF00EE468B /* AddPatientInfoTableViewController.m */; };
 		BF79D0F81E712E1C00EE468B /* DrugInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF79D0F71E712E1C00EE468B /* DrugInfoViewController.m */; };
 		BF79D0FB1E71425B00EE468B /* HistoricalDrugViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF79D0FA1E71425B00EE468B /* HistoricalDrugViewController.m */; };
+		BF79D1001E7232CE00EE468B /* HistoricalDrugTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF79D0FE1E7232CE00EE468B /* HistoricalDrugTableViewCell.m */; };
+		BF79D1011E7232CE00EE468B /* HistoricalDrugTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF79D0FF1E7232CE00EE468B /* HistoricalDrugTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -257,6 +259,9 @@
 		BF79D0F71E712E1C00EE468B /* DrugInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrugInfoViewController.m; sourceTree = "<group>"; };
 		BF79D0F91E71425B00EE468B /* HistoricalDrugViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoricalDrugViewController.h; sourceTree = "<group>"; };
 		BF79D0FA1E71425B00EE468B /* HistoricalDrugViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoricalDrugViewController.m; sourceTree = "<group>"; };
+		BF79D0FD1E7232CE00EE468B /* HistoricalDrugTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoricalDrugTableViewCell.h; sourceTree = "<group>"; };
+		BF79D0FE1E7232CE00EE468B /* HistoricalDrugTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoricalDrugTableViewCell.m; sourceTree = "<group>"; };
+		BF79D0FF1E7232CE00EE468B /* HistoricalDrugTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoricalDrugTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -469,6 +474,7 @@
 		644C9C8D1E697DDA0030C3B9 /* DeviceController */ = {
 			isa = PBXGroup;
 			children = (
+				BF79D0FC1E7232A500EE468B /* Cell */,
 				642580011E6D0C5E0019AD06 /* Model */,
 				644C9C8E1E697DDA0030C3B9 /* DeviceViewController.h */,
 				644C9C8F1E697DDA0030C3B9 /* DeviceViewController.m */,
@@ -672,6 +678,16 @@
 			path = PickerView;
 			sourceTree = "<group>";
 		};
+		BF79D0FC1E7232A500EE468B /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				BF79D0FD1E7232CE00EE468B /* HistoricalDrugTableViewCell.h */,
+				BF79D0FE1E7232CE00EE468B /* HistoricalDrugTableViewCell.m */,
+				BF79D0FF1E7232CE00EE468B /* HistoricalDrugTableViewCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -784,6 +800,7 @@
 				644C9C7E1E6918080030C3B9 /* scanscanBg.png in Resources */,
 				644C9CAF1E697DDA0030C3B9 /* ScanResultViewController.xib in Resources */,
 				644C9CAC1E697DDA0030C3B9 /* DeviceViewController.xib in Resources */,
+				BF79D1011E7232CE00EE468B /* HistoricalDrugTableViewCell.xib in Resources */,
 				6425803D1E6D515A0019AD06 /* HistoryValueTableViewCell.xib in Resources */,
 				64F663D01E63C8A900F4C9E7 /* LaunchScreen.storyboard in Resources */,
 				644C9C791E6918080030C3B9 /* lightSelect.png in Resources */,
@@ -820,6 +837,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				642580271E6D0CB90019AD06 /* JSONKeyMapper.m in Sources */,
+				BF79D1001E7232CE00EE468B /* HistoricalDrugTableViewCell.m in Sources */,
 				BF79D0FB1E71425B00EE468B /* HistoricalDrugViewController.m in Sources */,
 				644C9CB31E697DDA0030C3B9 /* TrainingSecondViewController.m in Sources */,
 				64F43CC11E71585D009BF6F9 /* SqliteUtils.m in Sources */,

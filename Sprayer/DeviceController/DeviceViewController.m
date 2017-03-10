@@ -9,7 +9,7 @@
 #import "DeviceViewController.h"
 #import "lhScanQCodeViewController.h"
 #import "DeviceStatusViewController.h"
-
+#import "HistoricalDrugViewController.h"
 @interface DeviceViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *serialLabel;
 @property (weak, nonatomic) IBOutlet UIButton *isOnlineBtn;
@@ -35,6 +35,12 @@
 #pragma mark - 扫描点击事件
 -(void)MenuDidClick
 {
+    HistoricalDrugViewController * vc = [[HistoricalDrugViewController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+    return;
+    
+    
+    
     NSLog(@"点击扫描");
     lhScanQCodeViewController *scanVC = [[lhScanQCodeViewController alloc] init];
     [self.navigationController pushViewController:scanVC animated:YES];
