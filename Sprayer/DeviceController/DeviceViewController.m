@@ -35,12 +35,6 @@
 #pragma mark - 扫描点击事件
 -(void)MenuDidClick
 {
-    HistoricalDrugViewController * vc = [[HistoricalDrugViewController alloc]init];
-    [self.navigationController pushViewController:vc animated:YES];
-    return;
-    
-    
-    
     NSLog(@"点击扫描");
     lhScanQCodeViewController *scanVC = [[lhScanQCodeViewController alloc] init];
     [self.navigationController pushViewController:scanVC animated:YES];
