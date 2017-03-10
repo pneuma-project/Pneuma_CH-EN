@@ -10,6 +10,7 @@
 #import "PatientInfoModel.h"
 #import "PatientInfoTableViewCell.h"
 #import "EditPatientInfoViewController.h"
+#import "AddPatientInfoTableViewController.h"
 static NSString *const cellId = @"cell";
 
 @interface PatientInfoViewController ()<CustemBBI>
@@ -79,6 +80,7 @@ static NSString *const cellId = @"cell";
     [addBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [addBtn setBackgroundColor:RGBColor(0, 83, 181, 1.0)];
     addBtn.layer.mask = [DisplayUtils cornerRadiusGraph:addBtn withSize:CGSizeMake(addBtn.current_h/2, addBtn.current_h/2)];
+    [addBtn addTarget:self action:@selector(addClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:addBtn];
 }
 
@@ -86,7 +88,12 @@ static NSString *const cellId = @"cell";
 {
     [self.tableView registerNib:[UINib nibWithNibName:@"PatientInfoTableViewCell" bundle:nil] forCellReuseIdentifier:cellId];
 }
-
+#pragma mark ----添加成员点击事件
+-(void)addClick
+{
+    AddPatientInfoTableViewController * addVC = [[AddPatientInfoTableViewController alloc]init];
+    [self.navigationController pushViewController:addVC animated:YES];
+}
 #pragma mark - CustemBBI代理方法
 -(void)BBIdidClickWithName:(NSString *)infoStr
 {

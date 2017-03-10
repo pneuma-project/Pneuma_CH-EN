@@ -1,44 +1,36 @@
 //
-//  EditPatientInfoViewController.m
+//  AddPatientInfoTableViewController.m
 //  Sprayer
 //
-//  Created by 黄上凌 on 2017/3/8.
+//  Created by 黄上凌 on 2017/3/9.
 //  Copyright © 2017年 FangLin. All rights reserved.
 //
 
+#import "AddPatientInfoTableViewController.h"
 #import "EditPatientInfoViewController.h"
-#import "MedicalTableViewCell.h"
-#import "EditDetailPatientInfoViewController.h"
 #import "EditDetailPatSexInfoViewController.h"
+#import "EditDetailPatientInfoViewController.h"
 #import "ValuePickerView.h"
 static NSString *ONE_Cell = @"ONECELL";
-static NSString *TWO_Cell = @"TWOCELL";
-
-
-@interface EditPatientInfoViewController ()<CustemBBI,sexDelegate,textInfoDelegate>
+@interface AddPatientInfoTableViewController ()<CustemBBI,sexDelegate,textInfoDelegate>
 {
     UIView * headView;
     UIImageView * headImageView;
     
     CGSize medicalSize;
     CGSize allergySize;
-    
 }
 @property (nonatomic, strong) ValuePickerView *pickerView;
 @end
 
-
-@implementation EditPatientInfoViewController
+@implementation AddPatientInfoTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     self.view.backgroundColor = RGBColor(242, 250, 254, 1.0);
-    [self setNavTitle:@"Edit Patient Information"];
-//    [self registerCell];
+    [self setNavTitle:@"Add Patient Information"];
     [self createHeadView];
 }
-
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -54,22 +46,14 @@ static NSString *TWO_Cell = @"TWOCELL";
     label.font=[UIFont systemFontOfSize:19];
     self.navigationItem.titleView=label;
 }
--(void)registerCell
-{
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:ONE_Cell];
-    [self.tableView registerNib:[UINib nibWithNibName:@"MedicalTableViewCell" bundle:nil] forCellReuseIdentifier:TWO_Cell];
-}
 -(void)createHeadView
 {
-    
     self.pickerView = [[ValuePickerView alloc]init];
-
-    
     headView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, screen_width, 100)];
     
     headImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
     headImageView.center = CGPointMake(screen_width/2, 50);
-    headImageView.image = [UIImage imageNamed:_patientModel.headImage];
+    headImageView.image = [UIImage imageNamed:@"add-patient-information-icon-touxiang"];
     [headView addSubview:headImageView];
     
     self.tableView.tableHeaderView = headView;
@@ -96,7 +80,6 @@ static NSString *TWO_Cell = @"TWOCELL";
 {
     UILabel * label = (UILabel *)[self.view viewWithTag:100+index];
     label.text = info;
-    
 }
 
 #pragma mark - UITableView Delegate
@@ -155,10 +138,6 @@ static NSString *TWO_Cell = @"TWOCELL";
         valueLabel.textAlignment = NSTextAlignmentRight;
         valueLabel.textColor = RGBColor(122, 123, 124, 1.0);
         valueLabel.tag = 100+indexPath.row;
-        
-        if (indexPath.row == 0) {
-            valueLabel.text = _patientModel.name;
-        }
         [cell addSubview:valueLabel];
         [cell addSubview:keyLabel];
         [cell addSubview:[DisplayUtils customCellLine:44]];
@@ -204,9 +183,9 @@ static NSString *TWO_Cell = @"TWOCELL";
             EditDetailPatSexInfoViewController * sexVC = [[EditDetailPatSexInfoViewController alloc]init];
             sexVC.sexDelegate = self;
             UILabel * label = (UILabel *)[self.view viewWithTag:102];
-           
+            
             if (label.text.length!=0) {
-               sexVC.sexStr = label.text;
+                sexVC.sexStr = label.text;
             }
             [self.navigationController pushViewController:sexVC animated:YES];
         }else if(indexPath.row == 3||indexPath.row == 4||indexPath.row == 5||indexPath.row ==6)
@@ -222,7 +201,7 @@ static NSString *TWO_Cell = @"TWOCELL";
             if (label.text.length!=0) {
                 editDetailVC.infoStr = label.text;
             }
-
+            
             editDetailVC.index = indexPath.row;
             editDetailVC.infoDelegate = self;
             [self.navigationController pushViewController:editDetailVC animated:YES];
@@ -250,7 +229,7 @@ static NSString *TWO_Cell = @"TWOCELL";
     {
         NSMutableArray * mutArr = [NSMutableArray array];
         for (int i=100; i<250; i++) {
-           [mutArr addObject:[NSString stringWithFormat:@"%dcm",i]];
+            [mutArr addObject:[NSString stringWithFormat:@"%dcm",i]];
         }
         arr = mutArr;
     }else
@@ -267,7 +246,7 @@ static NSString *TWO_Cell = @"TWOCELL";
     self.pickerView.pickerTitle = keyStr;
     __weak typeof(self) weakSelf = self;
     self.pickerView.valueDidSelect = ^(NSString *value){
-    
+        
         UILabel * textlabel = (UILabel *)[weakSelf.view viewWithTag:100+index];
         
         textlabel.text = value;
@@ -276,10 +255,56 @@ static NSString *TWO_Cell = @"TWOCELL";
     
     
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+/*
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    
+    // Configure the cell...
+    
+    return cell;
+}
+*/
+
+/*
+// Override to support conditional editing of the table view.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return NO if you do not want the specified item to be editable.
+    return YES;
+}
+*/
+
+/*
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }   
+}
+*/
+
+/*
+// Override to support rearranging the table view.
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+}
+*/
+
+/*
+// Override to support conditional rearranging of the table view.
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return NO if you do not want the item to be re-orderable.
+    return YES;
+}
+*/
 
 /*
 #pragma mark - Navigation

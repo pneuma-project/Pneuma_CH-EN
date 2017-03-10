@@ -7,10 +7,11 @@
 //
 
 #import "EditDetailPatientInfoViewController.h"
-
+#import "DisplayUtils.h"
 @interface EditDetailPatientInfoViewController ()<CustemBBI>
 {
     UIButton * rightBtn;
+    UITextField * textFiled;
 }
 @end
 
@@ -55,27 +56,45 @@
     UIView * bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 74, screen_width, 50)];
     bgView.backgroundColor = RGBColor(254, 255, 255, 1.0);
     
-    UITextField * textFiled = [[UITextField alloc]initWithFrame:CGRectMake(15, 0, bgView.current_w-15, 50)];
+    textFiled = [[UITextField alloc]initWithFrame:CGRectMake(15, 0, bgView.current_w-15, 50)];
     textFiled.placeholder = [NSString stringWithFormat:@"Please enter your %@",_nameStr];
+    if (_infoStr.length!=0) {
+        textFiled.text = _infoStr;
+    }
     textFiled.backgroundColor = RGBColor(254, 255, 255, 1.0);
     [bgView addSubview:textFiled];
     [self.view addSubview:bgView];
 }
-
-
-
 #pragma mark---导航栏右边的点击事件
 -(void)rightBarAction
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.view endEditing:YES];
+    //判断当时输入电话的时候输入内容是否含全为数字
+    if([_nameStr isEqualToString:@"Phone"])
+    {
+        for (int i=0;i<textFiled.text.length;i++) {
+            unichar c = [textFiled.text characterAtIndex:i];
+            if (!(c<='9'&&c>='0')) {
+                [DisplayUtils alert:@"Please enter the correct phone number" viewController:self];
+                return;
+            }
+        }
+    }
+   
+    if (_infoDelegate&&[_infoDelegate respondsToSelector:@selector(showTheInfo::)]) {
+        if (textFiled.text.length!=0) {
+            [_infoDelegate showTheInfo:textFiled.text :_index];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
 }
-
 #pragma mark - CustemBBI代理方法
 -(void)BBIdidClickWithName:(NSString *)infoStr
 {
     if ([infoStr isEqualToString:@"left"]) {
         [self.navigationController popViewControllerAnimated:YES];
     }else if ([infoStr isEqualToString:@"right"]){
+        
         
     }
 }
