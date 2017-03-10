@@ -68,6 +68,8 @@
 		644C9CB81E697DDA0030C3B9 /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 644C9CAA1E697DDA0030C3B9 /* UserViewController.m */; };
 		644C9CBD1E697E980030C3B9 /* MedicalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 644C9CBB1E697E980030C3B9 /* MedicalTableViewCell.m */; };
 		644C9CBE1E697E980030C3B9 /* MedicalTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 644C9CBC1E697E980030C3B9 /* MedicalTableViewCell.xib */; };
+		64F43CC11E71585D009BF6F9 /* SqliteUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F43CC01E71585D009BF6F9 /* SqliteUtils.m */; };
+		64F43CC41E715A3B009BF6F9 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F43CC31E715A3B009BF6F9 /* libsqlite3.0.tbd */; };
 		64F663C21E63C8A900F4C9E7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F663C11E63C8A900F4C9E7 /* main.m */; };
 		64F663C51E63C8A900F4C9E7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F663C41E63C8A900F4C9E7 /* AppDelegate.m */; };
 		64F663C81E63C8A900F4C9E7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F663C71E63C8A900F4C9E7 /* ViewController.m */; };
@@ -212,6 +214,9 @@
 		644C9CBA1E697E980030C3B9 /* MedicalTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MedicalTableViewCell.h; sourceTree = "<group>"; };
 		644C9CBB1E697E980030C3B9 /* MedicalTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MedicalTableViewCell.m; sourceTree = "<group>"; };
 		644C9CBC1E697E980030C3B9 /* MedicalTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MedicalTableViewCell.xib; sourceTree = "<group>"; };
+		64F43CBF1E71585D009BF6F9 /* SqliteUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SqliteUtils.h; sourceTree = "<group>"; };
+		64F43CC01E71585D009BF6F9 /* SqliteUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SqliteUtils.m; sourceTree = "<group>"; };
+		64F43CC31E715A3B009BF6F9 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		64F663BD1E63C8A900F4C9E7 /* Sprayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sprayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64F663C11E63C8A900F4C9E7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		64F663C31E63C8A900F4C9E7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -250,6 +255,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64F43CC41E715A3B009BF6F9 /* libsqlite3.0.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,6 +386,8 @@
 				644C9C291E6571B50030C3B9 /* UserDefaultsUtils.m */,
 				644C9C601E67F8590030C3B9 /* CustemNavItem.h */,
 				644C9C611E67F8590030C3B9 /* CustemNavItem.m */,
+				64F43CBF1E71585D009BF6F9 /* SqliteUtils.h */,
+				64F43CC01E71585D009BF6F9 /* SqliteUtils.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -538,6 +546,14 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		64F43CC21E715A3A009BF6F9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				64F43CC31E715A3B009BF6F9 /* libsqlite3.0.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		64F663B41E63C8A900F4C9E7 = {
 			isa = PBXGroup;
 			children = (
@@ -545,6 +561,7 @@
 				64F663D91E63C8A900F4C9E7 /* SprayerTests */,
 				64F663E41E63C8A900F4C9E7 /* SprayerUITests */,
 				64F663BE1E63C8A900F4C9E7 /* Products */,
+				64F43CC21E715A3A009BF6F9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -789,6 +806,7 @@
 			files = (
 				642580271E6D0CB90019AD06 /* JSONKeyMapper.m in Sources */,
 				644C9CB31E697DDA0030C3B9 /* TrainingSecondViewController.m in Sources */,
+				64F43CC11E71585D009BF6F9 /* SqliteUtils.m in Sources */,
 				642580211E6D0CB90019AD06 /* JSONModelClassProperty.m in Sources */,
 				644C9CB71E697DDA0030C3B9 /* BasicInformationViewController.m in Sources */,
 				644C9C2A1E6571B50030C3B9 /* DisplayUtils.m in Sources */,
