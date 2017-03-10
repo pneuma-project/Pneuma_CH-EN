@@ -7,11 +7,11 @@
 //
 
 #import "HistoricalDrugViewController.h"
-
+#import "HistoricalDrugTableViewCell.h"
 @interface HistoricalDrugViewController ()<CustemBBI,UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong)UITableView * myTableView;
-
+@property(nonatomic,strong)NSMutableArray * dataArr;
 @end
 
 @implementation HistoricalDrugViewController
@@ -58,8 +58,7 @@
     UIColor *color = [UIColor whiteColor];
     textField.textColor = color;
     textField.placeholder = @"search";
-    textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:textField.placeholder attributes:@{NSForegroundColorAttributeName: color}];
-    
+    textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:textField.placeholder attributes:@{NSForegroundColorAttributeName:color}];
     [serachBgView addSubview:serachImgView];
     [serachBgView addSubview:textField];
     [headBgView addSubview:serachBgView];
@@ -68,6 +67,8 @@
     self.myTableView =[[UITableView alloc]initWithFrame:CGRectMake(0, headBgView.current_y_h, screen_width, screen_height-headBgView.current_y_h) style:UITableViewStylePlain];
     self.myTableView.delegate = self;
     self.myTableView.dataSource = self;
+    [self.myTableView registerNib:[UINib nibWithNibName:@"HistoricalDrugTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell"];
+    self.myTableView.tableFooterView = [[UIView alloc]init];
     [self.view addSubview:self.myTableView];
 }
 
@@ -80,6 +81,73 @@
         
         
     }
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 3;
+}
+-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    HistoricalDrugTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    
+    
+    
+    
+    return cell;
+    
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 100;
+}
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return   UITableViewCellEditingStyleDelete;
+}
+//先要设Cell可编辑
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+//进入编辑模式，按下出现的编辑按钮后
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+   
+    [tableView setEditing:NO animated:YES];
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"你确定删除该消息？" preferredStyle:UIAlertControllerStyleAlert];
+        //        [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            //
+            //            [_classArray removeObjectAtIndex:indexPath.row];
+            //            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            MessageModel *model = weakself.dataArray[indexPath.row];
+            [weakself singleDelet:model.mid];
+            
+            
+        }]];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+}
+//修改编辑按钮文字
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"删除";
+}
+//设置进入编辑状态时，Cell不会缩进
+- (BOOL)tableView: (UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return NO;
+}
+-(NSMutableArray *)dataArr
+{
+    if (!_dataArr) {
+        _dataArr = [NSMutableArray array];
+    }
+    return _dataArr;
 }
 
 - (void)didReceiveMemoryWarning {
