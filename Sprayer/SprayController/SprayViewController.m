@@ -23,27 +23,48 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+  
     self.view.backgroundColor = RGBColor(240, 248, 252, 1.0);
 }
 -(void)setNavTitle:(NSString *)title
 {
-    UIView * titileBgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 90, 44)];
+    UIView * titileBgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 215, 44)];
     UIImageView *  leftImgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 15, 10, 15)];
     leftImgView.image = [UIImage imageNamed:@"icon-back"];
-    UILabel *label=[[UILabel alloc]initWithFrame:CGRectMake(leftImgView.current_x_w, 0, 60, titileBgView.current_h)];
+    UILabel *label=[[UILabel alloc]initWithFrame:CGRectMake(leftImgView.current_x_w, 0, 180, titileBgView.current_h)];
     label.text=NSLocalizedString(title, nil);
     label.textColor=[UIColor whiteColor];
     label.textAlignment=NSTextAlignmentCenter;
     label.font=[UIFont systemFontOfSize:19];
     UIImageView * rightImgView = [[UIImageView alloc]initWithFrame:CGRectMake(label.current_x_w, 15, 10, 15)];
     rightImgView.image = [UIImage imageNamed:@"spray-icon--选择日期"];
+    
+    UITapGestureRecognizer * tapOne = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(leftTap)];
+    tapOne.numberOfTapsRequired = 1;
+    leftImgView.userInteractionEnabled = YES;
+    [leftImgView addGestureRecognizer:tapOne];
+    
+    UITapGestureRecognizer * tapTwo = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(rightTap)];
+    tapTwo.numberOfTapsRequired = 1;
+    rightImgView.userInteractionEnabled = YES;
+    [rightImgView addGestureRecognizer:tapTwo];
+    
     [titileBgView addSubview:leftImgView];
     [titileBgView addSubview:label];
     [titileBgView addSubview:rightImgView];
     self.navigationItem.titleView = titileBgView;
-    
+
 }
 
+#pragma mark ----导航栏点击事件
+-(void)leftTap
+{
+    NSLog(@"点击了左侧");
+}
+-(void)rightTap
+{
+    NSLog(@"点击了右侧");
+}
 - (void)showFirstQuardrant{
     UIView * upBgView = [[UIView alloc]initWithFrame:CGRectMake(10, 74, screen_width-20, (screen_height-64-tabbarHeight)/2-20)];
     upBgView.layer.cornerRadius = 3.0;

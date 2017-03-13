@@ -11,6 +11,8 @@
 #import "PatientInfoTableViewCell.h"
 #import "EditPatientInfoViewController.h"
 #import "AddPatientInfoTableViewController.h"
+#import "SqliteUtils.h"
+#import "AddPatientInfoModel.h"
 static NSString *const cellId = @"cell";
 
 @interface PatientInfoViewController ()<CustemBBI>
@@ -19,29 +21,31 @@ static NSString *const cellId = @"cell";
     UIButton *rightBtn;
     UIButton *addBtn;
 }
-@property (nonatomic,strong)NSMutableArray *dataArr;//数据
+@property (nonatomic,strong)NSArray *dataArr;//数据
 @end
 
 @implementation PatientInfoViewController
 
--(NSMutableArray *)dataArr
-{
-    if (!_dataArr) {
-        _dataArr = [[NSMutableArray alloc] init];
-    }
-    return _dataArr;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = RGBColor(242, 250, 254, 1.0);
     [self setNavTitle:@"Patient Information"];
-    [self requestData];
+    [self selectFromDataBase];
     [self registerCell];
     [self createView];
     isEdit = NO;
 }
+
+
+#pragma mark ----查询本地数据库
+-(void)selectFromDataBase
+{
+    self.dataArr = [SqliteUtils selectUserInfo];
+    
+}
+
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -118,24 +122,6 @@ static NSString *const cellId = @"cell";
     rightBtn.selected = status;
 }
 
-#pragma mark - 数据相关
--(void)requestData
-{
-    NSArray *imageArr = @[@"user-list-img-anny",@"user-list-img-michelle",@"user-list-img-john"];
-    NSArray *nameArr = @[@"Anny",@"Michelle",@"John"];
-    for (NSInteger i = 0; i < imageArr.count; i++) {
-        PatientInfoModel *model = [[PatientInfoModel alloc] init];
-        model.headImage = imageArr[i];
-        model.name = nameArr[i];
-        if (i == 0) {
-            model.isSelect = YES;
-        }else{
-            model.isSelect = NO;
-        }
-        [self.dataArr addObject:model];
-    }
-}
-
 #pragma mark - UITableView delegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -144,20 +130,20 @@ static NSString *const cellId = @"cell";
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return self.dataArr.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PatientInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];
     if (self.dataArr) {
-        PatientInfoModel *model = self.dataArr[indexPath.row];
+        AddPatientInfoModel * model = self.dataArr[indexPath.row];
         if (model.isSelect == YES) {
             cell.selectImageView.hidden = NO;
         }else{
             cell.selectImageView.hidden = YES;
         }
-        cell.headImageView.image = [UIImage imageNamed:model.headImage];
+        cell.headImageView.image = [UIImage imageNamed:@"device-user-2"];
         cell.nameLabel.text = model.name;
     }
     [cell addSubview:[DisplayUtils customCellLine:70]];
