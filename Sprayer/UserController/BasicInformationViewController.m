@@ -9,7 +9,7 @@
 #import "BasicInformationViewController.h"
 #import "lhScanQCodeViewController.h"
 #import "MedicalTableViewCell.h"
-
+#import "SqliteUtils.h"
 static NSString *ONE_Cell = @"ONECELL";
 static NSString *TWO_Cell = @"TWOCELL";
 static NSString *THREE_Cell = @"THREECELL";
@@ -33,6 +33,7 @@ static NSString *THREE_Cell = @"THREECELL";
     [self setNavTitle:@"Basic Information"];
     [self registerCell];
     [self createHeadView];
+   
 }
 
 -(void)viewWillAppear:(BOOL)animated

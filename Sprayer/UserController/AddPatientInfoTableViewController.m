@@ -11,6 +11,9 @@
 #import "EditDetailPatSexInfoViewController.h"
 #import "EditDetailPatientInfoViewController.h"
 #import "ValuePickerView.h"
+#import "SqliteUtils.h"
+#import "AddPatientInfoModel.h"
+#import "DisplayUtils.h"
 static NSString *ONE_Cell = @"ONECELL";
 @interface AddPatientInfoTableViewController ()<CustemBBI,sexDelegate,textInfoDelegate>
 {
@@ -148,7 +151,14 @@ static NSString *ONE_Cell = @"ONECELL";
         keyLabel.text = @"Device serial number:";
         keyLabel.textColor = RGBColor(50, 51, 52, 1.0);
         keyLabel.font = [UIFont systemFontOfSize:14];
+        UILabel * valueLabel = [[UILabel alloc]initWithFrame:CGRectMake(screen_width-80, 0, 70, cell.current_h)];
+        valueLabel.text =@"3273267";
+        valueLabel.textColor = RGBColor(50, 51, 52, 1.0);
+        valueLabel.font = [UIFont systemFontOfSize:14];
+        valueLabel.textAlignment = NSTextAlignmentRight;
+        valueLabel.tag = 108;
         [cell addSubview:keyLabel];
+        [cell addSubview:valueLabel];
         return cell;
         
     }else{
@@ -156,6 +166,7 @@ static NSString *ONE_Cell = @"ONECELL";
         saveBtn.frame = CGRectMake(50, 5, screen_width-100, 40);
         [saveBtn setTitle:@"Save" forState:UIControlStateNormal];
         [saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [saveBtn addTarget:self action:@selector(saveClick) forControlEvents:UIControlEventTouchUpInside];
         [saveBtn setBackgroundColor:RGBColor(0, 83, 180, 1.0)];
         saveBtn.layer.mask = [DisplayUtils cornerRadiusGraph:saveBtn withSize:CGSizeMake(saveBtn.current_h/2, saveBtn.current_h/2)];
         cell.backgroundColor = [UIColor clearColor];
@@ -211,7 +222,59 @@ static NSString *ONE_Cell = @"ONECELL";
         return;
     }
 }
-
+-(void)saveClick
+{
+    AddPatientInfoModel * model = [[AddPatientInfoModel alloc]init];
+    for (int i =0; i<9; i++) {
+        
+        UILabel * valueLabel = (UILabel *)[self.view viewWithTag:100+i];
+        if (valueLabel.text.length==0) {
+            [DisplayUtils alert:@"Please fill in the information" viewController:self];
+            return;
+        }
+        switch (i) {
+            case 0:
+                model.name = valueLabel.text;
+                break;
+                case 1:
+                model.relationship = valueLabel.text;
+                break;
+                case 2:
+                model.sex = valueLabel.text;
+                break;
+                case 3:
+                model.age = valueLabel.text;
+                break;
+                case 4:
+                model.race = valueLabel.text;
+                break;
+                case 5:
+                model.height = valueLabel.text;
+                break;
+                case 6:
+                model.weight = valueLabel.text;
+                break;
+                case 7:
+                model.phone = valueLabel.text;
+                break;
+                case 8:
+                model.deviceSerialNum = valueLabel.text;
+                break;
+            default:
+                break;
+        }
+        
+    }
+    NSString * sql = [NSString stringWithFormat:@"insert into userInfo(name,relationship,sex,age,race,height,weight,phone,device_serialnum) values('%@','%@','%@','%@','%@','%@','%@','%@','%@');",model.name,model.relationship,model.sex,model.age,model.race,model.height,model.weight,model.phone,model.deviceSerialNum];
+   BOOL ret = [SqliteUtils insertUserInfo:sql];
+    if (ret == YES) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }else
+    {
+         [DisplayUtils alert:@"save failure" viewController:self];
+        return;
+    }
+}
 
 -(void)createPickerView:(NSInteger)index :(NSString *)keyStr
 {

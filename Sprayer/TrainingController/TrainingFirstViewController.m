@@ -9,7 +9,6 @@
 #import "TrainingFirstViewController.h"
 #import "FLChartView.h"
 #import "TrainingSecondViewController.h"
-
 @interface TrainingFirstViewController ()
 {
     UIView *circleView;
@@ -107,6 +106,7 @@
         
     }];
     UIAlertAction *alertAction2 = [UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
         TrainingSecondViewController *secondVC = [[TrainingSecondViewController alloc] init];
         [self.navigationController pushViewController:secondVC animated:YES];
     }];

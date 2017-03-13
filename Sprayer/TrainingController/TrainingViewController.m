@@ -10,7 +10,7 @@
 #import "FL_ScaleCircle.h"
 #import "FLChartView.h"
 #import "TrainingStartViewController.h"
-
+#import "RetrainingViewController.h"
 @interface TrainingViewController ()
 {
     UIView *view;
