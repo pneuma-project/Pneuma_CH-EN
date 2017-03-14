@@ -10,7 +10,8 @@
 #import "BasicInformationViewController.h"
 #import "UserListViewController.h"
 #import "PatientInfoViewController.h"
-
+#import "SqliteUtils.h"
+#import "AddPatientInfoModel.h"
 @interface UserViewController ()
 {
     UIView *view;
@@ -41,6 +42,17 @@
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"transparent"] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage imageNamed:@"transparent"]];
+    NSArray * arr = [SqliteUtils selectUserInfo];
+    if (arr.count!=0) {
+        for (AddPatientInfoModel * model in arr) {
+            
+            if (model.isSelect == 1) {
+                 nameLabel.text=model.name;
+                return;
+            }
+            
+        }
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -77,7 +89,7 @@
     headerView.center=CGPointMake(screen_width/2, 60);
     headerView.layer.cornerRadius=30.0f;
     headerView.clipsToBounds=YES;
-    headerView.image=[UIImage imageNamed:@"my-profile-img-touxiang"];
+    headerView.image=[UIImage imageNamed:@"device-user-2"];
     UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(infoSet)];
     headerView.userInteractionEnabled=YES;
     [headerView addGestureRecognizer:tap];

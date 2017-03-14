@@ -13,6 +13,7 @@
 #import "AddPatientInfoTableViewController.h"
 #import "SqliteUtils.h"
 #import "AddPatientInfoModel.h"
+#import "DisplayUtils.h"
 static NSString *const cellId = @"cell";
 
 @interface PatientInfoViewController ()<CustemBBI>
@@ -32,10 +33,9 @@ static NSString *const cellId = @"cell";
     // Do any additional setup after loading the view.
     self.view.backgroundColor = RGBColor(242, 250, 254, 1.0);
     [self setNavTitle:@"Patient Information"];
-    [self selectFromDataBase];
     [self registerCell];
     [self createView];
-    isEdit = NO;
+   
 }
 
 
@@ -43,13 +43,15 @@ static NSString *const cellId = @"cell";
 -(void)selectFromDataBase
 {
     self.dataArr = [SqliteUtils selectUserInfo];
-    
+    [self.tableView reloadData];
 }
 
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self selectFromDataBase];
+     isEdit = NO;
     self.tabBarController.tabBar.hidden = YES;
     self.navigationItem.leftBarButtonItem = [CustemNavItem initWithImage:[UIImage imageNamed:@"icon-back"] andTarget:self andinfoStr:@"left"];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[self setNavRightItem]];
@@ -95,6 +97,12 @@ static NSString *const cellId = @"cell";
 #pragma mark ----添加成员点击事件
 -(void)addClick
 {
+    NSArray * arr = [SqliteUtils selectUserInfo];
+    if (arr.count==5) {
+        [DisplayUtils alert:@"You can only add up to five members" viewController:self];
+        return;
+    }
+    
     AddPatientInfoTableViewController * addVC = [[AddPatientInfoTableViewController alloc]init];
     [self.navigationController pushViewController:addVC animated:YES];
 }
@@ -157,19 +165,33 @@ static NSString *const cellId = @"cell";
         //遍历viewModel的数组，如果点击的行数对应的viewModel相同，将isSelected变为Yes，反之为No
         for (NSInteger i = 0; i < self.dataArr.count; i++) {
             PatientInfoModel *model = self.dataArr[i];
-            if (i != indexPath.row) {
+            if (i!= indexPath.row) {
                 model.isSelect = NO;
             }else if (i == indexPath.row){
                 model.isSelect = YES;
             }
         }
+        //----------------//
+        for (NSInteger i = 1; i<=self.dataArr.count; i++) {
+            
+            if (i==indexPath.row+1) {
+                NSString * sql = [NSString stringWithFormat:@"update userInfo set isselect = 1 where id = %ld;",i];
+                [SqliteUtils updateUserInfo:sql];
+            }else
+            {
+                NSString * sql = [NSString stringWithFormat:@"update userInfo set isselect = 0 where id = %ld;",i];
+                [SqliteUtils updateUserInfo:sql];
+            }
+            
+        }
         [self.tableView reloadData];
+        [self.navigationController popViewControllerAnimated:YES];
     }else{
         
-        PatientInfoModel * model = self.dataArr[indexPath.row];
-        
+       AddPatientInfoModel * model = self.dataArr[indexPath.row];
         EditPatientInfoViewController * editVC = [[EditPatientInfoViewController alloc]init];
         editVC.patientModel = model;
+        editVC.index = indexPath.row+1;
         [self.navigationController pushViewController:editVC animated:YES];
         
     }

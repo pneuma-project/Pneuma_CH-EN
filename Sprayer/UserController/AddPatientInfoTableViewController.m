@@ -265,7 +265,15 @@ static NSString *ONE_Cell = @"ONECELL";
         }
         
     }
-    NSString * sql = [NSString stringWithFormat:@"insert into userInfo(name,relationship,sex,age,race,height,weight,phone,device_serialnum) values('%@','%@','%@','%@','%@','%@','%@','%@','%@');",model.name,model.relationship,model.sex,model.age,model.race,model.height,model.weight,model.phone,model.deviceSerialNum];
+    //查询是否第一次添加数据
+    NSArray * arr = [SqliteUtils selectUserInfo];
+    if (arr.count == 0) {
+        model.isSelect = 1;
+    }else
+    {
+        model.isSelect = 0;
+    }
+    NSString * sql = [NSString stringWithFormat:@"insert into userInfo(name,relationship,sex,age,race,height,weight,phone,device_serialnum,isselect) values('%@','%@','%@','%@','%@','%@','%@','%@','%@',%ld);",model.name,model.relationship,model.sex,model.age,model.race,model.height,model.weight,model.phone,model.deviceSerialNum,model.isSelect];
    BOOL ret = [SqliteUtils insertUserInfo:sql];
     if (ret == YES) {
         [self.navigationController popViewControllerAnimated:YES];
@@ -304,7 +312,6 @@ static NSString *ONE_Cell = @"ONECELL";
         arr = mutArr;
         
     }
-    
     self.pickerView.dataSource = arr;
     self.pickerView.pickerTitle = keyStr;
     __weak typeof(self) weakSelf = self;
@@ -315,8 +322,6 @@ static NSString *ONE_Cell = @"ONECELL";
         textlabel.text = value;
     };
     [self.pickerView show];
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
