@@ -41,7 +41,7 @@ static sqlite3 *db = nil;
     //打开数据库成功后建立数据库内的表
     //操作命令的字符串
     //注意字符串的结束处有 ; 号
-    NSString * sql = @"create table if not exists userInfo (id integer primary key autoincrement,name text,phone text,sex text,age text,race text,height text,weight text,medical_history text,allergy_history text,device_serialnum text,relationship text);";
+    NSString * sql = @"create table if not exists userInfo (id integer primary key autoincrement,name text,phone text,sex text,age text,race text,height text,weight text,medical_history text,allergy_history text,device_serialnum text,relationship text,isselect integer);";
     char * errmsg;
     sqlite3_exec(db, sql.UTF8String, NULL, NULL, &errmsg);
     if (errmsg) {
@@ -97,7 +97,6 @@ static sqlite3 *db = nil;
         NSLog(@"查询语句正确");
         //  进行查询
         //  如果 查询结果 返回 SQLITE_ROW 那么查询正确 执行循环
-        
         while (sqlite3_step(stmt) == SQLITE_ROW) {
             AddPatientInfoModel * model = [[AddPatientInfoModel alloc]init];
             model.name = [NSString stringWithCString:(const char *)sqlite3_column_text(stmt, 1) encoding:NSUTF8StringEncoding];
@@ -109,6 +108,7 @@ static sqlite3 *db = nil;
             model.weight = [NSString stringWithCString:(const char *)sqlite3_column_text(stmt, 7) encoding:NSUTF8StringEncoding];
             model.deviceSerialNum = [NSString stringWithCString:(const char *)sqlite3_column_text(stmt, 10) encoding:NSUTF8StringEncoding];
             model.relationship = [NSString stringWithCString:(const char *)sqlite3_column_text(stmt, 11) encoding:NSUTF8StringEncoding];
+            model.isSelect = [[NSString stringWithCString:(const char *)sqlite3_column_text(stmt, 12) encoding:NSUTF8StringEncoding]integerValue];
             [mutArr addObject:model];
            
         }
@@ -123,18 +123,17 @@ static sqlite3 *db = nil;
 
 }
 
-+(void)updateUserInfo
++(BOOL)updateUserInfo:(NSString *)sqlStr
 {
-    //这里吧id为9的 name更改为 hello-world
-    //操作代码(sql)
-    //最好先判断能否进入数据库在执行操作 这里偷下懒
-    NSString * sql = @"update userInfo set name = 'hello-world' where id = 9;";
+//    NSString * sql = @"update userInfo set name = 'hello-world' where id = 9;";
     char * errmsg;
-    sqlite3_exec(db, sql.UTF8String, NULL, NULL, &errmsg);
+    sqlite3_exec(db, sqlStr.UTF8String, NULL, NULL, &errmsg);
     if (errmsg) {
         NSLog(@"修改失败--%s",errmsg);
+        return NO;
     }else{
         NSLog(@"修改成功");
+        return YES;
     }
 }
 

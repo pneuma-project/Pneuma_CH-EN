@@ -19,5 +19,5 @@
 @property(nonatomic,strong) NSString *   weight;
 @property(nonatomic,strong) NSString *   phone;
 @property(nonatomic,strong) NSString *   deviceSerialNum;
-@property(nonatomic,assign) BOOL isSelect;
+@property(nonatomic,assign) NSInteger    isSelect;
 @end

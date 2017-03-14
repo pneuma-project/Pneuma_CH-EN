@@ -23,6 +23,6 @@
 
 +(NSArray *)selectUserInfo;//查询数据
 
-+(void)updateUserInfo;//跟新数据
++(BOOL)updateUserInfo:(NSString *)sqlStr;//修改数据
 
 @end

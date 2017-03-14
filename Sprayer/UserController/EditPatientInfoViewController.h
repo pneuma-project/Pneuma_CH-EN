@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PatientInfoModel.h"
+#import "AddPatientInfoModel.h"
 @interface EditPatientInfoViewController : UITableViewController
 
-@property(nonatomic,strong) PatientInfoModel * patientModel;
-
+@property(nonatomic,strong) AddPatientInfoModel * patientModel;
+@property(nonatomic,assign) NSInteger index;//标记为在数据表中的第几组
 @end
