@@ -300,14 +300,14 @@ static NSString *ONE_Cell = @"ONECELL";
     {
         NSMutableArray * mutArr = [NSMutableArray array];
         for (int i=100; i<250; i++) {
-            [mutArr addObject:[NSString stringWithFormat:@"%dcm",i]];
+            [mutArr addObject:[NSString stringWithFormat:@"%d ft.",i]];
         }
         arr = mutArr;
     }else
     {
         NSMutableArray * mutArr = [NSMutableArray array];
         for (int i=25; i<200; i++) {
-            [mutArr addObject:[NSString stringWithFormat:@"%dkg",i]];
+            [mutArr addObject:[NSString stringWithFormat:@"%d ibs",i]];
         }
         arr = mutArr;
         

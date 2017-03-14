@@ -52,6 +52,7 @@ static NSString *const cellId = @"cell";
     [super viewWillAppear:animated];
     [self selectFromDataBase];
      isEdit = NO;
+    addBtn.hidden = NO;
     self.tabBarController.tabBar.hidden = YES;
     self.navigationItem.leftBarButtonItem = [CustemNavItem initWithImage:[UIImage imageNamed:@"icon-back"] andTarget:self andinfoStr:@"left"];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[self setNavRightItem]];
@@ -188,7 +189,7 @@ static NSString *const cellId = @"cell";
         [self.navigationController popViewControllerAnimated:YES];
     }else{
         
-       AddPatientInfoModel * model = self.dataArr[indexPath.row];
+        AddPatientInfoModel * model = self.dataArr[indexPath.row];
         EditPatientInfoViewController * editVC = [[EditPatientInfoViewController alloc]init];
         editVC.patientModel = model;
         editVC.index = indexPath.row+1;

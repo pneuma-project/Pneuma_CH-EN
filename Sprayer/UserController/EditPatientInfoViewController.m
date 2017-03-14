@@ -88,14 +88,26 @@ static NSString *TWO_Cell = @"TWOCELL";
 {
     UILabel * label = (UILabel *)[self.view viewWithTag:102];
     label.text = sexStr;
-    
+    _patientModel.sex = label.text;
 }
 #pragma mark --- textInfoDelegate
 -(void)showTheInfo:(NSString *)info :(NSInteger)index
 {
     UILabel * label = (UILabel *)[self.view viewWithTag:100+index];
     label.text = info;
-    
+    switch (index) {
+        case 0:
+            _patientModel.name = label.text;
+            break;
+        case 1:
+            _patientModel.relationship = label.text;
+            break;
+        case 7:
+            _patientModel.phone = label.text;
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark - UITableView Delegate
@@ -282,14 +294,14 @@ static NSString *TWO_Cell = @"TWOCELL";
     {
         NSMutableArray * mutArr = [NSMutableArray array];
         for (int i=100; i<250; i++) {
-           [mutArr addObject:[NSString stringWithFormat:@"%dcm",i]];
+           [mutArr addObject:[NSString stringWithFormat:@"%d ft.",i]];
         }
         arr = mutArr;
     }else
     {
         NSMutableArray * mutArr = [NSMutableArray array];
         for (int i=25; i<200; i++) {
-            [mutArr addObject:[NSString stringWithFormat:@"%dkg",i]];
+            [mutArr addObject:[NSString stringWithFormat:@"%d ibs",i]];
         }
         arr = mutArr;
         
@@ -301,8 +313,23 @@ static NSString *TWO_Cell = @"TWOCELL";
     self.pickerView.valueDidSelect = ^(NSString *value){
     
         UILabel * textlabel = (UILabel *)[weakSelf.view viewWithTag:100+index];
-        
         textlabel.text = value;
+        switch (index) {
+            case 3:
+                weakSelf.patientModel.age = value;
+                break;
+            case 4:
+                weakSelf.patientModel.race = value;
+                break;
+            case 5:
+                weakSelf.patientModel.height = value;
+                break;
+            case 6:
+                weakSelf.patientModel.weight = value;
+                break;
+            default:
+                break;
+        }
     };
     [self.pickerView show];
     

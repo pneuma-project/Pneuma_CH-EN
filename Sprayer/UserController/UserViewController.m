@@ -22,6 +22,7 @@
     NSArray *imageArr;
     NSArray *titleArr;
 }
+@property(nonatomic,strong)AddPatientInfoModel * addModel;
 @end
 
 @implementation UserViewController
@@ -48,6 +49,8 @@
             
             if (model.isSelect == 1) {
                  nameLabel.text=model.name;
+                _addModel = [[AddPatientInfoModel alloc]init];
+                _addModel = model;
                 return;
             }
             
@@ -99,7 +102,7 @@
     nameLabel.center=CGPointMake(view.center.x, 120);
     nameLabel.textAlignment=NSTextAlignmentCenter;
     nameLabel.textColor=[UIColor whiteColor];
-    nameLabel.text=@"Anny";
+    nameLabel.text=@"";
     UITapGestureRecognizer *nametap=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(infoSet)];
     nameLabel.userInteractionEnabled=YES;
     [nameLabel addGestureRecognizer:nametap];
@@ -155,6 +158,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row == 0) {
         BasicInformationViewController *inforVC = [[BasicInformationViewController alloc] init];
+        inforVC.patientModel = _addModel;
         [self.navigationController pushViewController:inforVC animated:YES];
     }else if (indexPath.row == 1){
         PatientInfoViewController *patientInfoVC = [[PatientInfoViewController alloc] init];

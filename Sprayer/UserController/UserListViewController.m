@@ -8,8 +8,11 @@
 
 #import "UserListViewController.h"
 #import "HistoryViewController.h"
-
+#import "SqliteUtils.h"
+#import "AddPatientInfoModel.h"
 @interface UserListViewController ()<CustemBBI>
+
+@property (nonatomic,strong)NSArray *dataArr;//数据
 
 @end
 
@@ -20,6 +23,13 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = RGBColor(242, 250, 254, 1.0);
     [self setNavTitle:@"User List"];
+    [self selectFromDataBase];
+}
+#pragma mark ----查询本地数据库
+-(void)selectFromDataBase
+{
+    self.dataArr = [SqliteUtils selectUserInfo];
+    [self.tableView reloadData];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -57,20 +67,19 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return self.dataArr.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    AddPatientInfoModel * model =self.dataArr[indexPath.row];
     static NSString *CellId = @"cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellId];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellId];
     }
-    NSArray *imageArr = @[@"user-list-img-anny",@"user-list-img-michelle",@"user-list-img-john"];
-    NSArray *nameArr = @[@"Anny",@"Michelle",@"John"];
-    cell.imageView.image = [UIImage imageNamed:imageArr[indexPath.row]];
-    cell.textLabel.text = nameArr[indexPath.row];
+    cell.imageView.image = [UIImage imageNamed:@"device-user-2"];
+    cell.textLabel.text = model.name;
     [cell addSubview:[DisplayUtils customCellLine:80]];
     return cell;
 }
