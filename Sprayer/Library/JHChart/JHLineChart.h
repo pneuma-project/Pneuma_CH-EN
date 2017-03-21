@@ -61,6 +61,7 @@ typedef NS_ENUM(NSInteger,JHLineChartQuadrantType){
  */
 @property (nonatomic, strong) NSArray * xLineDataArr;
 
+@property (nonatomic,strong) NSMutableArray * layerArr;
 
 /**
  *  Y axis scale data of a broken line graph, the proposed use of NSNumber or the number of strings

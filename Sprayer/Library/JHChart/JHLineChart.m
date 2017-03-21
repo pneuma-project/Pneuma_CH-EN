@@ -19,7 +19,7 @@
 @property (nonatomic,strong)    NSMutableArray * drawDataArr;
 @property (nonatomic,strong) CAShapeLayer *shapeLayer;
 @property (assign , nonatomic) BOOL  isEndAnimation ;
-@property (nonatomic,strong) NSMutableArray * layerArr;
+
 @end
 
 @implementation JHLineChart
@@ -435,10 +435,13 @@
                 
                 for (NSInteger i = 0; i<_xLineDataArr.count;i++ ) {
                     CGPoint p = P_M(i*xPace+self.chartOrigin.x, self.chartOrigin.y);
-                    CGFloat len = [self sizeOfStringWithMaxSize:CGSizeMake(CGFLOAT_MAX, 30) textFont:self.xDescTextFontSize aimString:_xLineDataArr[i]].width;
-                    [self drawLineWithContext:context andStarPoint:p andEndPoint:P_M(p.x, p.y-3) andIsDottedLine:NO andColor:self.xAndYLineColor];
-                    
-                    [self drawText:[NSString stringWithFormat:@"%@",_xLineDataArr[i]] andContext:context atPoint:P_M(p.x-len/2, p.y+2) WithColor:_xAndYNumberColor andFontSize:self.xDescTextFontSize];
+                    if (i%5==0) {
+                        CGFloat len = [self sizeOfStringWithMaxSize:CGSizeMake(CGFLOAT_MAX, 30) textFont:self.xDescTextFontSize aimString:_xLineDataArr[i]].width;
+                        [self drawLineWithContext:context andStarPoint:p andEndPoint:P_M(p.x, p.y-3) andIsDottedLine:NO andColor:self.xAndYLineColor];
+                        
+                        [self drawText:[NSString stringWithFormat:@"%@",_xLineDataArr[i]] andContext:context atPoint:P_M(p.x-len/2, p.y+2) WithColor:_xAndYNumberColor andFontSize:self.xDescTextFontSize];
+                    }
+                   
                 }
               
                 
@@ -895,9 +898,9 @@
     shapeLayer.lineWidth = (_animationPathWidth<=0?2:_animationPathWidth);
     
     //第三，动画
-    
+//    
     CABasicAnimation *ani = [CABasicAnimation animationWithKeyPath:NSStringFromSelector(@selector(strokeEnd))];
-    
+
     ani.fromValue = @0;
     
     ani.toValue = @1;
@@ -905,8 +908,11 @@
     ani.duration = 2.0;
     
     ani.delegate = self;
-    
-    [shapeLayer addAnimation:ani forKey:NSStringFromSelector(@selector(strokeEnd))];
+
+    if (colorIndex==1) {
+            [shapeLayer addAnimation:ani forKey:NSStringFromSelector(@selector(strokeEnd))];
+    }
+//    [shapeLayer addAnimation:ani forKey:NSStringFromSelector(@selector(strokeEnd))];
     
     [self.layer addSublayer:shapeLayer];
     [_layerArr addObject:shapeLayer];
@@ -1029,7 +1035,7 @@
 
 
 
-
+#pragma mark  - -- 绘制每个值得点
 
 -(void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
     
@@ -1037,7 +1043,7 @@
         
         
      
-        [self drawPoint];
+//        [self drawPoint];
 
         
     }
