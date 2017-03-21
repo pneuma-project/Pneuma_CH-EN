@@ -32,6 +32,21 @@
 		6425804A1E6E88070019AD06 /* PatientInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 642580491E6E88070019AD06 /* PatientInfoModel.m */; };
 		6425804E1E6E991E0019AD06 /* PatientInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6425804C1E6E991E0019AD06 /* PatientInfoTableViewCell.m */; };
 		6425804F1E6E991E0019AD06 /* PatientInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6425804D1E6E991E0019AD06 /* PatientInfoTableViewCell.xib */; };
+		642620381E80B56200263124 /* BlueToothManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6426201F1E80B56200263124 /* BlueToothManager.m */; };
+		642620391E80B56200263124 /* hud_error.png in Resources */ = {isa = PBXBuildFile; fileRef = 642620211E80B56200263124 /* hud_error.png */; };
+		6426203A1E80B56200263124 /* hud_error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 642620221E80B56200263124 /* hud_error@2x.png */; };
+		6426203B1E80B56200263124 /* hud_info.png in Resources */ = {isa = PBXBuildFile; fileRef = 642620231E80B56200263124 /* hud_info.png */; };
+		6426203C1E80B56200263124 /* hud_info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 642620241E80B56200263124 /* hud_info@2x.png */; };
+		6426203D1E80B56200263124 /* hud_success.png in Resources */ = {isa = PBXBuildFile; fileRef = 642620251E80B56200263124 /* hud_success.png */; };
+		6426203E1E80B56200263124 /* hud_success@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 642620261E80B56200263124 /* hud_success@2x.png */; };
+		6426203F1E80B56200263124 /* LCProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 642620281E80B56200263124 /* LCProgressHUD.m */; };
+		642620401E80B56200263124 /* Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 6426202A1E80B56200263124 /* Model.m */; };
+		642620411E80B56200263124 /* SyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6426202C1E80B56200263124 /* SyTableViewCell.m */; };
+		642620421E80B56200263124 /* FLByteUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6426202F1E80B56200263124 /* FLByteUtil.m */; };
+		642620431E80B56200263124 /* FLDrawDataTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 642620311E80B56200263124 /* FLDrawDataTool.m */; };
+		642620441E80B56200263124 /* FLWrapBobyTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 642620331E80B56200263124 /* FLWrapBobyTool.m */; };
+		642620451E80B56200263124 /* FLWrapHeaderTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 642620351E80B56200263124 /* FLWrapHeaderTool.m */; };
+		642620461E80B56200263124 /* FLWrapJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 642620371E80B56200263124 /* FLWrapJson.m */; };
 		644C9C1D1E655E660030C3B9 /* UIView+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 644C9C1C1E655E660030C3B9 /* UIView+Category.m */; };
 		644C9C2A1E6571B50030C3B9 /* DisplayUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 644C9C271E6571B50030C3B9 /* DisplayUtils.m */; };
 		644C9C2B1E6571B50030C3B9 /* UserDefaultsUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 644C9C291E6571B50030C3B9 /* UserDefaultsUtils.m */; };
@@ -171,6 +186,30 @@
 		6425804B1E6E991E0019AD06 /* PatientInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatientInfoTableViewCell.h; sourceTree = "<group>"; };
 		6425804C1E6E991E0019AD06 /* PatientInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PatientInfoTableViewCell.m; sourceTree = "<group>"; };
 		6425804D1E6E991E0019AD06 /* PatientInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PatientInfoTableViewCell.xib; sourceTree = "<group>"; };
+		6426201E1E80B56200263124 /* BlueToothManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlueToothManager.h; sourceTree = "<group>"; };
+		6426201F1E80B56200263124 /* BlueToothManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlueToothManager.m; sourceTree = "<group>"; };
+		642620211E80B56200263124 /* hud_error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hud_error.png; sourceTree = "<group>"; };
+		642620221E80B56200263124 /* hud_error@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hud_error@2x.png"; sourceTree = "<group>"; };
+		642620231E80B56200263124 /* hud_info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hud_info.png; sourceTree = "<group>"; };
+		642620241E80B56200263124 /* hud_info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hud_info@2x.png"; sourceTree = "<group>"; };
+		642620251E80B56200263124 /* hud_success.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hud_success.png; sourceTree = "<group>"; };
+		642620261E80B56200263124 /* hud_success@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hud_success@2x.png"; sourceTree = "<group>"; };
+		642620271E80B56200263124 /* LCProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCProgressHUD.h; sourceTree = "<group>"; };
+		642620281E80B56200263124 /* LCProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCProgressHUD.m; sourceTree = "<group>"; };
+		642620291E80B56200263124 /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
+		6426202A1E80B56200263124 /* Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Model.m; sourceTree = "<group>"; };
+		6426202B1E80B56200263124 /* SyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyTableViewCell.h; sourceTree = "<group>"; };
+		6426202C1E80B56200263124 /* SyTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyTableViewCell.m; sourceTree = "<group>"; };
+		6426202E1E80B56200263124 /* FLByteUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLByteUtil.h; sourceTree = "<group>"; };
+		6426202F1E80B56200263124 /* FLByteUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLByteUtil.m; sourceTree = "<group>"; };
+		642620301E80B56200263124 /* FLDrawDataTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLDrawDataTool.h; sourceTree = "<group>"; };
+		642620311E80B56200263124 /* FLDrawDataTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLDrawDataTool.m; sourceTree = "<group>"; };
+		642620321E80B56200263124 /* FLWrapBobyTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLWrapBobyTool.h; sourceTree = "<group>"; };
+		642620331E80B56200263124 /* FLWrapBobyTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLWrapBobyTool.m; sourceTree = "<group>"; };
+		642620341E80B56200263124 /* FLWrapHeaderTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLWrapHeaderTool.h; sourceTree = "<group>"; };
+		642620351E80B56200263124 /* FLWrapHeaderTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLWrapHeaderTool.m; sourceTree = "<group>"; };
+		642620361E80B56200263124 /* FLWrapJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLWrapJson.h; sourceTree = "<group>"; };
+		642620371E80B56200263124 /* FLWrapJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLWrapJson.m; sourceTree = "<group>"; };
 		644C9C1B1E655E660030C3B9 /* UIView+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Category.h"; sourceTree = "<group>"; };
 		644C9C1C1E655E660030C3B9 /* UIView+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Category.m"; sourceTree = "<group>"; };
 		644C9C261E6571B50030C3B9 /* DisplayUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayUtils.h; sourceTree = "<group>"; };
@@ -430,6 +469,61 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		6426201C1E80B56200263124 /* BlueTooth */ = {
+			isa = PBXGroup;
+			children = (
+				6426201D1E80B56200263124 /* LCProgressHUD */,
+				642620291E80B56200263124 /* Model.h */,
+				6426202A1E80B56200263124 /* Model.m */,
+				6426202B1E80B56200263124 /* SyTableViewCell.h */,
+				6426202C1E80B56200263124 /* SyTableViewCell.m */,
+				6426202D1E80B56200263124 /* Tools */,
+			);
+			path = BlueTooth;
+			sourceTree = "<group>";
+		};
+		6426201D1E80B56200263124 /* LCProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				6426201E1E80B56200263124 /* BlueToothManager.h */,
+				6426201F1E80B56200263124 /* BlueToothManager.m */,
+				642620201E80B56200263124 /* HUDImage */,
+				642620271E80B56200263124 /* LCProgressHUD.h */,
+				642620281E80B56200263124 /* LCProgressHUD.m */,
+			);
+			path = LCProgressHUD;
+			sourceTree = "<group>";
+		};
+		642620201E80B56200263124 /* HUDImage */ = {
+			isa = PBXGroup;
+			children = (
+				642620211E80B56200263124 /* hud_error.png */,
+				642620221E80B56200263124 /* hud_error@2x.png */,
+				642620231E80B56200263124 /* hud_info.png */,
+				642620241E80B56200263124 /* hud_info@2x.png */,
+				642620251E80B56200263124 /* hud_success.png */,
+				642620261E80B56200263124 /* hud_success@2x.png */,
+			);
+			path = HUDImage;
+			sourceTree = "<group>";
+		};
+		6426202D1E80B56200263124 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				6426202E1E80B56200263124 /* FLByteUtil.h */,
+				6426202F1E80B56200263124 /* FLByteUtil.m */,
+				642620301E80B56200263124 /* FLDrawDataTool.h */,
+				642620311E80B56200263124 /* FLDrawDataTool.m */,
+				642620321E80B56200263124 /* FLWrapBobyTool.h */,
+				642620331E80B56200263124 /* FLWrapBobyTool.m */,
+				642620341E80B56200263124 /* FLWrapHeaderTool.h */,
+				642620351E80B56200263124 /* FLWrapHeaderTool.m */,
+				642620361E80B56200263124 /* FLWrapJson.h */,
+				642620371E80B56200263124 /* FLWrapJson.m */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
 		644C9C1A1E655E560030C3B9 /* Category */ = {
 			isa = PBXGroup;
 			children = (
@@ -459,6 +553,7 @@
 		644C9C2C1E6575E10030C3B9 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				6426201C1E80B56200263124 /* BlueTooth */,
 				BFDAC76C1E7274FA00E17D7B /* JHChart */,
 				642580021E6D0CB90019AD06 /* JSONModel */,
 				644C9C2D1E6575E80030C3B9 /* MBProgressHUD */,
@@ -888,8 +983,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				642620391E80B56200263124 /* hud_error.png in Resources */,
 				644C9C7C1E6918080030C3B9 /* scanLine@2x.png in Resources */,
 				6425804F1E6E991E0019AD06 /* PatientInfoTableViewCell.xib in Resources */,
+				6426203A1E80B56200263124 /* hud_error@2x.png in Resources */,
 				644C9C7E1E6918080030C3B9 /* scanscanBg.png in Resources */,
 				644C9CAF1E697DDA0030C3B9 /* ScanResultViewController.xib in Resources */,
 				644C9CAC1E697DDA0030C3B9 /* DeviceViewController.xib in Resources */,
@@ -897,14 +994,18 @@
 				6425803D1E6D515A0019AD06 /* HistoryValueTableViewCell.xib in Resources */,
 				64F663D01E63C8A900F4C9E7 /* LaunchScreen.storyboard in Resources */,
 				644C9C791E6918080030C3B9 /* lightSelect.png in Resources */,
+				6426203B1E80B56200263124 /* hud_info.png in Resources */,
+				6426203C1E80B56200263124 /* hud_info@2x.png in Resources */,
 				64F663CD1E63C8A900F4C9E7 /* Assets.xcassets in Resources */,
 				644C9C781E6918080030C3B9 /* lightNormal.png in Resources */,
 				64F663CB1E63C8A900F4C9E7 /* Main.storyboard in Resources */,
 				644C9C7A1E6918080030C3B9 /* noticeMusic.wav in Resources */,
 				644C9C7D1E6918080030C3B9 /* scanLine@3x.png in Resources */,
 				644C9CBE1E697E980030C3B9 /* MedicalTableViewCell.xib in Resources */,
+				6426203D1E80B56200263124 /* hud_success.png in Resources */,
 				642580381E6D4EA60019AD06 /* HistoryTableViewCell.xib in Resources */,
 				642580291E6D0CB90019AD06 /* LICENSE_jsonmodel.txt in Resources */,
+				6426203E1E80B56200263124 /* hud_success@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -936,6 +1037,7 @@
 				BF79D0FB1E71425B00EE468B /* HistoricalDrugViewController.m in Sources */,
 				644C9CB31E697DDA0030C3B9 /* TrainingSecondViewController.m in Sources */,
 				64F43CC11E71585D009BF6F9 /* SqliteUtils.m in Sources */,
+				642620441E80B56200263124 /* FLWrapBobyTool.m in Sources */,
 				BFDAC78A1E7274FA00E17D7B /* JHLineChart.m in Sources */,
 				642580211E6D0CB90019AD06 /* JSONModelClassProperty.m in Sources */,
 				BFDAC7931E7274FA00E17D7B /* JHTableDataRowModel.m in Sources */,
@@ -944,12 +1046,14 @@
 				644C9C321E6575E80030C3B9 /* MBProgressHUD+Add.m in Sources */,
 				644C9CAD1E697DDA0030C3B9 /* lhScanQCodeViewController.m in Sources */,
 				6425804E1E6E991E0019AD06 /* PatientInfoTableViewCell.m in Sources */,
+				642620421E80B56200263124 /* FLByteUtil.m in Sources */,
 				644C9C591E66B5BF0030C3B9 /* UIButton+EnlargeTouchArea.m in Sources */,
 				BFDAC78E1E7274FA00E17D7B /* JHRadarChart.m in Sources */,
 				64F663C81E63C8A900F4C9E7 /* ViewController.m in Sources */,
 				642580241E6D0CB90019AD06 /* JSONAPI.m in Sources */,
 				644C9CBD1E697E980030C3B9 /* MedicalTableViewCell.m in Sources */,
 				BFDAC78B1E7274FA00E17D7B /* JHPieChart.m in Sources */,
+				642620411E80B56200263124 /* SyTableViewCell.m in Sources */,
 				644C9C5B1E66B5BF0030C3B9 /* UIImage+Common.m in Sources */,
 				BFDAC7911E7274FA00E17D7B /* JHShowInfoView.m in Sources */,
 				64F663FE1E63CB8400F4C9E7 /* BaseViewController.m in Sources */,
@@ -958,9 +1062,12 @@
 				644C9C1D1E655E660030C3B9 /* UIView+Category.m in Sources */,
 				644C9CB41E697DDA0030C3B9 /* TrainingStartViewController.m in Sources */,
 				BF79D0EB1E6FD24900EE468B /* EditDetailPatientInfoViewController.m in Sources */,
+				642620451E80B56200263124 /* FLWrapHeaderTool.m in Sources */,
 				BFDAC7A51E769D3A00E17D7B /* AddPatientInfoModel.m in Sources */,
 				644C9C621E67F8590030C3B9 /* CustemNavItem.m in Sources */,
+				6426203F1E80B56200263124 /* LCProgressHUD.m in Sources */,
 				6425801F1E6D0CB90019AD06 /* JSONModel.m in Sources */,
+				642620381E80B56200263124 /* BlueToothManager.m in Sources */,
 				642580441E6D72270019AD06 /* PatientInfoViewController.m in Sources */,
 				BFDAC7921E7274FA00E17D7B /* JHTableChart.m in Sources */,
 				644C9CB81E697DDA0030C3B9 /* UserViewController.m in Sources */,
@@ -970,8 +1077,10 @@
 				642580261E6D0CB90019AD06 /* JSONModel+networking.m in Sources */,
 				644C9C7B1E6918080030C3B9 /* QRCodeReaderView.m in Sources */,
 				642580231E6D0CB90019AD06 /* NSArray+JSONModel.m in Sources */,
+				642620461E80B56200263124 /* FLWrapJson.m in Sources */,
 				BFDAC78F1E7274FA00E17D7B /* JHRingChart.m in Sources */,
 				BFDAC7881E7274FA00E17D7B /* JHChart.m in Sources */,
+				642620431E80B56200263124 /* FLDrawDataTool.m in Sources */,
 				644C9C361E6575F80030C3B9 /* MBProgressHUD+Add.m in Sources */,
 				642580221E6D0CB90019AD06 /* JSONModelError.m in Sources */,
 				642580301E6D3E5C0019AD06 /* UserListViewController.m in Sources */,
@@ -1002,6 +1111,7 @@
 				644C9CB21E697DDA0030C3B9 /* TrainingFirstViewController.m in Sources */,
 				642580281E6D0CB90019AD06 /* JSONValueTransformer.m in Sources */,
 				64F663C21E63C8A900F4C9E7 /* main.m in Sources */,
+				642620401E80B56200263124 /* Model.m in Sources */,
 				BF79D0E81E6FAA7C00EE468B /* EditPatientInfoViewController.m in Sources */,
 				644C9CAE1E697DDA0030C3B9 /* ScanResultViewController.m in Sources */,
 				6425802A1E6D0CB90019AD06 /* README.md in Sources */,
