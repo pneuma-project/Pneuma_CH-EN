@@ -45,4 +45,6 @@
 //
 #define tabbarHeight 49
 
+#define BleIsOpen @"BleIsOpen"
+
 #endif /* PrefixHeader_pch */

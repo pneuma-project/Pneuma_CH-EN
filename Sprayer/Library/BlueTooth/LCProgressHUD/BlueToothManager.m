@@ -51,7 +51,6 @@ typedef enum _TTGState{
         
     });
     return manager;
-    
 }
 
 //开始扫描
@@ -76,6 +75,8 @@ typedef enum _TTGState{
     {
         NSLog(@"BLE已打开");
         [central scanForPeripheralsWithServices:nil options:nil];
+        [LCProgressHUD showSuccessText:@"蓝牙已打开"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:BleIsOpen object:nil userInfo:nil];
     }
     else
     {
@@ -99,7 +100,8 @@ typedef enum _TTGState{
         //如果 外设数组数量不为0 则 用遍历数组 用外设的名称 进行判断 是否 存在于该数组中
         //如果 外设名称相同  则 只修改 该外设 所对应的 rssi
         //如果 外设名称不同  则 将此外设 加入到外设数组中
-        if (_peripheralList.count == 0 && ([peripheral.name isEqualToString:@"iBreeze CPAP"] || [peripheral.name isEqualToString:@"iBreeze BPAP"] || [peripheral.name isEqualToString:@"resvent"])) {
+        if (_peripheralList.count == 0 && ([peripheral.name isEqualToString:@"ELK_BLE"])) {
+            [self connectPeripheralWith:peripheral];
             [_peripheralList addObject:model];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"scanDevice" object:nil userInfo:nil];
         }else{
@@ -114,7 +116,7 @@ typedef enum _TTGState{
                 }
             }
             //判断名称是否是设备的默认名称
-            if (ishave == NO && ([peripheral.name isEqualToString:@"iBreeze CPAP"] || [peripheral.name isEqualToString:@"iBreeze BPAP"] || [peripheral.name isEqualToString:@"resvent"])) {
+            if (ishave == NO && ([peripheral.name isEqualToString:@"ELK_BLE"])) {
                 [_peripheralList addObject:model];
                 [NSTimer scheduledTimerWithTimeInterval:0.5f target:self selector:@selector(scanDeivceAction) userInfo:nil repeats:YES];
             }
