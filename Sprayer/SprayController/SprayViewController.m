@@ -12,6 +12,14 @@
 #define k_MainBoundsHeight [UIScreen mainScreen].bounds.size.height
 @interface SprayViewController ()
 
+@property(nonatomic,strong)JHLineChart *lineChart;
+
+@property(nonatomic,strong)UIView * upBgView;
+
+@property(nonatomic,strong)UILabel * slmLabel;
+
+@property(nonatomic,strong)NSMutableArray * sprayDataArr;
+
 @end
 
 @implementation SprayViewController
@@ -66,9 +74,9 @@
     NSLog(@"点击了右侧");
 }
 - (void)showFirstQuardrant{
-    UIView * upBgView = [[UIView alloc]initWithFrame:CGRectMake(10, 74, screen_width-20, (screen_height-64-tabbarHeight)/2-20)];
-    upBgView.layer.cornerRadius = 3.0;
-    upBgView.backgroundColor = [UIColor whiteColor];
+    _upBgView = [[UIView alloc]initWithFrame:CGRectMake(10, 74, screen_width-20, (screen_height-64-tabbarHeight)/2-20)];
+    _upBgView.layer.cornerRadius = 3.0;
+    _upBgView.backgroundColor = [UIColor whiteColor];
     
     NSString * str = @"Reference Total Volume:";
     CGSize strSize = [DisplayUtils stringWithWidth:str withFont:12];
@@ -93,7 +101,7 @@
     currentInfoLabel.textColor = RGBColor(0, 64, 181, 1.0);
     currentInfoLabel.font = [UIFont systemFontOfSize:15];
     
-    UILabel * trainLabel = [[UILabel alloc]initWithFrame:CGRectMake(upBgView.current_w-55, 10, 55, strSize.height)];
+    UILabel * trainLabel = [[UILabel alloc]initWithFrame:CGRectMake(_upBgView.current_w-55, 10, 55, strSize.height)];
     trainLabel.text = @"Training";
     trainLabel.textColor = RGBColor(238, 146, 1, 1.0);
     trainLabel.font = [UIFont systemFontOfSize:12];
@@ -113,60 +121,35 @@
     sprayView.backgroundColor = RGBColor(0, 83, 181, 1.0);
     
     
-    UILabel * slmLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, currentLabel.current_y_h+15, 50, 15)];
-    slmLabel.text = @"SLM";
-    slmLabel.font = [UIFont systemFontOfSize:12];
-    slmLabel.textColor = RGBColor(221, 222, 223, 1.0);
+    _slmLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, currentLabel.current_y_h+15, 50, 15)];
+    _slmLabel.text = @"SLM";
+    _slmLabel.font = [UIFont systemFontOfSize:12];
+    _slmLabel.textColor = RGBColor(221, 222, 223, 1.0);
     /*     创建第一个折线图       */
-    JHLineChart *lineChart = [[JHLineChart alloc] initWithFrame:CGRectMake(5, slmLabel.current_y_h, upBgView.current_w-25, upBgView.current_h-slmLabel.current_y_h) andLineChartType:JHChartLineValueNotForEveryX];
-    lineChart.xLineDataArr = @[@"0",@"0.5",@"1.0",@"1.5",@"2.0",@"2.5",@"3.0"];
-    lineChart.contentInsets = UIEdgeInsetsMake(0, 25, 20, 10);
-    lineChart.lineChartQuadrantType = JHLineChartQuadrantTypeFirstQuardrant;
+    self.sprayDataArr = [NSMutableArray array];
+    for (int i =0; i<=30; i++) {
+        [self.sprayDataArr addObject:[NSString stringWithFormat:@"%d",arc4random()%100]];
+    }
+    [self createLineChart];
     
-    lineChart.valueArr = @[@[@"0",@"80",@"90",@"120",@"80",@"20",@"0"],@[@"0",@"40",@"100",@"160",@"100",@"60",@"0"]];
-    lineChart.showYLevelLine = YES;
-    lineChart.showYLine = NO;
-    lineChart.showValueLeadingLine = NO;
-    lineChart.valueFontSize = 0.0;
-
-    lineChart.backgroundColor = [UIColor whiteColor];
-    /* Line Chart colors */
-    lineChart.valueLineColorArr =@[ RGBColor(0, 83, 181, 1.0), RGBColor(238, 146, 1, 1.0)];
-    /* Colors for every line chart*/
-    lineChart.pointColorArr = @[[UIColor blueColor],[UIColor orangeColor]];
-    /* color for XY axis */
-    lineChart.xAndYLineColor = [UIColor blackColor];
-    /* XY axis scale color */
-    lineChart.xAndYNumberColor = [UIColor darkGrayColor];
-    /* Dotted line color of the coordinate point */
-    lineChart.positionLineColorArr = @[[UIColor blueColor],[UIColor greenColor]];
-    /*        Set whether to fill the content, the default is False         */
-    lineChart.contentFill = YES;
-    /*        Set whether the curve path         */
-    lineChart.pathCurve = YES;
-    /*        Set fill color array         */
-    lineChart.contentFillColorArr = @[[UIColor colorWithRed:0 green:1 blue:0 alpha:0.0],[UIColor colorWithRed:1 green:0 blue:0 alpha:0.0]];
-    UILabel * SecLabel = [[UILabel alloc]initWithFrame:CGRectMake(lineChart.current_x_w, lineChart.current_y_h-30, upBgView.current_w-lineChart.current_x_w, 20)];
+    UILabel * SecLabel = [[UILabel alloc]initWithFrame:CGRectMake(_lineChart.current_x_w, _lineChart.current_y_h-30, _upBgView.current_w-_lineChart.current_x_w, 20)];
     SecLabel.text = @"Sec";
     SecLabel.textColor = RGBColor(204, 205, 206, 1.0);
     SecLabel.font = [UIFont systemFontOfSize:10];
-    
-    [upBgView addSubview:SecLabel];
-    [upBgView addSubview:referenceLabel];
-    [upBgView addSubview:referenceInfoLabel];
-    [upBgView addSubview:currentLabel];
-    [upBgView addSubview:currentInfoLabel];
-    [upBgView addSubview:slmLabel];
-    [upBgView addSubview:trainView];
-    [upBgView addSubview:trainLabel];
-    [upBgView addSubview:sprayView];
-    [upBgView addSubview:sprayLabel];
-    [upBgView addSubview:lineChart];
-    [self.view addSubview:upBgView];
-    [lineChart showAnimation];
-    
+
+    [_upBgView addSubview:SecLabel];
+    [_upBgView addSubview:referenceLabel];
+    [_upBgView addSubview:referenceInfoLabel];
+    [_upBgView addSubview:currentLabel];
+    [_upBgView addSubview:currentInfoLabel];
+    [_upBgView addSubview:_slmLabel];
+    [_upBgView addSubview:trainView];
+    [_upBgView addSubview:trainLabel];
+    [_upBgView addSubview:sprayView];
+    [_upBgView addSubview:sprayLabel];
+    [self.view addSubview:_upBgView];
     /*创建第二个柱状图 */
-    UIView * downBgView = [[UIView alloc]initWithFrame:CGRectMake(10, upBgView.current_y_h+10, screen_width-20,(screen_height-64-tabbarHeight)/2-20)];
+    UIView * downBgView = [[UIView alloc]initWithFrame:CGRectMake(10, _upBgView.current_y_h+10, screen_width-20,(screen_height-64-tabbarHeight)/2-20)];
     downBgView.backgroundColor = [UIColor whiteColor];
     UIView * pointView = [[UIView alloc]initWithFrame:CGRectMake(10, 10, 8, 8)];
     pointView.backgroundColor = RGBColor(0, 83, 181, 1.0);
@@ -218,7 +201,10 @@
     for (int i=0; i<numberArr.count; i++) {
         viewH+=[numberArr[i] floatValue]/5 * yLineLabel.current_y/6;
         UIView * view = [[UIView alloc]initWithFrame:CGRectMake(downDateLabel.current_x+15, xLineLabel.current_y-viewH, downDateLabel.current_w-30,[numberArr[i] floatValue]/5 * yLineLabel.current_y/6)];
-        
+        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
+        tap.numberOfTouchesRequired = 1;
+        view.tag = 1000+i;
+        [view addGestureRecognizer:tap];
         if (i%2==0) {
             view.backgroundColor = RGBColor(0, 83, 181, 1.0);
         }else
@@ -246,6 +232,58 @@
     
 }
 
+#pragma mark ---- 柱状图的点击事件
+-(void)tap:(UITapGestureRecognizer *)tap
+{
+    NSLog(@"点击了第%ld个柱状图",tap
+          .view.tag - 1000);
+ 
+    [self createLineChart];
+    
+}
+#pragma mark ---创建第一个曲线图
+-(void)createLineChart
+{
+     self.lineChart = [[JHLineChart alloc] initWithFrame:CGRectMake(5, _slmLabel.current_y_h, _upBgView.current_w-25, _upBgView.current_h-_slmLabel.current_y_h) andLineChartType:JHChartLineValueNotForEveryX];
+    
+    _lineChart.xLineDataArr = @[@"0",@"0.1",@"0.2",@"0.3",@"0.4",@"0.5",@"0.6",@"0.7",@"0.8",@"0.9",@"1.0",@"1.1",@"1.2",@"1.3",@"1.4",@"1.5",@"1.6",@"1.7",@"1.8",@"1.9",@"2.0",@"2.1",@"2.2",@"2.3",@"2.4",@"2.5",@"2.6",@"2.7",@"2.8",@"2.9",@"3.0"];
+    _lineChart.contentInsets = UIEdgeInsetsMake(0, 25, 20, 10);
+    _lineChart.lineChartQuadrantType = JHLineChartQuadrantTypeFirstQuardrant;
+    NSMutableArray * mutArr= [NSMutableArray array];
+    
+    for (int i =0; i<=30; i++) {
+       
+        [mutArr addObject:[NSString stringWithFormat:@"%d",arc4random()%100]];
+       
+    }
+    _lineChart.valueArr = @[self.sprayDataArr,mutArr];
+    _lineChart.showYLevelLine = YES;
+    _lineChart.showYLine = NO;
+    _lineChart.showValueLeadingLine = NO;
+    _lineChart.valueFontSize = 0.0;
+    
+    _lineChart.backgroundColor = [UIColor whiteColor];
+    /* Line Chart colors */
+    _lineChart.valueLineColorArr =@[RGBColor(238, 146, 1, 1.0),RGBColor(0, 83, 181, 1.0)];
+    /* Colors for every line chart*/
+    _lineChart.pointColorArr = @[[UIColor blueColor],[UIColor orangeColor]];
+    /* color for XY axis */
+    _lineChart.xAndYLineColor = [UIColor blackColor];
+    /* XY axis scale color */
+    _lineChart.xAndYNumberColor = [UIColor darkGrayColor];
+    /* Dotted line color of the coordinate point */
+    _lineChart.positionLineColorArr = @[[UIColor blueColor],[UIColor greenColor]];
+    /*        Set whether to fill the content, the default is False         */
+    _lineChart.contentFill = YES;
+    /*        Set whether the curve path         */
+    _lineChart.pathCurve = YES;
+    /*        Set fill color array         */
+    _lineChart.contentFillColorArr = @[[UIColor colorWithRed:0 green:1 blue:0 alpha:0.0],[UIColor colorWithRed:1 green:0 blue:0 alpha:0.0]];
+    
+    [_upBgView addSubview:_lineChart];
+    [_lineChart showAnimation];
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
