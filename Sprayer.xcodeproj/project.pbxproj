@@ -120,6 +120,7 @@
 		BFDAC7931E7274FA00E17D7B /* JHTableDataRowModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDAC7851E7274FA00E17D7B /* JHTableDataRowModel.m */; };
 		BFDAC7941E7274FA00E17D7B /* JHWaveChart.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDAC7871E7274FA00E17D7B /* JHWaveChart.m */; };
 		BFDAC7A51E769D3A00E17D7B /* AddPatientInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDAC7A41E769D3A00E17D7B /* AddPatientInfoModel.m */; };
+		BFE0CF621E825F9D00613473 /* BlueToothDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE0CF611E825F9D00613473 /* BlueToothDataModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -347,6 +348,8 @@
 		BFDAC7871E7274FA00E17D7B /* JHWaveChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHWaveChart.m; sourceTree = "<group>"; };
 		BFDAC7A31E769D3A00E17D7B /* AddPatientInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPatientInfoModel.h; sourceTree = "<group>"; };
 		BFDAC7A41E769D3A00E17D7B /* AddPatientInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPatientInfoModel.m; sourceTree = "<group>"; };
+		BFE0CF601E825F9D00613473 /* BlueToothDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlueToothDataModel.h; sourceTree = "<group>"; };
+		BFE0CF611E825F9D00613473 /* BlueToothDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlueToothDataModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -643,6 +646,7 @@
 		644C9C961E697DDA0030C3B9 /* SprayController */ = {
 			isa = PBXGroup;
 			children = (
+				BFE0CF5C1E825F3600613473 /* Model */,
 				644C9C971E697DDA0030C3B9 /* SprayViewController.h */,
 				644C9C981E697DDA0030C3B9 /* SprayViewController.m */,
 			);
@@ -876,6 +880,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		BFE0CF5C1E825F3600613473 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BFE0CF601E825F9D00613473 /* BlueToothDataModel.h */,
+				BFE0CF611E825F9D00613473 /* BlueToothDataModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1086,6 +1099,7 @@
 				642580301E6D3E5C0019AD06 /* UserListViewController.m in Sources */,
 				644C9C581E66B5BF0030C3B9 /* FLChartView.m in Sources */,
 				642580251E6D0CB90019AD06 /* JSONHTTPClient.m in Sources */,
+				BFE0CF621E825F9D00613473 /* BlueToothDataModel.m in Sources */,
 				BF79D0F21E6FF69A00EE468B /* ValuePickerView.m in Sources */,
 				BFDAC78D1E7274FA00E17D7B /* JHPieItemsView.m in Sources */,
 				644C9CB11E697DDA0030C3B9 /* RetrainingViewController.m in Sources */,

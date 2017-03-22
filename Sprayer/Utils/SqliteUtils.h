@@ -11,6 +11,7 @@
 
 @interface SqliteUtils : NSObject
 
+//用户
 +(void)open;//创建或打开数据库
 
 +(void)close;//关闭数据库
@@ -24,5 +25,24 @@
 +(NSArray *)selectUserInfo;//查询数据
 
 +(BOOL)updateUserInfo:(NSString *)sqlStr;//修改数据
+
+//实时蓝牙数据
++ (void)openRealTimeBTData;//创建或打开数据库
+
++(void)createRealTimeBTTable;//创建表
+
++(BOOL)insertRealBTInfo:(NSString *)sqlStr;//插入数据
+
++(NSArray *)selectRealBTInfo;//查询所有数据
+
+//历史蓝牙数据
++ (void)openHistoryBTData;//创建或打开数据库
+
++(void)createHistoryBTTable;//创建表
+
++(BOOL)insertHistoryBTInfo:(NSString *)sqlStr;//插入表
+
++(NSArray *)selectHistoryBTInfo;//查询表
+
 
 @end
