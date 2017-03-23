@@ -2,8 +2,8 @@
 //  BlueToothManager.h
 //  BlueToothTest
 //
-//  Created by soft-angel on 15/12/28.
-//  Copyright © 2015年 soft－angel. All rights reserved.
+//  Created by FangLin on 15/12/28.
+//  Copyright © 2015年 FangLin. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

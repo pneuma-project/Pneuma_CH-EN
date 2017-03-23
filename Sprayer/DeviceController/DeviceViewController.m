@@ -10,7 +10,6 @@
 #import "lhScanQCodeViewController.h"
 #import "DeviceStatusViewController.h"
 #import "HistoricalDrugViewController.h"
-#import "BlueToothManager.h"
 
 @interface DeviceViewController ()
 {

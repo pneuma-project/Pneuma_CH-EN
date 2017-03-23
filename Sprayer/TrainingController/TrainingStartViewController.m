@@ -109,6 +109,7 @@
         
     }];
     UIAlertAction *alertAction2 = [UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
         TrainingFirstViewController *firstVC = [[TrainingFirstViewController alloc] init];
         [self.navigationController pushViewController:firstVC animated:YES];
     }];

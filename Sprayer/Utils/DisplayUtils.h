@@ -10,6 +10,9 @@
 
 @interface DisplayUtils : NSObject
 
+//BCD编码
++(NSData *)bcdCodeString:(NSString *)bcdstr;
+
 /**
  *  自定义cell线条
  *
@@ -68,6 +71,10 @@
 +(NSString *)getTimeStampTime:(NSString *)timeDate;
 
 +(NSString *)getTimeStamp:(NSString *)time;
+
++(NSString *)getTimeStampWeek;
+
++(NSString *)getTimestampDataWeek;
 
 +(void)setAnimation:(UIViewController *)viewController;
 

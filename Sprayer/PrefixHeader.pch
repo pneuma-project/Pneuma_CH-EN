@@ -22,6 +22,8 @@
 #import "UIView+Category.h"
 #import "DisplayUtils.h"
 #import "CustemNavItem.h"
+#import "BlueToothManager.h"
+#import "BlueWriteData.h"
 #endif
 
 //debug
@@ -45,6 +47,7 @@
 //
 #define tabbarHeight 49
 
-#define BleIsOpen @"BleIsOpen"
+#define BleIsOpen @"BleIsOpen"//蓝牙是否打开
+#define ConnectSucceed @"ConnectSucceed"//连接成功
 
 #endif /* PrefixHeader_pch */

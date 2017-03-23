@@ -13,6 +13,30 @@
 
 @implementation DisplayUtils
 
+//BCD编码
++(NSData *)bcdCodeString:(NSString *)bcdstr
+{
+    int leng = (int)bcdstr.length/2;
+    if (bcdstr.length%2 == 1) //判断奇偶数
+    {
+        leng +=1;
+    }
+    Byte bbte[leng];
+    for (int i = 0; i<leng-1; i++)
+    {
+        bbte[i] = (int)strtoul([[bcdstr substringWithRange:NSMakeRange(i*2, 2)]UTF8String], 0, 16);
+    }
+    if (bcdstr.length%2 == 1)
+    {
+        bbte[leng-1] = (int)strtoul([[bcdstr substringWithRange:NSMakeRange((leng - 1)*2, 1)]UTF8String], 0, 16) *16;
+    }else
+    {
+        bbte[leng-1] = (int)strtoul([[bcdstr substringWithRange:NSMakeRange((leng - 1)*2, 2)]UTF8String], 0, 16);
+    }
+    NSData *de = [[NSData alloc]initWithBytes:bbte length:leng];
+    return de;
+}
+
 /**
  *  自定义cell线条
  *
@@ -217,6 +241,71 @@
     NSDate *date = [formatter dateFromString:time];
     NSString *timeStamp = [[NSString alloc] initWithFormat:@"%ld",(long)date.timeIntervalSince1970];
     return timeStamp;
+}
+
++(NSString *)getTimeStampWeek
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"ssmmHHddMMYY"];
+    NSDate *date = [NSDate date];
+    NSString *timestamp = [formatter stringFromDate:date];
+    
+    return timestamp;
+}
+
+//获取星期几
++(NSString *)getTimestampDataWeek
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:SS"];
+    NSDate *conDate = [NSDate date];
+    NSString *timestamp = [formatter stringFromDate:conDate];
+    NSDate* inputDate = [formatter dateFromString:timestamp];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    NSInteger unitFlags = NSCalendarUnitYear |
+    NSCalendarUnitMonth |
+    NSCalendarUnitDay |
+    NSCalendarUnitWeekday |
+    NSCalendarUnitHour |
+    NSCalendarUnitMinute |
+    NSCalendarUnitSecond;
+    
+    comps = [calendar components:unitFlags fromDate:inputDate];
+    NSInteger week = [comps weekday];
+    NSString *strWeek = [self getweek:week];
+    
+    NSLog(@"week is:%@",strWeek);
+    
+    return strWeek;
+}
+
++(NSString*)getweek:(NSInteger)week
+{
+    NSString*weekStr=nil;
+    if(week==1)
+    {
+        weekStr=@"07";
+    }else if(week==2){
+        weekStr=@"01";
+        
+    }else if(week==3){
+        weekStr=@"02";
+        
+    }else if(week==4){
+        weekStr=@"03";
+        
+    }else if(week==5){
+        weekStr=@"04";
+        
+    }else if(week==6){
+        weekStr=@"05";
+        
+    }else if(week==7){
+        weekStr=@"06";
+        
+    }
+    return weekStr;
 }
 
 #pragma mark - animation

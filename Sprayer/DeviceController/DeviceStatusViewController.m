@@ -52,6 +52,20 @@ static NSString *CellID = @"cell";
     self.navigationItem.leftBarButtonItem = [CustemNavItem initWithImage:[UIImage imageNamed:@"icon-back"] andTarget:self andinfoStr:@"first"];
     self.tableView.tableFooterView = [[UIView alloc] init];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectSucceesAction) name:ConnectSucceed object:nil];
+}
+
+//连接成功后向蓝牙写入上电信息
+-(void)connectSucceesAction
+{
+    NSString *time = [DisplayUtils getTimeStampWeek];
+    NSString *weakDate = [DisplayUtils getTimestampDataWeek];
+    NSMutableString *allStr = [[NSMutableString alloc] initWithString:time];
+    [allStr insertString:weakDate atIndex:10];
+    NSData *timeData = [DisplayUtils bcdCodeString:allStr];
+    //写数据到蓝牙
+    [BlueWriteData bleConfigWithData:timeData];
 }
 
 #pragma mark - 数据处理

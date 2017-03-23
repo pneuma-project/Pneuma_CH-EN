@@ -2,8 +2,8 @@
 //  BlueToothManager.m
 //  BlueToothTest
 //
-//  Created by soft-angel on 15/12/28.
-//  Copyright © 2015年 soft－angel. All rights reserved.
+//  Created by FangLin on 15/12/28.
+//  Copyright © 2015年 FangLin. All rights reserved.
 //
 
 #import "BlueToothManager.h"
@@ -75,13 +75,13 @@ typedef enum _TTGState{
     {
         NSLog(@"BLE已打开");
         [central scanForPeripheralsWithServices:nil options:nil];
-        [LCProgressHUD showSuccessText:@"蓝牙已打开"];
+        [LCProgressHUD showSuccessText:@"Bluetooth is on!"];
         [[NSNotificationCenter defaultCenter] postNotificationName:BleIsOpen object:nil userInfo:nil];
     }
     else
     {
         NSLog(@"蓝牙不可用");
-        [LCProgressHUD showFailureText:@"蓝牙不可用"];
+        [LCProgressHUD showFailureText:@"Bluetooth is not open!"];
     }
 }
 
@@ -160,7 +160,7 @@ typedef enum _TTGState{
 //连接设备成功
 -(void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
-    //[LCProgressHUD showSuccessText:NSLocalizedString(@"Connection succeeded", nil)];
+    [LCProgressHUD showSuccessText:NSLocalizedString(@"Connection succeeded", nil)];
     NSLog(@"连接到%@成功",peripheral.name);
     isLinked = YES;
     _per = peripheral;
@@ -208,7 +208,7 @@ typedef enum _TTGState{
                 }
                 if ([characteristic.UUID isEqual:readWriteUUID]) {
                     _char = characteristic;
-//                    [[NSNotificationCenter defaultCenter] postNotificationName:ConnectSucceed object:self userInfo:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:ConnectSucceed object:self userInfo:nil];
                 }
             }
         }
@@ -269,26 +269,6 @@ typedef enum _TTGState{
 //像蓝牙发送信息
 - (void)sendDataWithString:(NSData *)data
 {
-    //NSData * data = [str dataUsingEncoding:NSUTF8StringEncoding];
-//    NSLog(@"%@", data);
-//    if (_per && _char)
-//    {
-//        switch (_char.properties & 0x04) {
-//            case CBCharacteristicPropertyWriteWithoutResponse:
-//            {
-//                [_per writeValue:data forCharacteristic:_char type:CBCharacteristicWriteWithoutResponse];
-//                break;
-//
-//            }
-//            default:
-//            {
-//                [_per writeValue:data forCharacteristic:_char type:CBCharacteristicWriteWithResponse];
-//                break;
-//
-//            }
-//        }
-//        
-//    }
     [_per writeValue:data forCharacteristic:_char type:CBCharacteristicWriteWithResponse];
 
 }
@@ -298,25 +278,22 @@ typedef enum _TTGState{
 {
     if (_responseData) {
         NSLog(@"读取到特征值：%@",_responseData);
-        //NSInteger data_len = 0;
         NSData *data = _responseData;
         Byte *bytes = (Byte *)[data bytes];
-        //data_len = data.length;
         
         Byte newByte[data.length];
         
         for (NSInteger i = 0; i < data.length; i++) {
             newByte[i] = bytes[i];
-            //NSLog(@"newByte = %d",newByte[i]);
         }
-        if (newByte[0] == 0xfd) {
+        if (newByte[0] == 0xff) {
             _state = stx_h;
         }
         
         switch (_state) {
             case stx_h:
             {
-                if (newByte[data.length - 2] == 0xa5 && newByte[data.length - 1] == 0xa5) {
+                if (newByte[data.length - 1] == 0xAB) {
                     Byte middleByte[data.length - 3];
                     for (NSInteger j = 0; j<data.length - 3; j++) {
                         
@@ -325,21 +302,11 @@ typedef enum _TTGState{
                     NSData *newData = [NSData dataWithBytes:middleByte
                                                      length:sizeof(middleByte)];
                     NSLog(@"newdata = %@",newData);
-                    NSDictionary *dict = [FLWrapJson dataToNsDict:newData];
-                    NSString *moduleStr = dict[@"header"][@"module"];
-                    NSLog(@"moduleStr ===== %@",moduleStr);
-                    if ([moduleStr isEqualToString:@"profile"]) {
-//                        [[NSNotificationCenter defaultCenter] postNotificationName:ConnectStatus object:self userInfo:@{@"result_code":dict[@"body"][@"result_code"],@"device_id":dict[@"header"][@"dev_id"]}];
-                    }
-                    NSData *dictData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
-                    NSString *jsonStr = [[NSString alloc] initWithData:dictData encoding:NSUTF8StringEncoding];
-                    
-                    NSLog(@"jsonStr = %@",jsonStr);
                     
                     _state = etx_e;
                     self.putData = nil;
                     
-                }else if (newByte[data.length - 2] != 0xa5 ||newByte[data.length - 2] != 0xa5){
+                }else if (newByte[data.length - 1] != 0xAB){
                     
                     [self.putData appendData:data];
                     NSLog(@"*******%@",self.putData);
@@ -350,7 +317,7 @@ typedef enum _TTGState{
                 break;
             case pkt_h:
             {
-                if (newByte[data.length - 2] == 0xa5 && newByte[data.length - 1] == 0xa5) {
+                if (newByte[data.length - 1] == 0xAB) {
                     
                     [self.putData appendData:data];
                     NSLog(@"~~~~~%@",self.putData);
@@ -363,20 +330,14 @@ typedef enum _TTGState{
                         newbt[j] = putDataByte[j+1];
                     }
                     
-                    
                     NSData *newData = [NSData dataWithBytes:newbt
                                                      length:sizeof(newbt)];
                     
                     NSLog(@"newdata = %@",newData);
-                    NSDictionary *dict = [FLWrapJson dataToNsDict:newData];
-                                            NSData *dictData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
-                                            NSString *jsonStr = [[NSString alloc] initWithData:dictData encoding:NSUTF8StringEncoding];
-                    
-                    NSLog(@"jsonStr = %@",jsonStr);
                     _state = etx_e;
                     self.putData = nil;
                     
-                }else if (newByte[data.length - 2] != 0xa5 ||newByte[data.length - 2] != 0xa5){
+                }else if (newByte[data.length - 1] != 0xa5){
                     
                     [self.putData appendData:data];
                     NSLog(@"------%@",self.putData);

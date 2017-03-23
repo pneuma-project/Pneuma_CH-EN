@@ -83,6 +83,7 @@
 		644C9CB81E697DDA0030C3B9 /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 644C9CAA1E697DDA0030C3B9 /* UserViewController.m */; };
 		644C9CBD1E697E980030C3B9 /* MedicalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 644C9CBB1E697E980030C3B9 /* MedicalTableViewCell.m */; };
 		644C9CBE1E697E980030C3B9 /* MedicalTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 644C9CBC1E697E980030C3B9 /* MedicalTableViewCell.xib */; };
+		64BBBAA41E82AD58008A40E5 /* BlueWriteData.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BBBAA31E82AD58008A40E5 /* BlueWriteData.m */; };
 		64F43CC11E71585D009BF6F9 /* SqliteUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F43CC01E71585D009BF6F9 /* SqliteUtils.m */; };
 		64F43CC41E715A3B009BF6F9 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F43CC31E715A3B009BF6F9 /* libsqlite3.0.tbd */; };
 		64F663C21E63C8A900F4C9E7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F663C11E63C8A900F4C9E7 /* main.m */; };
@@ -274,6 +275,8 @@
 		644C9CBA1E697E980030C3B9 /* MedicalTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MedicalTableViewCell.h; sourceTree = "<group>"; };
 		644C9CBB1E697E980030C3B9 /* MedicalTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MedicalTableViewCell.m; sourceTree = "<group>"; };
 		644C9CBC1E697E980030C3B9 /* MedicalTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MedicalTableViewCell.xib; sourceTree = "<group>"; };
+		64BBBAA21E82AD58008A40E5 /* BlueWriteData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlueWriteData.h; sourceTree = "<group>"; };
+		64BBBAA31E82AD58008A40E5 /* BlueWriteData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlueWriteData.m; sourceTree = "<group>"; };
 		64F43CBF1E71585D009BF6F9 /* SqliteUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SqliteUtils.h; sourceTree = "<group>"; };
 		64F43CC01E71585D009BF6F9 /* SqliteUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SqliteUtils.m; sourceTree = "<group>"; };
 		64F43CC31E715A3B009BF6F9 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -480,6 +483,8 @@
 				6426202A1E80B56200263124 /* Model.m */,
 				6426202B1E80B56200263124 /* SyTableViewCell.h */,
 				6426202C1E80B56200263124 /* SyTableViewCell.m */,
+				64BBBAA21E82AD58008A40E5 /* BlueWriteData.h */,
+				64BBBAA31E82AD58008A40E5 /* BlueWriteData.m */,
 				6426202D1E80B56200263124 /* Tools */,
 			);
 			path = BlueTooth;
@@ -1131,6 +1136,7 @@
 				6425802A1E6D0CB90019AD06 /* README.md in Sources */,
 				644C9CAB1E697DDA0030C3B9 /* DeviceViewController.m in Sources */,
 				644C9C5C1E66B5BF0030C3B9 /* UIView+Common.m in Sources */,
+				64BBBAA41E82AD58008A40E5 /* BlueWriteData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
