@@ -34,7 +34,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavTitle:[DisplayUtils getTimestampData]];
-    [self showFirstQuardrant];
+    [self selectDataFromDb];
+    
     
     
 }
@@ -71,15 +72,14 @@
 -(void)selectDataFromDb
 {
     //先查看是哪个用户登录并且调取他的最优数据
-    int userId;
+    int userId = 0;
     NSString * btDataStr;
     NSArray * arr = [SqliteUtils selectUserInfo];
     if (arr.count!=0) {
         for (AddPatientInfoModel * model in arr) {
             if (model.isSelect == 1) {
-                model.userId = userId;
-                model.btData = btDataStr;
-                return;
+               userId = model.userId ;
+               btDataStr = model.btData;
             }
         }
     }
@@ -109,13 +109,13 @@
     }
     
     
+    [self showFirstQuardrant];
 }
 
 
 
 -(void)viewWillAppear:(BOOL)animated
 {
-  
     self.view.backgroundColor = RGBColor(240, 248, 252, 1.0);
 }
 -(void)setNavTitle:(NSString *)title
@@ -210,11 +210,7 @@
     _slmLabel.font = [UIFont systemFontOfSize:12];
     _slmLabel.textColor = RGBColor(221, 222, 223, 1.0);
     /*     创建第一个折线图       */
-   // self.sprayDataArr = [NSMutableArray array];
-   // for (int i =0; i<=30; i++) {
-   //     [self.sprayDataArr addObject:[NSString stringWithFormat:@"%d",arc4random()%100]];
-   // }
-    [self createLineChart];
+    [self createLineChart:0];
     
     UILabel * SecLabel = [[UILabel alloc]initWithFrame:CGRectMake(_lineChart.current_x_w, _lineChart.current_y_h-30, _upBgView.current_w-_lineChart.current_x_w, 20)];
     SecLabel.text = @"Sec";
@@ -247,7 +243,11 @@
     pointView.center = insPoint;
     
     UILabel * totalInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(downBgView.current_w-60, inspirationLabel.current_y+15, 60, 30)];
-    totalInfoLabel.text = @"22.3L";
+    int num = 0;
+    for (NSString * str in _AllNumberArr) {
+        num += [str intValue];
+    }
+    totalInfoLabel.text = [NSString stringWithFormat:@"%dL",num];
     totalInfoLabel.textAlignment = NSTextAlignmentLeft;
     totalInfoLabel.textColor = RGBColor(0, 83, 181, 1.0);
     totalInfoLabel.font = [UIFont systemFontOfSize:16];
@@ -264,12 +264,38 @@
     UILabel * yLineLabel = [[UILabel alloc]initWithFrame:CGRectMake(unitLabel.current_x_w, unitLabel.current_y_h+10, 1, downBgView.current_h-unitLabel.current_y_h-40)];
     yLineLabel.backgroundColor = RGBColor(204, 205, 206, 1.0);
     
-    for (int i =0; i<7; i++) {
-        UILabel * yNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(yLineLabel.current_x-25,unitLabel.current_y_h+i*(yLineLabel.current_h/6), 20, 15)];
+    //获取总和
+    int sum = 0;
+    for (NSString * str in _AllNumberArr) {
+        sum+=[str intValue];
+    }
+    //最大值取整数
+    if (sum/10000>0) {
+        sum = sum/10000+1;
+        sum *= 10000;
+    }else if (sum/1000>0)
+    {
+        sum = sum/1000+1;
+        sum *= 1000;
+    }else if (sum/100>0)
+    {
+        sum = sum/100+1;
+        sum *= 100;
+    }else if (sum/10>0)
+    {
+        sum = sum/10+1;
+        sum *= 10;
+    }else
+    {
+        sum = 10;
+    }
+    //--------------//
+    for (int i =0; i<6; i++) {
+        UILabel * yNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(yLineLabel.current_x-35,unitLabel.current_y_h+i*(yLineLabel.current_h/6)+15, 30, yLineLabel.current_h/6)];
         yNumLabel.textColor = RGBColor(204, 205, 206, 1.0);
         yNumLabel.textAlignment = NSTextAlignmentRight;
-        yNumLabel.text = [NSString stringWithFormat:@"%d",30-i*5];
-        yNumLabel.font = [UIFont systemFontOfSize:12];
+        yNumLabel.text = [NSString stringWithFormat:@"%d",sum-i*(sum/5)];
+        yNumLabel.font = [UIFont systemFontOfSize:10];
         [downBgView addSubview:yNumLabel];
  
     }
@@ -281,10 +307,10 @@
     downDateLabel.font = [UIFont systemFontOfSize:10];
     
     int viewH = 0;
-    NSArray * numberArr = @[@"4",@"15",@"17",@"9"];
-    for (int i=0; i<numberArr.count; i++) {
-        viewH+=[numberArr[i] floatValue]/5 * yLineLabel.current_y/6;
-        UIView * view = [[UIView alloc]initWithFrame:CGRectMake(downDateLabel.current_x+15, xLineLabel.current_y-viewH, downDateLabel.current_w-30,[numberArr[i] floatValue]/5 * yLineLabel.current_y/6)];
+    for (int i=0; i<_AllNumberArr.count; i++) {
+        viewH+=[_AllNumberArr[i] floatValue]/(sum/5) * yLineLabel.current_h/6;
+        NSLog(@"%d",viewH);
+        UIView * view = [[UIView alloc]initWithFrame:CGRectMake(downDateLabel.current_x+15, xLineLabel.current_y-viewH, downDateLabel.current_w-30,[_AllNumberArr[i] floatValue]/(sum/5) * yLineLabel.current_h/6)];
         UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
         tap.numberOfTouchesRequired = 1;
         view.tag = 1000+i;
@@ -322,25 +348,25 @@
     NSLog(@"点击了第%ld个柱状图",tap
           .view.tag - 1000);
  
-    [self createLineChart];
+    [self createLineChart:tap
+     .view.tag - 1000];
     
 }
 #pragma mark ---创建第一个曲线图
--(void)createLineChart
+-(void)createLineChart:(NSInteger)index
 {
      self.lineChart = [[JHLineChart alloc] initWithFrame:CGRectMake(5, _slmLabel.current_y_h, _upBgView.current_w-25, _upBgView.current_h-_slmLabel.current_y_h) andLineChartType:JHChartLineValueNotForEveryX];
     
     _lineChart.xLineDataArr = @[@"0",@"0.1",@"0.2",@"0.3",@"0.4",@"0.5",@"0.6",@"0.7",@"0.8",@"0.9",@"1.0",@"1.1",@"1.2",@"1.3",@"1.4",@"1.5",@"1.6",@"1.7",@"1.8",@"1.9",@"2.0",@"2.1",@"2.2",@"2.3",@"2.4",@"2.5",@"2.6",@"2.7",@"2.8",@"2.9",@"3.0"];
     _lineChart.contentInsets = UIEdgeInsetsMake(0, 25, 20, 10);
     _lineChart.lineChartQuadrantType = JHLineChartQuadrantTypeFirstQuardrant;
-    NSMutableArray * mutArr= [NSMutableArray array];
-    
-    for (int i =0; i<=30; i++) {
-       
-        [mutArr addObject:[NSString stringWithFormat:@"%d",arc4random()%100]];
-       
+    if (_numberArr.count!=0) {
+       _lineChart.valueArr = @[self.sprayDataArr,_numberArr[index]];
+    }else
+    {
+        _lineChart.valueArr = @[self.sprayDataArr];
     }
-    _lineChart.valueArr = @[self.sprayDataArr,mutArr];
+    
     _lineChart.showYLevelLine = YES;
     _lineChart.showYLine = NO;
     _lineChart.showValueLeadingLine = NO;
