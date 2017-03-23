@@ -8,6 +8,9 @@
 
 #import "SprayViewController.h"
 #import "JHChartHeader.h"
+#import "SqliteUtils.h"
+#import "BlueToothDataModel.h"
+#import "AddPatientInfoModel.h"
 #define k_MainBoundsWidth [UIScreen mainScreen].bounds.size.width
 #define k_MainBoundsHeight [UIScreen mainScreen].bounds.size.height
 @interface SprayViewController ()
@@ -18,7 +21,11 @@
 
 @property(nonatomic,strong)UILabel * slmLabel;
 
-@property(nonatomic,strong)NSMutableArray * sprayDataArr;
+@property(nonatomic,strong)NSMutableArray * sprayDataArr;//训练最佳曲线数据
+
+@property(nonatomic,strong)NSMutableArray * AllNumberArr;//柱状图实时数据总和
+
+@property(nonatomic,strong)NSMutableArray * numberArr;//单条实时曲线图的数据（30一组）
 
 @end
 
@@ -28,7 +35,84 @@
     [super viewDidLoad];
     [self setNavTitle:[DisplayUtils getTimestampData]];
     [self showFirstQuardrant];
+    
+    
 }
+#pragma mark ---- 插入实时数据和历史数据
+/*
+ NSMutableString * mutStr = [NSMutableString string];
+ for (int i =0; i<30; i++) {
+ 
+ if (i==29) {
+ [mutStr appendString:[NSString stringWithFormat:@"%d",arc4random()%100]];
+ }else
+ {
+ [mutStr appendString:[NSString stringWithFormat:@"%d,",arc4random()%100]];
+ }
+ }
+ 
+ NSString * sql = [NSString stringWithFormat:@"insert into RealTimeBTData(userid,nowtime,btData) values('%d','%@','%@');",1,@"20170322",mutStr];
+ [SqliteUtils insertRealBTInfo:sql];
+ 
+ NSString * sql1 = [NSString stringWithFormat:@"insert into historyBTDb(userid,nowtime,btData) values('%d','%@','%@');",1,@"20170322",mutStr];
+ [SqliteUtils insertHistoryBTInfo:sql1];
+
+ NSArray * arr = [SqliteUtils selectRealBTInfo];
+ NSArray * arr1 = [SqliteUtils selectHistoryBTInfo];
+ 
+ BlueToothDataModel * model = [[BlueToothDataModel alloc]init];
+ 
+ model = arr[0];
+ NSLog(@"%d---%@---%@",model.userId,model.timestamp,model.blueToothData);
+ model = arr1[0];
+ NSLog(@"%d---%@----%@",model.userId,model.timestamp,model.blueToothData);
+ */
+#pragma mark ----- 查询数据
+-(void)selectDataFromDb
+{
+    //先查看是哪个用户登录并且调取他的最优数据
+    int userId;
+    NSString * btDataStr;
+    NSArray * arr = [SqliteUtils selectUserInfo];
+    if (arr.count!=0) {
+        for (AddPatientInfoModel * model in arr) {
+            if (model.isSelect == 1) {
+                model.userId = userId;
+                model.btData = btDataStr;
+                return;
+            }
+        }
+    }
+    //查询到用户id后再调取该用户的最佳训练数据
+    self.sprayDataArr = [NSMutableArray array];
+    NSArray * arr1 = [btDataStr componentsSeparatedByString:@","];
+    for (NSString * str in arr1) {
+        [self.sprayDataArr addObject:str];
+    }
+    //获取该用户的实时喷雾数据(30个为一组)
+    NSArray * arr2 = [SqliteUtils selectRealBTInfo];
+    self.numberArr = [NSMutableArray array];
+    for (BlueToothDataModel * model  in arr2) {
+        if (model.userId == userId) {
+            NSArray * arr3 = [model.blueToothData componentsSeparatedByString:@","];
+            [self.numberArr addObject:arr3];
+        }
+    }
+    //获取该用户实时数据每条的总和
+    self.AllNumberArr = [NSMutableArray array];
+    for (NSArray * num in self.numberArr) {
+        int allNum = 0;
+        for (NSString * str in num) {
+            allNum+=[str intValue];
+        }
+        [self.AllNumberArr addObject:[NSString stringWithFormat:@"%d",allNum]];
+    }
+    
+    
+}
+
+
+
 -(void)viewWillAppear:(BOOL)animated
 {
   
@@ -57,9 +141,9 @@
     rightImgView.userInteractionEnabled = YES;
     [rightImgView addGestureRecognizer:tapTwo];
     
-    [titileBgView addSubview:leftImgView];
+    //[titileBgView addSubview:leftImgView];
     [titileBgView addSubview:label];
-    [titileBgView addSubview:rightImgView];
+    //[titileBgView addSubview:rightImgView];
     self.navigationItem.titleView = titileBgView;
 
 }
@@ -126,10 +210,10 @@
     _slmLabel.font = [UIFont systemFontOfSize:12];
     _slmLabel.textColor = RGBColor(221, 222, 223, 1.0);
     /*     创建第一个折线图       */
-    self.sprayDataArr = [NSMutableArray array];
-    for (int i =0; i<=30; i++) {
-        [self.sprayDataArr addObject:[NSString stringWithFormat:@"%d",arc4random()%100]];
-    }
+   // self.sprayDataArr = [NSMutableArray array];
+   // for (int i =0; i<=30; i++) {
+   //     [self.sprayDataArr addObject:[NSString stringWithFormat:@"%d",arc4random()%100]];
+   // }
     [self createLineChart];
     
     UILabel * SecLabel = [[UILabel alloc]initWithFrame:CGRectMake(_lineChart.current_x_w, _lineChart.current_y_h-30, _upBgView.current_w-_lineChart.current_x_w, 20)];
@@ -191,7 +275,7 @@
     }
     UILabel * xLineLabel = [[UILabel alloc]initWithFrame:CGRectMake(yLineLabel.current_x_w, yLineLabel.current_y_h, downBgView.current_w-yLineLabel.current_x_w-30, 1)];
     xLineLabel.backgroundColor = RGBColor(204, 205, 206, 1.0);
-    UILabel * downDateLabel = [[UILabel alloc]initWithFrame:CGRectMake(yLineLabel.current_x_w+xLineLabel.current_w/2-35, xLineLabel.current_y_h, 70, 30)];
+    UILabel * downDateLabel = [[UILabel alloc]initWithFrame:CGRectMake(yLineLabel.current_x_w+xLineLabel.current_w/2-35, xLineLabel.current_y_h, 80, 30)];
     downDateLabel.text = [DisplayUtils getTimestampData];
     downDateLabel.textColor = RGBColor(0, 83, 181, 1.0);
     downDateLabel.font = [UIFont systemFontOfSize:10];

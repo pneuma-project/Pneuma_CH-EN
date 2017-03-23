@@ -48,7 +48,7 @@
         for (AddPatientInfoModel * model in arr) {
             
             if (model.isSelect == 1) {
-                 nameLabel.text=model.name;
+                 nameLabel.text = model.name;
                 _addModel = [[AddPatientInfoModel alloc]init];
                 _addModel = model;
                 return;

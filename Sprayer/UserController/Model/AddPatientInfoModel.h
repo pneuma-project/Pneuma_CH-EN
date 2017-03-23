@@ -20,4 +20,6 @@
 @property(nonatomic,strong) NSString *   phone;
 @property(nonatomic,strong) NSString *   deviceSerialNum;
 @property(nonatomic,assign) NSInteger    isSelect;
+@property(nonatomic,assign) int          userId;
+@property(nonatomic,strong) NSString *   btData;
 @end
