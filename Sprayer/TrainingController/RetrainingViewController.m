@@ -50,11 +50,19 @@
     slmLabel.textColor = RGBColor(221, 222, 223, 1.0);
     /*     创建第一个折线图       */
     JHLineChart *lineChart = [[JHLineChart alloc] initWithFrame:CGRectMake(5, slmLabel.current_y_h, upBgView.current_w-25, upBgView.current_h-slmLabel.current_y_h) andLineChartType:JHChartLineValueNotForEveryX];
-    lineChart.xLineDataArr = @[@"0",@"0.5",@"1.0",@"1.5",@"2.0",@"2.5",@"3.0"];
+     lineChart.xLineDataArr = @[@"0",@"0.1",@"0.2",@"0.3",@"0.4",@"0.5",@"0.6",@"0.7",@"0.8",@"0.9",@"1.0",@"1.1",@"1.2",@"1.3",@"1.4",@"1.5",@"1.6",@"1.7",@"1.8",@"1.9",@"2.0",@"2.1",@"2.2",@"2.3",@"2.4",@"2.5",@"2.6",@"2.7",@"2.8",@"3.0"];
     lineChart.contentInsets = UIEdgeInsetsMake(0, 25, 20, 10);
     lineChart.lineChartQuadrantType = JHLineChartQuadrantTypeFirstQuardrant;
     
-    lineChart.valueArr = @[@[@"0",@"80",@"90",@"120",@"80",@"20",@"0"],@[@"0",@"40",@"100",@"160",@"100",@"60",@"0"],@[@"0",@"30",@"70",@"140",@"160",@"120",@"0"]];
+    NSMutableArray * mutArr = [NSMutableArray array];
+    NSMutableArray * mutArr1 = [NSMutableArray array];
+    NSMutableArray * mutArr2 = [NSMutableArray array];
+    for (int i = 0; i<30; i++) {
+        [mutArr addObject:[NSString stringWithFormat:@"%d",arc4random()%50]];
+        [mutArr1 addObject:[NSString stringWithFormat:@"%d",arc4random()%50]];
+        [mutArr2 addObject:[NSString stringWithFormat:@"%d",arc4random()%50]];
+    }
+    lineChart.valueArr = @[mutArr,mutArr1,mutArr2];
     lineChart.showYLevelLine = YES;
     lineChart.showYLine = NO;
     lineChart.showValueLeadingLine = NO;

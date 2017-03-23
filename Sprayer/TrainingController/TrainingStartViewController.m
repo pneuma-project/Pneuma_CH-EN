@@ -68,8 +68,38 @@
     self.chartView.backgroundColor = [UIColor clearColor];
     self.chartView.titleOfYStr = @"SLM";
     self.chartView.titleOfXStr = @"Sec";
-    self.chartView.dataArrOfY = @[@"180",@"160",@"140",@"120",@"100",@"80",@"60",@"40",@"20",@"0"];//拿到Y轴坐标
-    self.chartView.dataArrOfX = @[@"0.5",@"1",@"1.5",@"2",@"2.5",@"3"];//拿到X轴坐标
+   
+    NSMutableArray * mutArr = [NSMutableArray array];
+    for (int i = 0; i<30; i++) {
+        [mutArr addObject:[NSString stringWithFormat:@"%d",arc4random()%50]];
+    }
+    self.chartView.leftDataArr = mutArr;
+    //求出数组的最大值
+    int max = 0;
+    for (NSString * str in mutArr) {
+        if (max<[str intValue]) {
+            max = [str intValue];
+        }
+    }
+    if (max>100) {
+        max = max/100+1;
+        max*=100;
+    }else if (max>10)
+    {
+        max = max/10+1;
+        max*=10;
+    }else
+    {
+        max = 10;
+    }
+    //得出y轴的坐标轴
+    NSMutableArray * yNumArr = [NSMutableArray array];
+    for (int i =10; i>=0;i--) {
+        [yNumArr addObject:[NSString stringWithFormat:@"%d",i*(max/10)]];
+    }
+
+    self.chartView.dataArrOfY = yNumArr;//拿到Y轴坐标
+    self.chartView.dataArrOfX = @[@"0",@"0.1",@"0.2",@"0.3",@"0.4",@"0.5",@"0.6",@"0.7",@"0.8",@"0.9",@"1.0",@"1.1",@"1.2",@"1.3",@"1.4",@"1.5",@"1.6",@"1.7",@"1.8",@"1.9",@"2.0",@"2.1",@"2.2",@"2.3",@"2.4",@"2.5",@"2.6",@"2.7",@"2.8",@"3.0"];//拿到X轴坐标
     [headView addSubview:self.chartView];
     
     //详细说明

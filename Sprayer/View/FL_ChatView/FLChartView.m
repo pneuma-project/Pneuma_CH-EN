@@ -387,14 +387,20 @@
         //        bottomArr = @[@"七月",@"八月",@"九月",@"十月",@"十一月",@"十二月",@"七月"];
     }
     
-    for (int i = 0;i< bottomArr.count ;i++ ) {
-        
-        UILabel *leftLabel = [[UILabel alloc]initWithFrame:CGRectMake(5+Xmargin/2+i*Xmargin, (self.dataArrOfY.count-1)*Ymargin, Xmargin, 20)];
+    for (int i = 0;i<= bottomArr.count;i++) {
+        if(i%5 == 0){
+        UILabel *leftLabel = [[UILabel alloc]initWithFrame:CGRectMake(i*Xmargin-5, (self.dataArrOfY.count-1)*Ymargin, Xmargin*2, 20)];
         leftLabel.font = [UIFont systemFontOfSize:10.0f];
         leftLabel.textColor = RGBColor(57, 106, 195, 1.0);
-        leftLabel.text = bottomArr[i];
+        if (i==bottomArr.count) {
+           leftLabel.text = bottomArr[i-1];
+        }else
+        {
+           leftLabel.text = bottomArr[i];
+        }
         leftLabel.textAlignment = NSTextAlignmentCenter;
         [UIView addSubview:leftLabel];
+        }
         
     }
     _titleOfX = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.scrollBgView1.frame)+30, CGRectGetMaxY(self.chartScrollView.frame) - 20, 30, 20)];
