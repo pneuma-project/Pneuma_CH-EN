@@ -86,8 +86,11 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    AddPatientInfoModel * model =self.dataArr[indexPath.row];
+
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     HistoryViewController *historyVC = [[HistoryViewController alloc] init];
+    historyVC.model = model;
     [self.navigationController pushViewController:historyVC animated:YES];
 }
 

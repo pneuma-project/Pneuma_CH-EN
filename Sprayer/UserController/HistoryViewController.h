@@ -7,7 +7,9 @@
 //
 
 #import "BaseViewController.h"
-
+#import "AddPatientInfoModel.h"
 @interface HistoryViewController : UITableViewController
+
+@property(nonatomic,strong)AddPatientInfoModel * model;
 
 @end
