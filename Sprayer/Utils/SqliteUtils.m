@@ -156,7 +156,7 @@ static sqlite3 *db = nil;
 
 +(void)createRealTimeBTTable
 {
-    NSString * sql = @"create table if not exists RealTimeBTData (id integer primary key autoincrement,userid integer,nowtime text,btData text);";
+    NSString * sql = @"create table if not exists RealTimeBTData (id integer primary key autoincrement,userid integer,nowtime text,btData text,sumBtData text);";
     char * errmsg;
     sqlite3_exec(db, sql.UTF8String, NULL, NULL, &errmsg);
     if (errmsg) {
@@ -233,7 +233,7 @@ static sqlite3 *db = nil;
 
 +(void)createHistoryBTTable
 {
-    NSString * sql = @"create table if not exists historyBTDb (id integer primary key autoincrement,userid integer,nowtime text,btData text);";
+    NSString * sql = @"create table if not exists historyBTDb (id integer primary key autoincrement,userid integer,nowtime text,btData text,sumBtData text);";
     char * errmsg;
     sqlite3_exec(db, sql.UTF8String, NULL, NULL, &errmsg);
     if (errmsg) {
@@ -279,6 +279,7 @@ static sqlite3 *db = nil;
             model.userId= sqlite3_column_int(stmt, 1);
             model.timestamp = [NSString stringWithCString:(const char *)sqlite3_column_text(stmt, 2) encoding:NSUTF8StringEncoding];
             model.blueToothData = [NSString stringWithCString:(const char *)sqlite3_column_text(stmt, 3) encoding:NSUTF8StringEncoding];
+            model.allBlueToothData = [NSString stringWithCString:(const char *)sqlite3_column_text(stmt, 4) encoding:NSUTF8StringEncoding];
             [mutArr addObject:model];
             
         }

@@ -16,4 +16,6 @@
 
 @property(nonatomic,strong) NSString * blueToothData;
 
+@property(nonatomic,strong) NSString * allBlueToothData;
+
 @end

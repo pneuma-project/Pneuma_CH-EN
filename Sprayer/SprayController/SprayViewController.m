@@ -11,6 +11,7 @@
 #import "SqliteUtils.h"
 #import "BlueToothDataModel.h"
 #import "AddPatientInfoModel.h"
+#import "DisplayUtils.h"
 #define k_MainBoundsWidth [UIScreen mainScreen].bounds.size.width
 #define k_MainBoundsHeight [UIScreen mainScreen].bounds.size.height
 @interface SprayViewController ()
@@ -35,39 +36,44 @@
     [super viewDidLoad];
     [self setNavTitle:[DisplayUtils getTimestampData]];
     [self selectDataFromDb];
-    
-    
-    
+    //[self insertJiaData];
 }
 #pragma mark ---- 插入实时数据和历史数据
-/*
- NSMutableString * mutStr = [NSMutableString string];
- for (int i =0; i<30; i++) {
- 
- if (i==29) {
- [mutStr appendString:[NSString stringWithFormat:@"%d",arc4random()%100]];
- }else
- {
- [mutStr appendString:[NSString stringWithFormat:@"%d,",arc4random()%100]];
- }
- }
- 
- NSString * sql = [NSString stringWithFormat:@"insert into RealTimeBTData(userid,nowtime,btData) values('%d','%@','%@');",1,@"20170322",mutStr];
- [SqliteUtils insertRealBTInfo:sql];
- 
- NSString * sql1 = [NSString stringWithFormat:@"insert into historyBTDb(userid,nowtime,btData) values('%d','%@','%@');",1,@"20170322",mutStr];
- [SqliteUtils insertHistoryBTInfo:sql1];
-
- NSArray * arr = [SqliteUtils selectRealBTInfo];
- NSArray * arr1 = [SqliteUtils selectHistoryBTInfo];
- 
- BlueToothDataModel * model = [[BlueToothDataModel alloc]init];
- 
- model = arr[0];
- NSLog(@"%d---%@---%@",model.userId,model.timestamp,model.blueToothData);
- model = arr1[0];
- NSLog(@"%d---%@----%@",model.userId,model.timestamp,model.blueToothData);
- */
+-(void)insertJiaData
+{
+    NSMutableString * mutStr = [NSMutableString string];
+    int sum = 0;
+    for (int i =0; i<30; i++) {
+        
+        int num = arc4random()%100;
+        if (i==29) {
+            [mutStr appendString:[NSString stringWithFormat:@"%d",num]];
+            sum+=num;
+        }else
+        {
+            [mutStr appendString:[NSString stringWithFormat:@"%d,",num]];
+            sum+=num;
+        }
+    }
+    NSDate *senddate = [NSDate date];
+    NSString *date2 = [NSString stringWithFormat:@"%ld", (long)[senddate timeIntervalSince1970]];
+    
+    NSString * sql = [NSString stringWithFormat:@"insert into RealTimeBTData(userid,nowtime,btData,sumBtData) values('%d','%@','%@','%@');",1,date2,mutStr,[NSString stringWithFormat:@"%d",sum]];
+    [SqliteUtils insertRealBTInfo:sql];
+    
+    NSString * sql1 = [NSString stringWithFormat:@"insert into historyBTDb(userid,nowtime,btData,sumBtData) values('%d','%@','%@','%@');",1,date2,mutStr,[NSString stringWithFormat:@"%d",sum]];
+    [SqliteUtils insertHistoryBTInfo:sql1];
+    
+    NSArray * arr = [SqliteUtils selectRealBTInfo];
+    NSArray * arr1 = [SqliteUtils selectHistoryBTInfo];
+    
+    BlueToothDataModel * model = [[BlueToothDataModel alloc]init];
+    
+    model = arr[0];
+    NSLog(@"%d---%@---%@",model.userId,model.timestamp,model.blueToothData);
+    model = arr1[0];
+    NSLog(@"%d---%@----%@",model.userId,model.timestamp,model.blueToothData);
+}
 #pragma mark ----- 查询数据
 -(void)selectDataFromDb
 {

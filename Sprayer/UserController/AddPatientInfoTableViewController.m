@@ -273,7 +273,7 @@ static NSString *ONE_Cell = @"ONECELL";
     {
         model.isSelect = 0;
     }
-    NSString * sql = [NSString stringWithFormat:@"insert into userInfo(name,relationship,sex,age,race,height,weight,phone,device_serialnum,isselect) values('%@','%@','%@','%@','%@','%@','%@','%@','%@',%ld);",model.name,model.relationship,model.sex,model.age,model.race,model.height,model.weight,model.phone,model.deviceSerialNum,model.isSelect];
+    NSString * sql = [NSString stringWithFormat:@"insert into userInfo(name,relationship,sex,age,race,height,weight,phone,device_serialnum,isselect,trainData) values('%@','%@','%@','%@','%@','%@','%@','%@','%@',%ld,'%@');",model.name,model.relationship,model.sex,model.age,model.race,model.height,model.weight,model.phone,model.deviceSerialNum,model.isSelect,nil];
    BOOL ret = [SqliteUtils insertUserInfo:sql];
     if (ret == YES) {
         [self.navigationController popViewControllerAnimated:YES];
