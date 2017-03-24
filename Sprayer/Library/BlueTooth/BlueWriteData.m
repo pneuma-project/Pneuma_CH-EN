@@ -13,7 +13,7 @@
 +(void)bleConfigWithData:(NSData *)data
 {
     Byte dataByte[12];
-    dataByte[0] = 0xFF;//头部
+    dataByte[0] = 0xff;//头部
     dataByte[1] = 0x01;//类型
     dataByte[2] = 0x08;//长度
     dataByte[3] = 0x01;//用户ID
@@ -23,15 +23,15 @@
     }
     dataByte[11] = 0xAB;//结束
     NSData *newData = [NSData dataWithBytes:&dataByte length:sizeof(dataByte)];
+    NSLog(@"newdata == %@",newData);
     //写数据到蓝牙
     [[BlueToothManager getInstance] sendDataWithString:newData];
-   
 }
 
-+(void)startTrainData:(NSData *)data
++(void)startTrainData
 {
     Byte dataByte[5];
-    dataByte[0] = 0xFF;//头部
+    dataByte[0] = 0xff;//头部
     dataByte[1] = 0x02;//类型
     dataByte[2] = 0x01;//长度
     dataByte[3] = 0x01;//用户ID
@@ -41,10 +41,10 @@
     [[BlueToothManager getInstance] sendDataWithString:newData];
 }
 
-+(void)stopTrainData:(NSData *)data
++(void)stopTrainData
 {
     Byte dataByte[5];
-    dataByte[0] = 0xFF;//头部
+    dataByte[0] = 0xff;//头部
     dataByte[1] = 0x03;//类型
     dataByte[2] = 0x01;//长度
     dataByte[3] = 0x01;//用户ID
@@ -54,28 +54,30 @@
     [[BlueToothManager getInstance] sendDataWithString:newData];
 }
 
-+(void)sparyData:(NSData *)data
++(void)sparyData
 {
     Byte dataByte[5];
-    dataByte[0] = 0xFF;//头部
+    dataByte[0] = 0xff;//头部
     dataByte[1] = 0x04;//类型
     dataByte[2] = 0x01;//长度
     dataByte[3] = 0x01;//用户ID
     dataByte[4] = 0xAB;//结束
     NSData *newData = [NSData dataWithBytes:&dataByte length:sizeof(dataByte)];
+    NSLog(@"newdata == %@",newData);
     //写数据到蓝牙
     [[BlueToothManager getInstance] sendDataWithString:newData];
 }
 
-+(void)confirmCodeData:(NSData *)data
++(void)confirmCodeData
 {
     Byte dataByte[5];
-    dataByte[0] = 0xFF;//头部
+    dataByte[0] = 0xff;//头部
     dataByte[1] = 0x0A;//类型
     dataByte[2] = 0x01;//长度
     dataByte[3] = 0xAA;
     dataByte[4] = 0xAB;//结束
     NSData *newData = [NSData dataWithBytes:&dataByte length:sizeof(dataByte)];
+    NSLog(@"确定码:---%@",newData);
     //写数据到蓝牙
     [[BlueToothManager getInstance] sendDataWithString:newData];
 }

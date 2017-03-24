@@ -117,7 +117,9 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     self.view.backgroundColor = RGBColor(240, 248, 252, 1.0);
+    [BlueWriteData sparyData];
 }
+
 -(void)setNavTitle:(NSString *)title
 {
     UIView * titileBgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 215, 44)];
