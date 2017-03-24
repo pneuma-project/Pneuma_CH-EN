@@ -12,8 +12,12 @@
 static NSString *CellID = @"cell";
 
 @interface DeviceStatusViewController ()<CustemBBI>
-
+{
+    NSData *timeData;
+}
 @property (nonatomic,strong)NSMutableArray *dataArr;
+
+@property (nonatomic,strong)NSTimer *timer;
 
 @end
 
@@ -56,6 +60,12 @@ static NSString *CellID = @"cell";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectSucceesAction) name:ConnectSucceed object:nil];
 }
 
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [self.timer invalidate];
+}
+
 //连接成功后向蓝牙写入上电信息
 -(void)connectSucceesAction
 {
@@ -63,7 +73,13 @@ static NSString *CellID = @"cell";
     NSString *weakDate = [DisplayUtils getTimestampDataWeek];
     NSMutableString *allStr = [[NSMutableString alloc] initWithString:time];
     [allStr insertString:weakDate atIndex:10];
-    NSData *timeData = [DisplayUtils bcdCodeString:allStr];
+    timeData = [DisplayUtils bcdCodeString:allStr];
+    
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(writeDataAction) userInfo:nil repeats:YES];
+}
+
+-(void)writeDataAction
+{
     //写数据到蓝牙
     [BlueWriteData bleConfigWithData:timeData];
 }

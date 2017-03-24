@@ -19,8 +19,8 @@ typedef enum _TTGState{
 }TTGState;
 
 #define kServiceUUID @"FFF0" //服务的UUID
-#define kNotifyUUID @"FFF3" //特征的UUID
-#define kReadWriteUUID @"FFF4" //特征的UUID
+#define kNotifyUUID @"FFF4" //特征的UUID
+#define kReadWriteUUID @"FFF3" //特征的UUID
 
 @interface BlueToothManager ()
 {
@@ -269,7 +269,7 @@ typedef enum _TTGState{
 //像蓝牙发送信息
 - (void)sendDataWithString:(NSData *)data
 {
-    [_per writeValue:data forCharacteristic:_char type:CBCharacteristicWriteWithResponse];
+    [_per writeValue:data forCharacteristic:_char type:CBCharacteristicWriteWithoutResponse];
 
 }
 
@@ -286,14 +286,14 @@ typedef enum _TTGState{
         for (NSInteger i = 0; i < data.length; i++) {
             newByte[i] = bytes[i];
         }
-        if (newByte[0] == 0xff) {
+        if (newByte[0] == 0xfd) {
             _state = stx_h;
         }
         
         switch (_state) {
             case stx_h:
             {
-                if (newByte[data.length - 1] == 0xAB) {
+                if (newByte[data.length - 1] == 0xab) {
                     Byte middleByte[data.length - 3];
                     for (NSInteger j = 0; j<data.length - 3; j++) {
                         
@@ -302,11 +302,12 @@ typedef enum _TTGState{
                     NSData *newData = [NSData dataWithBytes:middleByte
                                                      length:sizeof(middleByte)];
                     NSLog(@"newdata = %@",newData);
+                    [BlueWriteData confirmCodeData];
                     
                     _state = etx_e;
                     self.putData = nil;
                     
-                }else if (newByte[data.length - 1] != 0xAB){
+                }else if (newByte[data.length - 1] != 0xab){
                     
                     [self.putData appendData:data];
                     NSLog(@"*******%@",self.putData);
@@ -317,7 +318,7 @@ typedef enum _TTGState{
                 break;
             case pkt_h:
             {
-                if (newByte[data.length - 1] == 0xAB) {
+                if (newByte[data.length - 1] == 0xab) {
                     
                     [self.putData appendData:data];
                     NSLog(@"~~~~~%@",self.putData);
@@ -334,10 +335,12 @@ typedef enum _TTGState{
                                                      length:sizeof(newbt)];
                     
                     NSLog(@"newdata = %@",newData);
+                    [BlueWriteData confirmCodeData];
+                    
                     _state = etx_e;
                     self.putData = nil;
                     
-                }else if (newByte[data.length - 1] != 0xa5){
+                }else if (newByte[data.length - 1] != 0xab){
                     
                     [self.putData appendData:data];
                     NSLog(@"------%@",self.putData);
