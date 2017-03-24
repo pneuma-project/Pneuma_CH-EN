@@ -9,6 +9,7 @@
 #import "BlueToothManager.h"
 #import "Model.h"
 #import "FLWrapJson.h"
+#import "UserDefaultsUtils.h"
 
 typedef enum _TTGState{
     
@@ -294,8 +295,8 @@ typedef enum _TTGState{
             case stx_h:
             {
                 if (newByte[data.length - 1] == 0xab) {
-                    Byte middleByte[data.length - 3];
-                    for (NSInteger j = 0; j<data.length - 3; j++) {
+                    Byte middleByte[data.length - 2];
+                    for (NSInteger j = 0; j<data.length - 2; j++) {
                         
                         middleByte[j] = newByte[j+1];
                     }
@@ -324,15 +325,16 @@ typedef enum _TTGState{
                     NSLog(@"~~~~~%@",self.putData);
                     Byte *putDataByte = (Byte *)[self.putData bytes];
                     
-                    Byte newbt[self.putData.length-3];
+                    Byte newbt[self.putData.length-2];
                     
-                    for (NSInteger j = 0; j<self.putData.length - 3; j++) {
+                    for (NSInteger j = 0; j<self.putData.length - 2; j++) {
                         
                         newbt[j] = putDataByte[j+1];
                     }
                     
                     NSData *newData = [NSData dataWithBytes:newbt
                                                      length:sizeof(newbt)];
+                    
                     
                     NSLog(@"newdata = %@",newData);
                     [BlueWriteData confirmCodeData];

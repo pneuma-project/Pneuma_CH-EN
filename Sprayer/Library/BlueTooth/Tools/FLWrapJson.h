@@ -13,4 +13,7 @@
 //数据入口
 +(NSDictionary *)dataToNsDict:(NSData *)data;
 
+//喷雾器蓝牙数据入口
++(NSString *)dataToNSString:(NSData *)data;
+
 @end

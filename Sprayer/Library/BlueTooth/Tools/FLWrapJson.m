@@ -9,6 +9,7 @@
 #import "FLWrapJson.h"
 #import "FLWrapHeaderTool.h"
 #import "FLWrapBobyTool.h"
+#import "FLDrawDataTool.h"
 
 @implementation FLWrapJson
 
@@ -76,6 +77,19 @@
         
     }
     return allDict;
+}
+
+//喷雾器蓝牙数据入口
++(NSString *)dataToNSString:(NSData *)data
+{
+    NSMutableArray *dataArr = [[NSMutableArray alloc] init];
+    NSData *sprayData = [data subdataWithRange:NSMakeRange(11, 30)];
+    for (int i = 0; i<30; i++) {
+        NSInteger yaliData = [FLDrawDataTool NSDataToNSInteger:[sprayData subdataWithRange:NSMakeRange(0+i, 1)]];
+        [dataArr addObject:[NSString stringWithFormat:@"%ld",yaliData]];
+    }
+    NSString *yaliStr=[dataArr componentsJoinedByString:@","];
+    return yaliStr;
 }
 
 @end
