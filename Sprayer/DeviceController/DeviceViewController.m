@@ -10,7 +10,7 @@
 #import "lhScanQCodeViewController.h"
 #import "DeviceStatusViewController.h"
 #import "HistoricalDrugViewController.h"
-
+#import "SqliteUtils.h"
 @interface DeviceViewController ()
 {
     BlueToothManager *blueManager;
@@ -44,6 +44,13 @@
 
 -(void)bleIsOpenAction
 {
+    NSArray * arr = [SqliteUtils selectUserInfo];
+    if (arr.count == 0) {
+        
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"gotoLogin" object:nil userInfo:nil];
+        return;
+    }
+    
     DeviceStatusViewController *deviceStatusVC = [[DeviceStatusViewController alloc] init];
     [self.navigationController pushViewController:deviceStatusVC animated:YES];
 }

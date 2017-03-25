@@ -32,6 +32,21 @@
     [self addChildViewController:self.tabbarController];
     [self.view addSubview:self.tabbarController.view];
     [self.tabbarController didMoveToParentViewController:self];
+    
+    
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(shouldLoginAction) name:@"gotoLogin" object:nil];
+}
+
+-(void)shouldLoginAction
+{
+    
+    self.tabbarController.selectedIndex = 3;
+    self.tabbarController.tabBar.hidden = NO;
+    
 }
 
 //初始化tabbar
