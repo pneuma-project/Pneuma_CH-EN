@@ -162,19 +162,67 @@ static NSString *Cell_TWO = @"cellTwo";
         NSString *currentDateStr = [dateFormatter stringFromDate: detaildate];
         [timeArr1 addObject:currentDateStr];
 }
-    
-    
-    NSArray *spraysArr1 = dataArr[1];
-    NSArray *inspiratoryArr1 = dataArr[2];
+    //将数据按天数分类
+    NSMutableArray * timeArr2 = [NSMutableArray array];
+    NSMutableArray * spraysArr2 = [NSMutableArray array];
+    NSMutableArray * inspiratoryArr2 = [NSMutableArray array];
+    int index = 0;
+    int index1 = 0;
+    int index2 = 0;
+    int index3 = 0;
+    int index4 = 0;
+    NSString * dateStr = timeArr1[0];
+    [timeArr2 addObject:dateStr];
+    for (int i = 0; i<timeArr1.count; i++) {
+        
+        if ([dateStr isEqualToString:timeArr1[i]]) {
+            
+            NSArray * arr = [dataArr[1][i] componentsSeparatedByString:@"/"];
+            index1 += [arr[0] intValue];
+            index2 += [arr[1] intValue];
+                
+            index4 ++;
+            index3 =(index3 + [dataArr[2][i] intValue])/index4;
+        }else
+        {
+            
+            dateStr = timeArr1[i];
+            [timeArr2 addObject:dateStr];
+            [spraysArr2 addObject:[NSString stringWithFormat:@"%d/%d",index1,index2]];
+            [inspiratoryArr2 addObject:[NSString stringWithFormat:@"%d",index3]];
+            index  = i;
+            index1 = 0;
+            index2 = 0;
+            index4 = 0;
+            index3 = 0;
+
+        }
+        if (i==timeArr1.count -1) {
+            
+            NSArray * arr = [dataArr[1][i] componentsSeparatedByString:@"/"];
+            index1 += [arr[0] intValue];
+            index2 += [arr[1] intValue];
+            
+            index4 ++;
+            index3 =(index3 + [dataArr[2][i] intValue])/index4;
+
+            
+            [spraysArr2 addObject:[NSString stringWithFormat:@"%d/%d",index1,index2]];
+            [inspiratoryArr2 addObject:[NSString stringWithFormat:@"%d",index3]];
+
+        }
+        
+}
+   
        for (NSInteger i = 0; i < 2; i++) {
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
         NSMutableArray *array = [[NSMutableArray alloc] init];
         if (i == 0) {
-            for (NSInteger j = 0; j < timeArr1.count; j++) {
+            for (NSInteger j = 0; j < timeArr2.count; j++) {
                 HistoryModel *model = [[HistoryModel alloc] init];
-                model.time = timeArr1[j];
-                model.spray = spraysArr1[j];
-                model.inspiratory = inspiratoryArr1[j];
+                model.time = timeArr2[j];
+                model.spray = spraysArr2[j];
+                model.inspiratory = inspiratoryArr2[j];
                 [array addObject:model];
             }
             [dic setObject:array forKey:@"one"];
