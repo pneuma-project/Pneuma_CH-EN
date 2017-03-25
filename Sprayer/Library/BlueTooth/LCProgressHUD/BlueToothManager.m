@@ -11,7 +11,7 @@
 #import "FLWrapJson.h"
 #import "UserDefaultsUtils.h"
 #import "FLDrawDataTool.h"
-
+#import "SqliteUtils.h"
 typedef enum _TTGState{
     
     stx_h = 0,
@@ -338,6 +338,8 @@ typedef enum _TTGState{
                         NSString *timeStamp = [FLWrapJson dataToNSStringTime:[newData subdataWithRange:NSMakeRange(3, 7)]];
                         NSString *sprayData = [FLWrapJson dataToNSString:[newData subdataWithRange:NSMakeRange(10, 30)]];
                         NSString *sumData = [FLWrapJson dataSumToNSString:[newData subdataWithRange:NSMakeRange(10, 30)]];
+                        
+                        [self insertHistoryDb:@[timeStamp,sprayData,sumData]];
                     }else if (type == 1){//训练数据
                         [BlueWriteData confirmCodePresentData];
                         NSString *timeStamp = [FLWrapJson dataToNSStringTime:[newData subdataWithRange:NSMakeRange(3, 7)]];
@@ -403,7 +405,19 @@ typedef enum _TTGState{
     return isLinked;
 }
 
-//插入表
 
+
+//插入表
+-(void)insertHistoryDb:(NSArray *)dataArr
+{
+    int userID = [FLWrapJson requireUserIdFromDb];
+    if (userID==0) {
+        return;
+    }
+    NSString * sql = [NSString stringWithFormat:@"insert into historyBTDb(userid,nowtime,btData,sumBtData) values('%d','%@','%@','%@');",userID,dataArr[0],dataArr[1],dataArr[2]];
+    
+      [SqliteUtils insertHistoryBTInfo:sql];
+    
+}
 
 @end

@@ -10,7 +10,8 @@
 #import "FLWrapHeaderTool.h"
 #import "FLWrapBobyTool.h"
 #import "FLDrawDataTool.h"
-
+#import "SqliteUtils.h"
+#import "AddPatientInfoModel.h"
 @implementation FLWrapJson
 
 +(NSDictionary *)dataToNsDict:(NSData *)data
@@ -147,5 +148,23 @@
     return de;
 }
 
+
+#pragma mark ---- 获取用户ID
++(int)requireUserIdFromDb
+{
+    NSArray * arr = [SqliteUtils selectUserInfo];
+    if (arr.count!=0) {
+        for (AddPatientInfoModel * model in arr) {
+            
+            if (model.isSelect == 1) {
+               
+                return model.userId;
+            }
+            
+        }
+    }
+    return 0;
+    
+}
 
 @end

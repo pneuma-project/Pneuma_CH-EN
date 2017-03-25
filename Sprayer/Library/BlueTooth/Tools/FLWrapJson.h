@@ -25,4 +25,7 @@
 //BCD编码
 +(NSData *)bcdCodeString:(NSString *)bcdstr;
 
+//获取用户id
++(int)requireUserIdFromDb;
+
 @end
