@@ -98,6 +98,7 @@
     NSMutableArray *dataArr = [[NSMutableArray alloc] init];
     for (int i = 0; i<30; i++) {
         NSInteger yaliData = [FLDrawDataTool NSDataToNSInteger:[data subdataWithRange:NSMakeRange(0+i, 1)]];
+        yaliData = (yaliData * 130)/60;
         yaliData = [self yaliDataCalculate:yaliData];
         [dataArr addObject:[NSString stringWithFormat:@"%ld",yaliData]];
     }
@@ -118,6 +119,7 @@
     NSInteger sum = 0;
     for (int i = 0; i<30; i++) {
         NSInteger yaliData = [FLDrawDataTool NSDataToNSInteger:[data subdataWithRange:NSMakeRange(0+i, 1)]];
+        yaliData = (yaliData * 130)/60;
         yaliData = [self yaliDataCalculate:yaliData];
         sum += yaliData;
     }
