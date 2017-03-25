@@ -139,7 +139,7 @@
         
     }];
     UIAlertAction *alertAction2 = [UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [BlueWriteData startTrainData];
+        [BlueWriteData startTrainData] ;
         TrainingFirstViewController *firstVC = [[TrainingFirstViewController alloc] init];
         [self.navigationController pushViewController:firstVC animated:YES];
     }];

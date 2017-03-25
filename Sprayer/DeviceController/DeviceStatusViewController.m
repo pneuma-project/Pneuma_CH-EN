@@ -8,6 +8,7 @@
 
 #import "DeviceStatusViewController.h"
 #import "DeviceStatusModel.h"
+#import "FLWrapJson.h"
 
 static NSString *CellID = @"cell";
 
@@ -73,7 +74,7 @@ static NSString *CellID = @"cell";
     NSString *weakDate = [DisplayUtils getTimestampDataWeek];
     NSMutableString *allStr = [[NSMutableString alloc] initWithString:time];
     [allStr insertString:weakDate atIndex:10];
-    timeData = [DisplayUtils bcdCodeString:allStr];
+    timeData = [FLWrapJson bcdCodeString:allStr];
     
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(writeDataAction) userInfo:nil repeats:YES];
 }

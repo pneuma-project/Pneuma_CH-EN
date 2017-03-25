@@ -13,30 +13,6 @@
 
 @implementation DisplayUtils
 
-//BCD编码
-+(NSData *)bcdCodeString:(NSString *)bcdstr
-{
-    int leng = (int)bcdstr.length/2;
-    if (bcdstr.length%2 == 1) //判断奇偶数
-    {
-        leng +=1;
-    }
-    Byte bbte[leng];
-    for (int i = 0; i<leng-1; i++)
-    {
-        bbte[i] = (int)strtoul([[bcdstr substringWithRange:NSMakeRange(i*2, 2)]UTF8String], 0, 16);
-    }
-    if (bcdstr.length%2 == 1)
-    {
-        bbte[leng-1] = (int)strtoul([[bcdstr substringWithRange:NSMakeRange((leng - 1)*2, 1)]UTF8String], 0, 16) *16;
-    }else
-    {
-        bbte[leng-1] = (int)strtoul([[bcdstr substringWithRange:NSMakeRange((leng - 1)*2, 2)]UTF8String], 0, 16);
-    }
-    NSData *de = [[NSData alloc]initWithBytes:bbte length:leng];
-    return de;
-}
-
 /**
  *  自定义cell线条
  *

@@ -18,6 +18,8 @@
 
 +(void)sparyData;
 
-+(void)confirmCodeData;
++(void)confirmCodeHistoryData;
+
++(void)confirmCodePresentData;
 
 @end

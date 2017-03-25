@@ -10,9 +10,6 @@
 
 @interface DisplayUtils : NSObject
 
-//BCD编码
-+(NSData *)bcdCodeString:(NSString *)bcdstr;
-
 /**
  *  自定义cell线条
  *

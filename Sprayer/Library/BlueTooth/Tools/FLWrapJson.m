@@ -79,17 +79,73 @@
     return allDict;
 }
 
+#pragma mark - 喷雾器蓝牙数据
+//时间戳处理
++(NSString *)dataToNSStringTime:(NSData *)data
+{
+    NSString *timeStr = [NSString stringWithFormat:@"%@",[FLDrawDataTool hexStringFromData:[data subdataWithRange:NSMakeRange(0, 6)]]];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"ssmmHHddMMYY"];
+    NSDate *date = [formatter dateFromString:timeStr];
+    NSString *timeStamp = [[NSString alloc] initWithFormat:@"%ld",(long)date.timeIntervalSince1970];
+    return timeStamp;
+}
+
 //喷雾器蓝牙数据入口
 +(NSString *)dataToNSString:(NSData *)data
 {
     NSMutableArray *dataArr = [[NSMutableArray alloc] init];
-    NSData *sprayData = [data subdataWithRange:NSMakeRange(11, 30)];
     for (int i = 0; i<30; i++) {
-        NSInteger yaliData = [FLDrawDataTool NSDataToNSInteger:[sprayData subdataWithRange:NSMakeRange(0+i, 1)]];
+        NSInteger yaliData = [FLDrawDataTool NSDataToNSInteger:[data subdataWithRange:NSMakeRange(0+i, 1)]];
+        yaliData = [self yaliDataCalculate:yaliData];
         [dataArr addObject:[NSString stringWithFormat:@"%ld",yaliData]];
     }
     NSString *yaliStr=[dataArr componentsJoinedByString:@","];
     return yaliStr;
 }
+
+//压力公式计算
++(NSInteger)yaliDataCalculate:(NSInteger)yaliData
+{
+    float rate = 6.043*sqrtf(yaliData)-3.2146;
+    return rate;
+}
+
+//数据总和
++(NSString *)dataSumToNSString:(NSData *)data
+{
+    NSInteger sum = 0;
+    for (int i = 0; i<30; i++) {
+        NSInteger yaliData = [FLDrawDataTool NSDataToNSInteger:[data subdataWithRange:NSMakeRange(0+i, 1)]];
+        yaliData = [self yaliDataCalculate:yaliData];
+        sum += yaliData;
+    }
+    return [NSString stringWithFormat:@"%ld",sum];
+}
+
+//BCD编码
++(NSData *)bcdCodeString:(NSString *)bcdstr
+{
+    int leng = (int)bcdstr.length/2;
+    if (bcdstr.length%2 == 1) //判断奇偶数
+    {
+        leng +=1;
+    }
+    Byte bbte[leng];
+    for (int i = 0; i<leng-1; i++)
+    {
+        bbte[i] = (int)strtoul([[bcdstr substringWithRange:NSMakeRange(i*2, 2)]UTF8String], 0, 16);
+    }
+    if (bcdstr.length%2 == 1)
+    {
+        bbte[leng-1] = (int)strtoul([[bcdstr substringWithRange:NSMakeRange((leng - 1)*2, 1)]UTF8String], 0, 16) *16;
+    }else
+    {
+        bbte[leng-1] = (int)strtoul([[bcdstr substringWithRange:NSMakeRange((leng - 1)*2, 2)]UTF8String], 0, 16);
+    }
+    NSData *de = [[NSData alloc]initWithBytes:bbte length:leng];
+    return de;
+}
+
 
 @end

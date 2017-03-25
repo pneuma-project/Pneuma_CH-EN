@@ -68,13 +68,27 @@
     [[BlueToothManager getInstance] sendDataWithString:newData];
 }
 
-+(void)confirmCodeData
++(void)confirmCodeHistoryData
 {
     Byte dataByte[5];
     dataByte[0] = 0xff;//头部
     dataByte[1] = 0x0A;//类型
     dataByte[2] = 0x01;//长度
-    dataByte[3] = 0xAA;
+    dataByte[3] = 0x02;//历史确认码
+    dataByte[4] = 0xAB;//结束
+    NSData *newData = [NSData dataWithBytes:&dataByte length:sizeof(dataByte)];
+    NSLog(@"确定码:---%@",newData);
+    //写数据到蓝牙
+    [[BlueToothManager getInstance] sendDataWithString:newData];
+}
+
++(void)confirmCodePresentData
+{
+    Byte dataByte[5];
+    dataByte[0] = 0xff;//头部
+    dataByte[1] = 0x0A;//类型
+    dataByte[2] = 0x01;//长度
+    dataByte[3] = 0x01;//当前确认码
     dataByte[4] = 0xAB;//结束
     NSData *newData = [NSData dataWithBytes:&dataByte length:sizeof(dataByte)];
     NSLog(@"确定码:---%@",newData);

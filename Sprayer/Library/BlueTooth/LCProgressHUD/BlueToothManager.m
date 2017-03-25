@@ -10,6 +10,7 @@
 #import "Model.h"
 #import "FLWrapJson.h"
 #import "UserDefaultsUtils.h"
+#import "FLDrawDataTool.h"
 
 typedef enum _TTGState{
     
@@ -303,7 +304,6 @@ typedef enum _TTGState{
                     NSData *newData = [NSData dataWithBytes:middleByte
                                                      length:sizeof(middleByte)];
                     NSLog(@"newdata = %@",newData);
-                    [BlueWriteData confirmCodeData];
                     
                     _state = etx_e;
                     self.putData = nil;
@@ -314,7 +314,6 @@ typedef enum _TTGState{
                     NSLog(@"*******%@",self.putData);
                     _state = pkt_h;
                 }
-                
             }
                 break;
             case pkt_h:
@@ -326,18 +325,30 @@ typedef enum _TTGState{
                     Byte *putDataByte = (Byte *)[self.putData bytes];
                     
                     Byte newbt[self.putData.length-2];
-                    
                     for (NSInteger j = 0; j<self.putData.length - 2; j++) {
                         
                         newbt[j] = putDataByte[j+1];
                     }
-                    
                     NSData *newData = [NSData dataWithBytes:newbt
                                                      length:sizeof(newbt)];
-                    
-                    
                     NSLog(@"newdata = %@",newData);
-                    [BlueWriteData confirmCodeData];
+                    NSInteger type = [FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(1, 1)]];
+                    if (type == 2) {//历史数据
+                        [BlueWriteData confirmCodeHistoryData];
+                        NSString *timeStamp = [FLWrapJson dataToNSStringTime:[newData subdataWithRange:NSMakeRange(3, 7)]];
+                        NSString *sprayData = [FLWrapJson dataToNSString:[newData subdataWithRange:NSMakeRange(10, 30)]];
+                        NSString *sumData = [FLWrapJson dataSumToNSString:[newData subdataWithRange:NSMakeRange(10, 30)]];
+                    }else if (type == 1){//训练数据
+                        [BlueWriteData confirmCodePresentData];
+                        NSString *timeStamp = [FLWrapJson dataToNSStringTime:[newData subdataWithRange:NSMakeRange(3, 7)]];
+                        NSString *sprayData = [FLWrapJson dataToNSString:[newData subdataWithRange:NSMakeRange(10, 30)]];
+                        NSString *sumData = [FLWrapJson dataSumToNSString:[newData subdataWithRange:NSMakeRange(10, 30)]];
+                    }else if (type == 3){//当前实时喷雾
+                        [BlueWriteData confirmCodePresentData];
+                        NSString *timeStamp = [FLWrapJson dataToNSStringTime:[newData subdataWithRange:NSMakeRange(3, 7)]];
+                        NSString *sprayData = [FLWrapJson dataToNSString:[newData subdataWithRange:NSMakeRange(10, 30)]];
+                        NSString *sumData = [FLWrapJson dataSumToNSString:[newData subdataWithRange:NSMakeRange(10, 30)]];
+                    }
                     
                     _state = etx_e;
                     self.putData = nil;
@@ -391,5 +402,8 @@ typedef enum _TTGState{
 {
     return isLinked;
 }
+
+//插入表
+
 
 @end
