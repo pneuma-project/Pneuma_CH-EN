@@ -32,6 +32,19 @@
 {
     [super viewWillAppear:animated];
     self.navigationItem.leftBarButtonItem = [CustemNavItem initWithImage:[UIImage imageNamed:@"icon-back"] andTarget:self andinfoStr:@"first"];
+    NSArray *mutArr = [UserDefaultsUtils valueWithKey:@"trainDataArr"];
+    NSMutableArray *newArr = [[NSMutableArray alloc] init];
+    if (mutArr.count!=0) {
+        [newArr addObject:[mutArr firstObject]];
+        [newArr addObject:[mutArr lastObject]];
+    }
+    [UserDefaultsUtils saveValue:newArr forKey:@"trainDataArr"];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshViewAction) name:@"refreshView" object:nil];
+}
+
+-(void)refreshViewAction
+{
+    [self createView];
 }
 
 #pragma mark - CustemBBI代理方法
@@ -82,7 +95,6 @@
     for (NSString * str in mutArr) {
         allNum += [str intValue];
     }
-    allNum/=600;
     self.chartView = [[FLChartView alloc]initWithFrame:CGRectMake(0, 30, circleView.current_w, circleView.current_h-30)];
     self.chartView.backgroundColor = [UIColor clearColor];
     self.chartView.titleOfYStr = @"SLM";
@@ -122,8 +134,8 @@
     UILabel *totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(titleLabel.current_x_w, 15, circleView.current_w-titleLabel.current_x_w-10, 35)];
     totalLabel.textAlignment = NSTextAlignmentRight;
     totalLabel.textColor = RGBColor(8, 86, 184, 1.0);
-    NSInteger strlength = [NSString stringWithFormat:@"%dL",allNum].length;
-    NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"Total:%dL",allNum]];
+    NSInteger strlength = [NSString stringWithFormat:@"%.1fL",allNum/600.0].length;
+    NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"Total:%.1fL",allNum/600.0]];
     [AttributedStr addAttribute:NSFontAttributeName
                           value:[UIFont systemFontOfSize:13]
                           range:NSMakeRange(0, 6)];

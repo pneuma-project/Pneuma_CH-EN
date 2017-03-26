@@ -133,7 +133,7 @@
         yaliData = [self yaliDataCalculate:yaliData];
         sum += yaliData;
     }
-    return [NSString stringWithFormat:@"%ld",sum/600];
+    return [NSString stringWithFormat:@"%.2f",sum/600.0];
 }
 
 //BCD编码

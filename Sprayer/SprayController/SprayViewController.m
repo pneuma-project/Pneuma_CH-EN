@@ -41,7 +41,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavTitle:[DisplayUtils getTimestampData]];
-    [self selectDataFromDb];
+//    [self selectDataFromDb];
     //[self insertJiaData];
 }
 #pragma mark ---- 插入实时数据和历史数据
@@ -155,6 +155,23 @@
             }
         }
     }
+    [self selectDataFromDb];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshViewAction) name:@"refreshSprayView" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopNSSTimerAction) name:@"peripheralDidConnect" object:nil];
+}
+
+-(void)refreshViewAction
+{
+    for (UIView *subview in self.view.subviews) {
+        [subview removeFromSuperview];
+    }
+    [self selectDataFromDb];
+}
+
+-(void)stopNSSTimerAction
+{
+    [self.timer invalidate];
 }
 
 -(void)writeDataAction
@@ -217,7 +234,7 @@
     UILabel * referenceInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(referenceLabel.current_x_w+5, 10, 50,strSize.height)];
     referenceInfoLabel.textColor = RGBColor(0, 64, 181, 1.0);
     referenceInfoLabel.font = [UIFont systemFontOfSize:15];
-    referenceInfoLabel.text = [NSString stringWithFormat:@"%dL",allTrainTotalNum];
+    referenceInfoLabel.text = [NSString stringWithFormat:@"%.1fL",allTrainTotalNum/600.0];
     
     NSString * str1 = @"Current Total Volume:";
     strSize = [DisplayUtils stringWithWidth:str1 withFont:12];

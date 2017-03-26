@@ -179,10 +179,12 @@
             
          min = labs(min);
          max = (min<max?(max):(min));
+            
         if (max%5==0) {
                 max = max;
             }else
                 max = (max/5+1)*5;
+        max = 164;
         NSMutableArray *arr = [NSMutableArray array];
         NSMutableArray *minArr = [NSMutableArray array];
         if (max<=5) {
@@ -249,14 +251,15 @@
                 }
                 
             }
-
             
             min = labs(min);
             max = (min<max?(max):(min));
+            
             if (max%5==0) {
                 max = max;
             }else
                 max = (max/5+1)*5;
+            max = 164;
             NSMutableArray *arr = [NSMutableArray array];
             NSMutableArray *minArr = [NSMutableArray array];
             if (max<=5) {
@@ -321,6 +324,7 @@
                     max = max;
                 }else
                     max = (max/5+1)*5;
+                max = 164;
                 _yLineDataArr = nil;
                 NSMutableArray *arr = [NSMutableArray array];
                 if (max<=5) {
@@ -365,7 +369,7 @@
                         
                     }
                 }
-
+                
                 
                 _yLineDataArr = [arr copy];
                 
@@ -377,9 +381,6 @@
         }
             break;
     }
-    
-    
-    
 }
 
 

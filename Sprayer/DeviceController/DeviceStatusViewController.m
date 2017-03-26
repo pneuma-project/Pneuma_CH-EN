@@ -60,6 +60,8 @@ static NSString *CellID = @"cell";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectSucceesAction) name:ConnectSucceed object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopNSTimerAction) name:@"startTrain" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopNSTimerAction) name:@"sparyModel" object:nil];
 }
 
 -(void)viewDidDisappear:(BOOL)animated

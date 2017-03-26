@@ -19,5 +19,7 @@
 //中心数据显示标签
 @property (nonatomic, strong)UILabel *centerLable;
 @property (nonatomic, strong)UILabel *scoreLabel;
+//中心Label数值
+@property (nonatomic,copy)NSString *number;
 
 @end

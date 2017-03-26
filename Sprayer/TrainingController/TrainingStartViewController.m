@@ -78,9 +78,6 @@
     self.chartView.titleOfXStr = @"Sec";
    
     NSMutableArray * mutArr = [NSMutableArray array];
-    for (int i = 0; i<30; i++) {
-        [mutArr addObject:[NSString stringWithFormat:@"%d",arc4random()%50]];
-    }
     self.chartView.leftDataArr = mutArr;
     //求出数组的最大值
     int max = 0;

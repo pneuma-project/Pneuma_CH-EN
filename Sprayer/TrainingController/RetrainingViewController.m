@@ -78,7 +78,6 @@
         NSString * sql = [NSString stringWithFormat:@"update userInfo set trainData='%@' where id=%d ;",trainData,userId];
         [SqliteUtils updateUserInfo:sql];
 
-        
         self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(writeDataAction) userInfo:nil repeats:YES];
         [self.navigationController popToRootViewControllerAnimated:YES];
     }else if ([infoStr isEqualToString:@"two"]){
@@ -128,9 +127,6 @@
         }
         
     }
-    sum1/=600;
-    sum2/=600;
-    sum3/=600;
     if(mutArr.count!=0&&mutArr1.count!=0&&mutArr2.count!=0)
     {
        lineChart.valueArr = @[mutArr,mutArr1,mutArr2];
@@ -175,7 +171,7 @@
    
     
     NSArray * volumeArr = @[@"The first inspiratory volume",@"The second inspiratory volume",@"The third inspiratory volume"];
-    NSArray * volumeInfoArr = @[[NSString stringWithFormat:@"%dL",sum1],[NSString stringWithFormat:@"%dL",sum2],[NSString stringWithFormat:@"%dL",sum3]];
+    NSArray * volumeInfoArr = @[[NSString stringWithFormat:@"%.1fL",sum1/600.0],[NSString stringWithFormat:@"%.1fL",sum2/600.0],[NSString stringWithFormat:@"%.1fL",sum3/600.0]];
     NSArray * colorArr = @[ RGBColor(0, 83, 181, 1.0), RGBColor(238, 146, 1, 1.0),RGBColor(1, 238, 191, 1.0)];
     for (int i =0; i<3; i++) {
         
@@ -229,7 +225,6 @@
 
 -(void)saveBestData:(UITapGestureRecognizer *)tap
 {
-    
     for (int i = 200; i<203; i++) {
         UIView * view = [self.view viewWithTag:i];
         view.backgroundColor = [UIColor clearColor];
@@ -238,8 +233,6 @@
     view.backgroundColor = RGBColor(210, 238, 238, 1.0);
     index = 0;
     index = tap.view.tag - 100;
-    
-    
 }
 
 -(void)retrainClick

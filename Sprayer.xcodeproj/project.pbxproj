@@ -651,7 +651,6 @@
 		644C9C961E697DDA0030C3B9 /* SprayController */ = {
 			isa = PBXGroup;
 			children = (
-				BFE0CF5C1E825F3600613473 /* Model */,
 				644C9C971E697DDA0030C3B9 /* SprayViewController.h */,
 				644C9C981E697DDA0030C3B9 /* SprayViewController.m */,
 			);
@@ -686,6 +685,7 @@
 				644C9CA71E697DDA0030C3B9 /* BasicInformationViewController.h */,
 				644C9CA81E697DDA0030C3B9 /* BasicInformationViewController.m */,
 				644C9CA91E697DDA0030C3B9 /* UserViewController.h */,
+				BFE0CF5C1E825F3600613473 /* Model */,
 				644C9CAA1E697DDA0030C3B9 /* UserViewController.m */,
 				6425802E1E6D3E5C0019AD06 /* UserListViewController.h */,
 				6425802F1E6D3E5C0019AD06 /* UserListViewController.m */,
@@ -891,7 +891,8 @@
 				BFE0CF601E825F9D00613473 /* BlueToothDataModel.h */,
 				BFE0CF611E825F9D00613473 /* BlueToothDataModel.m */,
 			);
-			path = Model;
+			name = Model;
+			path = ../SprayController/Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -166,6 +166,7 @@ typedef enum _TTGState{
 {
     isLinked = NO;
     NSLog(@">>>外设连接断开连接 %@: %@\n", [peripheral name], [error localizedDescription]);
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"peripheralDidConnect" object:nil userInfo:nil];
 }
 
 //连接设备成功
@@ -382,8 +383,10 @@ typedef enum _TTGState{
                         }
                         
                         NSString * sql = [NSString stringWithFormat:@"insert into RealTimeBTData(userid,nowtime,btData,sumBtData) values('%d','%@','%@','%@');",userId,timeStamp,sprayData,sumData];
+                        NSString * sql1 = [NSString stringWithFormat:@"insert into historyBTDb(userid,nowtime,btData,sumBtData) values('%d','%@','%@','%@');",userId,timeStamp,sprayData,sumData];
                         [SqliteUtils insertRealBTInfo:sql];
-                        
+                        [SqliteUtils insertHistoryBTInfo:sql1];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshSprayView" object:nil userInfo:nil];
                     }
                     
                     _state = etx_e;

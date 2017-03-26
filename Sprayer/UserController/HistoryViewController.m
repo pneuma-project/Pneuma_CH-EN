@@ -131,11 +131,11 @@ static NSString *Cell_TWO = @"cellTwo";
             [sprayArr addObject:[NSString stringWithFormat:@"%ld/%d",allNumSprayArr.count,index]];
         }
         //----------算出喷雾的平均量---------//
-        int sum = 0;
+        float sum = 0;
         for (NSString * num in allNumSprayArr) {
-            sum += [num intValue];
+            sum += [num floatValue];
         }
-        [inspiratoryArr addObject:[NSString stringWithFormat:@"%ld",sum/allNumSprayArr.count]];
+        [inspiratoryArr addObject:[NSString stringWithFormat:@"%.2f",sum/allNumSprayArr.count]];
     }
    
     
@@ -168,8 +168,8 @@ static NSString *Cell_TWO = @"cellTwo";
     int index = 0;
     int index1 = 0;
     int index2 = 0;
-    int index3 = 0;
-    int index4 = 0;
+    float index3 = 0;
+    float index4 = 0;
     NSString * dateStr = timeArr1[0];
     [timeArr2 addObject:dateStr];
     for (int i = 0; i<timeArr1.count; i++) {
@@ -177,15 +177,15 @@ static NSString *Cell_TWO = @"cellTwo";
         if (i==timeArr1.count -1) {
             
             NSArray * arr = [dataArr[1][i] componentsSeparatedByString:@"/"];
-            index1 += [arr[0] intValue];
-            index2 += [arr[1] intValue];
+            index1 += [arr[0] floatValue];
+            index2 += [arr[1] floatValue];
             
             index4 ++;
-            index3 =(index3 + [dataArr[2][i] intValue])/index4;
+            index3 =(index3 + [dataArr[2][i] floatValue])/index4;
             
             
             [spraysArr2 addObject:[NSString stringWithFormat:@"%d/%d",index1,index2]];
-            [inspiratoryArr2 addObject:[NSString stringWithFormat:@"%d",index3]];
+            [inspiratoryArr2 addObject:[NSString stringWithFormat:@"%f",index3]];
             continue;
         }
 
@@ -196,14 +196,14 @@ static NSString *Cell_TWO = @"cellTwo";
             index2 += [arr[1] intValue];
                 
             index4 ++;
-            index3 =(index3 + [dataArr[2][i] intValue])/index4;
+            index3 =(index3 + [dataArr[2][i] floatValue])/index4;
         }else
         {
             
             dateStr = timeArr1[i];
             [timeArr2 addObject:dateStr];
             [spraysArr2 addObject:[NSString stringWithFormat:@"%d/%d",index1,index2]];
-            [inspiratoryArr2 addObject:[NSString stringWithFormat:@"%d",index3]];
+            [inspiratoryArr2 addObject:[NSString stringWithFormat:@"%f",index3]];
             index  = i;
             index1 = 0;
             index2 = 0;
@@ -214,23 +214,15 @@ static NSString *Cell_TWO = @"cellTwo";
         
     }
    
-       for (NSInteger i = 0; i < 2; i++) {
-        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-        NSMutableArray *array = [[NSMutableArray alloc] init];
-        if (i == 0) {
             for (NSInteger j = 0; j < timeArr2.count; j++) {
                 HistoryModel *model = [[HistoryModel alloc] init];
                 model.time = timeArr2[j];
                 model.spray = spraysArr2[j];
                 model.inspiratory = inspiratoryArr2[j];
-                [array addObject:model];
+                [self.dataArr addObject:model];
             }
-            [dic setObject:array forKey:@"one"];
-        }
-        [self.dataArr addObject:dic];
-    }
     
-}
+ }
 
 #pragma mark - CustemBBI代理方法
 -(void)BBIdidClickWithName:(NSString *)infoStr
@@ -266,14 +258,7 @@ static NSString *Cell_TWO = @"cellTwo";
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (self.dataArr) {
-        if (section == 0) {
-            return [[self.dataArr[0] objectForKey:@"one"] count]+1;
-        }else if (section == 1){
-            return [[self.dataArr[1] objectForKey:@"two"] count]+1;
-        }
-    }
-    return 0;
+        return self.dataArr.count+1;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -285,16 +270,11 @@ static NSString *Cell_TWO = @"cellTwo";
     }else{
         HistoryValueTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:Cell_TWO forIndexPath:indexPath];
         if (self.dataArr) {
-            NSArray *array;
-            if (indexPath.section == 0) {
-                array = [self.dataArr[indexPath.section] objectForKey:@"one"];
-            }else if (indexPath.section == 1){
-                array = [self.dataArr[indexPath.section] objectForKey:@"two"];
-            }
+         
             //祭FL挖的坑
             NSInteger index = indexPath.row - 1;
 
-            HistoryModel *model = array[index];
+            HistoryModel *model = self.dataArr[index];
             cell.timeLabel.text = model.time;
             cell.spraysLabel.text = model.spray;
             cell.inspiratoryLabel.text = model.inspiratory;

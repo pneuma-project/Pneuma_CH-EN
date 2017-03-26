@@ -23,6 +23,9 @@
     UIView *footView;
     UIView *circleView;
     int allTrainNum;
+    float allTrain;
+    
+    NSArray *dataArr;
 }
 
 @property (nonatomic,strong)FL_ScaleCircle *circleView;
@@ -39,16 +42,17 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     [self setNavTitle:@"Inspiratory Training"];
-    [self selectFromDb];
-    [self createHeadView];
-    [self createFootView];
-    
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    for (UIView *subview in self.view.subviews) {
+        [subview removeFromSuperview];
+    }
+    [self selectFromDb];
+    [self createHeadView];
+    [self createFootView];
     self.tabBarController.tabBar.hidden = NO;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"transparent"] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage imageNamed:@"transparent"]];
@@ -84,8 +88,9 @@
             
         }
     }
-    allTrainNum/=600;
-        self.chartView.leftDataArr = mutArr;
+//    allTrainNum/=600;
+    allTrain = allTrainNum/600.0;
+    dataArr = mutArr;
     //求出数组的最大值
     int max = 0;
     for (NSString * str in mutArr) {
@@ -125,7 +130,7 @@
     
     self.circleView = [[FL_ScaleCircle alloc] initWithFrame:CGRectMake(0, 0, screen_width/2-10, screen_width/2-10)];
     self.circleView.center = CGPointMake(screen_width/2, bgImageView.current_h/2);
-    self.circleView.scoreLabel.text = [NSString stringWithFormat:@"Total:%dL",allTrainNum];
+    self.circleView.number = [NSString stringWithFormat:@"%.1fL",allTrain];
     self.circleView.lineWith = 7.0;
     [bgImageView addSubview:self.circleView];
 }
@@ -160,7 +165,7 @@
     self.chartView.backgroundColor = [UIColor clearColor];
     self.chartView.titleOfYStr = @"SLM";
     self.chartView.titleOfXStr = @"Sec";
-
+    self.chartView.leftDataArr = dataArr;
     self.chartView.dataArrOfY = _yNumArr;//拿到Y轴坐标
     self.chartView.dataArrOfX = @[@"0",@"0.1",@"0.2",@"0.3",@"0.4",@"0.5",@"0.6",@"0.7",@"0.8",@"0.9",@"1.0",@"1.1",@"1.2",@"1.3",@"1.4",@"1.5",@"1.6",@"1.7",@"1.8",@"1.9",@"2.0",@"2.1",@"2.2",@"2.3",@"2.4",@"2.5",@"2.6",@"2.7",@"2.8",@"3.0"];//拿到X轴坐标
     [circleView addSubview:self.chartView];
@@ -169,8 +174,8 @@
     UILabel *totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(titleLabel.current_x_w, 15, circleView.current_w-titleLabel.current_x_w-10, 35)];
     totalLabel.textAlignment = NSTextAlignmentRight;
     totalLabel.textColor = RGBColor(8, 86, 184, 1.0);
-    NSInteger strlength = [NSString stringWithFormat:@"%dL",allTrainNum].length;
-    NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"Total:%dL",allTrainNum]];
+    NSInteger strlength = [NSString stringWithFormat:@"%.1fL",allTrain].length;
+    NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"Total:%.1fL",allTrain]];
     [AttributedStr addAttribute:NSFontAttributeName
                           value:[UIFont systemFontOfSize:13]
                           range:NSMakeRange(0, 6)];
