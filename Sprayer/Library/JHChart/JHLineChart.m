@@ -911,13 +911,13 @@
     
     ani.toValue = @1;
     
-    ani.duration = 2.0;
+    ani.duration = 0.0;
     
     ani.delegate = self;
 
-    if (colorIndex==1) {
-            [shapeLayer addAnimation:ani forKey:NSStringFromSelector(@selector(strokeEnd))];
-    }
+    //if (colorIndex==1) {
+ //           [shapeLayer addAnimation:ani forKey:NSStringFromSelector(@selector(strokeEnd))];
+   // }
 //    [shapeLayer addAnimation:ani forKey:NSStringFromSelector(@selector(strokeEnd))];
     
     [self.layer addSublayer:shapeLayer];
