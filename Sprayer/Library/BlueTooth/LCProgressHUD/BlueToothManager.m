@@ -149,6 +149,7 @@ typedef enum _TTGState{
 -(void)connectPeripheralWith:(CBPeripheral *)per
 {
     NSLog(@"开始连接外围设备...");
+    [LCProgressHUD showSuccessText:NSLocalizedString(@"Start connecting peripherals", nil)];
     [_manager connectPeripheral:per options:nil];
 }
 

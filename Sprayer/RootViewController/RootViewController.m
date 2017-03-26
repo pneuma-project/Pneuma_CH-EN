@@ -38,7 +38,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(shouldLoginAction) name:@"gotoLogin" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shouldLoginAction) name:@"gotoLogin" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shouldTrainAction) name:@"gotoTrain" object:nil];
 }
 
 -(void)shouldLoginAction
@@ -47,6 +48,12 @@
     self.tabbarController.selectedIndex = 3;
     self.tabbarController.tabBar.hidden = NO;
     
+}
+
+-(void)shouldTrainAction
+{
+    self.tabbarController.selectedIndex = 1;
+    self.tabbarController.tabBar.hidden = NO;
 }
 
 //初始化tabbar
@@ -86,7 +93,7 @@
             UITapGestureRecognizer *menutap=[[UITapGestureRecognizer alloc]initWithTarget:viewController action:@selector(MenuDidClick)];
             [scanImageView addGestureRecognizer:menutap];
             if (i == 0) {
-                viewController.navigationItem.rightBarButtonItem = menuBBI;
+//                viewController.navigationItem.rightBarButtonItem = menuBBI;
             }
             
             [array addObject:nav];

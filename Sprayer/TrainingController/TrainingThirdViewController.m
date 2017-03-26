@@ -10,7 +10,7 @@
 #import "FLChartView.h"
 #import "RetrainingViewController.h"
 #import "UserDefaultsUtils.h"
-@interface TrainingThirdViewController ()
+@interface TrainingThirdViewController ()<CustemBBI>
 {
     UIView *circleView;
 }
@@ -30,7 +30,13 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationItem setHidesBackButton:YES];
+    self.navigationItem.leftBarButtonItem = [CustemNavItem initWithImage:[UIImage imageNamed:@"icon-back"] andTarget:self andinfoStr:@"first"];
+}
+
+#pragma mark - CustemBBI代理方法
+-(void)BBIdidClickWithName:(NSString *)infoStr
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - 创建UI

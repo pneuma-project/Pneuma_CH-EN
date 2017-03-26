@@ -12,6 +12,7 @@
 #import "BlueToothDataModel.h"
 #import "AddPatientInfoModel.h"
 #import "DisplayUtils.h"
+
 #define k_MainBoundsWidth [UIScreen mainScreen].bounds.size.width
 #define k_MainBoundsHeight [UIScreen mainScreen].bounds.size.height
 @interface SprayViewController ()
@@ -30,6 +31,8 @@
 @property(nonatomic,strong)NSMutableArray * AllNumberArr;//柱状图实时数据总和
 
 @property(nonatomic,strong)NSMutableArray * numberArr;//单条实时曲线图的数据（30一组）
+
+@property (nonatomic,strong)NSTimer *timer;
 
 @end
 
@@ -130,6 +133,33 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     self.view.backgroundColor = RGBColor(240, 248, 252, 1.0);
+    NSArray * arr = [SqliteUtils selectUserInfo];
+    if (arr.count == 0) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Please login first" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"gotoLogin" object:nil userInfo:nil];
+        }];
+        [alertController addAction:alertAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }else {
+        for (AddPatientInfoModel * model in arr) {
+            if (model.isSelect == 1 && ![model.btData isEqualToString:@"(null)"]) {
+                self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(writeDataAction) userInfo:nil repeats:YES];
+            }else if (model.isSelect == 1 && [model.btData isEqualToString:@"(null)"]){
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Please go to training" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"gotoTrain" object:nil userInfo:nil];
+                }];
+                [alertController addAction:alertAction];
+                [self presentViewController:alertController animated:YES completion:nil];
+            }
+        }
+    }
+}
+
+-(void)writeDataAction
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"sparyModel" object:nil userInfo:nil];
     [BlueWriteData sparyData];
 }
 

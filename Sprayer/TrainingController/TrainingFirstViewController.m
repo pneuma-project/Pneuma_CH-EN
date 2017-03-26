@@ -10,11 +10,14 @@
 #import "FLChartView.h"
 #import "TrainingSecondViewController.h"
 #import "UserDefaultsUtils.h"
-@interface TrainingFirstViewController ()
+@interface TrainingFirstViewController ()<CustemBBI>
 {
     UIView *circleView;
 }
 @property (nonatomic,strong)FLChartView *chartView;
+
+@property (nonatomic,strong)NSTimer *timer;
+
 @end
 
 @implementation TrainingFirstViewController
@@ -30,7 +33,26 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationItem setHidesBackButton:YES];
+//    [self.navigationItem setHidesBackButton:YES];
+    self.navigationItem.leftBarButtonItem = [CustemNavItem initWithImage:[UIImage imageNamed:@"icon-back"] andTarget:self andinfoStr:@"first"];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(refreshView) userInfo:nil repeats:YES];
+}
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [self.timer invalidate];
+}
+
+-(void)refreshView
+{
+    [self.view reloadInputViews];
+}
+
+#pragma mark - CustemBBI代理方法
+-(void)BBIdidClickWithName:(NSString *)infoStr
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - 创建UI

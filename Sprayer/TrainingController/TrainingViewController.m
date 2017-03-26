@@ -47,6 +47,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = NO;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"transparent"] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage imageNamed:@"transparent"]];
     self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
@@ -190,6 +191,12 @@
 #pragma mark - 点击事件
 -(void)startBtnAction
 {
+    NSArray * arr = [SqliteUtils selectUserInfo];
+    if (arr.count == 0) {
+        
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"gotoLogin" object:nil userInfo:nil];
+        return;
+    }
     TrainingStartViewController *trainingStartVC = [[TrainingStartViewController alloc] init];
     [self.navigationController pushViewController:trainingStartVC animated:YES];
 }

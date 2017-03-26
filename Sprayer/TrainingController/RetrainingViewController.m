@@ -15,6 +15,8 @@
 {
     CGFloat  thirdVolumeH;
 }
+@property (nonatomic,strong)NSTimer *timer;
+
 @end
 
 @implementation RetrainingViewController
@@ -30,16 +32,33 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationItem setHidesBackButton:YES];
+//    [self.navigationItem setHidesBackButton:YES];
     self.navigationItem.rightBarButtonItem = [CustemNavItem initWithString:@"Save" andTarget:self andinfoStr:@"first"];
+    self.navigationItem.leftBarButtonItem = [CustemNavItem initWithImage:[UIImage imageNamed:@"icon-back"] andTarget:self andinfoStr:@"two"];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopNSTimerAction) name:@"sparyModel" object:nil];
+}
+
+-(void)stopNSTimerAction
+{
+    [self.timer invalidate];
 }
 
 #pragma mark - CustemBBI代理方法
 -(void)BBIdidClickWithName:(NSString *)infoStr
 {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    if ([infoStr isEqualToString:@"first"]) {
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(writeDataAction) userInfo:nil repeats:YES];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }else if ([infoStr isEqualToString:@"two"]){
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
+-(void)writeDataAction
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"stopTrain" object:nil userInfo:nil];
+    [BlueWriteData stopTrainData];
+}
 
 -(void)createView
 {

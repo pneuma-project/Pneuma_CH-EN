@@ -22,10 +22,10 @@
 -(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     [super pushViewController:viewController animated:animated];
-    //viewController.tabBarController.tabBar.hidden=NO;
+//    viewController.tabBarController.tabBar.hidden=NO;
     if (self.viewControllers.count>1) {
         viewController.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"更多"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(backViewController)];
-        viewController.tabBarController.tabBar.hidden=NO;
+        viewController.tabBarController.tabBar.hidden=YES;
     }else{
         
     }
@@ -40,6 +40,7 @@
     
     return viewControll;
 }
+
 -(void)backViewController
 {
     [self popViewControllerAnimated:YES];

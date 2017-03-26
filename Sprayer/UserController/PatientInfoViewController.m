@@ -53,7 +53,6 @@ static NSString *const cellId = @"cell";
     [self selectFromDataBase];
      isEdit = NO;
     addBtn.hidden = NO;
-    self.tabBarController.tabBar.hidden = YES;
     self.navigationItem.leftBarButtonItem = [CustemNavItem initWithImage:[UIImage imageNamed:@"icon-back"] andTarget:self andinfoStr:@"left"];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[self setNavRightItem]];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
