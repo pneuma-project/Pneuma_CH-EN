@@ -34,7 +34,10 @@
     self.navigationItem.leftBarButtonItem = [CustemNavItem initWithImage:[UIImage imageNamed:@"icon-back"] andTarget:self andinfoStr:@"first"];
     NSArray *mutArr = [UserDefaultsUtils valueWithKey:@"trainDataArr"];
     NSMutableArray *newArr = [[NSMutableArray alloc] init];
-    [newArr addObject:[mutArr lastObject]];
+    if (mutArr.count!=0) {
+         [newArr addObject:[mutArr lastObject]];
+    }
+   
     [UserDefaultsUtils saveValue:newArr forKey:@"trainDataArr"];
 }
 

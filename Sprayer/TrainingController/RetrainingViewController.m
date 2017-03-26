@@ -17,6 +17,7 @@
     int sum1;
     int sum2;
     int sum3;
+    NSInteger index;
 }
 @property (nonatomic,strong)NSTimer *timer;
 
@@ -50,6 +51,34 @@
 -(void)BBIdidClickWithName:(NSString *)infoStr
 {
     if ([infoStr isEqualToString:@"first"]) {
+        
+        NSArray * arr = [SqliteUtils selectUserInfo];
+        int userId = 0;
+        NSString * trainData;
+        if (arr.count!=0) {
+            for (AddPatientInfoModel * model in arr) {
+                
+                if (model.isSelect == 1) {
+                    userId = model.userId;
+                    continue;
+                }
+                
+            }
+        }
+        
+        if (index == 100) {
+            trainData = [UserDefaultsUtils valueWithKey:@"trainDataArr"][0];
+        }else if (index == 101)
+        {
+            trainData = [UserDefaultsUtils valueWithKey:@"trainDataArr"][1];
+        }else if (index == 102)
+        {
+            trainData =[UserDefaultsUtils valueWithKey:@"trainDataArr"][2];
+        }
+        NSString * sql = [NSString stringWithFormat:@"update userInfo set trainData='%@' where id=%d ;",trainData,userId];
+        [SqliteUtils updateUserInfo:sql];
+
+        
         self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(writeDataAction) userInfo:nil repeats:YES];
         [self.navigationController popToRootViewControllerAnimated:YES];
     }else if ([infoStr isEqualToString:@"two"]){
@@ -141,12 +170,24 @@
     [lineChart showAnimation];
     
     UIView * downView = [[UIView alloc]initWithFrame:CGRectMake(upBgView.current_x, upBgView.current_y_h+10, upBgView.current_w,screen_height-tabbarHeight-74-upBgView.current_h-10)];
+    
     downView.backgroundColor = [UIColor clearColor];
+   
     
     NSArray * volumeArr = @[@"The first inspiratory volume",@"The second inspiratory volume",@"The third inspiratory volume"];
     NSArray * volumeInfoArr = @[[NSString stringWithFormat:@"%dL",sum1],[NSString stringWithFormat:@"%dL",sum2],[NSString stringWithFormat:@"%dL",sum3]];
     NSArray * colorArr = @[ RGBColor(0, 83, 181, 1.0), RGBColor(238, 146, 1, 1.0),RGBColor(1, 238, 191, 1.0)];
     for (int i =0; i<3; i++) {
+        
+        UIView * bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 5+i*60, 250, 50)];
+        bgView.tag = 200+i;
+        if (i==0) {
+            bgView.backgroundColor = RGBColor(210, 238, 238, 1.0);
+        }
+        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(saveBestData:)];
+        tap.numberOfTapsRequired = 1;
+        [bgView addGestureRecognizer:tap];
+       
         UIView * colorView = [[UIView alloc]initWithFrame:CGRectMake(0, 5+i*60, 25, 10)];
         colorView.tag = 100+i;
         colorView.backgroundColor = colorArr[i];
@@ -157,15 +198,13 @@
         volumeLabel.font = [UIFont systemFontOfSize:12];
         volumeLabel.textAlignment = NSTextAlignmentLeft;
         volumeLabel.text = volumeArr[i];
-        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(saveBestData:)];
-        tap.numberOfTapsRequired = 1;
-        [colorView addGestureRecognizer:tap];
         
         UILabel * volumeInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(volumeLabel.current_x, volumeLabel.current_y_h, 180, 40)];
         volumeInfoLabel.font = [UIFont systemFontOfSize:16];
         volumeInfoLabel.textAlignment = NSTextAlignmentLeft;
         volumeInfoLabel.text = [NSString stringWithFormat:@"Total volume: %@",volumeInfoArr[i]];
         thirdVolumeH = volumeInfoLabel.current_y_h;
+        [downView addSubview:bgView];
         [downView addSubview:colorView];
         [downView addSubview:volumeLabel];
         [downView addSubview:volumeInfoLabel];
@@ -190,31 +229,16 @@
 
 -(void)saveBestData:(UITapGestureRecognizer *)tap
 {
-    NSArray * arr = [SqliteUtils selectUserInfo];
-    int userId = 0;
-    NSString * trainData;
-    if (arr.count!=0) {
-        for (AddPatientInfoModel * model in arr) {
-            
-            if (model.isSelect == 1) {
-                userId = model.userId;
-                continue;
-            }
-            
-        }
-    }
     
-    if (tap.view.tag == 100) {
-        trainData = [UserDefaultsUtils valueWithKey:@"trainDataArr"][0];
-    }else if (tap.view.tag == 101)
-    {
-        trainData = [UserDefaultsUtils valueWithKey:@"trainDataArr"][1];
-    }else if (tap.view.tag == 102)
-    {
-        trainData =[UserDefaultsUtils valueWithKey:@"trainDataArr"][2];
+    for (int i = 200; i<203; i++) {
+        UIView * view = [self.view viewWithTag:i];
+        view.backgroundColor = [UIColor clearColor];
     }
-     NSString * sql = [NSString stringWithFormat:@"update userInfo set trainData='%@' where id=%d ;",trainData,userId];
-    [SqliteUtils updateUserInfo:sql];
+    UIView * view = [self.view viewWithTag:tap.view.tag];
+    view.backgroundColor = RGBColor(210, 238, 238, 1.0);
+    index = 0;
+    index = tap.view.tag - 100;
+    
     
 }
 
