@@ -99,7 +99,9 @@
         }
         
     }
-    
+    sum1/=600;
+    sum2/=600;
+    sum3/=600;
     if(mutArr.count!=0&&mutArr1.count!=0&&mutArr2.count!=0)
     {
        lineChart.valueArr = @[mutArr,mutArr1,mutArr2];

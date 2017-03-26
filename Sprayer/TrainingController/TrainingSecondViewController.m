@@ -86,7 +86,7 @@
     for (NSString * str in mutArr) {
         allNum += [str intValue];
     }
-    
+    allNum/=600;
     self.chartView = [[FLChartView alloc]initWithFrame:CGRectMake(0, 30, circleView.current_w, circleView.current_h-30)];
     self.chartView.backgroundColor = [UIColor clearColor];
     self.chartView.titleOfYStr = @"SLM";
@@ -110,6 +110,7 @@
     {
         max = 10;
     }
+    max = 180;
     //得出y轴的坐标轴
     NSMutableArray * yNumArr = [NSMutableArray array];
     for (int i =10; i>=0;i--) {
@@ -124,13 +125,14 @@
     UILabel *totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(titleLabel.current_x_w, 15, circleView.current_w-titleLabel.current_x_w-10, 35)];
     totalLabel.textAlignment = NSTextAlignmentRight;
     totalLabel.textColor = RGBColor(8, 86, 184, 1.0);
+    NSInteger strlength = [NSString stringWithFormat:@"%dL",allNum].length;
     NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"Total:%dL",allNum]];
     [AttributedStr addAttribute:NSFontAttributeName
                           value:[UIFont systemFontOfSize:13]
                           range:NSMakeRange(0, 6)];
     [AttributedStr addAttribute:NSFontAttributeName
                           value:[UIFont systemFontOfSize:20]
-                          range:NSMakeRange(6, allNum/10+2)];
+                          range:NSMakeRange(6, strlength)];
     totalLabel.attributedText = AttributedStr;
     [circleView addSubview:totalLabel];
     
