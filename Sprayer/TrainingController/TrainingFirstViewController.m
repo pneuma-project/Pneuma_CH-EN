@@ -84,7 +84,15 @@
     [circleView addSubview:titleLabel];
     
     //曲线图
-    NSArray * mutArr = [[UserDefaultsUtils valueWithKey:@"trainDataArr"][0] componentsSeparatedByString:@","];;
+    NSArray * arr = [UserDefaultsUtils valueWithKey:@"trainDataArr"];
+    NSArray * mutArr;
+    if (arr.count != 0) {
+         mutArr = [[UserDefaultsUtils valueWithKey:@"trainDataArr"][0] componentsSeparatedByString:@","];
+    }else
+    {
+        mutArr = @[];
+    }
+    
     self.chartView = [[FLChartView alloc]initWithFrame:CGRectMake(0, 30, circleView.current_w, circleView.current_h-30)];
     self.chartView.backgroundColor = [UIColor clearColor];
     self.chartView.titleOfYStr = @"SLM";
