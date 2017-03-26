@@ -332,7 +332,7 @@ typedef enum _TTGState{
                     NSData *newData = [NSData dataWithBytes:newbt
                                                      length:sizeof(newbt)];
                     NSLog(@"newdata = %@",newData);
-                    NSInteger type = [FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(1, 1)]];
+                    NSInteger type = [FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(0, 1)]];
                     if (type == 2) {//历史数据
                         [BlueWriteData confirmCodeHistoryData];
                         NSString *timeStamp = [FLWrapJson dataToNSStringTime:[newData subdataWithRange:NSMakeRange(3, 7)]];
@@ -345,6 +345,7 @@ typedef enum _TTGState{
                         NSString *timeStamp = [FLWrapJson dataToNSStringTime:[newData subdataWithRange:NSMakeRange(3, 7)]];
                         NSString *sprayData = [FLWrapJson dataToNSString:[newData subdataWithRange:NSMakeRange(10, 30)]];
                         NSString *sumData = [FLWrapJson dataSumToNSString:[newData subdataWithRange:NSMakeRange(10, 30)]];
+                        
                     }else if (type == 3){//当前实时喷雾
                         [BlueWriteData confirmCodePresentData];
                         NSString *timeStamp = [FLWrapJson dataToNSStringTime:[newData subdataWithRange:NSMakeRange(3, 7)]];

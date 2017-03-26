@@ -44,13 +44,6 @@
 
 -(void)bleIsOpenAction
 {
-    NSArray * arr = [SqliteUtils selectUserInfo];
-    if (arr.count == 0) {
-        
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"gotoLogin" object:nil userInfo:nil];
-        return;
-    }
-    
     DeviceStatusViewController *deviceStatusVC = [[DeviceStatusViewController alloc] init];
     [self.navigationController pushViewController:deviceStatusVC animated:YES];
 }
@@ -63,6 +56,12 @@
     [self.navigationController pushViewController:scanVC animated:YES];
 }
 - (IBAction)DeviceConnectionAction:(id)sender {
+    NSArray * arr = [SqliteUtils selectUserInfo];
+    if (arr.count == 0) {
+        
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"gotoLogin" object:nil userInfo:nil];
+        return;
+    }
     blueManager = [BlueToothManager getInstance];
     [blueManager startScan];
 }

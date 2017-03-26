@@ -84,10 +84,16 @@
 //时间戳处理
 +(NSString *)dataToNSStringTime:(NSData *)data
 {
-    NSString *timeStr = [NSString stringWithFormat:@"%@",[FLDrawDataTool hexStringFromData:[data subdataWithRange:NSMakeRange(0, 6)]]];
+    NSString *timeStr = [FLDrawDataTool hexStringFromData:[data subdataWithRange:NSMakeRange(0, 6)]];
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    for (NSInteger i = timeStr.length; i > 0; i -= 2) {
+        [arr addObject:[timeStr substringWithRange:NSMakeRange(i-2, 2)]];
+    }
+    NSString *time = [arr componentsJoinedByString:@"-"];
+    
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"ssmmHHddMMYY"];
-    NSDate *date = [formatter dateFromString:timeStr];
+    [formatter setDateFormat:@"YY-MM-dd-HH-mm-ss"];
+    NSDate *date = [formatter dateFromString:time];
     NSString *timeStamp = [[NSString alloc] initWithFormat:@"%ld",(long)date.timeIntervalSince1970];
     return timeStamp;
 }
@@ -109,8 +115,12 @@
 //压力公式计算
 +(NSInteger)yaliDataCalculate:(NSInteger)yaliData
 {
-    float rate = 6.043*sqrtf(yaliData)-3.2146;
-    return rate;
+    if (yaliData <= 0) {
+        return 0;
+    }else{
+        float rate = 6.043*sqrtf(yaliData)-3.2146;
+        return rate;
+    }
 }
 
 //数据总和
@@ -123,7 +133,7 @@
         yaliData = [self yaliDataCalculate:yaliData];
         sum += yaliData;
     }
-    return [NSString stringWithFormat:@"%ld",sum];
+    return [NSString stringWithFormat:@"%ld",sum/600];
 }
 
 //BCD编码
