@@ -14,6 +14,9 @@
 @interface RetrainingViewController ()<CustemBBI>
 {
     CGFloat  thirdVolumeH;
+    int sum1;
+    int sum2;
+    int sum3;
 }
 @property (nonatomic,strong)NSTimer *timer;
 
@@ -76,9 +79,27 @@
     lineChart.contentInsets = UIEdgeInsetsMake(0, 25, 20, 10);
     lineChart.lineChartQuadrantType = JHLineChartQuadrantTypeFirstQuardrant;
     
-    NSArray * mutArr = [[UserDefaultsUtils valueWithKey:@"trainDataArr"][0] componentsSeparatedByString:@","];
-    NSArray * mutArr1 = [[UserDefaultsUtils valueWithKey:@"trainDataArr"][1] componentsSeparatedByString:@","];
-    NSArray * mutArr2 = [[UserDefaultsUtils valueWithKey:@"trainDataArr"][2] componentsSeparatedByString:@","];
+    NSArray * arr = [UserDefaultsUtils valueWithKey:@"trainDataArr"];
+    NSArray * mutArr; sum1 = 0;
+    NSArray * mutArr1; sum2 = 0;
+    NSArray * mutArr2; sum3 = 0;
+    if (arr.count == 3) {
+        mutArr = [[UserDefaultsUtils valueWithKey:@"trainDataArr"][0] componentsSeparatedByString:@","];
+         mutArr1 = [[UserDefaultsUtils valueWithKey:@"trainDataArr"][1] componentsSeparatedByString:@","];
+         mutArr2 = [[UserDefaultsUtils valueWithKey:@"trainDataArr"][2] componentsSeparatedByString:@","];
+        
+        for (NSString * str in mutArr ) {
+            sum1 += [str intValue];
+        }
+        for (NSString * str in mutArr1) {
+            sum2+= [str intValue];
+        }
+        for (NSString * str in mutArr2) {
+            sum3 += [str intValue];
+        }
+        
+    }
+    
     if(mutArr.count!=0&&mutArr1.count!=0&&mutArr2.count!=0)
     {
        lineChart.valueArr = @[mutArr,mutArr1,mutArr2];
@@ -121,7 +142,7 @@
     downView.backgroundColor = [UIColor clearColor];
     
     NSArray * volumeArr = @[@"The first inspiratory volume",@"The second inspiratory volume",@"The third inspiratory volume"];
-    NSArray * volumeInfoArr = @[@"4.2L",@"5.5L",@"5.5L"];
+    NSArray * volumeInfoArr = @[[NSString stringWithFormat:@"%dL",sum1],[NSString stringWithFormat:@"%dL",sum2],[NSString stringWithFormat:@"%dL",sum3]];
     NSArray * colorArr = @[ RGBColor(0, 83, 181, 1.0), RGBColor(238, 146, 1, 1.0),RGBColor(1, 238, 191, 1.0)];
     for (int i =0; i<3; i++) {
         UIView * colorView = [[UIView alloc]initWithFrame:CGRectMake(0, 5+i*60, 25, 10)];
