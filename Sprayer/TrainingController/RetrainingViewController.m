@@ -9,6 +9,8 @@
 #import "RetrainingViewController.h"
 #import "JHChartHeader.h"
 #import "UserDefaultsUtils.h"
+#import "SqliteUtils.h"
+#import "AddPatientInfoModel.h"
 @interface RetrainingViewController ()<CustemBBI>
 {
     CGFloat  thirdVolumeH;
@@ -58,7 +60,11 @@
     NSArray * mutArr = [[UserDefaultsUtils valueWithKey:@"trainDataArr"][0] componentsSeparatedByString:@","];
     NSArray * mutArr1 = [[UserDefaultsUtils valueWithKey:@"trainDataArr"][1] componentsSeparatedByString:@","];
     NSArray * mutArr2 = [[UserDefaultsUtils valueWithKey:@"trainDataArr"][2] componentsSeparatedByString:@","];
-    lineChart.valueArr = @[mutArr,mutArr1,mutArr2];
+    if(mutArr.count!=0&&mutArr1.count!=0&&mutArr2.count!=0)
+    {
+       lineChart.valueArr = @[mutArr,mutArr1,mutArr2];
+    }
+    
     lineChart.showYLevelLine = YES;
     lineChart.showYLine = NO;
     lineChart.showValueLeadingLine = NO;
@@ -100,6 +106,7 @@
     NSArray * colorArr = @[ RGBColor(0, 83, 181, 1.0), RGBColor(238, 146, 1, 1.0),RGBColor(1, 238, 191, 1.0)];
     for (int i =0; i<3; i++) {
         UIView * colorView = [[UIView alloc]initWithFrame:CGRectMake(0, 5+i*60, 25, 10)];
+        colorView.tag = 100+i;
         colorView.backgroundColor = colorArr[i];
         UILabel * volumeLabel = [[UILabel alloc]initWithFrame:CGRectMake(colorView.current_x_w+10, colorView.current_y, 180, 15)];
         CGPoint volumePoint = volumeLabel.center;
@@ -108,6 +115,10 @@
         volumeLabel.font = [UIFont systemFontOfSize:12];
         volumeLabel.textAlignment = NSTextAlignmentLeft;
         volumeLabel.text = volumeArr[i];
+        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(saveBestData:)];
+        tap.numberOfTapsRequired = 1;
+        [colorView addGestureRecognizer:tap];
+        
         UILabel * volumeInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(volumeLabel.current_x, volumeLabel.current_y_h, 180, 40)];
         volumeInfoLabel.font = [UIFont systemFontOfSize:16];
         volumeInfoLabel.textAlignment = NSTextAlignmentLeft;
@@ -134,6 +145,37 @@
     [self.view addSubview:downView];
   
 }
+
+-(void)saveBestData:(UITapGestureRecognizer *)tap
+{
+    NSArray * arr = [SqliteUtils selectUserInfo];
+    int userId = 0;
+    NSString * trainData;
+    if (arr.count!=0) {
+        for (AddPatientInfoModel * model in arr) {
+            
+            if (model.isSelect == 1) {
+                userId = model.userId;
+                continue;
+            }
+            
+        }
+    }
+    
+    if (tap.view.tag == 100) {
+        trainData = [UserDefaultsUtils valueWithKey:@"trainDataArr"][0];
+    }else if (tap.view.tag == 101)
+    {
+        trainData = [UserDefaultsUtils valueWithKey:@"trainDataArr"][1];
+    }else if (tap.view.tag == 102)
+    {
+        trainData =[UserDefaultsUtils valueWithKey:@"trainDataArr"][2];
+    }
+     NSString * sql = [NSString stringWithFormat:@"update userInfo set trainData='%@' where id=%d ;",trainData,userId];
+    [SqliteUtils updateUserInfo:sql];
+    
+}
+
 -(void)retrainClick
 {
     [self.navigationController popToRootViewControllerAnimated:YES];
