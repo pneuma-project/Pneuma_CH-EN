@@ -8,6 +8,7 @@
 
 #import "RetrainingViewController.h"
 #import "JHChartHeader.h"
+#import "UserDefaultsUtils.h"
 @interface RetrainingViewController ()<CustemBBI>
 {
     CGFloat  thirdVolumeH;
@@ -54,14 +55,9 @@
     lineChart.contentInsets = UIEdgeInsetsMake(0, 25, 20, 10);
     lineChart.lineChartQuadrantType = JHLineChartQuadrantTypeFirstQuardrant;
     
-    NSMutableArray * mutArr = [NSMutableArray array];
-    NSMutableArray * mutArr1 = [NSMutableArray array];
-    NSMutableArray * mutArr2 = [NSMutableArray array];
-    for (int i = 0; i<30; i++) {
-        [mutArr addObject:[NSString stringWithFormat:@"%d",arc4random()%50]];
-        [mutArr1 addObject:[NSString stringWithFormat:@"%d",arc4random()%50]];
-        [mutArr2 addObject:[NSString stringWithFormat:@"%d",arc4random()%50]];
-    }
+    NSArray * mutArr = [[UserDefaultsUtils valueWithKey:@"trainDataArr"][0] componentsSeparatedByString:@","];
+    NSArray * mutArr1 = [[UserDefaultsUtils valueWithKey:@"trainDataArr"][1] componentsSeparatedByString:@","];
+    NSArray * mutArr2 = [[UserDefaultsUtils valueWithKey:@"trainDataArr"][2] componentsSeparatedByString:@","];
     lineChart.valueArr = @[mutArr,mutArr1,mutArr2];
     lineChart.showYLevelLine = YES;
     lineChart.showYLine = NO;

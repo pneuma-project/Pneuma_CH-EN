@@ -218,7 +218,13 @@
     _slmLabel.font = [UIFont systemFontOfSize:12];
     _slmLabel.textColor = RGBColor(221, 222, 223, 1.0);
     /*     创建第一个折线图       */
-    [self createLineChart:0];
+    if (_numberArr.count == 0) {
+        [self createLineChart:0];
+    }else
+    {
+        [self createLineChart:_numberArr.count-1];
+    }
+    
     
     UILabel * SecLabel = [[UILabel alloc]initWithFrame:CGRectMake(_lineChart.current_x_w, _lineChart.current_y_h-30, _upBgView.current_w-_lineChart.current_x_w, 20)];
     SecLabel.text = @"Sec";

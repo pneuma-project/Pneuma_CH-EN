@@ -30,6 +30,7 @@ typedef enum _TTGState{
 }
 @property (nonatomic,assign)TTGState state;
 @property (nonatomic,strong)NSMutableData *putData;
+@property (nonatomic,strong)NSMutableArray * trainDataArr;
 
 @end
 
@@ -42,7 +43,13 @@ typedef enum _TTGState{
     }
     return _putData;
 }
-
+-(NSMutableArray *)trainDataArr
+{
+    if (!_trainDataArr) {
+        _trainDataArr = [NSMutableArray array];
+    }
+    return _trainDataArr;
+}
 //创建单例类
 +(instancetype)getInstance
 {
@@ -346,11 +353,19 @@ typedef enum _TTGState{
                         NSString *sprayData = [FLWrapJson dataToNSString:[newData subdataWithRange:NSMakeRange(10, 30)]];
                         NSString *sumData = [FLWrapJson dataSumToNSString:[newData subdataWithRange:NSMakeRange(10, 30)]];
                         
+                        [self.trainDataArr addObject:sprayData];
+                        if (_trainDataArr.count == 3) {
+                            
+                            [UserDefaultsUtils saveValue:_trainDataArr forKey:@"trainDataArr"];
+                            
+                        }
+                        
                     }else if (type == 3){//当前实时喷雾
                         [BlueWriteData confirmCodePresentData];
                         NSString *timeStamp = [FLWrapJson dataToNSStringTime:[newData subdataWithRange:NSMakeRange(3, 7)]];
                         NSString *sprayData = [FLWrapJson dataToNSString:[newData subdataWithRange:NSMakeRange(10, 30)]];
                         NSString *sumData = [FLWrapJson dataSumToNSString:[newData subdataWithRange:NSMakeRange(10, 30)]];
+                        
                     }
                     
                     _state = etx_e;

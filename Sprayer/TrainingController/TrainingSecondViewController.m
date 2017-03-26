@@ -9,7 +9,7 @@
 #import "TrainingSecondViewController.h"
 #import "FLChartView.h"
 #import "TrainingThirdViewController.h"
-
+#import "UserDefaultsUtils.h"
 @interface TrainingSecondViewController ()
 {
     UIView *circleView;
@@ -62,10 +62,7 @@
     [circleView addSubview:titleLabel];
     
     //曲线图
-    NSMutableArray * mutArr = [NSMutableArray array];
-    for (int i = 0; i<30; i++) {
-        [mutArr addObject:[NSString stringWithFormat:@"%d",arc4random()%50]];
-    }
+    NSArray * mutArr = [[UserDefaultsUtils valueWithKey:@"trainDataArr"][1] componentsSeparatedByString:@","];
     self.chartView = [[FLChartView alloc]initWithFrame:CGRectMake(0, 30, circleView.current_w, circleView.current_h-30)];
     self.chartView.backgroundColor = [UIColor clearColor];
     self.chartView.titleOfYStr = @"SLM";
