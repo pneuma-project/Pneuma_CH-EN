@@ -13,6 +13,8 @@
 #import "RetrainingViewController.h"
 #import "SqliteUtils.h"
 #import "AddPatientInfoModel.h"
+#import "UserDefaultsUtils.h"
+
 @interface TrainingViewController ()
 {
     UIView *view;
@@ -197,6 +199,7 @@
         [[NSNotificationCenter defaultCenter]postNotificationName:@"gotoLogin" object:nil userInfo:nil];
         return;
     }
+    [UserDefaultsUtils saveValue:@[] forKey:@"trainDataArr"];
     TrainingStartViewController *trainingStartVC = [[TrainingStartViewController alloc] init];
     [self.navigationController pushViewController:trainingStartVC animated:YES];
 }

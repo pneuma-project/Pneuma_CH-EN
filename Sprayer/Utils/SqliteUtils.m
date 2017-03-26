@@ -42,7 +42,7 @@ static sqlite3 *db = nil;
     //打开数据库成功后建立数据库内的表
     //操作命令的字符串
     //注意字符串的结束处有 ; 号
-    NSString * sql = @"create table if not exists userInfo (id integer primary key autoincrement,name text,phone text,sex text,age text,race text,height text,weight text,medical_history text,allergy_history text,device_serialnum text,relationship text,isselect integer,trainData text,macAddress text);";
+    NSString * sql = @"create table if not exists userInfo (id integer primary key autoincrement,name text,phone text,sex text,age text,race text,height text,weight text,medical_history text,allergy_history text,device_serialnum text,relationship text,isselect integer,trainData text);";
     char * errmsg;
     sqlite3_exec(db, sql.UTF8String, NULL, NULL, &errmsg);
     if (errmsg) {

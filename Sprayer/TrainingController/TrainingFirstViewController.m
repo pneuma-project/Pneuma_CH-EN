@@ -35,18 +35,17 @@
     [super viewWillAppear:animated];
 //    [self.navigationItem setHidesBackButton:YES];
     self.navigationItem.leftBarButtonItem = [CustemNavItem initWithImage:[UIImage imageNamed:@"icon-back"] andTarget:self andinfoStr:@"first"];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(refreshView) userInfo:nil repeats:YES];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshViewAction) name:@"refreshView" object:nil];
 }
 
 -(void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    [self.timer invalidate];
 }
 
--(void)refreshView
+-(void)refreshViewAction
 {
-    [self.view reloadInputViews];
+    [self createView];
 }
 
 #pragma mark - CustemBBI代理方法
@@ -87,7 +86,7 @@
     NSArray * arr = [UserDefaultsUtils valueWithKey:@"trainDataArr"];
     NSArray * mutArr;
     if (arr.count != 0) {
-         mutArr = [[UserDefaultsUtils valueWithKey:@"trainDataArr"][0] componentsSeparatedByString:@","];
+         mutArr = [[[UserDefaultsUtils valueWithKey:@"trainDataArr"] lastObject] componentsSeparatedByString:@","];
     }else
     {
         mutArr = @[];

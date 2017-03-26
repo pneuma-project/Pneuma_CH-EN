@@ -349,20 +349,18 @@ typedef enum _TTGState{
                         NSString *sumData = [FLWrapJson dataSumToNSString:[newData subdataWithRange:NSMakeRange(10, 30)]];
                         
                         [self insertHistoryDb:@[timeStamp,sprayData,sumData]];
-                    }else if (type == 1){//训练数据
+                    }else if (type == 3){//训练数据
                         [BlueWriteData confirmCodePresentData];
                         NSString *timeStamp = [FLWrapJson dataToNSStringTime:[newData subdataWithRange:NSMakeRange(3, 7)]];
                         NSString *sprayData = [FLWrapJson dataToNSString:[newData subdataWithRange:NSMakeRange(10, 30)]];
                         NSString *sumData = [FLWrapJson dataSumToNSString:[newData subdataWithRange:NSMakeRange(10, 30)]];
-                        
-                        [self.trainDataArr addObject:sprayData];
-                        if (_trainDataArr.count == 3) {
-                            
-                            [UserDefaultsUtils saveValue:_trainDataArr forKey:@"trainDataArr"];
-                            
-                        }
-                        
-                    }else if (type == 3){//当前实时喷雾
+//                        [self.trainDataArr addObject:sprayData];
+                        NSArray *mutArr = [UserDefaultsUtils valueWithKey:@"trainDataArr"];
+                        NSMutableArray *newArr = [NSMutableArray arrayWithArray:mutArr];
+                        [newArr addObject:sprayData];
+                        [UserDefaultsUtils saveValue:newArr forKey:@"trainDataArr"];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshView" object:nil userInfo:nil];
+                    }else if (type == 1){//当前实时喷雾
                         [BlueWriteData confirmCodePresentData];
                         NSString *timeStamp = [FLWrapJson dataToNSStringTime:[newData subdataWithRange:NSMakeRange(3, 7)]];
                         NSString *sprayData = [FLWrapJson dataToNSString:[newData subdataWithRange:NSMakeRange(10, 30)]];

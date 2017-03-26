@@ -31,6 +31,10 @@
 {
     [super viewWillAppear:animated];
     self.navigationItem.leftBarButtonItem = [CustemNavItem initWithImage:[UIImage imageNamed:@"icon-back"] andTarget:self andinfoStr:@"first"];
+    NSArray *mutArr = [UserDefaultsUtils valueWithKey:@"trainDataArr"];
+    NSMutableArray *newArr = [[NSMutableArray alloc] init];
+    [newArr addObject:[mutArr lastObject]];
+    [UserDefaultsUtils saveValue:newArr forKey:@"trainDataArr"];
 }
 
 #pragma mark - CustemBBI代理方法
