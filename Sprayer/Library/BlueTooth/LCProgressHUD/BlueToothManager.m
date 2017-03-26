@@ -12,6 +12,7 @@
 #import "UserDefaultsUtils.h"
 #import "FLDrawDataTool.h"
 #import "SqliteUtils.h"
+#import "AddPatientInfoModel.h"
 typedef enum _TTGState{
     
     stx_h = 0,
@@ -365,6 +366,24 @@ typedef enum _TTGState{
                         NSString *timeStamp = [FLWrapJson dataToNSStringTime:[newData subdataWithRange:NSMakeRange(3, 7)]];
                         NSString *sprayData = [FLWrapJson dataToNSString:[newData subdataWithRange:NSMakeRange(10, 30)]];
                         NSString *sumData = [FLWrapJson dataSumToNSString:[newData subdataWithRange:NSMakeRange(10, 30)]];
+                        
+                        //------------------------------//
+                        NSArray * arr = [SqliteUtils selectUserInfo];
+                        int  userId = 0;
+                        if (arr.count!=0) {
+                            for (AddPatientInfoModel * model in arr) {
+                                
+                                if (model.isSelect == 1) {
+                                  
+                                    userId = model.userId;
+                                    continue;
+                                }
+                                
+                            }
+                        }
+                        
+                        NSString * sql = [NSString stringWithFormat:@"insert into RealTimeBTData(userid,nowtime,btData,sumBtData) values('%d','%@','%@','%@');",userId,timeStamp,sprayData,sumData];
+                        [SqliteUtils insertRealBTInfo:sql];
                         
                     }
                     

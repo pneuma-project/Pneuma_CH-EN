@@ -51,7 +51,7 @@
                  nameLabel.text = model.name;
                 _addModel = [[AddPatientInfoModel alloc]init];
                 _addModel = model;
-                return;
+                continue;
             }
             
         }
