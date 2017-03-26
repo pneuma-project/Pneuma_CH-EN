@@ -97,7 +97,7 @@
     for (NSString * str in mutArr) {
         allNum += [str intValue];
     }
-    
+    allNum/=600;
     self.chartView = [[FLChartView alloc]initWithFrame:CGRectMake(0, 30, circleView.current_w, circleView.current_h-30)];
     self.chartView.backgroundColor = [UIColor clearColor];
     self.chartView.titleOfYStr = @"SLM";
