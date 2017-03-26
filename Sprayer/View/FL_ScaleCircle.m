@@ -54,7 +54,7 @@
     self.scoreLabel.textAlignment = NSTextAlignmentCenter;
     self.scoreLabel.backgroundColor = [UIColor clearColor];
     self.scoreLabel.textColor = RGBColor(83, 170, 241, 1.0);
-    self.scoreLabel.text = @"3.5L";
+    self.scoreLabel.text = @"0L";
     self.scoreLabel.font = [UIFont systemFontOfSize:30];
     [self addSubview: self.scoreLabel];
     //self.contentMode = UIViewContentModeRedraw;

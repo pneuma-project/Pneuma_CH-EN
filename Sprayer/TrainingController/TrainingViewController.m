@@ -20,10 +20,13 @@
     
     UIView *footView;
     UIView *circleView;
+    int allTrainNum;
 }
 
 @property (nonatomic,strong)FL_ScaleCircle *circleView;
 @property (nonatomic,strong)FLChartView *chartView;
+
+@property(nonatomic,strong)NSMutableArray * yNumArr;
 
 @end
 
@@ -34,8 +37,11 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     [self setNavTitle:@"Inspiratory Training"];
+    [self selectFromDb];
     [self createHeadView];
     [self createFootView];
+    
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -55,6 +61,54 @@
     self.navigationController.interactivePopGestureRecognizer.enabled=YES;
 }
 
+-(void)selectFromDb
+{
+    //曲线图
+    allTrainNum = 0;
+    NSArray * arr = [SqliteUtils selectUserInfo];
+    NSArray * mutArr;
+    if (arr.count!=0) {
+        for (AddPatientInfoModel * model in arr) {
+            
+            if (model.isSelect == 1) {
+                mutArr = [model.btData componentsSeparatedByString:@","];
+                NSArray * arr = [model.btData componentsSeparatedByString:@","];
+                for (NSString * str in arr) {
+                    allTrainNum += [str intValue];
+                }
+                continue;
+            }
+            
+        }
+    }
+    allTrainNum/=600;
+        self.chartView.leftDataArr = mutArr;
+    //求出数组的最大值
+    int max = 0;
+    for (NSString * str in mutArr) {
+        if (max<[str intValue]) {
+            max = [str intValue];
+        }
+    }
+    if (max>100) {
+        max = max/100+1;
+        max*=100;
+    }else if (max>10)
+    {
+        max = max/10+1;
+        max*=10;
+    }else
+    {
+        max = 10;
+    }
+    //得出y轴的坐标轴
+     _yNumArr = [NSMutableArray array];
+    for (int i =10; i>=0;i--) {
+        [_yNumArr addObject:[NSString stringWithFormat:@"%d",i*(max/10)]];
+    }
+
+}
+
 -(void)createHeadView
 {
     view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screen_width, screen_height/2)];
@@ -67,6 +121,7 @@
     
     self.circleView = [[FL_ScaleCircle alloc] initWithFrame:CGRectMake(0, 0, screen_width/2-10, screen_width/2-10)];
     self.circleView.center = CGPointMake(screen_width/2, bgImageView.current_h/2);
+    self.circleView.scoreLabel.text = [NSString stringWithFormat:@"Total:%dL",allTrainNum];
     self.circleView.lineWith = 7.0;
     [bgImageView addSubview:self.circleView];
 }
@@ -96,49 +151,13 @@
     titleLabel.textColor = RGBColor(8, 86, 184, 1.0);
     [circleView addSubview:titleLabel];
     
-    //曲线图
-    NSArray * arr = [SqliteUtils selectUserInfo];
-    NSArray * mutArr;
-    if (arr.count!=0) {
-        for (AddPatientInfoModel * model in arr) {
-            
-            if (model.isSelect == 1) {
-              mutArr = [model.btData componentsSeparatedByString:@","];
-                continue;
-            }
-            
-        }
-    }
-
+    
     self.chartView = [[FLChartView alloc]initWithFrame:CGRectMake(0, 30, circleView.current_w, circleView.current_h-30)];
     self.chartView.backgroundColor = [UIColor clearColor];
     self.chartView.titleOfYStr = @"SLM";
     self.chartView.titleOfXStr = @"Sec";
-    self.chartView.leftDataArr = mutArr;
-    //求出数组的最大值
-    int max = 0;
-    for (NSString * str in mutArr) {
-        if (max<[str intValue]) {
-            max = [str intValue];
-        }
-    }
-    if (max>100) {
-        max = max/100+1;
-        max*=100;
-    }else if (max>10)
-    {
-        max = max/10+1;
-        max*=10;
-    }else
-    {
-        max = 10;
-    }
-    //得出y轴的坐标轴
-    NSMutableArray * yNumArr = [NSMutableArray array];
-    for (int i =10; i>=0;i--) {
-        [yNumArr addObject:[NSString stringWithFormat:@"%d",i*(max/10)]];
-    }
-    self.chartView.dataArrOfY = yNumArr;//拿到Y轴坐标
+
+    self.chartView.dataArrOfY = _yNumArr;//拿到Y轴坐标
     self.chartView.dataArrOfX = @[@"0",@"0.1",@"0.2",@"0.3",@"0.4",@"0.5",@"0.6",@"0.7",@"0.8",@"0.9",@"1.0",@"1.1",@"1.2",@"1.3",@"1.4",@"1.5",@"1.6",@"1.7",@"1.8",@"1.9",@"2.0",@"2.1",@"2.2",@"2.3",@"2.4",@"2.5",@"2.6",@"2.7",@"2.8",@"3.0"];//拿到X轴坐标
     [circleView addSubview:self.chartView];
     
@@ -146,13 +165,13 @@
     UILabel *totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(titleLabel.current_x_w, 15, circleView.current_w-titleLabel.current_x_w-10, 35)];
     totalLabel.textAlignment = NSTextAlignmentRight;
     totalLabel.textColor = RGBColor(8, 86, 184, 1.0);
-    NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc]initWithString:@"Total:3.5L"];
+    NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"Total:%dL",allTrainNum]];
     [AttributedStr addAttribute:NSFontAttributeName
                           value:[UIFont systemFontOfSize:13]
                           range:NSMakeRange(0, 6)];
     [AttributedStr addAttribute:NSFontAttributeName
                           value:[UIFont systemFontOfSize:20]
-                          range:NSMakeRange(6, 4)];
+                          range:NSMakeRange(6, allTrainNum/10+2)];
     totalLabel.attributedText = AttributedStr;
     [circleView addSubview:totalLabel];
     

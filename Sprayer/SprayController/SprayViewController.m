@@ -15,7 +15,10 @@
 #define k_MainBoundsWidth [UIScreen mainScreen].bounds.size.width
 #define k_MainBoundsHeight [UIScreen mainScreen].bounds.size.height
 @interface SprayViewController ()
-
+{
+    int allTotalNum;
+    int allTrainTotalNum;
+}
 @property(nonatomic,strong)JHLineChart *lineChart;
 
 @property(nonatomic,strong)UIView * upBgView;
@@ -77,6 +80,8 @@
 #pragma mark ----- 查询数据
 -(void)selectDataFromDb
 {
+    allTotalNum = 0;
+    allTrainTotalNum = 0;
     //先查看是哪个用户登录并且调取他的最优数据
     int userId = 0;
     NSString * btDataStr;
@@ -94,6 +99,7 @@
     NSArray * arr1 = [btDataStr componentsSeparatedByString:@","];
     for (NSString * str in arr1) {
         [self.sprayDataArr addObject:str];
+        allTrainTotalNum += [str intValue];
     }
     //获取该用户的实时喷雾数据(30个为一组)
     NSArray * arr2 = [SqliteUtils selectRealBTInfo];
@@ -112,6 +118,7 @@
             allNum+=[str intValue];
         }
         [self.AllNumberArr addObject:[NSString stringWithFormat:@"%d",allNum]];
+        allTotalNum += allNum;
     }
     
     
@@ -180,7 +187,7 @@
     UILabel * referenceInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(referenceLabel.current_x_w+5, 10, 50,strSize.height)];
     referenceInfoLabel.textColor = RGBColor(0, 64, 181, 1.0);
     referenceInfoLabel.font = [UIFont systemFontOfSize:15];
-    referenceInfoLabel.text = @"4.2L";
+    referenceInfoLabel.text = [NSString stringWithFormat:@"%dL",allTrainTotalNum];
     
     NSString * str1 = @"Current Total Volume:";
     strSize = [DisplayUtils stringWithWidth:str1 withFont:12];
@@ -189,7 +196,7 @@
     currentLabel.textColor = RGBColor(0, 64, 181, 1.0);
     currentLabel.text = str1;
     UILabel * currentInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(currentLabel.current_x_w+5, referenceInfoLabel.current_y_h, 50, strSize.height)];
-    currentInfoLabel.text = @"4.2L";
+    currentInfoLabel.text = [NSString stringWithFormat:@"%dL",allTotalNum];
     currentInfoLabel.textColor = RGBColor(0, 64, 181, 1.0);
     currentInfoLabel.font = [UIFont systemFontOfSize:15];
     
