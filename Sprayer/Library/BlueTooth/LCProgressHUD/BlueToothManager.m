@@ -86,7 +86,6 @@ typedef enum _TTGState{
         NSLog(@"BLE已打开");
         [central scanForPeripheralsWithServices:nil options:nil];
         [LCProgressHUD showSuccessText:@"Bluetooth is on!"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:BleIsOpen object:nil userInfo:nil];
     }
     else
     {
@@ -178,6 +177,7 @@ typedef enum _TTGState{
     _per = peripheral;
     [_per setDelegate:self];
     [_per discoverServices:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:BleIsOpen object:nil userInfo:nil];
 }
 
 

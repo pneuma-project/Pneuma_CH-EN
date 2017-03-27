@@ -34,6 +34,7 @@
 {
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bleIsOpenAction) name:BleIsOpen object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(peripheralDidConnect) name:@"peripheralDidConnect" object:nil];
 }
 
 -(void)viewDidDisappear:(BOOL)animated
@@ -44,8 +45,14 @@
 
 -(void)bleIsOpenAction
 {
-    DeviceStatusViewController *deviceStatusVC = [[DeviceStatusViewController alloc] init];
-    [self.navigationController pushViewController:deviceStatusVC animated:YES];
+//    DeviceStatusViewController *deviceStatusVC = [[DeviceStatusViewController alloc] init];
+//    [self.navigationController pushViewController:deviceStatusVC animated:YES];
+    [self.isOnlineBtn setImage:[UIImage imageNamed:@"device-butn-on"] forState:UIControlStateNormal];
+}
+
+-(void)peripheralDidConnect
+{
+    [self.isOnlineBtn setImage:[UIImage imageNamed:@"device-butn-off"] forState:UIControlStateNormal];
 }
 
 #pragma mark - 扫描点击事件
