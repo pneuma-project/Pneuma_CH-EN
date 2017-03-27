@@ -78,6 +78,9 @@ static NSString *Cell_TWO = @"cellTwo";
         }
     }
     //对用户数据按日期降序排列
+    if (dataArr.count == 0) {
+        return @[];
+    }
     for (int  i =0; i<[dataArr count]-1; i++) {
         
         for (int j = i+1; j<[dataArr count]; j++) {
@@ -148,6 +151,9 @@ static NSString *Cell_TWO = @"cellTwo";
 {
     NSArray * dataArr = [self selectFromData];
     NSLog(@"%@",dataArr);
+    if (dataArr.count == 0) {
+        return;
+    }
     NSMutableArray *timeArr1 = [NSMutableArray array];
     //将时间戳转为应为缩写
     for (NSString * timeStr in dataArr[0]) {
@@ -162,6 +168,9 @@ static NSString *Cell_TWO = @"cellTwo";
         NSString *currentDateStr = [dateFormatter stringFromDate: detaildate];
         [timeArr1 addObject:currentDateStr];
     }
+    if (timeArr1.count == 0) {
+        return;
+    }
     //将数据按天数分类
     NSMutableArray * timeArr2 = [NSMutableArray array];
     NSMutableArray * spraysArr2 = [NSMutableArray array];
@@ -171,6 +180,7 @@ static NSString *Cell_TWO = @"cellTwo";
     int index2 = 0;
     float index3 = 0;
     float index4 = 0;
+    
     NSString * dateStr = timeArr1[0];
     [timeArr2 addObject:dateStr];
     for (int i = 0; i<timeArr1.count; i++) {
