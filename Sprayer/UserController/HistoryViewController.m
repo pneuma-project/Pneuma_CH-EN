@@ -116,15 +116,16 @@ static NSString *Cell_TWO = @"cellTwo";
         }else
         {
             //算出最佳训练模式数据的总量
-            int sum = 0;
+            float sum = 0;
             NSArray * numArr = [_model.btData componentsSeparatedByString:@","];
             for (NSString * num in numArr) {
-                sum+=[num intValue];
+                sum+=[num floatValue];
             }
+            sum/=600;
             //-----------得到有几次喷雾达标------//
             int index = 0;
             for (NSString * btData in allNumSprayArr) {
-                if ([btData intValue]>=sum) {
+                if ([btData floatValue]>=sum*0.8) {
                     index++;
                 }
             }
