@@ -43,8 +43,6 @@
     [super viewDidLoad];
     [self setNavTitle:[DisplayUtils getTimestampData]];
 
-   
-    
     
     //[self insertJiaData];
 }
@@ -110,6 +108,10 @@
     }
     //获取该用户的实时喷雾数据(30个为一组)
     NSArray * arr2 = [SqliteUtils selectRealBTInfo];
+    if (arr2.count == 0) {
+        [self showFirstQuardrant];
+        return;
+    }
     self.numberArr = [NSMutableArray array];
     for (BlueToothDataModel * model  in arr2) {
         if (model.userId == userId) {
@@ -147,7 +149,9 @@
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"YYYYMMdd"];
     NSDate *date = [NSDate date];
+     //NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:1490637722];
     NSString * timeStamp = [formatter stringFromDate:date];
+    
     
     
     NSArray * dataArr  = [SqliteUtils selectRealBTInfo];
@@ -160,6 +164,7 @@
         }else
         {
             [SqliteUtils deleteUserInfo];
+            [self selectDataFromDb];
             
         }
         
