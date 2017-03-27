@@ -12,13 +12,14 @@
 #import "BlueToothDataModel.h"
 #import "AddPatientInfoModel.h"
 #import "DisplayUtils.h"
-
+#import "UserDefaultsUtils.h"
 #define k_MainBoundsWidth [UIScreen mainScreen].bounds.size.width
 #define k_MainBoundsHeight [UIScreen mainScreen].bounds.size.height
 @interface SprayViewController ()
 {
     int allTotalNum;
     int allTrainTotalNum;
+    int lastTrainNum;
 }
 @property(nonatomic,strong)JHLineChart *lineChart;
 
@@ -41,7 +42,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavTitle:[DisplayUtils getTimestampData]];
-//    [self selectDataFromDb];
+
+   
+    
+    
     //[self insertJiaData];
 }
 #pragma mark ---- 插入实时数据和历史数据
@@ -116,14 +120,20 @@
     //获取该用户实时数据每条的总和
     self.AllNumberArr = [NSMutableArray array];
     for (NSArray * num in self.numberArr) {
-        int allNum = 0;
+        float allNum = 0;
         for (NSString * str in num) {
-            allNum+=[str intValue];
+            allNum+=[str floatValue];
         }
-        [self.AllNumberArr addObject:[NSString stringWithFormat:@"%d",allNum]];
+        [self.AllNumberArr addObject:[NSString stringWithFormat:@"%.2f",allNum/600.0]];
         allTotalNum += allNum;
     }
     
+    NSInteger count = _numberArr.count;
+    NSArray * lastTrainData = _numberArr[count-1];
+    lastTrainNum = 0;
+    for (NSString * str in lastTrainData) {
+        lastTrainNum += [str intValue];
+    }
     
     [self showFirstQuardrant];
 }
@@ -132,6 +142,30 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    //判断是否为新的一天，是则清除数据
+       
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"YYYYMMdd"];
+    NSDate *date = [NSDate date];
+    NSString * timeStamp = [formatter stringFromDate:date];
+    
+    
+    NSArray * dataArr  = [SqliteUtils selectRealBTInfo];
+    for (BlueToothDataModel * model in dataArr) {
+        
+        NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:[model.timestamp doubleValue]];
+        NSString *confromTimespStr = [formatter stringFromDate:confromTimesp];
+        if ([timeStamp isEqualToString:confromTimespStr]) {
+             [self selectDataFromDb];
+        }else
+        {
+            [SqliteUtils deleteUserInfo];
+            
+        }
+        
+    }
+    
+    
     self.view.backgroundColor = RGBColor(240, 248, 252, 1.0);
     NSArray * arr = [SqliteUtils selectUserInfo];
     if (arr.count == 0) {
@@ -243,7 +277,7 @@
     currentLabel.textColor = RGBColor(0, 64, 181, 1.0);
     currentLabel.text = str1;
     UILabel * currentInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(currentLabel.current_x_w+5, referenceInfoLabel.current_y_h, 50, strSize.height)];
-    currentInfoLabel.text = [NSString stringWithFormat:@"%dL",allTotalNum];
+    currentInfoLabel.text = [NSString stringWithFormat:@"%.1fL",lastTrainNum/600.0];
     currentInfoLabel.textColor = RGBColor(0, 64, 181, 1.0);
     currentInfoLabel.font = [UIFont systemFontOfSize:15];
     
@@ -311,11 +345,8 @@
     pointView.center = insPoint;
     
     UILabel * totalInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(downBgView.current_w-60, inspirationLabel.current_y+15, 60, 30)];
-    int num = 0;
-    for (NSString * str in _AllNumberArr) {
-        num += [str intValue];
-    }
-    totalInfoLabel.text = [NSString stringWithFormat:@"%dL",num];
+    
+    totalInfoLabel.text = [NSString stringWithFormat:@"%.1fL",allTotalNum/600.0];
     totalInfoLabel.textAlignment = NSTextAlignmentLeft;
     totalInfoLabel.textColor = RGBColor(0, 83, 181, 1.0);
     totalInfoLabel.font = [UIFont systemFontOfSize:16];
@@ -333,23 +364,24 @@
     yLineLabel.backgroundColor = RGBColor(204, 205, 206, 1.0);
     
     //获取总和
-    int sum = 0;
+    float sum = 0;
     for (NSString * str in _AllNumberArr) {
-        sum+=[str intValue];
+        sum+=[str floatValue];
     }
+//    sum/=600.0;
     //最大值取整数
-    if (sum/10000>0) {
+    if (sum/10000>1) {
         sum = sum/10000+1;
         sum *= 10000;
-    }else if (sum/1000>0)
+    }else if (sum/1000>1)
     {
         sum = sum/1000+1;
         sum *= 1000;
-    }else if (sum/100>0)
+    }else if (sum/100>1)
     {
         sum = sum/100+1;
         sum *= 100;
-    }else if (sum/10>0)
+    }else if (sum/10>1)
     {
         sum = sum/10+1;
         sum *= 10;
@@ -357,12 +389,13 @@
     {
         sum = 10;
     }
+    
     //--------------//
     for (int i =0; i<6; i++) {
         UILabel * yNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(yLineLabel.current_x-35,unitLabel.current_y_h+i*(yLineLabel.current_h/6)+15, 30, yLineLabel.current_h/6)];
         yNumLabel.textColor = RGBColor(204, 205, 206, 1.0);
         yNumLabel.textAlignment = NSTextAlignmentRight;
-        yNumLabel.text = [NSString stringWithFormat:@"%d",sum-i*(sum/5)];
+        yNumLabel.text = [NSString stringWithFormat:@"%.f",sum-i*(sum/5)];
         yNumLabel.font = [UIFont systemFontOfSize:10];
         [downBgView addSubview:yNumLabel];
  

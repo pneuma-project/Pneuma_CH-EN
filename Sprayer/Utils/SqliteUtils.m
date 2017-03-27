@@ -75,7 +75,7 @@ static sqlite3 *db = nil;
     //这里删除随机id 大于3 小于6的
     //操作代码(sql)
     //最好先判断能否进入数据库在执行操作 这里偷下懒
-    NSString * sql = @"delete from userInfo where id > 3 and id < 6;";
+    NSString * sql = @"delete from RealTimeBTData where id >= 0;";
     char * errmsg;
     sqlite3_exec(db, sql.UTF8String, NULL, NULL, &errmsg);
     if (errmsg) {

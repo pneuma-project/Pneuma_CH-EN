@@ -26,6 +26,8 @@
     float allTrain;
     
     NSArray *dataArr;
+    
+    BOOL isTrain;
 }
 
 @property (nonatomic,strong)FL_ScaleCircle *circleView;
@@ -82,6 +84,11 @@
                 NSArray * arr = [model.btData componentsSeparatedByString:@","];
                 for (NSString * str in arr) {
                     allTrainNum += [str intValue];
+                }
+                if (model.btData.length == 0) {
+                    isTrain = NO;
+                }else{
+                    isTrain = YES;
                 }
                 continue;
             }
@@ -189,7 +196,11 @@
     UIButton *startBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     startBtn.frame = CGRectMake(50, 0, screen_width-100, 40);
     startBtn.center = CGPointMake(screen_width/2, circleView.current_y_h+(footView.current_h-circleView.current_y_h-tabbarHeight)/2);
-    [startBtn setTitle:@"Start Training" forState:UIControlStateNormal];
+    if (isTrain == NO) {
+        [startBtn setTitle:@"Start Training" forState:UIControlStateNormal];
+    }else{
+        [startBtn setTitle:@"Restart Training" forState:UIControlStateNormal];
+    }
     [startBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [startBtn setBackgroundColor:RGBColor(16, 101, 182, 1.0)];
     startBtn.layer.mask = [DisplayUtils cornerRadiusGraph:startBtn withSize:CGSizeMake(startBtn.current_h/2, startBtn.current_h/2)];
