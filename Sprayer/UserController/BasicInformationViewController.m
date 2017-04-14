@@ -14,11 +14,12 @@
 #import "EditDetailPatSexInfoViewController.h"
 #import "EditDetailPatientInfoViewController.h"
 #import "ValuePickerView.h"
+#import "MedicalInfoViewController.h"
 static NSString *ONE_Cell = @"ONECELL";
 static NSString *TWO_Cell = @"TWOCELL";
 static NSString *THREE_Cell = @"THREECELL";
 
-@interface BasicInformationViewController ()<CustemBBI,sexDelegate,textInfoDelegate>
+@interface BasicInformationViewController ()<CustemBBI,sexDelegate,textInfoDelegate,medicalDelegate>
 {
     UIView *headView;
     UIImageView *headImageView;
@@ -180,8 +181,24 @@ static NSString *THREE_Cell = @"THREECELL";
         return cell;
     }else if (indexPath.section == 1){
         MedicalTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TWO_Cell forIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         medicalSize = [DisplayUtils stringWithWidth:cell.medicalLabel.text withFont:15];
         allergySize = [DisplayUtils stringWithWidth:cell.allergyLabel.text withFont:15];
+        if (_patientModel.medical.length != 0) {
+           cell.medicalLabel.text = _patientModel.medical;
+        }
+        if (_patientModel.allergy.length != 0) {
+            cell.allergyLabel.text = _patientModel.allergy;
+        }
+        //添加点击事件
+        cell.medicalLabel.userInteractionEnabled = YES;
+        UITapGestureRecognizer * tapOne = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(medicalTap)];
+        tapOne.numberOfTapsRequired = 1;
+        [cell.medicalLabel addGestureRecognizer:tapOne];
+        cell.allergyLabel.userInteractionEnabled = YES;
+        UITapGestureRecognizer * tapTwo = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(medicalTap)];
+        tapTwo.numberOfTapsRequired = 1;
+        [cell.allergyLabel addGestureRecognizer:tapTwo];
         return cell;
     }else if (indexPath.section == 2){
         UILabel *keyLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 2, screen_width/2, 40)];
@@ -262,6 +279,20 @@ static NSString *THREE_Cell = @"THREECELL";
     }else{
         return 44;
     }
+}
+#pragma mark   ----MedicalHistoryTap
+-(void)medicalTap
+{
+    MedicalInfoViewController * vc = [[MedicalInfoViewController alloc]init];
+    vc.medicalDelegate = self;
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
+-(void)sendTheMedical:(NSString *)str1 Aliergy:(NSString *)str2
+{
+    _patientModel.medical = str1;
+    _patientModel.allergy =str2;
+    [self.tableView reloadData];
 }
 #pragma mark --- sexDelegate
 -(void)showTheSex:(NSString *)sexStr
@@ -394,7 +425,7 @@ static NSString *THREE_Cell = @"THREECELL";
         }
     }
     
-    NSString * sql = [NSString stringWithFormat:@"update userInfo set name='%@',relationship='%@',sex='%@',age='%@',race='%@',height='%@',weight='%@',phone='%@',device_serialnum='%@',isselect=%ld where id=%ld ;",model.name,model.relationship,model.sex,model.age,model.race,model.height,model.weight,model.phone,model.deviceSerialNum,model.isSelect,dbIndex];
+    NSString * sql = [NSString stringWithFormat:@"update userInfo set name='%@',relationship='%@',sex='%@',age='%@',race='%@',height='%@',weight='%@',phone='%@',device_serialnum='%@',isselect=%ld,medical='%@',allergy='%@' where id=%ld;",model.name,model.relationship,model.sex,model.age,model.race,model.height,model.weight,model.phone,model.deviceSerialNum,model.isSelect,_patientModel.medical,_patientModel.allergy,dbIndex];
     BOOL ret = [SqliteUtils updateUserInfo:sql];
     if (ret == YES) {
         [self.navigationController popViewControllerAnimated:YES];
