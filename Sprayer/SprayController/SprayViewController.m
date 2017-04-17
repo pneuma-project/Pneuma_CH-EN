@@ -463,7 +463,7 @@
 {
      self.lineChart = [[JHLineChart alloc] initWithFrame:CGRectMake(5, _slmLabel.current_y_h, _upBgView.current_w-25, _upBgView.current_h-_slmLabel.current_y_h) andLineChartType:JHChartLineValueNotForEveryX];
     
-    _lineChart.xLineDataArr = @[@"0",@"0.1",@"0.2",@"0.3",@"0.4",@"0.5",@"0.6",@"0.7",@"0.8",@"0.9",@"1.0",@"1.1",@"1.2",@"1.3",@"1.4",@"1.5",@"1.6",@"1.7",@"1.8",@"1.9",@"2.0",@"2.1",@"2.2",@"2.3",@"2.4",@"2.5",@"2.6",@"2.7",@"2.8",@"3.0"];
+    _lineChart.xLineDataArr = @[@"0",@"0.1",@"0.2",@"0.3",@"0.4",@"0.5",@"0.6",@"0.7",@"0.8",@"0.9",@"1.0",@"1.1",@"1.2",@"1.3",@"1.4",@"1.5",@"1.6",@"1.7",@"1.8",@"1.9",@"2.0",@"2.1",@"2.2",@"2.3",@"2.4",@"2.5",@"2.6",@"2.7",@"2.8",@"2.9",@"3.0",@"3.1",@"3.2",@"3.3",@"3.4",@"3.5",@"3.6",@"3.7",@"3.8",@"3.9",@"4.0",@"4.1",@"4.2",@"4.3",@"4.4",@"4.5",@"4.6",@"4.7",@"4.8",@"4.9",@"5.0"];//拿到X轴坐标
     _lineChart.contentInsets = UIEdgeInsetsMake(0, 25, 20, 10);
     _lineChart.lineChartQuadrantType = JHLineChartQuadrantTypeFirstQuardrant;
     if (_numberArr.count!=0) {
