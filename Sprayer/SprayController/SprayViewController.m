@@ -152,8 +152,6 @@
      //NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:1490637722];
     NSString * timeStamp = [formatter stringFromDate:date];
     
-    
-    
     NSArray * dataArr  = [SqliteUtils selectRealBTInfo];
     for (BlueToothDataModel * model in dataArr) {
         

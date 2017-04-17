@@ -85,7 +85,7 @@
                 for (NSString * str in arr) {
                     allTrainNum += [str intValue];
                 }
-                if (model.btData.length == 0) {
+                if ([model.btData isEqualToString:@"(null)"]) {
                     isTrain = NO;
                 }else{
                     isTrain = YES;

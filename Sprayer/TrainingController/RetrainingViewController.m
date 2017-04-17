@@ -27,6 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    index = 100;
     // Do any additional setup after loading the view.
     self.view.backgroundColor = RGBColor(242, 250, 254, 1.0);
     [self setNavTitle:[DisplayUtils getTimestampData]];
@@ -65,7 +66,6 @@
                 
             }
         }
-        
         if (index == 100) {
             trainData = [UserDefaultsUtils valueWithKey:@"trainDataArr"][0];
         }else if (index == 101)
@@ -233,6 +233,8 @@
     view.backgroundColor = RGBColor(210, 238, 238, 1.0);
     index = 0;
     index = tap.view.tag - 100;
+    
+    
 }
 
 -(void)retrainClick
