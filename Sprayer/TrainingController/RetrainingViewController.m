@@ -27,6 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    index = 100;
     // Do any additional setup after loading the view.
     self.view.backgroundColor = RGBColor(242, 250, 254, 1.0);
     [self setNavTitle:[DisplayUtils getTimestampData]];
@@ -65,7 +66,6 @@
                 
             }
         }
-        
         if (index == 100) {
             trainData = [UserDefaultsUtils valueWithKey:@"trainDataArr"][0];
         }else if (index == 101)
@@ -103,7 +103,7 @@
     slmLabel.textColor = RGBColor(221, 222, 223, 1.0);
     /*     创建第一个折线图       */
     JHLineChart *lineChart = [[JHLineChart alloc] initWithFrame:CGRectMake(5, slmLabel.current_y_h, upBgView.current_w-25, upBgView.current_h-slmLabel.current_y_h) andLineChartType:JHChartLineValueNotForEveryX];
-     lineChart.xLineDataArr = @[@"0",@"0.1",@"0.2",@"0.3",@"0.4",@"0.5",@"0.6",@"0.7",@"0.8",@"0.9",@"1.0",@"1.1",@"1.2",@"1.3",@"1.4",@"1.5",@"1.6",@"1.7",@"1.8",@"1.9",@"2.0",@"2.1",@"2.2",@"2.3",@"2.4",@"2.5",@"2.6",@"2.7",@"2.8",@"3.0"];
+     lineChart.xLineDataArr = @[@"0",@"0.1",@"0.2",@"0.3",@"0.4",@"0.5",@"0.6",@"0.7",@"0.8",@"0.9",@"1.0",@"1.1",@"1.2",@"1.3",@"1.4",@"1.5",@"1.6",@"1.7",@"1.8",@"1.9",@"2.0",@"2.1",@"2.2",@"2.3",@"2.4",@"2.5",@"2.6",@"2.7",@"2.8",@"2.9",@"3.0",@"3.1",@"3.2",@"3.3",@"3.4",@"3.5",@"3.6",@"3.7",@"3.8",@"3.9",@"4.0",@"4.1",@"4.2",@"4.3",@"4.4",@"4.5",@"4.6",@"4.7",@"4.8",@"4.9",@"5.0"];//拿到X轴坐标
     lineChart.contentInsets = UIEdgeInsetsMake(0, 25, 20, 10);
     lineChart.lineChartQuadrantType = JHLineChartQuadrantTypeFirstQuardrant;
     
@@ -233,6 +233,8 @@
     view.backgroundColor = RGBColor(210, 238, 238, 1.0);
     index = 0;
     index = tap.view.tag - 100;
+    
+    
 }
 
 -(void)retrainClick

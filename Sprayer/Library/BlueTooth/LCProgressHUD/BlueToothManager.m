@@ -281,6 +281,9 @@ typedef enum _TTGState{
 //像蓝牙发送信息
 - (void)sendDataWithString:(NSData *)data
 {
+    if (_char == nil) {
+        return;
+    }
     [_per writeValue:data forCharacteristic:_char type:CBCharacteristicWriteWithoutResponse];
 
 }
@@ -346,15 +349,15 @@ typedef enum _TTGState{
                     if (type == 2) {//历史数据
                         [BlueWriteData confirmCodeHistoryData];
                         NSString *timeStamp = [FLWrapJson dataToNSStringTime:[newData subdataWithRange:NSMakeRange(3, 7)]];
-                        NSString *sprayData = [FLWrapJson dataToNSString:[newData subdataWithRange:NSMakeRange(10, 30)]];
-                        NSString *sumData = [FLWrapJson dataSumToNSString:[newData subdataWithRange:NSMakeRange(10, 30)]];
+                        NSString *sprayData = [FLWrapJson dataToNSString:[newData subdataWithRange:NSMakeRange(10, 50)]];
+                        NSString *sumData = [FLWrapJson dataSumToNSString:[newData subdataWithRange:NSMakeRange(10, 50)]];
                         
                         [self insertHistoryDb:@[timeStamp,sprayData,sumData]];
                     }else if (type == 3){//训练数据
                         [BlueWriteData confirmCodePresentData];
                         NSString *timeStamp = [FLWrapJson dataToNSStringTime:[newData subdataWithRange:NSMakeRange(3, 7)]];
-                        NSString *sprayData = [FLWrapJson dataToNSString:[newData subdataWithRange:NSMakeRange(10, 30)]];
-                        NSString *sumData = [FLWrapJson dataSumToNSString:[newData subdataWithRange:NSMakeRange(10, 30)]];
+                        NSString *sprayData = [FLWrapJson dataToNSString:[newData subdataWithRange:NSMakeRange(10, 50)]];
+                        NSString *sumData = [FLWrapJson dataSumToNSString:[newData subdataWithRange:NSMakeRange(10, 50)]];
 //                        [self.trainDataArr addObject:sprayData];
                         NSArray *mutArr = [UserDefaultsUtils valueWithKey:@"trainDataArr"];
                         NSMutableArray *newArr = [NSMutableArray arrayWithArray:mutArr];
@@ -364,8 +367,8 @@ typedef enum _TTGState{
                     }else if (type == 1){//当前实时喷雾
                         [BlueWriteData confirmCodePresentData];
                         NSString *timeStamp = [FLWrapJson dataToNSStringTime:[newData subdataWithRange:NSMakeRange(3, 7)]];
-                        NSString *sprayData = [FLWrapJson dataToNSString:[newData subdataWithRange:NSMakeRange(10, 30)]];
-                        NSString *sumData = [FLWrapJson dataSumToNSString:[newData subdataWithRange:NSMakeRange(10, 30)]];
+                        NSString *sprayData = [FLWrapJson dataToNSString:[newData subdataWithRange:NSMakeRange(10, 50)]];
+                        NSString *sumData = [FLWrapJson dataSumToNSString:[newData subdataWithRange:NSMakeRange(10, 50)]];
                         
                         //------------------------------//
                         NSArray * arr = [SqliteUtils selectUserInfo];

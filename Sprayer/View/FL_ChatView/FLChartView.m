@@ -388,8 +388,8 @@
     }
     
     for (int i = 0;i<= bottomArr.count;i++) {
-        if(i%5 == 0){
-        UILabel *leftLabel = [[UILabel alloc]initWithFrame:CGRectMake(i*Xmargin-5, (self.dataArrOfY.count-1)*Ymargin, Xmargin*2, 20)];
+        if(i%10 == 0){
+        UILabel *leftLabel = [[UILabel alloc]initWithFrame:CGRectMake(i*Xmargin, (self.dataArrOfY.count-1)*Ymargin, Xmargin*2+5, 20)];
         leftLabel.font = [UIFont systemFontOfSize:10.0f];
         leftLabel.textColor = RGBColor(57, 106, 195, 1.0);
         if (i==bottomArr.count) {
