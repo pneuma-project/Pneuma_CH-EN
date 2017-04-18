@@ -234,7 +234,6 @@
     index = 0;
     index = tap.view.tag - 100;
     
-    
 }
 
 -(void)retrainClick
