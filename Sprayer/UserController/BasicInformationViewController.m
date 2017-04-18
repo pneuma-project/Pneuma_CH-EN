@@ -184,10 +184,10 @@ static NSString *THREE_Cell = @"THREECELL";
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         medicalSize = [DisplayUtils stringWithWidth:cell.medicalLabel.text withFont:15];
         allergySize = [DisplayUtils stringWithWidth:cell.allergyLabel.text withFont:15];
-        if (_patientModel.medical.length != 0) {
+        if (![_patientModel.medical isEqualToString:@"(null)"]) {
            cell.medicalLabel.text = _patientModel.medical;
         }
-        if (_patientModel.allergy.length != 0) {
+        if (![_patientModel.allergy isEqualToString:@"(null)"]) {
             cell.allergyLabel.text = _patientModel.allergy;
         }
         //添加点击事件

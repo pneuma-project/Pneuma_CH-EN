@@ -112,7 +112,10 @@ static sqlite3 *db = nil;
             model.relationship = [NSString stringWithCString:(const char *)sqlite3_column_text(stmt, 11) encoding:NSUTF8StringEncoding];
             model.isSelect = [[NSString stringWithCString:(const char *)sqlite3_column_text(stmt, 12) encoding:NSUTF8StringEncoding]integerValue];
             model.btData = [NSString stringWithCString:(const char *)sqlite3_column_text(stmt, 13) encoding:NSUTF8StringEncoding];
+            model.medical = [NSString stringWithCString:(const char *)sqlite3_column_text(stmt, 14) encoding:NSUTF8StringEncoding];
+            model.allergy = [NSString stringWithCString:(const char *)sqlite3_column_text(stmt, 15) encoding:NSUTF8StringEncoding];
             [mutArr addObject:model];
+            
            
         }
     } else {
@@ -214,9 +217,7 @@ static sqlite3 *db = nil;
     
     return mutArr;
 
-    
-    
-    
+ 
 }
 
 //----------------历史蓝牙数据------------//
