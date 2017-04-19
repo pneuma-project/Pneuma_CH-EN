@@ -41,6 +41,7 @@
     dataByte[3] = [self intHexByte:[FLWrapJson requireUserIdFromDb]];//用户ID
     dataByte[4] = 0xAB;//结束
     NSData *newData = [NSData dataWithBytes:&dataByte length:sizeof(dataByte)];
+    NSLog(@"newdata === %@",newData);
     //写数据到蓝牙
     [[BlueToothManager getInstance] sendDataWithString:newData];
 }
@@ -55,6 +56,7 @@
     dataByte[3] = [self intHexByte:[FLWrapJson requireUserIdFromDb]];//用户ID
     dataByte[4] = 0xAB;//结束
     NSData *newData = [NSData dataWithBytes:&dataByte length:sizeof(dataByte)];
+    NSLog(@"newdata == %@",newData);
     //写数据到蓝牙
     [[BlueToothManager getInstance] sendDataWithString:newData];
 }

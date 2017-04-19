@@ -140,12 +140,8 @@
         {
             [SqliteUtils deleteUserInfo];
             [self selectDataFromDb];
-            
         }
-        
     }
-   
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshViewAction) name:@"refreshSprayView" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopNSTimerAction) name:@"startTrain" object:nil];
