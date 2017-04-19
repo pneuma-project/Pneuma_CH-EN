@@ -94,12 +94,24 @@
     }
     
     NSInteger count = _numberArr.count;
-    NSArray * lastTrainData = _numberArr[count-1];
-    lastTrainNum = 0;
-    for (NSString * str in lastTrainData) {
-        lastTrainNum += [str intValue];
+    if (count!=0) {
+        NSArray * lastTrainData = _numberArr[count-1];
+        lastTrainNum = 0;
+        for (NSString * str in lastTrainData) {
+            lastTrainNum += [str intValue];
+        }
+        
+    }else
+    {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Please go to training" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"gotoTrain" object:nil userInfo:nil];
+        }];
+        [alertController addAction:alertAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+ 
     }
-    
+   
     [self showFirstQuardrant];
 }
 
@@ -113,6 +125,11 @@
     NSString * timeStamp = [formatter stringFromDate:date];
     
     NSArray * dataArr  = [SqliteUtils selectRealBTInfo];
+    if(dataArr.count == 0)
+    {
+         [self selectDataFromDb];
+        return;
+    }
     for (BlueToothDataModel * model in dataArr) {
         
         NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:[model.timestamp doubleValue]];
@@ -127,7 +144,7 @@
         }
         
     }
-    [self selectDataFromDb];
+   
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshViewAction) name:@"refreshSprayView" object:nil];
     

@@ -27,6 +27,7 @@ static sqlite3 *db = nil;
     if (sqlite3_open(database_path.UTF8String, &db) == SQLITE_OK) {
         NSLog(@"打开用户数据库成功");
     }else{
+        sqlite3_close(db); 
         NSLog(@"打开用户数据库失败");
     }
 }
@@ -51,7 +52,7 @@ static sqlite3 *db = nil;
     if (errmsg) {
         NSLog(@"建表失败 -- %s",errmsg);
     }else{
-        NSLog(@"建表成功");
+        NSLog(@"建表用户成功");
     }
 }
 
