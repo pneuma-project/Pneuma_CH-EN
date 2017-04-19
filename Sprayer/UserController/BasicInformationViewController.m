@@ -154,7 +154,7 @@ static NSString *THREE_Cell = @"THREECELL";
                     valueLabel.text = _patientModel.name;
                     break;
                 case 1:
-                    valueLabel.text = _patientModel.relationship;
+                    valueLabel.text = _patientModel.phone;
                     break;
                 case 2:
                     valueLabel.text = _patientModel.sex;
@@ -230,7 +230,7 @@ static NSString *THREE_Cell = @"THREECELL";
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-     NSArray *titleArr = @[@"Name",@"Relationship",@"Sex",@"Age",@"Race",@"Height",@"Weight",@"Phone"];
+     NSArray *titleArr = @[@"Name",@"Phone",@"Sex",@"Age",@"Race",@"Height",@"Weight",@"Phone"];
     if (indexPath.section == 0) {
         if (indexPath.row == 2) {
             EditDetailPatSexInfoViewController * sexVC = [[EditDetailPatSexInfoViewController alloc]init];
