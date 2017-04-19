@@ -89,6 +89,7 @@
         [SqliteUtils updateUserInfo:sql];
 
         self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(writeDataAction) userInfo:nil repeats:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"stopTrain" object:nil userInfo:nil];
         [self.navigationController popToRootViewControllerAnimated:YES];
     }else if ([infoStr isEqualToString:@"two"]){
         [self.navigationController popViewControllerAnimated:YES];
@@ -97,7 +98,6 @@
 
 -(void)writeDataAction
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"stopTrain" object:nil userInfo:nil];
     [BlueWriteData stopTrainData];
 }
 
