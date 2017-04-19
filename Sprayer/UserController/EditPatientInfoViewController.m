@@ -378,7 +378,7 @@ static NSString *TWO_Cell = @"TWOCELL";
         
     }
     //查询是否第一次添加数据
-    NSArray * arr = [SqliteUtils selectUserInfo];
+    NSArray * arr = [[SqliteUtils sharedManager]selectUserInfo];
     if (arr.count == 1) {
         model.isSelect = 1;
     }else
@@ -386,7 +386,7 @@ static NSString *TWO_Cell = @"TWOCELL";
         model.isSelect = 0;
     }
     NSString * sql = [NSString stringWithFormat:@"update userInfo set name='%@',relationship='%@',sex='%@',age='%@',race='%@',height='%@',weight='%@',phone='%@',device_serialnum='%@',isselect=%ld where id=%ld ;",model.name,model.relationship,model.sex,model.age,model.race,model.height,model.weight,model.phone,model.deviceSerialNum,model.isSelect,_index];
-    BOOL ret = [SqliteUtils updateUserInfo:sql];
+    BOOL ret = [[SqliteUtils sharedManager]updateUserInfo:sql];
     if (ret == YES) {
         [self.navigationController popViewControllerAnimated:YES];
     }else

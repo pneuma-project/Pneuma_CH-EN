@@ -164,7 +164,7 @@
 #pragma mark ---- 获取用户ID
 +(int)requireUserIdFromDb
 {
-    NSArray * arr = [SqliteUtils selectUserInfo];
+    NSArray * arr = [[SqliteUtils sharedManager]selectUserInfo];
     if (arr.count!=0) {
         for (AddPatientInfoModel * model in arr) {
             

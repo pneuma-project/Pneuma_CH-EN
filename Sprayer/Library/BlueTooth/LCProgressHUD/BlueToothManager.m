@@ -377,7 +377,7 @@ typedef enum _TTGState{
                         NSString *sumData = [FLWrapJson dataSumToNSString:[newData subdataWithRange:NSMakeRange(10, 50)]];
                         
                         //------------------------------//
-                        NSArray * arr = [SqliteUtils selectUserInfo];
+                        NSArray * arr = [[SqliteUtils sharedManager]selectUserInfo];
                         int  userId = 0;
                         if (arr.count!=0) {
                             for (AddPatientInfoModel * model in arr) {
@@ -393,8 +393,8 @@ typedef enum _TTGState{
                         
                         NSString * sql = [NSString stringWithFormat:@"insert into RealTimeBTData(userid,nowtime,btData,sumBtData) values('%d','%@','%@','%@');",userId,timeStamp,sprayData,sumData];
                         NSString * sql1 = [NSString stringWithFormat:@"insert into historyBTDb(userid,nowtime,btData,sumBtData) values('%d','%@','%@','%@');",userId,timeStamp,sprayData,sumData];
-                        [SqliteUtils insertRealBTInfo:sql];
-                        [SqliteUtils insertHistoryBTInfo:sql1];
+                        [[SqliteUtils sharedManager]insertRealBTInfo:sql];
+                        [[SqliteUtils sharedManager]insertHistoryBTInfo:sql1];
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshSprayView" object:nil userInfo:nil];
                     }
                     
@@ -462,7 +462,7 @@ typedef enum _TTGState{
     }
     NSString * sql = [NSString stringWithFormat:@"insert into historyBTDb(userid,nowtime,btData,sumBtData) values('%d','%@','%@','%@');",userID,dataArr[0],dataArr[1],dataArr[2]];
     
-      [SqliteUtils insertHistoryBTInfo:sql];
+      [[SqliteUtils sharedManager]insertHistoryBTInfo:sql];
     
 }
 

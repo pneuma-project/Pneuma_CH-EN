@@ -42,7 +42,7 @@ static NSString *const cellId = @"cell";
 #pragma mark ----查询本地数据库
 -(void)selectFromDataBase
 {
-    self.dataArr = [SqliteUtils selectUserInfo];
+    self.dataArr = [[SqliteUtils sharedManager]selectUserInfo];
     [self.tableView reloadData];
 }
 
@@ -97,7 +97,7 @@ static NSString *const cellId = @"cell";
 #pragma mark ----添加成员点击事件
 -(void)addClick
 {
-    NSArray * arr = [SqliteUtils selectUserInfo];
+    NSArray * arr = [[SqliteUtils sharedManager]selectUserInfo];
     if (arr.count==5) {
         [DisplayUtils alert:@"You can only add up to five members" viewController:self];
         return;
@@ -176,11 +176,11 @@ static NSString *const cellId = @"cell";
             
             if (i==indexPath.row+1) {
                 NSString * sql = [NSString stringWithFormat:@"update userInfo set isselect = 1 where id = %ld;",i];
-                [SqliteUtils updateUserInfo:sql];
+                [[SqliteUtils sharedManager]updateUserInfo:sql];
             }else
             {
                 NSString * sql = [NSString stringWithFormat:@"update userInfo set isselect = 0 where id = %ld;",i];
-                [SqliteUtils updateUserInfo:sql];
+                [[SqliteUtils sharedManager]updateUserInfo:sql];
             }
             
         }

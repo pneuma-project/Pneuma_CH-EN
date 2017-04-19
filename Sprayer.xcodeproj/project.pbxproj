@@ -123,6 +123,12 @@
 		BFDAC7941E7274FA00E17D7B /* JHWaveChart.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDAC7871E7274FA00E17D7B /* JHWaveChart.m */; };
 		BFDAC7A51E769D3A00E17D7B /* AddPatientInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDAC7A41E769D3A00E17D7B /* AddPatientInfoModel.m */; };
 		BFE0CF621E825F9D00613473 /* BlueToothDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE0CF611E825F9D00613473 /* BlueToothDataModel.m */; };
+		BFF420961EA76B630093BE8D /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF4208B1EA76B630093BE8D /* FMDatabase.m */; };
+		BFF420971EA76B630093BE8D /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF4208D1EA76B630093BE8D /* FMDatabaseAdditions.m */; };
+		BFF420981EA76B630093BE8D /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF4208F1EA76B630093BE8D /* FMDatabasePool.m */; };
+		BFF420991EA76B630093BE8D /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF420911EA76B630093BE8D /* FMDatabaseQueue.m */; };
+		BFF4209A1EA76B630093BE8D /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF420941EA76B630093BE8D /* FMResultSet.m */; };
+		BFF4209B1EA76B630093BE8D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BFF420951EA76B630093BE8D /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -356,6 +362,18 @@
 		BFDAC7A41E769D3A00E17D7B /* AddPatientInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPatientInfoModel.m; sourceTree = "<group>"; };
 		BFE0CF601E825F9D00613473 /* BlueToothDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlueToothDataModel.h; sourceTree = "<group>"; };
 		BFE0CF611E825F9D00613473 /* BlueToothDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlueToothDataModel.m; sourceTree = "<group>"; };
+		BFF4208A1EA76B630093BE8D /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		BFF4208B1EA76B630093BE8D /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		BFF4208C1EA76B630093BE8D /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		BFF4208D1EA76B630093BE8D /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		BFF4208E1EA76B630093BE8D /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		BFF4208F1EA76B630093BE8D /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		BFF420901EA76B630093BE8D /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		BFF420911EA76B630093BE8D /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		BFF420921EA76B630093BE8D /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		BFF420931EA76B630093BE8D /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		BFF420941EA76B630093BE8D /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		BFF420951EA76B630093BE8D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -564,6 +582,7 @@
 		644C9C2C1E6575E10030C3B9 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				BFF420891EA76B320093BE8D /* FMDB */,
 				6426201C1E80B56200263124 /* BlueTooth */,
 				BFDAC76C1E7274FA00E17D7B /* JHChart */,
 				642580021E6D0CB90019AD06 /* JSONModel */,
@@ -900,6 +919,25 @@
 			path = ../SprayController/Model;
 			sourceTree = "<group>";
 		};
+		BFF420891EA76B320093BE8D /* FMDB */ = {
+			isa = PBXGroup;
+			children = (
+				BFF4208A1EA76B630093BE8D /* FMDatabase.h */,
+				BFF4208B1EA76B630093BE8D /* FMDatabase.m */,
+				BFF4208C1EA76B630093BE8D /* FMDatabaseAdditions.h */,
+				BFF4208D1EA76B630093BE8D /* FMDatabaseAdditions.m */,
+				BFF4208E1EA76B630093BE8D /* FMDatabasePool.h */,
+				BFF4208F1EA76B630093BE8D /* FMDatabasePool.m */,
+				BFF420901EA76B630093BE8D /* FMDatabaseQueue.h */,
+				BFF420911EA76B630093BE8D /* FMDatabaseQueue.m */,
+				BFF420921EA76B630093BE8D /* FMDB.h */,
+				BFF420931EA76B630093BE8D /* FMResultSet.h */,
+				BFF420941EA76B630093BE8D /* FMResultSet.m */,
+				BFF420951EA76B630093BE8D /* Info.plist */,
+			);
+			path = FMDB;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1015,6 +1053,7 @@
 				644C9CAF1E697DDA0030C3B9 /* ScanResultViewController.xib in Resources */,
 				644C9CAC1E697DDA0030C3B9 /* DeviceViewController.xib in Resources */,
 				BF79D1011E7232CE00EE468B /* HistoricalDrugTableViewCell.xib in Resources */,
+				BFF4209B1EA76B630093BE8D /* Info.plist in Resources */,
 				6425803D1E6D515A0019AD06 /* HistoryValueTableViewCell.xib in Resources */,
 				64F663D01E63C8A900F4C9E7 /* LaunchScreen.storyboard in Resources */,
 				644C9C791E6918080030C3B9 /* lightSelect.png in Resources */,
@@ -1065,6 +1104,7 @@
 				BFDAC78A1E7274FA00E17D7B /* JHLineChart.m in Sources */,
 				642580211E6D0CB90019AD06 /* JSONModelClassProperty.m in Sources */,
 				BFDAC7931E7274FA00E17D7B /* JHTableDataRowModel.m in Sources */,
+				BFF420991EA76B630093BE8D /* FMDatabaseQueue.m in Sources */,
 				644C9CB71E697DDA0030C3B9 /* BasicInformationViewController.m in Sources */,
 				644C9C2A1E6571B50030C3B9 /* DisplayUtils.m in Sources */,
 				644C9C321E6575E80030C3B9 /* MBProgressHUD+Add.m in Sources */,
@@ -1077,6 +1117,7 @@
 				642580241E6D0CB90019AD06 /* JSONAPI.m in Sources */,
 				644C9CBD1E697E980030C3B9 /* MedicalTableViewCell.m in Sources */,
 				BFDAC78B1E7274FA00E17D7B /* JHPieChart.m in Sources */,
+				BFF4209A1EA76B630093BE8D /* FMResultSet.m in Sources */,
 				642620411E80B56200263124 /* SyTableViewCell.m in Sources */,
 				644C9C5B1E66B5BF0030C3B9 /* UIImage+Common.m in Sources */,
 				BFDAC7911E7274FA00E17D7B /* JHShowInfoView.m in Sources */,
@@ -1130,10 +1171,13 @@
 				642580001E6CFF740019AD06 /* DeviceStatusViewController.m in Sources */,
 				644C9C3A1E666A6D0030C3B9 /* FL_ScaleCircle.m in Sources */,
 				BF79D0F51E7101FF00EE468B /* AddPatientInfoTableViewController.m in Sources */,
+				BFF420981EA76B630093BE8D /* FMDatabasePool.m in Sources */,
 				64F664021E63CC6D00F4C9E7 /* RootViewController.m in Sources */,
 				64F663FD1E63CB8400F4C9E7 /* BaseNavViewController.m in Sources */,
 				BFDAC7901E7274FA00E17D7B /* JHScatterChart.m in Sources */,
+				BFF420971EA76B630093BE8D /* FMDatabaseAdditions.m in Sources */,
 				64F663C51E63C8A900F4C9E7 /* AppDelegate.m in Sources */,
+				BFF420961EA76B630093BE8D /* FMDatabase.m in Sources */,
 				644C9CB21E697DDA0030C3B9 /* TrainingFirstViewController.m in Sources */,
 				642580281E6D0CB90019AD06 /* JSONValueTransformer.m in Sources */,
 				64F663C21E63C8A900F4C9E7 /* main.m in Sources */,

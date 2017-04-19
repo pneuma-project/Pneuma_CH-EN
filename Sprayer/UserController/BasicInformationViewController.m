@@ -415,7 +415,7 @@ static NSString *THREE_Cell = @"THREECELL";
         
     }
     //挑选出数据库需要修改的这条数据
-    NSArray * arr = [SqliteUtils selectUserInfo];
+    NSArray * arr = [[SqliteUtils sharedManager]selectUserInfo];
     NSInteger dbIndex = 0;
     for (NSInteger i =0; i<arr.count; i++) {
         AddPatientInfoModel * model1 = [[AddPatientInfoModel alloc]init];
@@ -426,7 +426,7 @@ static NSString *THREE_Cell = @"THREECELL";
     }
     
     NSString * sql = [NSString stringWithFormat:@"update userInfo set name='%@',relationship='%@',sex='%@',age='%@',race='%@',height='%@',weight='%@',phone='%@',device_serialnum='%@',isselect=%ld,medical='%@',allergy='%@' where id=%ld;",model.name,model.relationship,model.sex,model.age,model.race,model.height,model.weight,model.phone,model.deviceSerialNum,model.isSelect,_patientModel.medical,_patientModel.allergy,dbIndex];
-    BOOL ret = [SqliteUtils updateUserInfo:sql];
+    BOOL ret = [[SqliteUtils sharedManager]updateUserInfo:sql];
     if (ret == YES) {
         [self.navigationController popViewControllerAnimated:YES];
     }else
