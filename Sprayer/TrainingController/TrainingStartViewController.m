@@ -9,6 +9,7 @@
 #import "TrainingStartViewController.h"
 #import "FLChartView.h"
 #import "TrainingFirstViewController.h"
+#import "UserDefaultsUtils.h"
 
 @interface TrainingStartViewController ()<CustemBBI>
 {
@@ -35,11 +36,21 @@
     [super viewWillAppear:animated];
     self.navigationItem.leftBarButtonItem = [CustemNavItem initWithImage:[UIImage imageNamed:@"icon-back"] andTarget:self andinfoStr:@"first"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopNSTimerAction) name:@"stopTrain" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disconnectAction) name:PeripheralDidConnect object:nil];
 }
 
 -(void)stopNSTimerAction
 {
-    [self.timer invalidate];
+    if (self.timer.isValid == YES) {
+        [self.timer invalidate];
+    }
+}
+
+-(void)disconnectAction
+{
+    if (self.timer.isValid == YES) {
+        [self.timer invalidate];
+    }
 }
 
 #pragma mark - CustemBBI代理方法
@@ -139,18 +150,27 @@
 #pragma mark - 点击事件
 -(void)firstBtnAction
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Are you ready?" message:@"Now you're ready to get your first inspiration." preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *alertAction1 = [UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        
-    }];
-    UIAlertAction *alertAction2 = [UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(writeDataAction) userInfo:nil repeats:YES];
-        TrainingFirstViewController *firstVC = [[TrainingFirstViewController alloc] init];
-        [self.navigationController pushViewController:firstVC animated:YES];
-    }];
-    [alertController addAction:alertAction1];
-    [alertController addAction:alertAction2];
-    [self presentViewController:alertController animated:YES completion:nil];
+    if ([UserDefaultsUtils boolValueWithKey:@"isConnect"] == YES) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Are you ready?" message:@"Now you're ready to get your first inspiration." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *alertAction1 = [UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        UIAlertAction *alertAction2 = [UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(writeDataAction) userInfo:nil repeats:YES];
+            TrainingFirstViewController *firstVC = [[TrainingFirstViewController alloc] init];
+            [self.navigationController pushViewController:firstVC animated:YES];
+        }];
+        [alertController addAction:alertAction1];
+        [alertController addAction:alertAction2];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }else{
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Reminder" message:@"The device is not connected！" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        [alertController addAction:alertAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
 }
 
 -(void)writeDataAction

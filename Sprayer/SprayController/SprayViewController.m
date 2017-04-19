@@ -41,47 +41,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = RGBColor(240, 248, 252, 1.0);
     [self setNavTitle:[DisplayUtils getTimestampData]];
-
-    
-    //[self insertJiaData];
 }
 #pragma mark ---- 插入实时数据和历史数据
--(void)insertJiaData
-{
-    NSMutableString * mutStr = [NSMutableString string];
-    int sum = 0;
-    for (int i =0; i<30; i++) {
-        
-        int num = arc4random()%100;
-        if (i==29) {
-            [mutStr appendString:[NSString stringWithFormat:@"%d",num]];
-            sum+=num;
-        }else
-        {
-            [mutStr appendString:[NSString stringWithFormat:@"%d,",num]];
-            sum+=num;
-        }
-    }
-    NSDate *senddate = [NSDate date];
-    NSString *date2 = [NSString stringWithFormat:@"%ld", (long)[senddate timeIntervalSince1970]];
-    
-    NSString * sql = [NSString stringWithFormat:@"insert into RealTimeBTData(userid,nowtime,btData,sumBtData) values('%d','%@','%@','%@');",1,date2,mutStr,[NSString stringWithFormat:@"%d",sum]];
-    [SqliteUtils insertRealBTInfo:sql];
-    
-    NSString * sql1 = [NSString stringWithFormat:@"insert into historyBTDb(userid,nowtime,btData,sumBtData) values('%d','%@','%@','%@');",1,date2,mutStr,[NSString stringWithFormat:@"%d",sum]];
-    [SqliteUtils insertHistoryBTInfo:sql1];
-    
-    NSArray * arr = [SqliteUtils selectRealBTInfo];
-    NSArray * arr1 = [SqliteUtils selectHistoryBTInfo];
-    
-    BlueToothDataModel * model = [[BlueToothDataModel alloc]init];
-    
-    model = arr[0];
-    NSLog(@"%d---%@---%@",model.userId,model.timestamp,model.blueToothData);
-    model = arr1[0];
-    NSLog(@"%d---%@----%@",model.userId,model.timestamp,model.blueToothData);
-}
 #pragma mark ----- 查询数据
 -(void)selectDataFromDb
 {
@@ -140,12 +103,9 @@
     [self showFirstQuardrant];
 }
 
-
-
 -(void)viewWillAppear:(BOOL)animated
 {
     //判断是否为新的一天，是则清除数据
-       
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"YYYYMMdd"];
     NSDate *date = [NSDate date];
@@ -167,9 +127,18 @@
         }
         
     }
+    [self selectDataFromDb];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshViewAction) name:@"refreshSprayView" object:nil];
     
-    self.view.backgroundColor = RGBColor(240, 248, 252, 1.0);
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopNSTimerAction) name:@"startTrain" object:nil];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disconnectAction) name:PeripheralDidConnect object:nil];
+    
     NSArray * arr = [SqliteUtils selectUserInfo];
     if (arr.count == 0) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Please login first" preferredStyle:UIAlertControllerStyleAlert];
@@ -180,7 +149,7 @@
         [self presentViewController:alertController animated:YES completion:nil];
     }else {
         for (AddPatientInfoModel * model in arr) {
-            if (model.isSelect == 1 && ![model.btData isEqualToString:@"(null)"]) {
+            if (model.isSelect == 1 && ![model.btData isEqualToString:@"(null)"] && [UserDefaultsUtils boolValueWithKey:@"isConnect"] == YES) {
                 self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(writeDataAction) userInfo:nil repeats:YES];
             }else if (model.isSelect == 1 && [model.btData isEqualToString:@"(null)"]){
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Please go to training" preferredStyle:UIAlertControllerStyleAlert];
@@ -192,10 +161,12 @@
             }
         }
     }
-    [self selectDataFromDb];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshViewAction) name:@"refreshSprayView" object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopNSSTimerAction) name:@"peripheralDidConnect" object:nil];
+}
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [self.timer invalidate];
 }
 
 -(void)refreshViewAction
@@ -206,9 +177,18 @@
     [self selectDataFromDb];
 }
 
--(void)stopNSSTimerAction
+-(void)disconnectAction
 {
-    [self.timer invalidate];
+    if (self.timer.isValid == YES) {
+        [self.timer invalidate];
+    }
+}
+
+-(void)stopNSTimerAction
+{
+    if (self.timer.isValid == YES) {
+        [self.timer invalidate];
+    }
 }
 
 -(void)writeDataAction
@@ -257,6 +237,9 @@
     NSLog(@"点击了右侧");
 }
 - (void)showFirstQuardrant{
+    for (UIView *subview in self.view.subviews) {
+        [subview removeFromSuperview];
+    }
     _upBgView = [[UIView alloc]initWithFrame:CGRectMake(10, 74, screen_width-20, (screen_height-64-tabbarHeight)/2-20)];
     _upBgView.layer.cornerRadius = 3.0;
     _upBgView.backgroundColor = [UIColor whiteColor];
@@ -413,7 +396,7 @@
     int viewH = 0;
     for (int i=0; i<_AllNumberArr.count; i++) {
         viewH+=[_AllNumberArr[i] floatValue]/(sum/5) * yLineLabel.current_h/6;
-        NSLog(@"%d",viewH);
+        NSLog(@"-------%d",viewH);
         UIView * view = [[UIView alloc]initWithFrame:CGRectMake(downDateLabel.current_x+15, xLineLabel.current_y-viewH, downDateLabel.current_w-30,[_AllNumberArr[i] floatValue]/(sum/5) * yLineLabel.current_h/6)];
         UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
         tap.numberOfTouchesRequired = 1;
@@ -449,12 +432,9 @@
 #pragma mark ---- 柱状图的点击事件
 -(void)tap:(UITapGestureRecognizer *)tap
 {
-    NSLog(@"点击了第%ld个柱状图",tap
-          .view.tag - 1000);
+    NSLog(@"点击了第%ld个柱状图",tap.view.tag - 1000);
  
-    [self createLineChart:tap
-     .view.tag - 1000];
-    
+    [self createLineChart:tap.view.tag - 1000];
 }
 #pragma mark ---创建第一个曲线图
 -(void)createLineChart:(NSInteger)index

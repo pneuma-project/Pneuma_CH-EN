@@ -17,14 +17,17 @@ static sqlite3 *db = nil;
 // 打开数据库
 + (void)open {
     //设置数据库的路径
-    NSString * fileName = [[NSSearchPathForDirectoriesInDomains(13, 1, 1)lastObject]stringByAppendingPathComponent:@"sprayerDb.sqlite"];
-    NSLog(@"%@",fileName);
+//    NSString * fileName = [[NSSearchPathForDirectoriesInDomains(13, 1, 1)lastObject]stringByAppendingPathComponent:@"sprayerDb.sqlite"];
+//    NSLog(@"%@",fileName);
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documents = [paths objectAtIndex:0];
+    NSString *database_path = [documents stringByAppendingPathComponent:@"sprayerDb.sqlite"];
     //打开数据库 如果没有打开的数据库就建立一个
     //第一个参数是数据库的路径 注意要转换为c的字符串
-    if (sqlite3_open(fileName.UTF8String, &db) == SQLITE_OK) {
-        NSLog(@"打开数据库成功");
-            }else{
-        NSLog(@"打开数据库失败");
+    if (sqlite3_open(database_path.UTF8String, &db) == SQLITE_OK) {
+        NSLog(@"打开用户数据库成功");
+    }else{
+        NSLog(@"打开用户数据库失败");
     }
 }
 // 关闭数据库
@@ -95,7 +98,7 @@ static sqlite3 *db = nil;
     NSMutableArray * mutArr = [NSMutableArray array];
     //  判断语句是否正确
     if (result == SQLITE_OK) {
-        NSLog(@"查询语句正确");
+        NSLog(@"查询用户语句正确");
         //  进行查询
         //  如果 查询结果 返回 SQLITE_ROW 那么查询正确 执行循环
         while (sqlite3_step(stmt) == SQLITE_ROW) {
@@ -119,7 +122,7 @@ static sqlite3 *db = nil;
            
         }
     } else {
-        NSLog(@"查询语句错误");
+        NSLog(@"查询用户语句错误");
     }
     
     //  查询语句错误 也要释放跟随指针
@@ -148,12 +151,13 @@ static sqlite3 *db = nil;
 //----------------实时蓝牙数据------------//
 + (void)openRealTimeBTData {
     //设置数据库的路径
-    NSString * fileName = [[NSSearchPathForDirectoriesInDomains(13, 1, 1)lastObject]stringByAppendingPathComponent:@"realTimeBTDb.sqlite"];
-    NSLog(@"%@",fileName);
-    if (sqlite3_open(fileName.UTF8String, &db) == SQLITE_OK) {
-        NSLog(@"打开数据库成功");
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documents = [paths objectAtIndex:0];
+    NSString *database_path = [documents stringByAppendingPathComponent:@"realTimeBTDb.sqlite"];
+    if (sqlite3_open(database_path.UTF8String, &db) == SQLITE_OK) {
+        NSLog(@"打开实时蓝牙数据库成功");
     }else{
-        NSLog(@"打开数据库失败");
+        NSLog(@"打开实时蓝牙数据库失败");
     }
 }
 
@@ -197,7 +201,7 @@ static sqlite3 *db = nil;
     NSMutableArray * mutArr = [NSMutableArray array];
     //  判断语句是否正确
     if (result == SQLITE_OK) {
-        NSLog(@"查询语句正确");
+        NSLog(@"查询实时蓝牙语句正确");
         //  进行查询
         //  如果 查询结果 返回 SQLITE_ROW 那么查询正确 执行循环
         while (sqlite3_step(stmt) == SQLITE_ROW) {
@@ -209,7 +213,7 @@ static sqlite3 *db = nil;
             
         }
     } else {
-        NSLog(@"查询语句错误");
+        NSLog(@"查询实时蓝牙语句错误");
     }
     
     //  查询语句错误 也要释放跟随指针
@@ -223,12 +227,13 @@ static sqlite3 *db = nil;
 //----------------历史蓝牙数据------------//
 + (void)openHistoryBTData {
     //设置数据库的路径
-    NSString * fileName = [[NSSearchPathForDirectoriesInDomains(13, 1, 1)lastObject]stringByAppendingPathComponent:@"historyBTDb.sqlite"];
-    NSLog(@"%@",fileName);
-    if (sqlite3_open(fileName.UTF8String, &db) == SQLITE_OK) {
-        NSLog(@"打开数据库成功");
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documents = [paths objectAtIndex:0];
+    NSString *database_path = [documents stringByAppendingPathComponent:@"historyBTDb.sqlite"];
+    if (sqlite3_open(database_path.UTF8String, &db) == SQLITE_OK) {
+        NSLog(@"打开历史蓝牙数据库成功");
     }else{
-        NSLog(@"打开数据库失败");
+        NSLog(@"打开历史蓝牙数据库失败");
     }
 }
 
@@ -272,7 +277,7 @@ static sqlite3 *db = nil;
     NSMutableArray * mutArr = [NSMutableArray array];
     //  判断语句是否正确
     if (result == SQLITE_OK) {
-        NSLog(@"查询语句正确");
+        NSLog(@"查询历史蓝牙语句正确");
         //  进行查询
         //  如果 查询结果 返回 SQLITE_ROW 那么查询正确 执行循环
         while (sqlite3_step(stmt) == SQLITE_ROW) {
@@ -285,7 +290,7 @@ static sqlite3 *db = nil;
             
         }
     } else {
-        NSLog(@"查询语句错误");
+        NSLog(@"查询历史蓝牙语句错误");
     }
     
     //  查询语句错误 也要释放跟随指针

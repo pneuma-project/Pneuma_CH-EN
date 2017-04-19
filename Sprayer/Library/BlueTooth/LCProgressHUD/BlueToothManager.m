@@ -155,17 +155,21 @@ typedef enum _TTGState{
 //连接设备失败
 -(void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
-    //[LCProgressHUD showFailureText:NSLocalizedString(@"", nil)];
+    [LCProgressHUD showFailureText:NSLocalizedString(@"Connection failed", nil)];
     isLinked = NO;
     NSLog(@">>>连接到名称为（%@）的设备-失败,原因:%@",[peripheral name],[error localizedDescription]);
+    [[NSNotificationCenter defaultCenter] postNotificationName:PeripheralDidConnect object:nil userInfo:nil];
+    [UserDefaultsUtils saveBoolValue:NO withKey:@"isConnect"];
 }
 
 //设备断开连接
 -(void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
     isLinked = NO;
+    [LCProgressHUD showFailureText:NSLocalizedString(@"Peripheral disconnect", nil)];
     NSLog(@">>>外设连接断开连接 %@: %@\n", [peripheral name], [error localizedDescription]);
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"peripheralDidConnect" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:PeripheralDidConnect object:nil userInfo:nil];
+    [UserDefaultsUtils saveBoolValue:NO withKey:@"isConnect"];
 }
 
 //连接设备成功
@@ -177,7 +181,8 @@ typedef enum _TTGState{
     _per = peripheral;
     [_per setDelegate:self];
     [_per discoverServices:nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:BleIsOpen object:nil userInfo:nil];
+    [self stopScan];
+    [UserDefaultsUtils saveBoolValue:YES withKey:@"isConnect"];
 }
 
 
@@ -221,6 +226,7 @@ typedef enum _TTGState{
                 if ([characteristic.UUID isEqual:readWriteUUID]) {
                     _char = characteristic;
                     [[NSNotificationCenter defaultCenter] postNotificationName:ConnectSucceed object:self userInfo:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:BleIsOpen object:nil userInfo:nil];
                 }
             }
         }

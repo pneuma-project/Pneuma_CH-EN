@@ -12,6 +12,7 @@
 
 @implementation BlueWriteData
 
+//上电信息
 +(void)bleConfigWithData:(NSData *)data
 {
     Byte dataByte[12];
@@ -30,6 +31,7 @@
     [[BlueToothManager getInstance] sendDataWithString:newData];
 }
 
+//开始训练
 +(void)startTrainData
 {
     Byte dataByte[5];
@@ -43,6 +45,7 @@
     [[BlueToothManager getInstance] sendDataWithString:newData];
 }
 
+//结束训练
 +(void)stopTrainData
 {
     Byte dataByte[5];
@@ -56,6 +59,7 @@
     [[BlueToothManager getInstance] sendDataWithString:newData];
 }
 
+//实时监测
 +(void)sparyData
 {
     Byte dataByte[5];
@@ -70,6 +74,7 @@
     [[BlueToothManager getInstance] sendDataWithString:newData];
 }
 
+//历史确认码
 +(void)confirmCodeHistoryData
 {
     Byte dataByte[5];
@@ -84,6 +89,7 @@
     [[BlueToothManager getInstance] sendDataWithString:newData];
 }
 
+//实时数据确认码
 +(void)confirmCodePresentData
 {
     Byte dataByte[5];

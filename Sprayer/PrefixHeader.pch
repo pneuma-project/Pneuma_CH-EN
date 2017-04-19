@@ -49,5 +49,6 @@
 
 #define BleIsOpen @"BleIsOpen"//蓝牙是否打开
 #define ConnectSucceed @"ConnectSucceed"//连接成功
+#define PeripheralDidConnect @"peripheralDidConnect"//断开连接
 
 #endif /* PrefixHeader_pch */

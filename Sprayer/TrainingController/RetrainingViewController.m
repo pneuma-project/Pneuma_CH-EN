@@ -41,11 +41,21 @@
     self.navigationItem.rightBarButtonItem = [CustemNavItem initWithString:@"Save" andTarget:self andinfoStr:@"first"];
     self.navigationItem.leftBarButtonItem = [CustemNavItem initWithImage:[UIImage imageNamed:@"icon-back"] andTarget:self andinfoStr:@"two"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopNSTimerAction) name:@"sparyModel" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disconnectAction) name:PeripheralDidConnect object:nil];
 }
 
 -(void)stopNSTimerAction
 {
-    [self.timer invalidate];
+    if (self.timer.isValid == YES) {
+        [self.timer invalidate];
+    }
+}
+
+-(void)disconnectAction
+{
+    if (self.timer.isValid == YES) {
+        [self.timer invalidate];
+    }
 }
 
 #pragma mark - CustemBBI代理方法

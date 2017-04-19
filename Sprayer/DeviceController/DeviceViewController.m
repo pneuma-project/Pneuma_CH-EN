@@ -36,7 +36,7 @@
 {
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bleIsOpenAction) name:BleIsOpen object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(peripheralDidConnect) name:@"peripheralDidConnect" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disconnectAction) name:PeripheralDidConnect object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopNSTimerAction) name:@"startTrain" object:nil];
     
@@ -70,12 +70,17 @@
 
 -(void)stopNSTimerAction
 {
-    [self.timer invalidate];
+    if (self.timer.isValid == YES) {
+        [self.timer invalidate];
+    }
 }
 
--(void)peripheralDidConnect
+-(void)disconnectAction
 {
     [self.isOnlineBtn setImage:[UIImage imageNamed:@"device-butn-off"] forState:UIControlStateNormal];
+    if (self.timer.isValid == YES) {
+        [self.timer invalidate];
+    }
 }
 
 #pragma mark - 扫描点击事件
