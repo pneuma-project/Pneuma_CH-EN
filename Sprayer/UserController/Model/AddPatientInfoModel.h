@@ -21,7 +21,7 @@
 @property(nonatomic,strong) NSString *   deviceSerialNum;
 @property(nonatomic,assign) NSInteger    isSelect;
 @property(nonatomic,assign) int          userId;
-@property(nonatomic,strong) NSString *   btData;
+@property(nonatomic,strong) NSString *   btData;//最佳训练数据
 @property(nonatomic,strong) NSString *   medical;
 @property(nonatomic,strong) NSString *   allergy;
 

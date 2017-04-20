@@ -85,7 +85,7 @@
         {
             trainData =[UserDefaultsUtils valueWithKey:@"trainDataArr"][2];
         }
-        NSString * sql = [NSString stringWithFormat:@"update userInfo set trainData='%@' where id=%d ;",trainData,userId];
+        NSString * sql = [NSString stringWithFormat:@"update userInfo set trainData='%@' where id=%d;",trainData,userId];
         [[SqliteUtils sharedManager]updateUserInfo:sql];
 
         self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(writeDataAction) userInfo:nil repeats:YES];
