@@ -74,7 +74,7 @@
 {
     //曲线图
     allTrainNum = 0;
-    NSArray * arr = [SqliteUtils selectUserInfo];
+    NSArray * arr = [[SqliteUtils sharedManager]selectUserInfo];
     NSArray * mutArr;
     if (arr.count!=0) {
         for (AddPatientInfoModel * model in arr) {
@@ -211,7 +211,7 @@
 #pragma mark - 点击事件
 -(void)startBtnAction
 {
-    NSArray * arr = [SqliteUtils selectUserInfo];
+    NSArray * arr = [[SqliteUtils sharedManager]selectUserInfo];
     if (arr.count == 0) {
         
         [[NSNotificationCenter defaultCenter]postNotificationName:@"gotoLogin" object:nil userInfo:nil];

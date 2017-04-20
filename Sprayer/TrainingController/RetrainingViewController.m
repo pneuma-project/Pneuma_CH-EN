@@ -63,7 +63,7 @@
 {
     if ([infoStr isEqualToString:@"first"]) {
         
-        NSArray * arr = [SqliteUtils selectUserInfo];
+        NSArray * arr = [[SqliteUtils sharedManager]selectUserInfo];
         int userId = 0;
         NSString * trainData;
         if (arr.count!=0) {
@@ -86,7 +86,7 @@
             trainData =[UserDefaultsUtils valueWithKey:@"trainDataArr"][2];
         }
         NSString * sql = [NSString stringWithFormat:@"update userInfo set trainData='%@' where id=%d ;",trainData,userId];
-        [SqliteUtils updateUserInfo:sql];
+        [[SqliteUtils sharedManager]updateUserInfo:sql];
 
         self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(writeDataAction) userInfo:nil repeats:YES];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"stopTrain" object:nil userInfo:nil];

@@ -265,7 +265,7 @@ static NSString *ONE_Cell = @"ONECELL";
         
     }
     //查询是否第一次添加数据
-    NSArray * arr = [SqliteUtils selectUserInfo];
+    NSArray * arr = [[SqliteUtils sharedManager]selectUserInfo];
     if (arr.count == 0) {
         model.isSelect = 1;
     }else
@@ -273,7 +273,7 @@ static NSString *ONE_Cell = @"ONECELL";
         model.isSelect = 0;
     }
     NSString * sql = [NSString stringWithFormat:@"insert into userInfo(name,relationship,sex,age,race,height,weight,phone,device_serialnum,isselect,trainData,medical,allergy) values('%@','%@','%@','%@','%@','%@','%@','%@','%@',%ld,'%@','%@','%@');",model.name,model.relationship,model.sex,model.age,model.race,model.height,model.weight,model.phone,model.deviceSerialNum,model.isSelect,nil,nil,nil];
-   BOOL ret = [SqliteUtils insertUserInfo:sql];
+   BOOL ret = [[SqliteUtils sharedManager]insertUserInfo:sql];
     if (ret == YES) {
         [self.navigationController popViewControllerAnimated:YES];
     }else

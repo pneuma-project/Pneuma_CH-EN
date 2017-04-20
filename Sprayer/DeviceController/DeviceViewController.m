@@ -91,7 +91,7 @@
     [self.navigationController pushViewController:scanVC animated:YES];
 }
 - (IBAction)DeviceConnectionAction:(id)sender {
-    NSArray * arr = [SqliteUtils selectUserInfo];
+    NSArray * arr = [[SqliteUtils sharedManager]selectUserInfo];
     if (arr.count == 0) {
         
         [[NSNotificationCenter defaultCenter]postNotificationName:@"gotoLogin" object:nil userInfo:nil];

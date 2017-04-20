@@ -53,7 +53,7 @@
     //先查看是哪个用户登录并且调取他的最优数据
     int userId = 0;
     NSString * btDataStr;
-    NSArray * arr = [SqliteUtils selectUserInfo];
+    NSArray * arr = [[SqliteUtils sharedManager]selectUserInfo];
     if (arr.count!=0) {
         for (AddPatientInfoModel * model in arr) {
             if (model.isSelect == 1) {
@@ -70,7 +70,7 @@
         allTrainTotalNum += [str intValue];
     }
     //获取该用户的实时喷雾数据(30个为一组)
-    NSArray * arr2 = [SqliteUtils selectRealBTInfo];
+    NSArray * arr2 = [[SqliteUtils sharedManager]selectRealBTInfo];
     if (arr2.count == 0) {
         [self showFirstQuardrant];
         return;
@@ -124,7 +124,7 @@
      //NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:1490637722];
     NSString * timeStamp = [formatter stringFromDate:date];
     
-    NSArray * dataArr  = [SqliteUtils selectRealBTInfo];
+    NSArray * dataArr  = [[SqliteUtils sharedManager]selectRealBTInfo];
     if(dataArr.count == 0)
     {
          [self selectDataFromDb];
@@ -138,13 +138,11 @@
              [self selectDataFromDb];
         }else
         {
-            [SqliteUtils deleteUserInfo];
+            [[SqliteUtils sharedManager]deleteUserInfo];
             [self selectDataFromDb];
         }
     }
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshViewAction) name:@"refreshSprayView" object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopNSTimerAction) name:@"startTrain" object:nil];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -152,7 +150,11 @@
     [super viewDidAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disconnectAction) name:PeripheralDidConnect object:nil];
     
-    NSArray * arr = [SqliteUtils selectUserInfo];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshViewAction) name:@"refreshSprayView" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopNSTimerAction) name:@"startTrain" object:nil];
+    
+    NSArray * arr = [[SqliteUtils sharedManager]selectUserInfo];
     if (arr.count == 0) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Please login first" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

@@ -66,7 +66,7 @@ static NSString *Cell_TWO = @"cellTwo";
 -(NSArray *)selectFromData
 {
     //查询数据库(获取所有用户数据)
-    NSArray * arr = [SqliteUtils selectHistoryBTInfo];
+    NSArray * arr = [[SqliteUtils sharedManager]selectHistoryBTInfo];
     NSMutableArray * userTimeArr = [NSMutableArray array];
     NSMutableArray * sprayArr = [NSMutableArray array];
     NSMutableArray * inspiratoryArr = [NSMutableArray array];

@@ -43,7 +43,8 @@
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"transparent"] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage imageNamed:@"transparent"]];
-    NSArray * arr = [SqliteUtils selectUserInfo];
+    
+    NSArray * arr = [[SqliteUtils sharedManager]selectUserInfo];
     if (arr.count!=0) {
         for (AddPatientInfoModel * model in arr) {
             
