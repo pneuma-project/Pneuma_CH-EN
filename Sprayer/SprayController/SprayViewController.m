@@ -65,6 +65,16 @@
     //查询到用户id后再调取该用户的最佳训练数据
     self.sprayDataArr = [NSMutableArray array];
     NSArray * arr1 = [btDataStr componentsSeparatedByString:@","];
+    if (arr1.count == 0) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Please go to training" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"gotoTrain" object:nil userInfo:nil];
+        }];
+        [alertController addAction:alertAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+        return;
+    }
+    
     for (NSString * str in arr1) {
         [self.sprayDataArr addObject:str];
         allTrainTotalNum += [str intValue];
@@ -101,18 +111,8 @@
             lastTrainNum += [str intValue];
         }
         
-    }else
-    {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Please go to training" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"gotoTrain" object:nil userInfo:nil];
-        }];
-        [alertController addAction:alertAction];
-        [self presentViewController:alertController animated:YES completion:nil];
- 
     }
-   
-    [self showFirstQuardrant];
+     [self showFirstQuardrant];
 }
 
 -(void)viewWillAppear:(BOOL)animated
