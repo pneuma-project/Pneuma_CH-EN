@@ -143,15 +143,15 @@
         }
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"sparyModel" object:nil userInfo:nil];
-    
-    //定时器开启
-    [self.timer setFireDate:[NSDate distantPast]];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopNSTimerAction) name:@"startTrain" object:nil];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disconnectAction) name:PeripheralDidConnect object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshViewAction) name:@"refreshSprayView" object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopNSTimerAction) name:@"startTrain" object:nil];
     
     NSArray * arr = [[SqliteUtils sharedManager]selectUserInfo];
     if (arr.count == 0) {
@@ -163,7 +163,8 @@
         [self presentViewController:alertController animated:YES completion:nil];
     }else {
         for (AddPatientInfoModel * model in arr) {
-            if (model.isSelect == 1 && ![model.btData isEqualToString:@"(null)"] && [UserDefaultsUtils boolValueWithKey:@"isConnect"] == YES) {
+            if (model.isSelect == 1 && ![model.btData isEqualToString:@"(null)"]) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"sparyModel" object:nil userInfo:nil];
                 self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(writeDataAction) userInfo:nil repeats:YES];
             }else if (model.isSelect == 1 && [model.btData isEqualToString:@"(null)"]){
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Please go to training" preferredStyle:UIAlertControllerStyleAlert];
@@ -175,12 +176,6 @@
             }
         }
     }
-}
-
--(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
 }
 
 -(void)viewDidDisappear:(BOOL)animated
@@ -206,10 +201,7 @@
 
 -(void)stopNSTimerAction
 {
-//    if (self.timer.isValid == YES) {
-//        [self.timer invalidate];
-//    }
-//    [self.timer setFireDate:[NSDate distantFuture]];
+    [self.timer invalidate];
 }
 
 -(void)writeDataAction
@@ -416,7 +408,7 @@
     int viewH = 0;
     for (int i=0; i<_AllNumberArr.count; i++) {
         viewH+=[_AllNumberArr[i] floatValue]/(sum/5) * yLineLabel.current_h/6;
-        NSLog(@"-------%d",viewH);
+//        NSLog(@"-------%d",viewH);
         UIView * view = [[UIView alloc]initWithFrame:CGRectMake(downDateLabel.current_x+15, xLineLabel.current_y-viewH, downDateLabel.current_w-30,[_AllNumberArr[i] floatValue]/(sum/5) * yLineLabel.current_h/6)];
         UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
         tap.numberOfTouchesRequired = 1;

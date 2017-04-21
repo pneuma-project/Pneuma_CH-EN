@@ -367,8 +367,15 @@ typedef enum _TTGState{
                         NSString *timeStamp = [FLWrapJson dataToNSStringTime:[newData subdataWithRange:NSMakeRange(3, 7)]];
                         NSString *sprayData = [FLWrapJson dataToNSString:[newData subdataWithRange:NSMakeRange(10, 50)]];
                         NSString *sumData = [FLWrapJson dataSumToNSString:[newData subdataWithRange:NSMakeRange(10, 50)]];
-                        
-                        [self insertHistoryDb:@[timeStamp,sprayData,sumData]];
+                        //时间戳转时间
+                        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                        [formatter setDateStyle:NSDateFormatterMediumStyle];
+                        [formatter setTimeStyle:NSDateFormatterShortStyle];
+                        [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+                        NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:[timeStamp doubleValue]];
+                        NSString *confromTimespStr = [formatter stringFromDate:confromTimesp];
+                        //插入历史数据表
+                        [self insertHistoryDb:@[timeStamp,sprayData,sumData,confromTimespStr]];
                     }else if (type == 3){//训练数据
                         [BlueWriteData confirmCodePresentData];
                         NSString *timeStamp = [FLWrapJson dataToNSStringTime:[newData subdataWithRange:NSMakeRange(3, 7)]];
@@ -470,7 +477,7 @@ typedef enum _TTGState{
     if (userID==0) {
         return;
     }
-    NSString * sql = [NSString stringWithFormat:@"insert into historyBTDb(userid,nowtime,btData,sumBtData) values('%d','%@','%@','%@');",userID,dataArr[0],dataArr[1],dataArr[2]];
+    NSString * sql = [NSString stringWithFormat:@"insert into historyBTDb(userid,nowtime,btData,sumBtData,date) values('%d','%@','%@','%@','%@');",userID,dataArr[0],dataArr[1],dataArr[2],dataArr[3]];
     
       [[SqliteUtils sharedManager]insertHistoryBTInfo:sql];
     

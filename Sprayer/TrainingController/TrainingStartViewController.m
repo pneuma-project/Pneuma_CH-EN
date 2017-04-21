@@ -37,20 +37,17 @@
     self.navigationItem.leftBarButtonItem = [CustemNavItem initWithImage:[UIImage imageNamed:@"icon-back"] andTarget:self andinfoStr:@"first"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopNSTimerAction) name:@"stopTrain" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disconnectAction) name:PeripheralDidConnect object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopNSTimerAction) name:@"sparyModel" object:nil];
 }
 
 -(void)stopNSTimerAction
 {
-    if (self.timer.isValid == YES) {
-        [self.timer invalidate];
-    }
+    [self.timer invalidate];
 }
 
 -(void)disconnectAction
 {
-    if (self.timer.isValid == YES) {
-        [self.timer invalidate];
-    }
+//    [self.timer invalidate];
 }
 
 #pragma mark - CustemBBI代理方法
@@ -156,6 +153,7 @@
             
         }];
         UIAlertAction *alertAction2 = [UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"startTrain" object:nil userInfo:nil];
             self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(writeDataAction) userInfo:nil repeats:YES];
             TrainingFirstViewController *firstVC = [[TrainingFirstViewController alloc] init];
             [self.navigationController pushViewController:firstVC animated:YES];
@@ -175,7 +173,6 @@
 
 -(void)writeDataAction
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"startTrain" object:nil userInfo:nil];
     [BlueWriteData startTrainData];
 }
 

@@ -132,11 +132,12 @@ static NSString *Cell_TWO = @"cellTwo";
                 for (NSString * num in numArr1) {
                     sum1+=[num floatValue];
                 }
+                sum1/=600;
                 if (sum1>=sum*0.8) {
                     [sprayArr addObject:@"1/1"];
                 }else
                 {
-                    [sprayArr addObject:@"0/1"];
+                    [sprayArr addObject:@"1/0"];
                 }
                 
             }

@@ -63,7 +63,6 @@
     if ([UserDefaultsUtils boolValueWithKey:@"AutoConnect"] == NO) {
         self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(writeDataAction) userInfo:nil repeats:YES];
     }
-    
 }
 
 -(void)writeDataAction
@@ -74,17 +73,13 @@
 
 -(void)stopNSTimerAction
 {
-    if (self.timer.isValid == YES) {
-        [self.timer invalidate];
-    }
+    [self.timer invalidate];
 }
 
 -(void)disconnectAction
 {
     [self.isOnlineBtn setImage:[UIImage imageNamed:@"device-butn-off"] forState:UIControlStateNormal];
-    if (self.timer.isValid == YES) {
-        [self.timer invalidate];
-    }
+    [self.timer invalidate];
 }
 
 #pragma mark - 扫描点击事件
