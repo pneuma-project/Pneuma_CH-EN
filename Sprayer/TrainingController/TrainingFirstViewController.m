@@ -14,6 +14,7 @@
 {
     UIView *circleView;
     int allNum;
+     BOOL isLeave;//是否离开界面(因为即使离开页面通知仍会收到)
 }
 @property (nonatomic,strong)FLChartView *chartView;
 
@@ -33,6 +34,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    isLeave = NO;//防止返回用
     [super viewWillAppear:animated];
 //    [self.navigationItem setHidesBackButton:YES];
     self.navigationItem.leftBarButtonItem = [CustemNavItem initWithImage:[UIImage imageNamed:@"icon-back"] andTarget:self andinfoStr:@"first"];
@@ -41,6 +43,7 @@
 
 -(void)viewDidDisappear:(BOOL)animated
 {
+    isLeave = YES;
     [super viewDidDisappear:animated];
 }
 
@@ -87,7 +90,11 @@
     NSArray * arr = [UserDefaultsUtils valueWithKey:@"trainDataArr"];
     NSArray * mutArr;
     if (arr.count != 0) {
-         mutArr = [[[UserDefaultsUtils valueWithKey:@"trainDataArr"] lastObject] componentsSeparatedByString:@","];
+        if (isLeave == NO) {
+            mutArr = [[[UserDefaultsUtils valueWithKey:@"trainDataArr"] lastObject] componentsSeparatedByString:@","];
+            [UserDefaultsUtils saveValue:mutArr forKey:@"OneTrainDataArr"];
+        }
+        
     }else
     {
         mutArr = @[];
@@ -166,6 +173,7 @@
         
     }];
     UIAlertAction *alertAction2 = [UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
         
         TrainingSecondViewController *secondVC = [[TrainingSecondViewController alloc] init];
         [self.navigationController pushViewController:secondVC animated:YES];

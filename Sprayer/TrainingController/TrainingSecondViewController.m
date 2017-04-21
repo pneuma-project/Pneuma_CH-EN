@@ -14,6 +14,8 @@
 {
     UIView *circleView;
     int allNum;
+    BOOL isFirst;//是否第一次进入页面
+    BOOL isLeave;//是否离开界面(因为即使离开页面通知仍会收到)
 }
 @property (nonatomic,strong)FLChartView *chartView;
 @end
@@ -27,18 +29,16 @@
     [self setNavTitle:[DisplayUtils getTimestampData]];
     [self createView];
 }
-
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    isLeave = YES;
+}
 -(void)viewWillAppear:(BOOL)animated
 {
+     isLeave = NO;//防止返回用
     [super viewWillAppear:animated];
     self.navigationItem.leftBarButtonItem = [CustemNavItem initWithImage:[UIImage imageNamed:@"icon-back"] andTarget:self andinfoStr:@"first"];
-    NSArray *mutArr = [UserDefaultsUtils valueWithKey:@"trainDataArr"];
-    NSMutableArray *newArr = [[NSMutableArray alloc] init];
-    if (mutArr.count!=0) {
-         [newArr addObject:[mutArr lastObject]];
-    }
-   
-    [UserDefaultsUtils saveValue:newArr forKey:@"trainDataArr"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshViewAction) name:@"refreshView" object:nil];
 }
 
@@ -82,14 +82,17 @@
     [circleView addSubview:titleLabel];
     
     //曲线图
-    NSArray * arr = [UserDefaultsUtils valueWithKey:@"trainDataArr"];
     NSArray * mutArr;
-    if (arr.count == 2) {
-        mutArr = [[UserDefaultsUtils valueWithKey:@"trainDataArr"][1] componentsSeparatedByString:@","];
-    }else
-    {
-        mutArr = @[];
-    }
+     //判断是否第一次进入设备
+        if (isFirst == NO) {
+            isFirst = YES;
+            mutArr = @[];
+        }else if(isLeave == NO)
+        {
+            mutArr = [[[UserDefaultsUtils valueWithKey:@"trainDataArr"]lastObject] componentsSeparatedByString:@","];
+            [UserDefaultsUtils saveValue:mutArr forKey:@"TwoTrainDataArr"];
+        }
+       
     
     allNum = 0;
     for (NSString * str in mutArr) {
