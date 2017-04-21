@@ -33,7 +33,14 @@
     [self setNavTitle:[DisplayUtils getTimestampData]];
     [self createView];
 }
-
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [UserDefaultsUtils saveValue:@[] forKey:@"trainDataArr"];
+    [UserDefaultsUtils saveValue:@[] forKey:@"OneTrainDataArr"];
+    [UserDefaultsUtils saveValue:@[] forKey:@"TwoTrainDataArr"];
+    [UserDefaultsUtils saveValue:@[] forKey:@"ThreeTrainDataArr"];
+    
+}
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -42,6 +49,14 @@
     self.navigationItem.leftBarButtonItem = [CustemNavItem initWithImage:[UIImage imageNamed:@"icon-back"] andTarget:self andinfoStr:@"two"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopNSTimerAction) name:@"sparyModel" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disconnectAction) name:PeripheralDidConnect object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(startTraingAction) name:@"startTrain" object:nil];
+}
+-(void)startTraingAction
+{
+    if (self.timer.isValid == YES) {
+        [self.timer invalidate];
+    }
+    
 }
 
 -(void)stopNSTimerAction
@@ -65,7 +80,7 @@
         
         NSArray * arr = [[SqliteUtils sharedManager]selectUserInfo];
         int userId = 0;
-        NSString * trainData;
+        NSArray * trainData;
         if (arr.count!=0) {
             for (AddPatientInfoModel * model in arr) {
                 
@@ -77,15 +92,23 @@
             }
         }
         if (index == 100) {
-            trainData = [UserDefaultsUtils valueWithKey:@"trainDataArr"][0];
+            trainData = [UserDefaultsUtils valueWithKey:@"OneTrainDataArr"];
         }else if (index == 101)
         {
-            trainData = [UserDefaultsUtils valueWithKey:@"trainDataArr"][1];
+            trainData = [UserDefaultsUtils valueWithKey:@"TwoTrainDataArr"];
         }else if (index == 102)
         {
-            trainData =[UserDefaultsUtils valueWithKey:@"trainDataArr"][2];
+            trainData =[UserDefaultsUtils valueWithKey:@"ThreeTrainDataArr"];
         }
-        NSString * sql = [NSString stringWithFormat:@"update userInfo set trainData='%@' where id=%d;",trainData,userId];
+        //把数据变成字符串
+        NSMutableString * mutStr = [NSMutableString string];
+        for (NSString * str in trainData) {
+            [mutStr appendString:str];
+            [mutStr appendString:@","];
+        }
+        NSString * dataStr = [mutStr substringToIndex:mutStr.length-1];
+        
+        NSString * sql = [NSString stringWithFormat:@"update userInfo set trainData='%@' where id=%d;",dataStr,userId];
         [[SqliteUtils sharedManager]updateUserInfo:sql];
 
         self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(writeDataAction) userInfo:nil repeats:YES];
@@ -116,17 +139,17 @@
      lineChart.xLineDataArr = @[@"0",@"0.1",@"0.2",@"0.3",@"0.4",@"0.5",@"0.6",@"0.7",@"0.8",@"0.9",@"1.0",@"1.1",@"1.2",@"1.3",@"1.4",@"1.5",@"1.6",@"1.7",@"1.8",@"1.9",@"2.0",@"2.1",@"2.2",@"2.3",@"2.4",@"2.5",@"2.6",@"2.7",@"2.8",@"2.9",@"3.0",@"3.1",@"3.2",@"3.3",@"3.4",@"3.5",@"3.6",@"3.7",@"3.8",@"3.9",@"4.0",@"4.1",@"4.2",@"4.3",@"4.4",@"4.5",@"4.6",@"4.7",@"4.8",@"4.9",@"5.0"];//拿到X轴坐标
     lineChart.contentInsets = UIEdgeInsetsMake(0, 25, 20, 10);
     lineChart.lineChartQuadrantType = JHLineChartQuadrantTypeFirstQuardrant;
-    
-    NSArray * arr = [UserDefaultsUtils valueWithKey:@"trainDataArr"];
+
     NSArray * mutArr; sum1 = 0;
     NSArray * mutArr1; sum2 = 0;
     NSArray * mutArr2; sum3 = 0;
-    if (arr.count == 3) {
-        mutArr = [[UserDefaultsUtils valueWithKey:@"trainDataArr"][0] componentsSeparatedByString:@","];
-         mutArr1 = [[UserDefaultsUtils valueWithKey:@"trainDataArr"][1] componentsSeparatedByString:@","];
-         mutArr2 = [[UserDefaultsUtils valueWithKey:@"trainDataArr"][2] componentsSeparatedByString:@","];
-        
-        for (NSString * str in mutArr ) {
+   
+    mutArr = [UserDefaultsUtils valueWithKey:@"OneTrainDataArr"];
+    mutArr1 = [UserDefaultsUtils valueWithKey:@"TwoTrainDataArr"];
+    mutArr2 = [UserDefaultsUtils valueWithKey:@"ThreeTrainDataArr"];
+    
+    
+        for (NSString * str in mutArr) {
             sum1 += [str intValue];
         }
         for (NSString * str in mutArr1) {
@@ -135,13 +158,8 @@
         for (NSString * str in mutArr2) {
             sum3 += [str intValue];
         }
-        
-    }
-    if(mutArr.count!=0&&mutArr1.count!=0&&mutArr2.count!=0)
-    {
-       lineChart.valueArr = @[mutArr,mutArr1,mutArr2];
-    }
     
+    lineChart.valueArr = @[mutArr,mutArr1,mutArr2];
     lineChart.showYLevelLine = YES;
     lineChart.showYLine = NO;
     lineChart.showValueLeadingLine = NO;

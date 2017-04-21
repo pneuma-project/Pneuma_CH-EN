@@ -23,9 +23,15 @@
     self.window.rootViewController = rootVC;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    //接收蓝牙断开通知
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(BleDisconnect) name:PeripheralDidConnect object:nil];
     return YES;
 }
-
+-(void)BleDisconnect
+{
+    [[BlueToothManager  getInstance]startScan];
+  
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
