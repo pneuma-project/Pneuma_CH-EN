@@ -141,7 +141,7 @@ static NSString *Cell_TWO = @"cellTwo";
                 
             }
             //----------算出喷雾的平均量---------//
-             float sum = 0;
+            float sum = 0;
             for (NSString * str in allNumSprayArr) {
                 NSArray * arr = [str componentsSeparatedByString:@","];
                 for (NSString * num in arr) {
@@ -203,7 +203,11 @@ static NSString *Cell_TWO = @"cellTwo";
             index2 += [arr[1] floatValue];
             
             index4 ++;
-            index3 =(index3 + [dataArr[2][i] floatValue])/index4;
+            
+            for (NSString * num in dataArr[2]) {
+                index3 += [num floatValue];
+            }
+            index3 /= [dataArr[2] count];
             
             
             [spraysArr2 addObject:[NSString stringWithFormat:@"%d/%d",index1,index2]];
