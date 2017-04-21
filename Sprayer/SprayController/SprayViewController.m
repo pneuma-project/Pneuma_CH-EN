@@ -194,9 +194,9 @@
 
 -(void)disconnectAction
 {
-    if (self.timer.isValid == YES) {
-        [self.timer invalidate];
-    }
+//    if (self.timer.isValid == YES) {
+//        [self.timer invalidate];
+//    }
 }
 
 -(void)stopNSTimerAction
