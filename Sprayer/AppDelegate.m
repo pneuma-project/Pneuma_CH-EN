@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "RootViewController.h"
+#import "UserDefaultsUtils.h"
 
 @interface AppDelegate ()
 
@@ -30,7 +31,7 @@
 -(void)BleDisconnect
 {
     [[BlueToothManager  getInstance]startScan];
-  
+    [UserDefaultsUtils saveBoolValue:YES withKey:@"AutoConnect"];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

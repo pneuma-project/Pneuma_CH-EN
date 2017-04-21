@@ -143,11 +143,10 @@
         }
     }
     
-}
-
--(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"sparyModel" object:nil userInfo:nil];
+    
+    //定时器开启
+    [self.timer setFireDate:[NSDate distantPast]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disconnectAction) name:PeripheralDidConnect object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshViewAction) name:@"refreshSprayView" object:nil];
@@ -178,10 +177,16 @@
     }
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+}
+
 -(void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    [self.timer invalidate];
+//    [self.timer invalidate];
 }
 
 -(void)refreshViewAction
@@ -201,14 +206,14 @@
 
 -(void)stopNSTimerAction
 {
-    if (self.timer.isValid == YES) {
-        [self.timer invalidate];
-    }
+//    if (self.timer.isValid == YES) {
+//        [self.timer invalidate];
+//    }
+//    [self.timer setFireDate:[NSDate distantFuture]];
 }
 
 -(void)writeDataAction
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"sparyModel" object:nil userInfo:nil];
     [BlueWriteData sparyData];
 }
 

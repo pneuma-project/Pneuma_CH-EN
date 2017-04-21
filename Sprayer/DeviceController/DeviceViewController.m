@@ -12,6 +12,7 @@
 #import "HistoricalDrugViewController.h"
 #import "SqliteUtils.h"
 #import "FLWrapJson.h"
+#import "UserDefaultsUtils.h"
 @interface DeviceViewController ()
 {
     BlueToothManager *blueManager;
@@ -59,7 +60,10 @@
     NSMutableString *allStr = [[NSMutableString alloc] initWithString:time];
     [allStr insertString:weakDate atIndex:10];
     timeData = [FLWrapJson bcdCodeString:allStr];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(writeDataAction) userInfo:nil repeats:YES];
+    if ([UserDefaultsUtils boolValueWithKey:@"AutoConnect"] == NO) {
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(writeDataAction) userInfo:nil repeats:YES];
+    }
+    
 }
 
 -(void)writeDataAction
