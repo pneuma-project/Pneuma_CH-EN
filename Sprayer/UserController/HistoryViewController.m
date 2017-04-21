@@ -62,7 +62,7 @@ static NSString *Cell_TWO = @"cellTwo";
     [self.tableView registerNib:[UINib nibWithNibName:@"HistoryTableViewCell" bundle:nil] forCellReuseIdentifier:Cell_ONE];
     [self.tableView registerNib:[UINib nibWithNibName:@"HistoryValueTableViewCell" bundle:nil] forCellReuseIdentifier:Cell_TWO];
 }
-
+#pragma mark --- 拿到当天的所有数据
 -(NSArray *)selectFromData
 {
     //查询数据库(获取所有用户数据)
@@ -105,43 +105,45 @@ static NSString *Cell_TWO = @"cellTwo";
     }
     
     //拿到每一天有多少次数据和每次数据的总和
-    for (NSString * time in userTimeArr) {
-            NSMutableArray * allNumSprayArr = [NSMutableArray array];
+    
+    NSMutableArray * allNumSprayArr = [NSMutableArray array];
+    UInt64 recordTime = [[NSDate date] timeIntervalSince1970];
+    NSString *time = [NSString stringWithFormat:@"%.llu",recordTime];
         for (BlueToothDataModel * model in dataArr) {
-            if([model.timestamp isEqualToString:time])
+            if([[model.timestamp substringToIndex:5] isEqualToString:[time substringToIndex:5]])
             {
                 [allNumSprayArr addObject:model.allBlueToothData];
             }
-        }
-        //判断有几次达标
-        if (_model.btData.length == 0) {
-            [sprayArr addObject:[NSString stringWithFormat:@"%ld/%ld",allNumSprayArr.count,allNumSprayArr.count]];
-        }else
-        {
-            //算出最佳训练模式数据的总量
-            float sum = 0;
-            NSArray * numArr = [_model.btData componentsSeparatedByString:@","];
-            for (NSString * num in numArr) {
-                sum+=[num floatValue];
-            }
-            sum/=600;
-            //-----------得到有几次喷雾达标------//
-            int index = 0;
-            for (NSString * btData in allNumSprayArr) {
-                if ([btData floatValue]>=sum*0.8) {
-                    index++;
+            //判断有几次达标
+            if (_model.btData.length == 0) {
+                [sprayArr addObject:@"1/1"];
+            }else
+            {
+                //算出最佳训练模式数据的总量
+                float sum = 0;
+                NSArray * numArr = [_model.btData componentsSeparatedByString:@","];
+                for (NSString * num in numArr) {
+                    sum+=[num floatValue];
                 }
+                sum/=600;
+                //-----------得到有几次喷雾达标------//
+               
+                if ([_model.btData floatValue]>=sum*0.8) {
+                    [sprayArr addObject:@"1/1"];
+                }else
+                {
+                    [sprayArr addObject:@"0/1"];
+                }
+                
             }
-            [sprayArr addObject:[NSString stringWithFormat:@"%ld/%d",allNumSprayArr.count,index]];
+            //----------算出喷雾的平均量---------//
+            float sum = 0;
+            for (NSString * num in allNumSprayArr) {
+                sum += [num floatValue];
+            }
+            [inspiratoryArr addObject:[NSString stringWithFormat:@"%.2f",sum/allNumSprayArr.count]];
         }
-        //----------算出喷雾的平均量---------//
-        float sum = 0;
-        for (NSString * num in allNumSprayArr) {
-            sum += [num floatValue];
-        }
-        [inspiratoryArr addObject:[NSString stringWithFormat:@"%.2f",sum/allNumSprayArr.count]];
-    }
-   
+    
     
     return @[userTimeArr,sprayArr,inspiratoryArr];
     
