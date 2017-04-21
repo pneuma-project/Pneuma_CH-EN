@@ -33,6 +33,8 @@ typedef enum _TTGState{
 @property (nonatomic,strong)NSMutableData *putData;
 @property (nonatomic,strong)NSMutableArray * trainDataArr;
 
+@property (nonatomic,strong)NSTimer *timer;
+
 @end
 
 @implementation BlueToothManager
@@ -85,12 +87,12 @@ typedef enum _TTGState{
     {
         NSLog(@"BLE已打开");
         [central scanForPeripheralsWithServices:nil options:nil];
-        [LCProgressHUD showSuccessText:@"Bluetooth is on!"];
+//        [LCProgressHUD showSuccessText:@"Bluetooth is on!"];
     }
     else
     {
         NSLog(@"蓝牙不可用");
-        [LCProgressHUD showFailureText:@"Bluetooth is not open!"];
+//        [LCProgressHUD showFailureText:@"Bluetooth is not open!"];
     }
 }
 
@@ -170,6 +172,13 @@ typedef enum _TTGState{
     NSLog(@">>>外设连接断开连接 %@: %@\n", [peripheral name], [error localizedDescription]);
     [[NSNotificationCenter defaultCenter] postNotificationName:PeripheralDidConnect object:nil userInfo:nil];
     [UserDefaultsUtils saveBoolValue:NO withKey:@"isConnect"];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(autoConnectAction) userInfo:nil repeats:YES];
+}
+
+//自动连接通知
+-(void)autoConnectAction
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"autoConnect" object:nil userInfo:nil];
 }
 
 //连接设备成功
@@ -183,6 +192,7 @@ typedef enum _TTGState{
     [_per discoverServices:nil];
     [self stopScan];
     [UserDefaultsUtils saveBoolValue:YES withKey:@"isConnect"];
+    [self.timer invalidate];
 }
 
 

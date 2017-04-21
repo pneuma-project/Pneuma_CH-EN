@@ -24,7 +24,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     //接收蓝牙断开通知
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(BleDisconnect) name:PeripheralDidConnect object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(BleDisconnect) name:@"autoConnect" object:nil];
     return YES;
 }
 -(void)BleDisconnect
