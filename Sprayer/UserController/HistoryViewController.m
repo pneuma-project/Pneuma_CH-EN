@@ -127,8 +127,12 @@ static NSString *Cell_TWO = @"cellTwo";
                 }
                 sum/=600;
                 //-----------得到有几次喷雾达标------//
-               
-                if ([_model.btData floatValue]>=sum*0.8) {
+                NSArray * numArr1 = [model.blueToothData componentsSeparatedByString:@","];
+                float sum1 = 0.0;
+                for (NSString * num in numArr1) {
+                    sum1+=[num floatValue];
+                }
+                if (sum1>=sum*0.8) {
                     [sprayArr addObject:@"1/1"];
                 }else
                 {
@@ -137,11 +141,16 @@ static NSString *Cell_TWO = @"cellTwo";
                 
             }
             //----------算出喷雾的平均量---------//
-            float sum = 0;
-            for (NSString * num in allNumSprayArr) {
-                sum += [num floatValue];
+             float sum = 0;
+            for (NSString * str in allNumSprayArr) {
+                NSArray * arr = [str componentsSeparatedByString:@","];
+                for (NSString * num in arr) {
+                    sum += [num floatValue];
+                }
+                [inspiratoryArr addObject:[NSString stringWithFormat:@"%.2f",sum/allNumSprayArr.count]];
             }
-            [inspiratoryArr addObject:[NSString stringWithFormat:@"%.2f",sum/allNumSprayArr.count]];
+
+            
         }
     
     
