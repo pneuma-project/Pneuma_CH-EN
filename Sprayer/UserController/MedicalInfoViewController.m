@@ -93,6 +93,7 @@
 
 -(void)rightBarAction
 {
+    
     if (text1.text.length == 0 || text2.text.length == 0) {
       
         [DisplayUtils alert:@"Please complete the information" viewController:self];
