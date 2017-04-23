@@ -79,15 +79,26 @@
         [self.sprayDataArr addObject:str];
         allTrainTotalNum += [str intValue];
     }
-    //获取该用户的实时喷雾数据(30个为一组)
-    NSArray * arr2 = [[SqliteUtils sharedManager]selectRealBTInfo];
+    //获取该用户的实时喷雾数据(50个为一组)
+    NSArray * arr2 = [[SqliteUtils sharedManager] selectHistoryBTInfo];
     if (arr2.count == 0) {
         [self showFirstQuardrant];
         return;
     }
     self.numberArr = [NSMutableArray array];
+    UInt64 recordTime = [[NSDate date] timeIntervalSince1970];
+    NSString *time = [NSString stringWithFormat:@"%.llu",recordTime];
+    //判断是否为今天的数据
+    //当天数据(20170421)
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"YYYYMMdd"];
+       NSDate *confromTimesp1 = [NSDate dateWithTimeIntervalSince1970:[time doubleValue]];
+    NSString * confromTimespStr1 = [formatter stringFromDate:confromTimesp1];
     for (BlueToothDataModel * model  in arr2) {
-        if (model.userId == userId) {
+        //当前读取数据的时间
+         NSDate *confromTimesp2 = [NSDate dateWithTimeIntervalSince1970:[model.timestamp doubleValue]];
+        NSString * confromTimespStr2 = [formatter stringFromDate:confromTimesp2];
+        if (model.userId == userId&&(confromTimespStr1 == confromTimespStr2)) {
             NSArray * arr3 = [model.blueToothData componentsSeparatedByString:@","];
             [self.numberArr addObject:arr3];
         }
@@ -142,13 +153,13 @@
             [self selectDataFromDb];
         }
     }
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopNSTimerAction) name:@"startTrain" object:nil];
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopNSTimerAction) name:@"startTrain" object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disconnectAction) name:PeripheralDidConnect object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshViewAction) name:@"refreshSprayView" object:nil];
@@ -165,7 +176,7 @@
         for (AddPatientInfoModel * model in arr) {
             if (model.isSelect == 1 && ![model.btData isEqualToString:@"(null)"]) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"sparyModel" object:nil userInfo:nil];
-                self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(writeDataAction) userInfo:nil repeats:YES];
+                self.timer = [NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(writeDataAction) userInfo:nil repeats:YES];
             }else if (model.isSelect == 1 && [model.btData isEqualToString:@"(null)"]){
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Please go to training" preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -181,7 +192,7 @@
 -(void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-//    [self.timer invalidate];
+    [self.timer invalidate];
 }
 
 -(void)refreshViewAction

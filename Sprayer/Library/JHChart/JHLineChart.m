@@ -158,6 +158,8 @@
  *  更新Y轴的刻度大小
  */
 - (void)updateYScale{
+    
+    
         switch (_lineChartQuadrantType) {
         case JHLineChartQuadrantTypeFirstAndFouthQuardrant:{
             
@@ -184,7 +186,7 @@
                 max = max;
             }else
                 max = (max/5+1)*5;
-        max = 164;
+        max = 200;
         NSMutableArray *arr = [NSMutableArray array];
         NSMutableArray *minArr = [NSMutableArray array];
         if (max<=5) {
@@ -217,7 +219,7 @@
             
             NSInteger count = max / 10;
             
-            for (NSInteger i = 0; i<11; i++) {
+            for (NSInteger i = 0; i<10; i++) {
                 [arr addObject:[NSString stringWithFormat:@"%ld",(i+1)*count]];
                 [minArr addObject:[NSString stringWithFormat:@"-%ld",(i+1)*count]];
             }
@@ -259,7 +261,7 @@
                 max = max;
             }else
                 max = (max/5+1)*5;
-            max = 164;
+            max = 200;
             NSMutableArray *arr = [NSMutableArray array];
             NSMutableArray *minArr = [NSMutableArray array];
             if (max<=5) {
@@ -292,7 +294,7 @@
                 
                 NSInteger count = max / 10;
                 
-                for (NSInteger i = 0; i<11; i++) {
+                for (NSInteger i = 0; i<10; i++) {
                     [arr addObject:[NSString stringWithFormat:@"%ld",(i+1)*count]];
                     [minArr addObject:[NSString stringWithFormat:@"-%ld",(i+1)*count]];
                 }
@@ -324,7 +326,7 @@
                     max = max;
                 }else
                     max = (max/5+1)*5;
-                max = 164;
+                max = 200;
                 _yLineDataArr = nil;
                 NSMutableArray *arr = [NSMutableArray array];
                 if (max<=5) {
@@ -364,7 +366,7 @@
                     
                     NSInteger count = max / 10;
                     
-                    for (NSInteger i = 0; i<10+1; i++) {
+                    for (NSInteger i = 0; i<10; i++) {
                         [arr addObject:[NSString stringWithFormat:@"%ld",(i+1)*count]];
                         
                     }

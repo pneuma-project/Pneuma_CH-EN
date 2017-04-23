@@ -39,30 +39,37 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bleIsOpenAction) name:BleIsOpen object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disconnectAction) name:PeripheralDidConnect object:nil];
     
+    if ([UserDefaultsUtils boolValueWithKey:@"AutoConnect"] == NO) {
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:0.5f target:self selector:@selector(writeDataAction) userInfo:nil repeats:YES];
+        [self.timer setFireDate:[NSDate distantFuture]];
+    }
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopNSTimerAction) name:@"startTrain" object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopNSTimerAction) name:@"sparyModel" object:nil];
 }
 
 -(void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:BleIsOpen object:nil];
+    NSLog(@"self = %@",self.timer);
+    [self.timer setFireDate:[NSDate distantFuture]];
+    [self.timer invalidate];
+    self.timer = nil;
 }
 
 -(void)bleIsOpenAction
 {
-//    DeviceStatusViewController *deviceStatusVC = [[DeviceStatusViewController alloc] init];
-//    [self.navigationController pushViewController:deviceStatusVC animated:YES];
     [self.isOnlineBtn setImage:[UIImage imageNamed:@"device-butn-on"] forState:UIControlStateNormal];
     NSString *time = [DisplayUtils getTimeStampWeek];
     NSString *weakDate = [DisplayUtils getTimestampDataWeek];
     NSMutableString *allStr = [[NSMutableString alloc] initWithString:time];
     [allStr insertString:weakDate atIndex:10];
     timeData = [FLWrapJson bcdCodeString:allStr];
-    if ([UserDefaultsUtils boolValueWithKey:@"AutoConnect"] == NO) {
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(writeDataAction) userInfo:nil repeats:YES];
-    }
+    [self.timer setFireDate:[NSDate distantPast]];
 }
 
 -(void)writeDataAction
@@ -74,6 +81,7 @@
 -(void)stopNSTimerAction
 {
     [self.timer invalidate];
+    self.timer = nil;
 }
 
 -(void)disconnectAction

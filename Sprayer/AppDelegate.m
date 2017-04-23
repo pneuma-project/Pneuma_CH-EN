@@ -24,13 +24,15 @@
     self.window.rootViewController = rootVC;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    [UserDefaultsUtils saveBoolValue:NO withKey:@"AutoConnect"];
+    
     //接收蓝牙断开通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(BleDisconnect) name:@"autoConnect" object:nil];
     return YES;
 }
 -(void)BleDisconnect
 {
-    [[BlueToothManager  getInstance]startScan];
+    [[BlueToothManager getInstance]startScan];
     [UserDefaultsUtils saveBoolValue:YES withKey:@"AutoConnect"];
 }
 
