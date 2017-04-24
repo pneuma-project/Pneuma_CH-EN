@@ -14,7 +14,7 @@
 {
     UIView *circleView;
     int allNum;
-     BOOL isLeave;//是否离开界面(因为即使离开页面通知仍会收到)
+    BOOL isLeave;//是否离开界面(因为即使离开页面通知仍会收到)
 }
 @property (nonatomic,strong)FLChartView *chartView;
 
@@ -39,6 +39,11 @@
 //    [self.navigationItem setHidesBackButton:YES];
     self.navigationItem.leftBarButtonItem = [CustemNavItem initWithImage:[UIImage imageNamed:@"icon-back"] andTarget:self andinfoStr:@"first"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshViewAction) name:@"refreshView" object:nil];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
 }
 
 -(void)viewDidDisappear:(BOOL)animated
@@ -173,8 +178,6 @@
         
     }];
     UIAlertAction *alertAction2 = [UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-        
         TrainingSecondViewController *secondVC = [[TrainingSecondViewController alloc] init];
         [self.navigationController pushViewController:secondVC animated:YES];
     }];

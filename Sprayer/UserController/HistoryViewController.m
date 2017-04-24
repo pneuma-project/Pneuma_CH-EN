@@ -103,16 +103,23 @@ static NSString *Cell_TWO = @"cellTwo";
     for (BlueToothDataModel * model in dataArr) {
         [userTimeArr addObject:model.timestamp];
     }
-    
     //拿到每一天有多少次数据和每次数据的总和
-    
     NSMutableArray * allNumSprayArr = [NSMutableArray array];
     UInt64 recordTime = [[NSDate date] timeIntervalSince1970];
     NSString *time = [NSString stringWithFormat:@"%.llu",recordTime];
+    //判断是否为今天的数据
+    //当天数据(20170421)
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"YYYYMMdd"];
+    NSDate *confromTimesp1 = [NSDate dateWithTimeIntervalSince1970:[time doubleValue]];
+    NSString * confromTimespStr1 = [formatter stringFromDate:confromTimesp1];
         for (BlueToothDataModel * model in dataArr) {
-            if([[model.timestamp substringToIndex:5] isEqualToString:[time substringToIndex:5]])
+            //当前读取数据的时间
+            NSDate *confromTimesp2 = [NSDate dateWithTimeIntervalSince1970:[model.timestamp doubleValue]];
+            NSString * confromTimespStr2 = [formatter stringFromDate:confromTimesp2];
+            if(confromTimespStr1 == confromTimespStr2)
             {
-                [allNumSprayArr addObject:model.allBlueToothData];
+                [allNumSprayArr addObject:model.blueToothData];
             }
             //判断有几次达标
             if (_model.btData.length == 0) {
@@ -132,11 +139,12 @@ static NSString *Cell_TWO = @"cellTwo";
                 for (NSString * num in numArr1) {
                     sum1+=[num floatValue];
                 }
+                sum1/=600;
                 if (sum1>=sum*0.8) {
                     [sprayArr addObject:@"1/1"];
                 }else
                 {
-                    [sprayArr addObject:@"0/1"];
+                    [sprayArr addObject:@"1/0"];
                 }
                 
             }
@@ -147,10 +155,8 @@ static NSString *Cell_TWO = @"cellTwo";
                 for (NSString * num in arr) {
                     sum += [num floatValue];
                 }
-                [inspiratoryArr addObject:[NSString stringWithFormat:@"%.2f",sum/allNumSprayArr.count]];
             }
-
-            
+            [inspiratoryArr addObject:[NSString stringWithFormat:@"%.2f",(sum/600.0)/allNumSprayArr.count]];
         }
     
     
@@ -204,14 +210,14 @@ static NSString *Cell_TWO = @"cellTwo";
             
             index4 ++;
             
-            for (NSString * num in dataArr[2]) {
-                index3 += [num floatValue];
-            }
-            index3 /= [dataArr[2] count];
+//            for (NSString * num in dataArr[2]) {
+//                index3 += [num floatValue];
+//            }
+//            index3 /= [dataArr[2] count];
             
             
             [spraysArr2 addObject:[NSString stringWithFormat:@"%d/%d",index1,index2]];
-            [inspiratoryArr2 addObject:[NSString stringWithFormat:@"%f",index3]];
+            [inspiratoryArr2 addObject:[NSString stringWithFormat:@"%f",index3/index4]];
             continue;
         }
 
@@ -222,14 +228,14 @@ static NSString *Cell_TWO = @"cellTwo";
             index2 += [arr[1] intValue];
                 
             index4 ++;
-            index3 =(index3 + [dataArr[2][i] floatValue])/index4;
+            index3 += [dataArr[2][i] floatValue];
         }else
         {
             
             dateStr = timeArr1[i];
             [timeArr2 addObject:dateStr];
             [spraysArr2 addObject:[NSString stringWithFormat:@"%d/%d",index1,index2]];
-            [inspiratoryArr2 addObject:[NSString stringWithFormat:@"%f",index3]];
+            [inspiratoryArr2 addObject:[NSString stringWithFormat:@"%f",index3/index4]];
             index  = i;
             index1 = 0;
             index2 = 0;

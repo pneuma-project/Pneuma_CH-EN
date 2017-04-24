@@ -193,6 +193,8 @@ typedef enum _TTGState{
     [self stopScan];
     [UserDefaultsUtils saveBoolValue:YES withKey:@"isConnect"];
     [self.timer invalidate];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:BleIsOpen object:nil userInfo:nil];
 }
 
 
@@ -236,7 +238,6 @@ typedef enum _TTGState{
                 if ([characteristic.UUID isEqual:readWriteUUID]) {
                     _char = characteristic;
                     [[NSNotificationCenter defaultCenter] postNotificationName:ConnectSucceed object:self userInfo:nil];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:BleIsOpen object:nil userInfo:nil];
                 }
             }
         }
@@ -340,7 +341,7 @@ typedef enum _TTGState{
                 }else if (newByte[data.length - 1] != 0xab){
                     
                     [self.putData appendData:data];
-                    NSLog(@"*******%@",self.putData);
+//                    NSLog(@"*******%@",self.putData);
                     _state = pkt_h;
                 }
             }
@@ -350,7 +351,7 @@ typedef enum _TTGState{
                 if (newByte[data.length - 1] == 0xab) {
                     
                     [self.putData appendData:data];
-                    NSLog(@"~~~~~%@",self.putData);
+//                    NSLog(@"~~~~~%@",self.putData);
                     Byte *putDataByte = (Byte *)[self.putData bytes];
                     
                     Byte newbt[self.putData.length-2];
@@ -367,8 +368,15 @@ typedef enum _TTGState{
                         NSString *timeStamp = [FLWrapJson dataToNSStringTime:[newData subdataWithRange:NSMakeRange(3, 7)]];
                         NSString *sprayData = [FLWrapJson dataToNSString:[newData subdataWithRange:NSMakeRange(10, 50)]];
                         NSString *sumData = [FLWrapJson dataSumToNSString:[newData subdataWithRange:NSMakeRange(10, 50)]];
-                        
-                        [self insertHistoryDb:@[timeStamp,sprayData,sumData]];
+                        //时间戳转时间
+                        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                        [formatter setDateStyle:NSDateFormatterMediumStyle];
+                        [formatter setTimeStyle:NSDateFormatterShortStyle];
+                        [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+                        NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:[timeStamp doubleValue]];
+                        NSString *confromTimespStr = [formatter stringFromDate:confromTimesp];
+                        //插入历史数据表
+                        [self insertHistoryDb:@[timeStamp,sprayData,sumData,confromTimespStr]];
                     }else if (type == 3){//训练数据
                         [BlueWriteData confirmCodePresentData];
                         NSString *timeStamp = [FLWrapJson dataToNSStringTime:[newData subdataWithRange:NSMakeRange(3, 7)]];
@@ -381,6 +389,7 @@ typedef enum _TTGState{
                         [UserDefaultsUtils saveValue:newArr forKey:@"trainDataArr"];
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshView" object:nil userInfo:nil];
                     }else if (type == 1){//当前实时喷雾
+                        NSLog(@"newData = %ld",newData.length);
                         [BlueWriteData confirmCodePresentData];
                         NSString *timeStamp = [FLWrapJson dataToNSStringTime:[newData subdataWithRange:NSMakeRange(3, 7)]];
                         NSString *sprayData = [FLWrapJson dataToNSString:[newData subdataWithRange:NSMakeRange(10, 50)]];
@@ -393,7 +402,7 @@ typedef enum _TTGState{
                             for (AddPatientInfoModel * model in arr) {
                                 
                                 if (model.isSelect == 1) {
-                                  
+                                    
                                     userId = model.userId;
                                     continue;
                                 }
@@ -402,19 +411,23 @@ typedef enum _TTGState{
                         }
                         
                         NSString * sql = [NSString stringWithFormat:@"insert into RealTimeBTData(userid,nowtime,btData,sumBtData) values('%d','%@','%@','%@');",userId,timeStamp,sprayData,sumData];
-                        NSString * sql1 = [NSString stringWithFormat:@"insert into historyBTDb(userid,nowtime,btData,sumBtData) values('%d','%@','%@','%@');",userId,timeStamp,sprayData,sumData];
+                        //当前读取数据的时间
+                        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                        [formatter setDateFormat:@"YYYY-MM-dd hh:mm:ss"];
+                        NSDate *confromTimesp2 = [NSDate dateWithTimeIntervalSince1970:[timeStamp doubleValue]];
+                        NSString * confromTimespStr2 = [formatter stringFromDate:confromTimesp2];
+                        NSString * sql1 = [NSString stringWithFormat:@"insert into historyBTDb(userid,nowtime,btData,sumBtData,date) values('%d','%@','%@','%@','%@');",userId,timeStamp,sprayData,sumData,confromTimespStr2];
                         [[SqliteUtils sharedManager]insertRealBTInfo:sql];
                         [[SqliteUtils sharedManager]insertHistoryBTInfo:sql1];
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshSprayView" object:nil userInfo:nil];
                     }
-                    
                     _state = etx_e;
                     self.putData = nil;
                     
                 }else if (newByte[data.length - 1] != 0xab){
                     
                     [self.putData appendData:data];
-                    NSLog(@"------%@",self.putData);
+//                    NSLog(@"------%@",self.putData);
                     _state = pkt_h;
                 }
             }
@@ -470,7 +483,7 @@ typedef enum _TTGState{
     if (userID==0) {
         return;
     }
-    NSString * sql = [NSString stringWithFormat:@"insert into historyBTDb(userid,nowtime,btData,sumBtData) values('%d','%@','%@','%@');",userID,dataArr[0],dataArr[1],dataArr[2]];
+    NSString * sql = [NSString stringWithFormat:@"insert into historyBTDb(userid,nowtime,btData,sumBtData,date) values('%d','%@','%@','%@','%@');",userID,dataArr[0],dataArr[1],dataArr[2],dataArr[3]];
     
       [[SqliteUtils sharedManager]insertHistoryBTInfo:sql];
     

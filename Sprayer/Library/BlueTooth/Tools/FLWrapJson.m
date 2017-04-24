@@ -118,7 +118,7 @@
     if (yaliData <= 0) {
         return 0;
     }else{
-        float rate = 6.043*sqrtf(yaliData)-3.2146;
+        float rate = 8.67*sqrtf(yaliData);
         return rate;
     }
 }

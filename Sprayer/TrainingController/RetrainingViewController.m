@@ -53,24 +53,17 @@
 }
 -(void)startTraingAction
 {
-    if (self.timer.isValid == YES) {
-        [self.timer invalidate];
-    }
-    
+    [self.timer invalidate];
 }
 
 -(void)stopNSTimerAction
 {
-    if (self.timer.isValid == YES) {
-        [self.timer invalidate];
-    }
+    [self.timer invalidate];
 }
 
 -(void)disconnectAction
 {
-    if (self.timer.isValid == YES) {
-        [self.timer invalidate];
-    }
+//    [self.timer invalidate];
 }
 
 #pragma mark - CustemBBI代理方法

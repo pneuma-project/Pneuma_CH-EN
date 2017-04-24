@@ -97,7 +97,7 @@
         NSString * sql = @"select * from userInfo";
         FMResultSet * rs = [db executeQuery:sql];
                while ([rs next]) {
-            NSLog(@"查询语句正确");
+//            NSLog(@"查询语句正确");
             AddPatientInfoModel * model = [[AddPatientInfoModel alloc]init];
             model.userId = [rs intForColumn:@"id"];
             model.name = [rs stringForColumn:@"name"];
@@ -201,7 +201,7 @@
         NSString * sql = @"select * from RealTimeBTData";
         FMResultSet * rs = [db executeQuery:sql];
         while ([rs next]) {
-            NSLog(@"查询语句正确");
+//            NSLog(@"查询语句正确");
              BlueToothDataModel * model = [[BlueToothDataModel alloc]init];
             model.userId = [rs intForColumn:@"userid"];
             model.timestamp = [rs stringForColumn:@"nowtime"];
@@ -211,11 +211,7 @@
         }
         [db close];
     }
-    
-    
     return mutArr;
-
- 
 }
 
 //----------------历史蓝牙数据------------//
@@ -240,7 +236,7 @@
     [self openHistoryBTData];
     // 4.创表
     if ([db open]) {
-        BOOL result = [db executeUpdate:@"create table if not exists historyBTDb (id integer primary key autoincrement,userid integer,nowtime text,btData text,sumBtData text);"];
+        BOOL result = [db executeUpdate:@"create table if not exists historyBTDb (id integer primary key autoincrement,userid integer,nowtime text,btData text,sumBtData text,date text);"];
         if (result) {
             NSLog(@"成功创表");
         } else {

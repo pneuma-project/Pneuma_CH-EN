@@ -292,6 +292,7 @@
     }
     
     float yMax = [self.dataArrOfY[0] floatValue];
+    
     for (int i = 1; i< self.dataArrOfY.count; ++i) {
         if ([self.dataArrOfY[i] floatValue] > yMax) {
             yMax = [self.dataArrOfY[i] floatValue];
@@ -355,8 +356,8 @@
 #pragma mark - y坐标数值
 -(void)addLeftViews{
     
-    NSArray *leftArr = _dataArrOfY;
-    
+//    NSArray *leftArr = _dataArrOfY;
+    NSArray * leftArr = @[@"200",@"180",@"160",@"140",@"120",@"100",@"80",@"60",@"40",@"20",@"0"];
     for (int i = 0;i< _dataArrOfY.count ;i++ ) {
         
         UILabel *leftLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, i*(Ymargin)+40-Ymargin/2, titleWOfY, Ymargin)];

@@ -42,6 +42,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shouldTrainAction) name:@"gotoTrain" object:nil];
 }
 
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+}
+
 -(void)shouldLoginAction
 {
     
