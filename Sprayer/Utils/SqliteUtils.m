@@ -72,16 +72,18 @@
    }
 
 
--(void)deleteUserInfo
+-(void)deleteUserInfo:(NSString *)idStr;
 {
     [self createUserTable];
     if ([db open]) {
-        BOOL res = [db executeUpdate:@"delete from RealTimeBTData where id >= 0;"];
+        BOOL res1 = [db executeUpdate:[NSString stringWithFormat:@"delete from userInfo where id = %@;",idStr]];
+        BOOL res2 = [db executeUpdate:[NSString stringWithFormat:@"delete from RealTimeBTData where id = %@;",idStr]];
+        BOOL res3 = [db executeUpdate:[NSString stringWithFormat:@"delete from historyBTDb where id = %@;",idStr]];
         
-        if (res) {
-            NSLog(@"数据插入表成功");
+        if (res1&&res2&&res3) {
+            NSLog(@"删除相关用户数据表成功");
         } else {
-            NSLog(@"数据插入表失败");
+            NSLog(@"删除相关用户数据表失败");
         }
     }
     
@@ -213,7 +215,21 @@
     }
     return mutArr;
 }
-
+-(void)deleteRealTimeBTData:(NSString *)sqlStr
+{
+    [self createRealTimeBTTable];
+    if ([db open]) {
+        
+        BOOL res = [db executeUpdate:sqlStr];
+        
+        if (res) {
+            NSLog(@"删除实时蓝牙数据表成功");
+        } else {
+            NSLog(@"删除实时蓝牙数据表失败");
+        }
+    }
+ 
+}
 //----------------历史蓝牙数据------------//
 - (void)openHistoryBTData {
     // 1.获得数据库文件的路径
@@ -285,5 +301,19 @@
     }
     return mutArr;
 }
-
+-(void)deleteHistoryBTData:(NSString *)sqlStr
+{
+    [self createHistoryBTTable];
+    if ([db open]) {
+      
+        BOOL res = [db executeUpdate:sqlStr];
+        
+        if (res) {
+            NSLog(@"删除历史数据表成功");
+        } else {
+            NSLog(@"删除历史数据表失败");
+        }
+    }
+ 
+}
 @end

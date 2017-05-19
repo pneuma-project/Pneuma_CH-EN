@@ -22,7 +22,7 @@ static NSString *const cellId = @"cell";
     UIButton *rightBtn;
     UIButton *addBtn;
 }
-@property (nonatomic,strong)NSArray *dataArr;//数据
+@property (nonatomic,strong)NSMutableArray *dataArr;//数据
 @end
 
 @implementation PatientInfoViewController
@@ -205,6 +205,40 @@ static NSString *const cellId = @"cell";
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 10;
+}
+//先要设Cell可编辑
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+//定义编辑样式
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
+}
+//进入编辑模式，按下出现的编辑按钮后,进行删除操作
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [self.dataArr removeObjectAtIndex:indexPath.row];
+        // Delete the row from the data source.
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        //从数据表中删除掉选中用户相关的所有数据表
+        [[SqliteUtils sharedManager]deleteUserInfo:[NSString stringWithFormat:@"%ld",indexPath.row+1]];
+    }
+}
+//修改编辑按钮文字
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"delete";
+}
+
+-(NSMutableArray *)dataArr
+{
+    if (!_dataArr) {
+        _dataArr = [NSMutableArray array];
+    }
+    return _dataArr;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -20,6 +20,8 @@ static NSString *Cell_TWO = @"cellTwo";
 
 @property (nonatomic,strong)NSMutableArray *dataArr;
 
+@property (nonatomic,strong) NSArray * dateArr;//获取每一条历史数据的日期的数组
+
 @end
 
 @implementation HistoryViewController
@@ -184,7 +186,8 @@ static NSString *Cell_TWO = @"cellTwo";
         
         NSString *currentDateStr = [dateFormatter stringFromDate: detaildate];
         [timeArr1 addObject:currentDateStr];
-    }
+       }
+    self.dateArr = dataArr[0];
     if (timeArr1.count == 0) {
         return;
     }
@@ -332,6 +335,58 @@ static NSString *Cell_TWO = @"cellTwo";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+//先要设Cell可编辑
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+//定义编辑样式
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
+}
+//进入编辑模式，按下出现的编辑按钮后,进行删除操作
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [self.dataArr removeObjectAtIndex:indexPath.row];
+        // Delete the row from the data source.
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        //从数据表中删除掉选中用户相关的所有数据表
+        [self deleteFromDb:indexPath.row];
+    }
+}
+//修改编辑按钮文字
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"delete";
+}
+
+#pragma mark ----- 删除所选的历史数据
+-(void)deleteFromDb :(NSInteger)index
+{
+    HistoryModel *model = self.dataArr[index];
+    //将时间戳转为应为缩写
+    for (NSString * timeStr in _dateArr) {
+        
+        NSTimeInterval time=[timeStr doubleValue];
+        NSDate *detaildate=[NSDate dateWithTimeIntervalSince1970:time];
+        //实例化一个NSDateFormatter对象
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        //设定时间格式,这里可以设置成自己需要的格式
+        [dateFormatter setDateFormat:@"MMM dd"];
+        
+        NSString *currentDateStr = [dateFormatter stringFromDate: detaildate];
+        //如果当条数据和所删的数据时间是同一天，则从数据库中删除
+        if([currentDateStr isEqualToString:model.time])
+        {
+            [[SqliteUtils sharedManager]deleteHistoryBTData:[NSString stringWithFormat:@"delete from historyBTDb where id = %d and nowtime = %@;",_model.userId,timeStr]];
+        }
+        
+    }
+
+    
 }
 
 - (void)didReceiveMemoryWarning {

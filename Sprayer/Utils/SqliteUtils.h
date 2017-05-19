@@ -23,7 +23,7 @@
 
 -(BOOL)insertUserInfo:(NSString *)sqlStr;//插入数据
 
--(void)deleteUserInfo;//删除数据
+-(void)deleteUserInfo:(NSString *)idStr;//删除数据
 
 -(NSArray *)selectUserInfo;//查询数据
 
@@ -38,7 +38,11 @@
 
 -(NSArray *)selectRealBTInfo;//查询所有数据
 
+-(void)deleteRealTimeBTData:(NSString *)sqlStr;//删除实时蓝牙数据
+
 //历史蓝牙数据
+-(void)deleteHistoryBTData:(NSString *)sqlStr;//删除历史表的数据
+
 - (void)openHistoryBTData;//创建或打开数据库
 
 -(void)createHistoryBTTable;//创建表

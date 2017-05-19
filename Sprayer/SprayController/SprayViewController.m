@@ -20,6 +20,7 @@
     int allTotalNum;
     int allTrainTotalNum;
     int lastTrainNum;
+    int userId;//当前用户ID
 }
 @property(nonatomic,strong)JHLineChart *lineChart;
 
@@ -51,7 +52,7 @@
     allTotalNum = 0;
     allTrainTotalNum = 0;
     //先查看是哪个用户登录并且调取他的最优数据
-    int userId = 0;
+    userId = 0;
     NSString * btDataStr;
     NSArray * arr = [[SqliteUtils sharedManager]selectUserInfo];
     if (arr.count!=0) {
@@ -149,7 +150,7 @@
              [self selectDataFromDb];
         }else
         {
-            [[SqliteUtils sharedManager]deleteUserInfo];
+            [[SqliteUtils sharedManager]deleteRealTimeBTData:@"delete from RealTimeBTData where id >= 0;"];
             [self selectDataFromDb];
         }
     }
