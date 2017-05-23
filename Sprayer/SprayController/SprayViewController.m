@@ -13,6 +13,7 @@
 #import "AddPatientInfoModel.h"
 #import "DisplayUtils.h"
 #import "UserDefaultsUtils.h"
+#import "FLWrapJson.h"
 #define k_MainBoundsWidth [UIScreen mainScreen].bounds.size.width
 #define k_MainBoundsHeight [UIScreen mainScreen].bounds.size.height
 @interface SprayViewController ()
@@ -21,6 +22,7 @@
     int allTrainTotalNum;
     int lastTrainNum;
     int userId;//当前用户ID
+    NSData *timeData;
 }
 @property(nonatomic,strong)JHLineChart *lineChart;
 
@@ -218,7 +220,12 @@
 
 -(void)writeDataAction
 {
-    [BlueWriteData sparyData];
+    NSString *time = [DisplayUtils getTimeStampWeek];
+    NSString *weakDate = [DisplayUtils getTimestampDataWeek];
+    NSMutableString *allStr = [[NSMutableString alloc] initWithString:time];
+    [allStr insertString:weakDate atIndex:10];
+    timeData = [FLWrapJson bcdCodeString:allStr];
+    [BlueWriteData sparyData:timeData];
 }
 
 -(void)setNavTitle:(NSString *)title

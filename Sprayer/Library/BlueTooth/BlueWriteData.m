@@ -32,7 +32,7 @@
 }
 
 //开始训练
-+(void)startTrainData
++(void)startTrainData:(NSData *)data
 {
     Byte dataByte[5];
     dataByte[0] = 0xff;//头部
@@ -47,7 +47,7 @@
 }
 
 //结束训练
-+(void)stopTrainData
++(void)stopTrainData:(NSData *)data
 {
     Byte dataByte[5];
     dataByte[0] = 0xff;//头部
@@ -62,7 +62,7 @@
 }
 
 //实时监测
-+(void)sparyData
++(void)sparyData:(NSData *)data
 {
     Byte dataByte[5];
     dataByte[0] = 0xff;//头部

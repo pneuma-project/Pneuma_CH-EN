@@ -10,10 +10,12 @@
 #import "FLChartView.h"
 #import "TrainingFirstViewController.h"
 #import "UserDefaultsUtils.h"
+#import "FLWrapJson.h"
 
 @interface TrainingStartViewController ()<CustemBBI>
 {
     UIView *headView;
+    NSData *timeData;
 }
 
 @property (nonatomic,strong)FLChartView *chartView;
@@ -178,7 +180,12 @@
 
 -(void)writeDataAction
 {
-    [BlueWriteData startTrainData];
+    NSString *time = [DisplayUtils getTimeStampWeek];
+    NSString *weakDate = [DisplayUtils getTimestampDataWeek];
+    NSMutableString *allStr = [[NSMutableString alloc] initWithString:time];
+    [allStr insertString:weakDate atIndex:10];
+    timeData = [FLWrapJson bcdCodeString:allStr];
+    [BlueWriteData startTrainData:timeData];
 }
 
 - (void)didReceiveMemoryWarning {
