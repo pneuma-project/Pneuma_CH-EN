@@ -11,6 +11,7 @@
 #import "UserDefaultsUtils.h"
 #import "SqliteUtils.h"
 #import "AddPatientInfoModel.h"
+#import "FLWrapJson.h"
 @interface RetrainingViewController ()<CustemBBI>
 {
     CGFloat  thirdVolumeH;
@@ -18,6 +19,7 @@
     int sum2;
     int sum3;
     NSInteger index;
+    NSData *timeData;
 }
 @property (nonatomic,strong)NSTimer *timer;
 
@@ -114,7 +116,12 @@
 
 -(void)writeDataAction
 {
-    [BlueWriteData stopTrainData];
+    NSString *time = [DisplayUtils getTimeStampWeek];
+    NSString *weakDate = [DisplayUtils getTimestampDataWeek];
+    NSMutableString *allStr = [[NSMutableString alloc] initWithString:time];
+    [allStr insertString:weakDate atIndex:10];
+    timeData = [FLWrapJson bcdCodeString:allStr];
+    [BlueWriteData stopTrainData:timeData];
 }
 
 -(void)createView

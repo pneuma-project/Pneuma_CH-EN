@@ -12,11 +12,11 @@
 
 +(void)bleConfigWithData:(NSData *)data;
 
-+(void)startTrainData;
++(void)startTrainData:(NSData *)data;
 
-+(void)stopTrainData;
++(void)stopTrainData:(NSData *)data;
 
-+(void)sparyData;
++(void)sparyData:(NSData *)data;
 
 +(void)confirmCodeHistoryData;
 
