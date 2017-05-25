@@ -161,8 +161,8 @@
 }
 
 
-#pragma mark ---- 获取用户ID
-+(int)requireUserIdFromDb
+#pragma mark ---- 获取用户ID和名称
++(NSArray *)requireUserIdFromDb
 {
     NSArray * arr = [[SqliteUtils sharedManager]selectUserInfo];
     if (arr.count!=0) {
@@ -170,12 +170,12 @@
             
             if (model.isSelect == 1) {
                
-                return model.userId;
+                return @[[NSString stringWithFormat:@"%d",model.userId],model.name];
             }
             
         }
     }
-    return 0;
+    return nil;
     
 }
 

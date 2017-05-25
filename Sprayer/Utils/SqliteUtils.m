@@ -72,20 +72,37 @@
    }
 
 
--(void)deleteUserInfo:(NSString *)idStr;
+-(void)deleteUserInfo:(int)idStr;
 {
-    [self createUserTable];
-    if ([db open]) {
-        BOOL res1 = [db executeUpdate:[NSString stringWithFormat:@"delete from userInfo where id = %@;",idStr]];
-        BOOL res2 = [db executeUpdate:[NSString stringWithFormat:@"delete from RealTimeBTData where id = %@;",idStr]];
-        BOOL res3 = [db executeUpdate:[NSString stringWithFormat:@"delete from historyBTDb where id = %@;",idStr]];
-        
-        if (res1&&res2&&res3) {
+     [self createUserTable];
+     if ([db open]) {
+        BOOL res1 = [db executeUpdate:[NSString stringWithFormat:@"delete from userInfo where id = %d;",idStr]];
+       //
+         [self createRealTimeBTTable];
+         BOOL res2 = [db executeUpdate:[NSString stringWithFormat:@"delete from RealTimeBTData where userid = %d;",idStr]];
+       //
+          [self createHistoryBTTable];
+         BOOL res3 = [db executeUpdate:[NSString stringWithFormat:@"delete from historyBTDb where userid = %d;",idStr]];
+        NSLog(@"%d-%d-%d",res1,res2,res3);
+        if (res1) {
             NSLog(@"删除相关用户数据表成功");
         } else {
             NSLog(@"删除相关用户数据表失败");
         }
+         if (res2) {
+             NSLog(@"删除用户实时数据表数据表成功");
+         } else {
+             NSLog(@"删除用户实时数据表数据表成功");
+         }
+         if (res3) {
+             NSLog(@"删除用户历史数据表数据表成功");
+         } else {
+             NSLog(@"删除用户历史数据表数据表成功");
+         }
+
     }
+    
+    
     
     [db close];
 }
@@ -252,7 +269,7 @@
     [self openHistoryBTData];
     // 4.创表
     if ([db open]) {
-        BOOL result = [db executeUpdate:@"create table if not exists historyBTDb (id integer primary key autoincrement,userid integer,nowtime text,btData text,sumBtData text,date text);"];
+        BOOL result = [db executeUpdate:@"create table if not exists historyBTDb (id integer primary key autoincrement,userid integer,nowtime text,btData text,sumBtData text,date text,userName text);"];
         if (result) {
             NSLog(@"成功创表");
         } else {

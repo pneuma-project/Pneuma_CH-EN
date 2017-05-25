@@ -12,7 +12,7 @@
 #import "HistoryModel.h"
 #import "BlueToothDataModel.h"
 #import "SqliteUtils.h"
-
+#import "HistoryDetailViewController.h"
 static NSString *Cell_ONE = @"cellOne";
 static NSString *Cell_TWO = @"cellTwo";
 
@@ -64,7 +64,7 @@ static NSString *Cell_TWO = @"cellTwo";
     [self.tableView registerNib:[UINib nibWithNibName:@"HistoryTableViewCell" bundle:nil] forCellReuseIdentifier:Cell_ONE];
     [self.tableView registerNib:[UINib nibWithNibName:@"HistoryValueTableViewCell" bundle:nil] forCellReuseIdentifier:Cell_TWO];
 }
-#pragma mark --- 拿到当天的所有数据
+#pragma mark --- 拿到每一天的所有数据
 -(NSArray *)selectFromData
 {
     //查询数据库(获取所有用户数据)
@@ -90,10 +90,8 @@ static NSString *Cell_TWO = @"cellTwo";
             BlueToothDataModel * model1 = dataArr[i];
             BlueToothDataModel * model2 = dataArr[j];
            
-            if ([model1.timestamp intValue]<[model2.timestamp intValue]) {
-                
+            if ([model1.timestamp intValue] < [model2.timestamp intValue]) {
                 //交换
-                
                 [dataArr exchangeObjectAtIndex:i withObjectAtIndex:j];
                 
             }
@@ -107,22 +105,11 @@ static NSString *Cell_TWO = @"cellTwo";
     }
     //拿到每一天有多少次数据和每次数据的总和
     NSMutableArray * allNumSprayArr = [NSMutableArray array];
-    UInt64 recordTime = [[NSDate date] timeIntervalSince1970];
-    NSString *time = [NSString stringWithFormat:@"%.llu",recordTime];
-    //判断是否为今天的数据
-    //当天数据(20170421)
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"YYYYMMdd"];
-    NSDate *confromTimesp1 = [NSDate dateWithTimeIntervalSince1970:[time doubleValue]];
-    NSString * confromTimespStr1 = [formatter stringFromDate:confromTimesp1];
+ 
         for (BlueToothDataModel * model in dataArr) {
-            //当前读取数据的时间
-            NSDate *confromTimesp2 = [NSDate dateWithTimeIntervalSince1970:[model.timestamp doubleValue]];
-            NSString * confromTimespStr2 = [formatter stringFromDate:confromTimesp2];
-            if(confromTimespStr1 == confromTimespStr2)
-            {
-                [allNumSprayArr addObject:model.blueToothData];
-            }
+            
+            [allNumSprayArr addObject:model.blueToothData];
+
             //判断有几次达标
             if (_model.btData.length == 0) {
                 [sprayArr addObject:@"1/1"];
@@ -334,12 +321,24 @@ static NSString *Cell_TWO = @"cellTwo";
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.row !=0) {
+        HistoryModel *model = self.dataArr[indexPath.row-1];
+        [self filterTheDataInSelectDate:model.time];
+    }
+   
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
 }
 //先要设Cell可编辑
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return YES;
+    if (indexPath.row == 0) {
+        return NO;
+    }else
+    {
+      return YES;
+    }
+    
 }
 //定义编辑样式
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -350,11 +349,14 @@ static NSString *Cell_TWO = @"cellTwo";
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self.dataArr removeObjectAtIndex:indexPath.row];
-        // Delete the row from the data source.
-        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        //从数据表中删除掉选中用户相关的所有数据表
-        [self deleteFromDb:indexPath.row];
+        if (indexPath.row != 0) {
+            // Delete the row from the data source.
+            //从数据表中删除掉选中用户相关的所有数据表
+            [self deleteFromDb:indexPath.row-1];
+            [self.dataArr removeObjectAtIndex:indexPath.row-1];
+            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+        }
     }
 }
 //修改编辑按钮文字
@@ -387,6 +389,90 @@ static NSString *Cell_TWO = @"cellTwo";
     }
 
     
+}
+#pragma mark ---- 筛选出选择的日期的所有历史数据
+-(void)filterTheDataInSelectDate:(NSString *)date
+{
+    //查询数据库(获取所有用户数据)
+    NSArray * arr = [[SqliteUtils sharedManager]selectHistoryBTInfo];
+    NSMutableArray * dataArr = [NSMutableArray array];
+    //筛选出该用户的所有历史数据
+    for (BlueToothDataModel * model in arr) {
+        if (model.userId == _model.userId) {
+            [dataArr addObject:model];
+        }
+    }
+   
+    //筛选出该用户当前选的日期的数据
+    NSMutableArray * selectDateArr = [NSMutableArray array];
+    for (BlueToothDataModel * model in dataArr) {
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"MMM dd"];
+        NSDate *confromTimesp2 = [NSDate dateWithTimeIntervalSince1970:[model.timestamp doubleValue]];
+        NSString * confromTimespStr2 = [formatter stringFromDate:confromTimesp2];
+        if ([confromTimespStr2 isEqualToString:date]) {
+            [selectDateArr addObject:model];
+        }
+        
+    }
+    //将详情页面所要显示的数据取出
+    NSMutableArray * numberArr = [NSMutableArray array];
+    for (BlueToothDataModel * model in selectDateArr) {
+        NSArray * arr = [model.blueToothData componentsSeparatedByString:@","];
+        [numberArr addObject:arr];
+    }
+    //
+    int allTotalNum = 0;
+    int allTrainTotalNum = 0;
+    int lastTrainNum = 0;
+
+    NSMutableArray * allNumberArr = [NSMutableArray array];
+    for (NSArray * num in numberArr) {
+        float allNum = 0;
+        for (NSString * str in num) {
+            allNum+=[str floatValue];
+        }
+        [allNumberArr addObject:[NSString stringWithFormat:@"%.2f",allNum/600.0]];
+         allTotalNum += allNum;
+    }
+    //
+    NSInteger count = numberArr.count;
+    if (count!=0) {
+        NSArray * lastTrainData = numberArr[count-1];
+        lastTrainNum = 0;
+        for (NSString * str in lastTrainData) {
+            lastTrainNum += [str intValue];
+        }
+        
+    }
+    //从用户表拿出该用户的最佳训练数据
+    NSString * btDataStr;
+    NSArray * arr1 = [[SqliteUtils sharedManager]selectUserInfo];
+    if (arr.count!=0) {
+        for (AddPatientInfoModel * model in arr1) {
+            if (model.userId == _model.userId) {
+                
+                btDataStr = model.btData;
+            }
+        }
+    }
+    NSMutableArray * sprayDataArr = [NSMutableArray array];
+    for (NSString * str in [btDataStr componentsSeparatedByString:@","]) {
+        [sprayDataArr addObject:str];
+        allTrainTotalNum += [str intValue];
+    }
+    //
+    HistoryDetailViewController * vc = [[HistoryDetailViewController alloc]init];
+    vc.numberArr = numberArr;
+    vc.AllNumberArr = allNumberArr;
+    vc.sprayDataArr = sprayDataArr;
+    vc.allTotalNum = allTotalNum;
+    vc.allTrainTotalNum = allTrainTotalNum;
+    vc.lastTrainNum = lastTrainNum;
+    vc.titles = date;
+    [self.navigationController pushViewController:vc animated:YES];
+
 }
 
 - (void)didReceiveMemoryWarning {
