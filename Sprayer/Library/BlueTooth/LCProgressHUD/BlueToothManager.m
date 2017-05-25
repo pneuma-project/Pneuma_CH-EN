@@ -398,12 +398,14 @@ typedef enum _TTGState{
                         //------------------------------//
                         NSArray * arr = [[SqliteUtils sharedManager]selectUserInfo];
                         int  userId = 0;
+                        NSString * name;
                         if (arr.count!=0) {
                             for (AddPatientInfoModel * model in arr) {
                                 
                                 if (model.isSelect == 1) {
                                     
                                     userId = model.userId;
+                                    name = model.name;
                                     continue;
                                 }
                                 
@@ -416,7 +418,7 @@ typedef enum _TTGState{
                         [formatter setDateFormat:@"YYYY-MM-dd hh:mm:ss"];
                         NSDate *confromTimesp2 = [NSDate dateWithTimeIntervalSince1970:[timeStamp doubleValue]];
                         NSString * confromTimespStr2 = [formatter stringFromDate:confromTimesp2];
-                        NSString * sql1 = [NSString stringWithFormat:@"insert into historyBTDb(userid,nowtime,btData,sumBtData,date) values('%d','%@','%@','%@','%@');",userId,timeStamp,sprayData,sumData,confromTimespStr2];
+                        NSString * sql1 = [NSString stringWithFormat:@"insert into historyBTDb(userid,nowtime,btData,sumBtData,date,userName) values('%d','%@','%@','%@','%@','%@');",userId,timeStamp,sprayData,sumData,confromTimespStr2,name];
                         [[SqliteUtils sharedManager]insertRealBTInfo:sql];
                         [[SqliteUtils sharedManager]insertHistoryBTInfo:sql1];
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshSprayView" object:nil userInfo:nil];
@@ -479,11 +481,11 @@ typedef enum _TTGState{
 //插入表
 -(void)insertHistoryDb:(NSArray *)dataArr
 {
-    int userID = [FLWrapJson requireUserIdFromDb];
-    if (userID==0) {
+    NSArray * userArr = [FLWrapJson requireUserIdFromDb];
+    if ([userArr[0] integerValue] == 0) {
         return;
     }
-    NSString * sql = [NSString stringWithFormat:@"insert into historyBTDb(userid,nowtime,btData,sumBtData,date) values('%d','%@','%@','%@','%@');",userID,dataArr[0],dataArr[1],dataArr[2],dataArr[3]];
+    NSString * sql = [NSString stringWithFormat:@"insert into historyBTDb(userid,nowtime,btData,sumBtData,date,userName) values('%d','%@','%@','%@','%@','%@');",[userArr[0] intValue],dataArr[0],dataArr[1],dataArr[2],dataArr[3],userArr[1]] ;
     
       [[SqliteUtils sharedManager]insertHistoryBTInfo:sql];
     

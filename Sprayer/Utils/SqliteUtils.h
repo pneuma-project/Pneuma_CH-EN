@@ -23,7 +23,7 @@
 
 -(BOOL)insertUserInfo:(NSString *)sqlStr;//插入数据
 
--(void)deleteUserInfo:(NSString *)idStr;//删除数据
+-(void)deleteUserInfo:(int)idStr;//删除数据
 
 -(NSArray *)selectUserInfo;//查询数据
 

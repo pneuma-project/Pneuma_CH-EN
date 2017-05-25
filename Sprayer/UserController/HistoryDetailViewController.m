@@ -1,12 +1,12 @@
 //
-//  SprayViewController.m
+//  HistoryDetailViewController.m
 //  Sprayer
 //
-//  Created by FangLin on 17/2/27.
+//  Created by 黄上凌 on 2017/5/24.
 //  Copyright © 2017年 FangLin. All rights reserved.
 //
 
-#import "SprayViewController.h"
+#import "HistoryDetailViewController.h"
 #import "JHChartHeader.h"
 #import "SqliteUtils.h"
 #import "BlueToothDataModel.h"
@@ -16,257 +16,58 @@
 #import "FLWrapJson.h"
 #define k_MainBoundsWidth [UIScreen mainScreen].bounds.size.width
 #define k_MainBoundsHeight [UIScreen mainScreen].bounds.size.height
-@interface SprayViewController ()
-{
-    int allTotalNum;
-    int allTrainTotalNum;
-    int lastTrainNum;
-    int userId;//当前用户ID
-    NSData *timeData;
-}
+
+@interface HistoryDetailViewController ()<CustemBBI>
+
 @property(nonatomic,strong)JHLineChart *lineChart;
 
 @property(nonatomic,strong)UIView * upBgView;
 
 @property(nonatomic,strong)UILabel * slmLabel;
 
-@property(nonatomic,strong)NSMutableArray * sprayDataArr;//训练最佳曲线数据(1.2....)
 
-@property(nonatomic,strong)NSMutableArray * AllNumberArr;//柱状图实时数据总和（num,num）
-
-@property(nonatomic,strong)NSMutableArray * numberArr;//单条实时曲线图的数据（50一组）((1.2....),(1.2...))
-
-@property (nonatomic,strong)NSTimer *timer;
 
 @end
 
-@implementation SprayViewController
+@implementation HistoryDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // Do any additional setup after loading the view.
     self.view.backgroundColor = RGBColor(240, 248, 252, 1.0);
-    [self setNavTitle:[DisplayUtils getTimestampData]];
-}
-#pragma mark ---- 插入实时数据和历史数据
-#pragma mark ----- 查询数据
--(void)selectDataFromDb
-{
-    allTotalNum = 0;
-    allTrainTotalNum = 0;
-    //先查看是哪个用户登录并且调取他的最优数据
-    userId = 0;
-    NSString * btDataStr;
-    NSArray * arr = [[SqliteUtils sharedManager]selectUserInfo];
-    if (arr.count!=0) {
-        for (AddPatientInfoModel * model in arr) {
-            if (model.isSelect == 1) {
-               userId = model.userId ;
-               btDataStr = model.btData;
-            }
-        }
-    }
-    //查询到用户id后再调取该用户的最佳训练数据
-    self.sprayDataArr = [NSMutableArray array];
-    NSArray * arr1 = [btDataStr componentsSeparatedByString:@","];
-    if (arr1.count == 0) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Please go to training" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"gotoTrain" object:nil userInfo:nil];
-        }];
-        [alertController addAction:alertAction];
-        [self presentViewController:alertController animated:YES completion:nil];
-        return;
-    }
-    
-    for (NSString * str in arr1) {
-        [self.sprayDataArr addObject:str];
-        allTrainTotalNum += [str intValue];
-    }
-    //获取该用户的实时喷雾数据(50个为一组)
-    NSArray * arr2 = [[SqliteUtils sharedManager] selectHistoryBTInfo];
-    if (arr2.count == 0) {
-        [self showFirstQuardrant];
-        return;
-    }
-    self.numberArr = [NSMutableArray array];
-    UInt64 recordTime = [[NSDate date] timeIntervalSince1970];
-    NSString *time = [NSString stringWithFormat:@"%.llu",recordTime];
-    //判断是否为今天的数据
-    //当天数据(20170421)
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"YYYYMMdd"];
-       NSDate *confromTimesp1 = [NSDate dateWithTimeIntervalSince1970:[time doubleValue]];
-    NSString * confromTimespStr1 = [formatter stringFromDate:confromTimesp1];
-    for (BlueToothDataModel * model  in arr2) {
-        //当前读取数据的时间
-         NSDate *confromTimesp2 = [NSDate dateWithTimeIntervalSince1970:[model.timestamp doubleValue]];
-        NSString * confromTimespStr2 = [formatter stringFromDate:confromTimesp2];
-        if (model.userId == userId&&(confromTimespStr1 == confromTimespStr2)) {
-            NSArray * arr3 = [model.blueToothData componentsSeparatedByString:@","];
-            [self.numberArr addObject:arr3];
-        }
-    }
-    //获取该用户实时数据每条的总和
-    self.AllNumberArr = [NSMutableArray array];
-    for (NSArray * num in self.numberArr) {
-        float allNum = 0;
-        for (NSString * str in num) {
-            allNum+=[str floatValue];
-        }
-        [self.AllNumberArr addObject:[NSString stringWithFormat:@"%.2f",allNum/600.0]];
-        allTotalNum += allNum;
-    }
-    
-    NSInteger count = _numberArr.count;
-    if (count!=0) {
-        NSArray * lastTrainData = _numberArr[count-1];
-        lastTrainNum = 0;
-        for (NSString * str in lastTrainData) {
-            lastTrainNum += [str intValue];
-        }
-        
-    }
-     [self showFirstQuardrant];
-}
+    [self setNavTitle:_titles];
+    [self showFirstQuardrant];
 
+}
 -(void)viewWillAppear:(BOOL)animated
 {
-    //判断是否为新的一天，是则清除数据
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"YYYYMMdd"];
-    NSDate *date = [NSDate date];
-     //NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:1490637722];
-    NSString * timeStamp = [formatter stringFromDate:date];
-    
-    NSArray * dataArr  = [[SqliteUtils sharedManager]selectRealBTInfo];
-    if(dataArr.count == 0)
-    {
-         [self selectDataFromDb];
-        return;
-    }
-    for (BlueToothDataModel * model in dataArr) {
-        
-        NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:[model.timestamp doubleValue]];
-        NSString *confromTimespStr = [formatter stringFromDate:confromTimesp];
-        if ([timeStamp isEqualToString:confromTimespStr]) {
-             [self selectDataFromDb];
-        }else
-        {
-            [[SqliteUtils sharedManager]deleteRealTimeBTData:@"delete from RealTimeBTData where id >= 0;"];
-            [self selectDataFromDb];
-        }
-    }
-}
-
--(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopNSTimerAction) name:@"startTrain" object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disconnectAction) name:PeripheralDidConnect object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshViewAction) name:@"refreshSprayView" object:nil];
-    
-    NSArray * arr = [[SqliteUtils sharedManager]selectUserInfo];
-    if (arr.count == 0) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Please login first" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"gotoLogin" object:nil userInfo:nil];
-        }];
-        [alertController addAction:alertAction];
-        [self presentViewController:alertController animated:YES completion:nil];
-    }else {
-        for (AddPatientInfoModel * model in arr) {
-            if (model.isSelect == 1 && ![model.btData isEqualToString:@"(null)"]) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"sparyModel" object:nil userInfo:nil];
-                self.timer = [NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(writeDataAction) userInfo:nil repeats:YES];
-            }else if (model.isSelect == 1 && [model.btData isEqualToString:@"(null)"]){
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Please go to training" preferredStyle:UIAlertControllerStyleAlert];
-                UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    [[NSNotificationCenter defaultCenter]postNotificationName:@"gotoTrain" object:nil userInfo:nil];
-                }];
-                [alertController addAction:alertAction];
-                [self presentViewController:alertController animated:YES completion:nil];
-            }
-        }
-    }
-}
-
--(void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    [self.timer invalidate];
-}
-
--(void)refreshViewAction
-{
-    for (UIView *subview in self.view.subviews) {
-        [subview removeFromSuperview];
-    }
-    [self selectDataFromDb];
-}
-
--(void)disconnectAction
-{
-//    if (self.timer.isValid == YES) {
-//        [self.timer invalidate];
-//    }
-}
-
--(void)stopNSTimerAction
-{
-    [self.timer invalidate];
-}
-
--(void)writeDataAction
-{
-    NSString *time = [DisplayUtils getTimeStampWeek];
-    NSString *weakDate = [DisplayUtils getTimestampDataWeek];
-    NSMutableString *allStr = [[NSMutableString alloc] initWithString:time];
-    [allStr insertString:weakDate atIndex:10];
-    timeData = [FLWrapJson bcdCodeString:allStr];
-    [BlueWriteData sparyData:timeData];
+    [super viewWillAppear:animated];
+    self.navigationItem.leftBarButtonItem = [CustemNavItem initWithImage:[UIImage imageNamed:@"icon-back"] andTarget:self andinfoStr:@"left"];
 }
 
 -(void)setNavTitle:(NSString *)title
 {
-    UIView * titileBgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 215, 44)];
-    UIImageView *  leftImgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 15, 10, 15)];
-    leftImgView.image = [UIImage imageNamed:@"icon-back"];
-    UILabel *label=[[UILabel alloc]initWithFrame:CGRectMake(leftImgView.current_x_w, 0, 180, titileBgView.current_h)];
-    label.text=NSLocalizedString(title, nil);
+    UILabel *label=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 60, 44)];
+    label.text=title;
     label.textColor=[UIColor whiteColor];
     label.textAlignment=NSTextAlignmentCenter;
     label.font=[UIFont systemFontOfSize:19];
-    UIImageView * rightImgView = [[UIImageView alloc]initWithFrame:CGRectMake(label.current_x_w, 15, 10, 15)];
-    rightImgView.image = [UIImage imageNamed:@"spray-icon--选择日期"];
-    
-    UITapGestureRecognizer * tapOne = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(leftTap)];
-    tapOne.numberOfTapsRequired = 1;
-    leftImgView.userInteractionEnabled = YES;
-    [leftImgView addGestureRecognizer:tapOne];
-    
-    UITapGestureRecognizer * tapTwo = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(rightTap)];
-    tapTwo.numberOfTapsRequired = 1;
-    rightImgView.userInteractionEnabled = YES;
-    [rightImgView addGestureRecognizer:tapTwo];
-    
-    //[titileBgView addSubview:leftImgView];
-    [titileBgView addSubview:label];
-    //[titileBgView addSubview:rightImgView];
-    self.navigationItem.titleView = titileBgView;
-
+    self.navigationItem.titleView=label;
 }
-
+#pragma mark - CustemBBI代理方法
+-(void)BBIdidClickWithName:(NSString *)infoStr
+{
+    if ([infoStr isEqualToString:@"left"]) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
 #pragma mark ----导航栏点击事件
 -(void)leftTap
 {
+    [self.navigationController popViewControllerAnimated:YES];
     NSLog(@"点击了左侧");
 }
--(void)rightTap
-{
-    NSLog(@"点击了右侧");
-}
+
 - (void)showFirstQuardrant{
     for (UIView *subview in self.view.subviews) {
         [subview removeFromSuperview];
@@ -285,7 +86,7 @@
     UILabel * referenceInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(referenceLabel.current_x_w+5, 10, 50,strSize.height)];
     referenceInfoLabel.textColor = RGBColor(0, 64, 181, 1.0);
     referenceInfoLabel.font = [UIFont systemFontOfSize:15];
-    referenceInfoLabel.text = [NSString stringWithFormat:@"%.1fL",allTrainTotalNum/600.0];
+    referenceInfoLabel.text = [NSString stringWithFormat:@"%.1fL",_allTrainTotalNum/600.0];
     
     NSString * str1 = @"Current Total Volume:";
     strSize = [DisplayUtils stringWithWidth:str1 withFont:12];
@@ -294,7 +95,7 @@
     currentLabel.textColor = RGBColor(0, 64, 181, 1.0);
     currentLabel.text = str1;
     UILabel * currentInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(currentLabel.current_x_w+5, referenceInfoLabel.current_y_h, 50, strSize.height)];
-    currentInfoLabel.text = [NSString stringWithFormat:@"%.1fL",lastTrainNum/600.0];
+    currentInfoLabel.text = [NSString stringWithFormat:@"%.1fL",_lastTrainNum/600.0];
     currentInfoLabel.textColor = RGBColor(0, 64, 181, 1.0);
     currentInfoLabel.font = [UIFont systemFontOfSize:15];
     
@@ -335,7 +136,7 @@
     SecLabel.text = @"Sec";
     SecLabel.textColor = RGBColor(204, 205, 206, 1.0);
     SecLabel.font = [UIFont systemFontOfSize:10];
-
+    
     [_upBgView addSubview:SecLabel];
     [_upBgView addSubview:referenceLabel];
     [_upBgView addSubview:referenceInfoLabel];
@@ -363,7 +164,7 @@
     
     UILabel * totalInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(downBgView.current_w-60, inspirationLabel.current_y+15, 60, 30)];
     
-    totalInfoLabel.text = [NSString stringWithFormat:@"%.1fL",allTotalNum/600.0];
+    totalInfoLabel.text = [NSString stringWithFormat:@"%.1fL",_allTotalNum/600.0];
     totalInfoLabel.textAlignment = NSTextAlignmentLeft;
     totalInfoLabel.textColor = RGBColor(0, 83, 181, 1.0);
     totalInfoLabel.font = [UIFont systemFontOfSize:16];
@@ -385,7 +186,7 @@
     for (NSString * str in _AllNumberArr) {
         sum+=[str floatValue];
     }
-//    sum/=600.0;
+    //    sum/=600.0;
     //最大值取整数
     if (sum/10000>1) {
         sum = sum/10000+1;
@@ -415,7 +216,7 @@
         yNumLabel.text = [NSString stringWithFormat:@"%.f",sum-i*(sum/5)];
         yNumLabel.font = [UIFont systemFontOfSize:10];
         [downBgView addSubview:yNumLabel];
- 
+        
     }
     UILabel * xLineLabel = [[UILabel alloc]initWithFrame:CGRectMake(yLineLabel.current_x_w, yLineLabel.current_y_h, downBgView.current_w-yLineLabel.current_x_w-30, 1)];
     xLineLabel.backgroundColor = RGBColor(204, 205, 206, 1.0);
@@ -427,7 +228,7 @@
     int viewH = 0;
     for (int i=0; i<_AllNumberArr.count; i++) {
         viewH+=[_AllNumberArr[i] floatValue]/(sum/5) * yLineLabel.current_h/6;
-//        NSLog(@"-------%d",viewH);
+        //        NSLog(@"-------%d",viewH);
         UIView * view = [[UIView alloc]initWithFrame:CGRectMake(downDateLabel.current_x+15, xLineLabel.current_y-viewH, downDateLabel.current_w-30,[_AllNumberArr[i] floatValue]/(sum/5) * yLineLabel.current_h/6)];
         UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
         tap.numberOfTouchesRequired = 1;
@@ -464,19 +265,19 @@
 -(void)tap:(UITapGestureRecognizer *)tap
 {
     NSLog(@"点击了第%ld个柱状图",tap.view.tag - 1000);
- 
+    
     [self createLineChart:tap.view.tag - 1000];
 }
 #pragma mark ---创建第一个曲线图
 -(void)createLineChart:(NSInteger)index
 {
-     self.lineChart = [[JHLineChart alloc] initWithFrame:CGRectMake(5, _slmLabel.current_y_h, _upBgView.current_w-25, _upBgView.current_h-_slmLabel.current_y_h) andLineChartType:JHChartLineValueNotForEveryX];
+    self.lineChart = [[JHLineChart alloc] initWithFrame:CGRectMake(5, _slmLabel.current_y_h, _upBgView.current_w-25, _upBgView.current_h-_slmLabel.current_y_h) andLineChartType:JHChartLineValueNotForEveryX];
     
     _lineChart.xLineDataArr = @[@"0",@"0.1",@"0.2",@"0.3",@"0.4",@"0.5",@"0.6",@"0.7",@"0.8",@"0.9",@"1.0",@"1.1",@"1.2",@"1.3",@"1.4",@"1.5",@"1.6",@"1.7",@"1.8",@"1.9",@"2.0",@"2.1",@"2.2",@"2.3",@"2.4",@"2.5",@"2.6",@"2.7",@"2.8",@"2.9",@"3.0",@"3.1",@"3.2",@"3.3",@"3.4",@"3.5",@"3.6",@"3.7",@"3.8",@"3.9",@"4.0",@"4.1",@"4.2",@"4.3",@"4.4",@"4.5",@"4.6",@"4.7",@"4.8",@"4.9",@"5.0"];//拿到X轴坐标
     _lineChart.contentInsets = UIEdgeInsetsMake(0, 25, 20, 10);
     _lineChart.lineChartQuadrantType = JHLineChartQuadrantTypeFirstQuardrant;
     if (_numberArr.count!=0) {
-       _lineChart.valueArr = @[self.sprayDataArr,_numberArr[index]];
+        _lineChart.valueArr = @[self.sprayDataArr,_numberArr[index]];
     }else
     {
         _lineChart.valueArr = @[self.sprayDataArr];
@@ -509,6 +310,7 @@
     [_lineChart showAnimation];
     
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

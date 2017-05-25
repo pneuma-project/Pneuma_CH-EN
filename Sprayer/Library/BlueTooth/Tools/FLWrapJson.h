@@ -26,6 +26,6 @@
 +(NSData *)bcdCodeString:(NSString *)bcdstr;
 
 //获取用户id
-+(int)requireUserIdFromDb;
++(NSArray *)requireUserIdFromDb;
 
 @end

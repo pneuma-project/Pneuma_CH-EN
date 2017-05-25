@@ -97,6 +97,7 @@
 		64F663FD1E63CB8400F4C9E7 /* BaseNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F663FA1E63CB8400F4C9E7 /* BaseNavViewController.m */; };
 		64F663FE1E63CB8400F4C9E7 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F663FC1E63CB8400F4C9E7 /* BaseViewController.m */; };
 		64F664021E63CC6D00F4C9E7 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F664011E63CC6D00F4C9E7 /* RootViewController.m */; };
+		BF0327BB1ED5847400D86F94 /* HistoryDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0327BA1ED5847400D86F94 /* HistoryDetailViewController.m */; };
 		BF2B3C641EA0B2BD009E639F /* MedicalInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF2B3C631EA0B2BD009E639F /* MedicalInfoViewController.m */; };
 		BF79D0E81E6FAA7C00EE468B /* EditPatientInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF79D0E71E6FAA7C00EE468B /* EditPatientInfoViewController.m */; };
 		BF79D0EB1E6FD24900EE468B /* EditDetailPatientInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF79D0EA1E6FD24900EE468B /* EditDetailPatientInfoViewController.m */; };
@@ -310,6 +311,8 @@
 		64F663FF1E63CBAC00F4C9E7 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		64F664001E63CC6D00F4C9E7 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		64F664011E63CC6D00F4C9E7 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		BF0327B91ED5847400D86F94 /* HistoryDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryDetailViewController.h; sourceTree = "<group>"; };
+		BF0327BA1ED5847400D86F94 /* HistoryDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryDetailViewController.m; sourceTree = "<group>"; };
 		BF2B3C621EA0B2BD009E639F /* MedicalInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MedicalInfoViewController.h; sourceTree = "<group>"; };
 		BF2B3C631EA0B2BD009E639F /* MedicalInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MedicalInfoViewController.m; sourceTree = "<group>"; };
 		BF79D0E61E6FAA7C00EE468B /* EditPatientInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditPatientInfoViewController.h; sourceTree = "<group>"; };
@@ -713,6 +716,8 @@
 				6425802F1E6D3E5C0019AD06 /* UserListViewController.m */,
 				642580311E6D4AC80019AD06 /* HistoryViewController.h */,
 				642580321E6D4AC80019AD06 /* HistoryViewController.m */,
+				BF0327B91ED5847400D86F94 /* HistoryDetailViewController.h */,
+				BF0327BA1ED5847400D86F94 /* HistoryDetailViewController.m */,
 				642580421E6D72270019AD06 /* PatientInfoViewController.h */,
 				642580431E6D72270019AD06 /* PatientInfoViewController.m */,
 				BF79D0F31E7101FF00EE468B /* AddPatientInfoTableViewController.h */,
@@ -1121,6 +1126,7 @@
 				642620411E80B56200263124 /* SyTableViewCell.m in Sources */,
 				644C9C5B1E66B5BF0030C3B9 /* UIImage+Common.m in Sources */,
 				BFDAC7911E7274FA00E17D7B /* JHShowInfoView.m in Sources */,
+				BF0327BB1ED5847400D86F94 /* HistoryDetailViewController.m in Sources */,
 				64F663FE1E63CB8400F4C9E7 /* BaseViewController.m in Sources */,
 				644C9CB61E697DDA0030C3B9 /* TrainingViewController.m in Sources */,
 				BF2B3C641EA0B2BD009E639F /* MedicalInfoViewController.m in Sources */,

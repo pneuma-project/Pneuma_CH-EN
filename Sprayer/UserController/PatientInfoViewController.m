@@ -220,11 +220,13 @@ static NSString *const cellId = @"cell";
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        //从数据表中删除掉选中用户相关的所有数据表
+        AddPatientInfoModel *model = self.dataArr[indexPath.row];
+        [[SqliteUtils sharedManager]deleteUserInfo:model.userId];
         [self.dataArr removeObjectAtIndex:indexPath.row];
         // Delete the row from the data source.
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        //从数据表中删除掉选中用户相关的所有数据表
-        [[SqliteUtils sharedManager]deleteUserInfo:[NSString stringWithFormat:@"%ld",indexPath.row+1]];
+       
     }
 }
 //修改编辑按钮文字
