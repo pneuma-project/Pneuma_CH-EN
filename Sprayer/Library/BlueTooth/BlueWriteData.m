@@ -39,6 +39,10 @@
     dataByte[1] = 0x02;//类型
     dataByte[2] = 0x01;//长度
     dataByte[3] = [self intHexByte:[FLWrapJson requireUserIdFromDb]];//用户ID
+    Byte *timeByte = (Byte *)[data bytes];
+    for (int i = 0; i<[data length]; i++) {
+        dataByte[4+i] = timeByte[i];
+    }
     dataByte[4] = 0xAB;//结束
     NSData *newData = [NSData dataWithBytes:&dataByte length:sizeof(dataByte)];
     NSLog(@"newdata === %@",newData);
@@ -54,6 +58,10 @@
     dataByte[1] = 0x03;//类型
     dataByte[2] = 0x01;//长度
     dataByte[3] = [self intHexByte:[FLWrapJson requireUserIdFromDb]];//用户ID
+    Byte *timeByte = (Byte *)[data bytes];
+    for (int i = 0; i<[data length]; i++) {
+        dataByte[4+i] = timeByte[i];
+    }
     dataByte[4] = 0xAB;//结束
     NSData *newData = [NSData dataWithBytes:&dataByte length:sizeof(dataByte)];
     NSLog(@"newdata == %@",newData);
@@ -69,6 +77,10 @@
     dataByte[1] = 0x04;//类型
     dataByte[2] = 0x01;//长度
     dataByte[3] = [self intHexByte:[FLWrapJson requireUserIdFromDb]];//用户ID
+    Byte *timeByte = (Byte *)[data bytes];
+    for (int i = 0; i<[data length]; i++) {
+        dataByte[4+i] = timeByte[i];
+    }
     dataByte[4] = 0xAB;//结束
     NSData *newData = [NSData dataWithBytes:&dataByte length:sizeof(dataByte)];
     NSLog(@"newdata == %@",newData);
