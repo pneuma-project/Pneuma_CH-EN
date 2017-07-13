@@ -34,16 +34,16 @@
 //开始训练
 +(void)startTrainData:(NSData *)data
 {
-    Byte dataByte[5];
+    Byte dataByte[12];
     dataByte[0] = 0xff;//头部
     dataByte[1] = 0x02;//类型
-    dataByte[2] = 0x01;//长度
+    dataByte[2] = 0x08;//长度
     dataByte[3] = [self intHexByte:[FLWrapJson requireUserIdFromDb]];//用户ID
     Byte *timeByte = (Byte *)[data bytes];
     for (int i = 0; i<[data length]; i++) {
         dataByte[4+i] = timeByte[i];
     }
-    dataByte[4] = 0xAB;//结束
+    dataByte[11] = 0xAB;//结束
     NSData *newData = [NSData dataWithBytes:&dataByte length:sizeof(dataByte)];
     NSLog(@"newdata === %@",newData);
     //写数据到蓝牙
@@ -58,10 +58,10 @@
     dataByte[1] = 0x03;//类型
     dataByte[2] = 0x01;//长度
     dataByte[3] = [self intHexByte:[FLWrapJson requireUserIdFromDb]];//用户ID
-    Byte *timeByte = (Byte *)[data bytes];
-    for (int i = 0; i<[data length]; i++) {
-        dataByte[4+i] = timeByte[i];
-    }
+//    Byte *timeByte = (Byte *)[data bytes];
+//    for (int i = 0; i<[data length]; i++) {
+//        dataByte[4+i] = timeByte[i];
+//    }
     dataByte[4] = 0xAB;//结束
     NSData *newData = [NSData dataWithBytes:&dataByte length:sizeof(dataByte)];
     NSLog(@"newdata == %@",newData);
@@ -72,16 +72,16 @@
 //实时监测
 +(void)sparyData:(NSData *)data
 {
-    Byte dataByte[5];
+    Byte dataByte[12];
     dataByte[0] = 0xff;//头部
     dataByte[1] = 0x04;//类型
-    dataByte[2] = 0x01;//长度
+    dataByte[2] = 0x08;//长度
     dataByte[3] = [self intHexByte:[FLWrapJson requireUserIdFromDb]];//用户ID
     Byte *timeByte = (Byte *)[data bytes];
     for (int i = 0; i<[data length]; i++) {
         dataByte[4+i] = timeByte[i];
     }
-    dataByte[4] = 0xAB;//结束
+    dataByte[11] = 0xAB;//结束
     NSData *newData = [NSData dataWithBytes:&dataByte length:sizeof(dataByte)];
     NSLog(@"newdata == %@",newData);
     //写数据到蓝牙
