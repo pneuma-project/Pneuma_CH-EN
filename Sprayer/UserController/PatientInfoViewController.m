@@ -42,7 +42,7 @@ static NSString *const cellId = @"cell";
 #pragma mark ----查询本地数据库
 -(void)selectFromDataBase
 {
-    self.dataArr = [[SqliteUtils sharedManager]selectUserInfo];
+    self.dataArr = [[SqliteUtils sharedManager] selectUserInfo];
     [self.tableView reloadData];
 }
 
@@ -164,26 +164,33 @@ static NSString *const cellId = @"cell";
     if (isEdit == NO) {
         //遍历viewModel的数组，如果点击的行数对应的viewModel相同，将isSelected变为Yes，反之为No
         for (NSInteger i = 0; i < self.dataArr.count; i++) {
-            PatientInfoModel *model = self.dataArr[i];
-            if (i!= indexPath.row) {
+            AddPatientInfoModel *model = self.dataArr[i];
+            //如果model。isSelect与原本一致则不用修改
+            if (i!= indexPath.row && model.isSelect) {
                 model.isSelect = NO;
-            }else if (i == indexPath.row){
+                //设置后更新数据库
+                NSString * sql = [NSString stringWithFormat:@"update userInfo set isselect = 0 where id = %d;",model.userId];
+                [[SqliteUtils sharedManager] updateUserInfo:sql];
+            }else if (i == indexPath.row && !model.isSelect){
+                //如果model。isSelect与原本一致则不用修改
                 model.isSelect = YES;
+                //设置后更新数据库
+                NSString * sql = [NSString stringWithFormat:@"update userInfo set isselect = 1 where id = %d;",model.userId];
+                [[SqliteUtils sharedManager] updateUserInfo:sql];
             }
         }
         //----------------//
-        for (NSInteger i = 1; i<=self.dataArr.count; i++) {
-            
-            if (i==indexPath.row+1) {
-                NSString * sql = [NSString stringWithFormat:@"update userInfo set isselect = 1 where id = %ld;",i];
-                [[SqliteUtils sharedManager]updateUserInfo:sql];
-            }else
-            {
-                NSString * sql = [NSString stringWithFormat:@"update userInfo set isselect = 0 where id = %ld;",i];
-                [[SqliteUtils sharedManager]updateUserInfo:sql];
-            }
-            
-        }
+//        for (NSInteger i = 1; i<=self.dataArr.count; i++) {
+//            if (i==indexPath.row+1) {
+//                NSString * sql = [NSString stringWithFormat:@"update userInfo set isselect = 1 where id = %ld;",i];
+//                [[SqliteUtils sharedManager] updateUserInfo:sql];
+//            }else
+//            {
+//                NSString * sql = [NSString stringWithFormat:@"update userInfo set isselect = 0 where id = %ld;",i];
+//                [[SqliteUtils sharedManager] updateUserInfo:sql];
+//            }
+//            
+//        }
         [self.tableView reloadData];
         [self.navigationController popViewControllerAnimated:YES];
     }else{
@@ -220,13 +227,9 @@ static NSString *const cellId = @"cell";
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        //从数据表中删除掉选中用户相关的所有数据表
-        AddPatientInfoModel *model = self.dataArr[indexPath.row];
-        [[SqliteUtils sharedManager]deleteUserInfo:model.userId];
-        [self.dataArr removeObjectAtIndex:indexPath.row];
-        // Delete the row from the data source.
-        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-       
+        [self alertToDeleteWhenClickYes:^{
+            [self deleteDataWith:indexPath andTableView:tableView];
+        } OrNo:nil];
     }
 }
 //修改编辑按钮文字
@@ -242,6 +245,52 @@ static NSString *const cellId = @"cell";
     }
     return _dataArr;
 }
+#pragma mark - 删除相关
+//删除用户时给出提示
+- (void)alertToDeleteWhenClickYes:(void (^)())clickYes OrNo:(void (^)())clickNo
+{
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil
+                        message:@"Do you want to delete it?" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *actionYes = [UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if (clickYes) {
+            clickYes();
+        }
+    }];
+    [alertVC addAction:actionYes];
+    
+    UIAlertAction *actionNo = [UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if (clickNo) {
+            clickNo();
+        }
+    }];
+    [alertVC addAction:actionNo];
+    
+    [self presentViewController:alertVC animated:NO completion:nil];
+}
+//根据传过来的indexPath和tableView来响应删除按钮
+- (void)deleteDataWith:(NSIndexPath *)indexPath andTableView:(UITableView *)tableView
+{
+    //从数据表中删除掉选中用户相关的所有数据表
+    AddPatientInfoModel *model = self.dataArr[indexPath.row];
+    [[SqliteUtils sharedManager] deleteUserInfo:model.userId];
+    
+    /*如果要删除的数据的isSelect值为YES，则删除后默认上一条的数据的isSelect为YES.
+     同时如果数据不止一条再去获取上一条数据 */
+    if (indexPath.row && model.isSelect) {
+        AddPatientInfoModel *lastModel = self.dataArr[indexPath.row - 1];
+        lastModel.isSelect = YES;
+        //同时更新数据库
+        NSString * sql = [NSString stringWithFormat:@"update userInfo set isselect = 1 where id = %d;",lastModel.userId];
+        [[SqliteUtils sharedManager] updateUserInfo:sql];
+        //更新对应的indexPath的数据
+        [tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+    // Delete the row from the data source.
+    //删除数组里的数据
+    [self.dataArr removeObjectAtIndex:indexPath.row];
+    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

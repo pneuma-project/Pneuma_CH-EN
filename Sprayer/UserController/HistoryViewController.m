@@ -68,7 +68,7 @@ static NSString *Cell_TWO = @"cellTwo";
 -(NSArray *)selectFromData
 {
     //查询数据库(获取所有用户数据)
-    NSArray * arr = [[SqliteUtils sharedManager]selectHistoryBTInfo];
+    NSArray * arr = [[SqliteUtils sharedManager] selectHistoryBTInfo];
     NSMutableArray * userTimeArr = [NSMutableArray array];
     NSMutableArray * sprayArr = [NSMutableArray array];
     NSMutableArray * inspiratoryArr = [NSMutableArray array];
@@ -76,10 +76,11 @@ static NSString *Cell_TWO = @"cellTwo";
     //筛选出该用户的所有历史数据
     for (BlueToothDataModel * model in arr) {
         if (model.userId == _model.userId) {
+            NSLog(@"<<< %@ >>>", model.timestamp);
             [dataArr addObject:model];
         }
     }
-    //对用户数据按日期降序排列
+    //对用户数据按日期降序排列    请问自己写排序的是什么心态。。。。
     if (dataArr.count == 0) {
         return @[];
     }
@@ -293,7 +294,7 @@ static NSString *Cell_TWO = @"cellTwo";
         HistoryValueTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:Cell_TWO forIndexPath:indexPath];
         if (self.dataArr) {
          
-            //祭FL挖的坑
+            //祭FL挖的坑，踩坑人2：你祭了他的坑不能填平一点吗。。。
             NSInteger index = indexPath.row - 1;
 
             HistoryModel *model = self.dataArr[index];
@@ -350,12 +351,14 @@ static NSString *Cell_TWO = @"cellTwo";
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         if (indexPath.row != 0) {
-            // Delete the row from the data source.
-            //从数据表中删除掉选中用户相关的所有数据表
-            [self deleteFromDb:indexPath.row-1];
-            [self.dataArr removeObjectAtIndex:indexPath.row-1];
-            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        
+//            // Delete the row from the data source.
+//            //从数据表中删除掉选中用户相关的所有数据表
+//            [self deleteFromDb:indexPath.row-1];
+//            [self.dataArr removeObjectAtIndex:indexPath.row-1];
+//            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [self alertToDeleteWhenClickYes:^{
+                [self deleteDataWith:indexPath andTableView:tableView];
+            } OrNo:nil];
         }
     }
 }
@@ -383,7 +386,7 @@ static NSString *Cell_TWO = @"cellTwo";
         //如果当条数据和所删的数据时间是同一天，则从数据库中删除
         if([currentDateStr isEqualToString:model.time])
         {
-            [[SqliteUtils sharedManager]deleteHistoryBTData:[NSString stringWithFormat:@"delete from historyBTDb where id = %d and nowtime = %@;",_model.userId,timeStr]];
+            [[SqliteUtils sharedManager] deleteHistoryBTData:[NSString stringWithFormat:@"delete from historyBTDb where userid = %d and nowtime = %@;",_model.userId,timeStr]];
         }
         
     }
@@ -394,7 +397,7 @@ static NSString *Cell_TWO = @"cellTwo";
 -(void)filterTheDataInSelectDate:(NSString *)date
 {
     //查询数据库(获取所有用户数据)
-    NSArray * arr = [[SqliteUtils sharedManager]selectHistoryBTInfo];
+    NSArray * arr = [[SqliteUtils sharedManager] selectHistoryBTInfo];
     NSMutableArray * dataArr = [NSMutableArray array];
     //筛选出该用户的所有历史数据
     for (BlueToothDataModel * model in arr) {
@@ -474,6 +477,39 @@ static NSString *Cell_TWO = @"cellTwo";
     [self.navigationController pushViewController:vc animated:YES];
 
 }
+
+#pragma mark - 删除相关
+//删除用户时给出提示
+- (void)alertToDeleteWhenClickYes:(void (^)())clickYes OrNo:(void (^)())clickNo
+{
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil
+                                                                     message:@"Do you want to delete it?" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *actionYes = [UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if (clickYes) {
+            clickYes();
+        }
+    }];
+    [alertVC addAction:actionYes];
+    
+    UIAlertAction *actionNo = [UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if (clickNo) {
+            clickNo();
+        }
+    }];
+    [alertVC addAction:actionNo];
+    
+    [self presentViewController:alertVC animated:NO completion:nil];
+}
+//根据传过来的indexPath和tableView来响应删除按钮
+- (void)deleteDataWith:(NSIndexPath *)indexPath andTableView:(UITableView *)tableView
+{
+    // Delete the row from the data source.
+    //从数据表中删除掉选中用户相关的所有数据表
+    [self deleteFromDb:indexPath.row-1];
+    [self.dataArr removeObjectAtIndex:indexPath.row-1];
+    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

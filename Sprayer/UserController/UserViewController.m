@@ -36,15 +36,15 @@
     
     imageArr = @[@"my-profile-icon-basic-information",@"my-profile-icon-patient-information",@"my-profile-icon-history"];
     titleArr = @[@"Basic Information",@"Patient Information",@"History"];
+    
 }
-
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"transparent"] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage imageNamed:@"transparent"]];
     
-    NSArray * arr = [[SqliteUtils sharedManager]selectUserInfo];
+    NSArray * arr = [[SqliteUtils sharedManager] selectUserInfo];
     if (arr.count!=0) {
         for (AddPatientInfoModel * model in arr) {
             
@@ -56,8 +56,16 @@
             }
             
         }
+    } else {
+        _addModel = nil;
+        nameLabel.text = nil;
     }
 }
+
+//- (void)loadCurrentInfo
+//{
+//
+//}
 
 -(void)viewWillDisappear:(BOOL)animated
 {

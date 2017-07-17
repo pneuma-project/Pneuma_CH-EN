@@ -487,7 +487,7 @@ typedef enum _TTGState{
     }
     NSString * sql = [NSString stringWithFormat:@"insert into historyBTDb(userid,nowtime,btData,sumBtData,date,userName) values('%d','%@','%@','%@','%@','%@');",[userArr[0] intValue],dataArr[0],dataArr[1],dataArr[2],dataArr[3],userArr[1]] ;
     
-      [[SqliteUtils sharedManager]insertHistoryBTInfo:sql];
+      [[SqliteUtils sharedManager] insertHistoryBTInfo:sql];
     
 }
 

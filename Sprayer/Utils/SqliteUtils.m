@@ -312,6 +312,7 @@
             model.timestamp = [rs stringForColumn:@"nowtime"];
             model.blueToothData = [rs stringForColumn:@"btData"];
             model.allBlueToothData = [rs stringForColumn:@"sumBtData"];
+            model.date = [rs stringForColumn:@"Date"];
             [mutArr addObject:model];
         }
         [db close];

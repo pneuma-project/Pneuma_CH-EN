@@ -415,7 +415,7 @@ static NSString *THREE_Cell = @"THREECELL";
         
     }
     //挑选出数据库需要修改的这条数据
-    NSArray * arr = [[SqliteUtils sharedManager]selectUserInfo];
+    NSArray * arr = [[SqliteUtils sharedManager] selectUserInfo];
     NSInteger dbIndex = 0;
     for (NSInteger i =0; i<arr.count; i++) {
         AddPatientInfoModel * model1 = [[AddPatientInfoModel alloc]init];

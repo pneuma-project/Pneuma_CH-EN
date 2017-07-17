@@ -28,7 +28,7 @@
 #pragma mark ----查询本地数据库
 -(void)selectFromDataBase
 {
-    self.dataArr = [[SqliteUtils sharedManager]selectUserInfo];
+    self.dataArr = [[SqliteUtils sharedManager] selectUserInfo];
     [self.tableView reloadData];
 }
 
