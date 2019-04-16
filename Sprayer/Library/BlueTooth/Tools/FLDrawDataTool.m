@@ -30,9 +30,7 @@
     //Byte *bytes = (Byte *)[data bytes];
     NSString *dataStr = [NSString stringWithFormat:@"%@",[self hexStringFromData:data]];
     NSString *temp = [NSString stringWithFormat:@"%lu",strtoul([dataStr UTF8String], 0, 16)];
-    
     NSInteger tmp_sData = [temp integerValue];
-    
     return tmp_sData;
 }
 
@@ -110,7 +108,6 @@
             }
         }
     }
-    
     return binaryStr;
 }
 
@@ -123,4 +120,52 @@
             stringByReplacingOccurrencesOfString: @" " withString: @""];
 }
 
+//将十进制转化为十六进制
++(NSString *)ToHex:(long long int)tmpid
+{
+    NSString *nLetterValue;
+    NSString *str =@"";
+    long long int ttmpig;
+    for (int i = 0; i<9; i++) {
+        ttmpig=tmpid%16;
+        tmpid=tmpid/16;
+        switch (ttmpig)
+        {
+            case 10:
+                nLetterValue =@"A";break;
+            case 11:
+                nLetterValue =@"B";break;
+            case 12:
+                nLetterValue =@"C";break;
+            case 13:
+                nLetterValue =@"D";break;
+            case 14:
+                nLetterValue =@"E";break;
+            case 15:
+                nLetterValue =@"F";break;
+            default:
+                nLetterValue=[[NSString alloc]initWithFormat:@"%lli",ttmpig];
+        }
+        str = [nLetterValue stringByAppendingString:str];
+        if (tmpid == 0) {
+            break;
+        }
+    }
+    return str;
+}
+
+#pragma mark - long long转NSData
++ (NSData *)longToNSData:(long long)data
+{
+    long long datatemplength = CFSwapInt64BigToHost(data);  //大小端不一样，需要转化
+    NSData *temdata = [NSData dataWithBytes: &datatemplength length: sizeof(datatemplength)];
+    Byte *bytes = (Byte *)[temdata bytes];
+    Byte newByte[temdata.length-4];
+    for (NSInteger i = 0; i < temdata.length-4; i++) {
+        newByte[i] = bytes[i+4];
+    }
+    NSData *newData = [NSData dataWithBytes:newByte
+                                     length:sizeof(newByte)];
+    return newData;
+}
 @end

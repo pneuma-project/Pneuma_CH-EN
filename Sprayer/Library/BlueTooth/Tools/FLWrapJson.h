@@ -28,4 +28,9 @@
 //获取用户id
 +(NSArray *)requireUserIdFromDb;
 
+//获取药品名称
++(NSString *)getMedicineNameToInt:(NSData *)data;
+//获取药品信息
++(NSString *)getMedicineInfo:(NSData *)data AndDrugInjectionTime:(NSData *)data1 AndDrugExpirationTime:(NSData *)data2 AndDrugOpeningTime:(NSData *)data3 AndVolatilizationTime:(NSData *)data4;
+
 @end

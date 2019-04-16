@@ -9,22 +9,44 @@
 #import "BlueWriteData.h"
 #import "FLWrapJson.h"
 #import "FLWrapJson.h"
+#import "FLDrawDataTool.h"
 
 @implementation BlueWriteData
 
 //上电信息
 +(void)bleConfigWithData:(NSData *)data
 {
-    Byte dataByte[12];
+    Byte dataByte[8];
     dataByte[0] = 0xff;//头部
     dataByte[1] = 0x01;//类型
-    dataByte[2] = 0x08;//长度
-    dataByte[3] = [self intHexByte:[FLWrapJson requireUserIdFromDb]];//用户ID
+    dataByte[2] = 0x04;//长度
+//    NSString *userId = [FLWrapJson requireUserIdFromDb][0];
+//    dataByte[3] = [self intHexByte:[userId intValue]];//用户ID
     Byte *timeByte = (Byte *)[data bytes];
     for (int i = 0; i<[data length]; i++) {
-        dataByte[4+i] = timeByte[i];
+        dataByte[3+i] = timeByte[i];
     }
-    dataByte[11] = 0xAB;//结束
+    dataByte[7] = 0xAB;//结束
+    NSData *newData = [NSData dataWithBytes:&dataByte length:sizeof(dataByte)];
+    NSLog(@"newdata == %@",newData);
+    //写数据到蓝牙
+    [[BlueToothManager getInstance] sendDataWithString:newData];
+}
+
+//查询当前药品信息
++(void)inquireCurrentDrugInfo:(NSData *)data
+{
+    Byte dataByte[8];
+    dataByte[0] = 0xff;//头部
+    dataByte[1] = 0x05;//类型
+    dataByte[2] = 0x04;//长度
+//    NSString *userId = [FLWrapJson requireUserIdFromDb][0];
+//    dataByte[3] = [self intHexByte:[userId intValue]];//用户ID
+    Byte *timeByte = (Byte *)[data bytes];
+    for (int i = 0; i<[data length]; i++) {
+        dataByte[3+i] = timeByte[i];
+    }
+    dataByte[7] = 0xAB;//结束
     NSData *newData = [NSData dataWithBytes:&dataByte length:sizeof(dataByte)];
     NSLog(@"newdata == %@",newData);
     //写数据到蓝牙
@@ -34,16 +56,17 @@
 //开始训练
 +(void)startTrainData:(NSData *)data
 {
-    Byte dataByte[12];
+    Byte dataByte[8];
     dataByte[0] = 0xff;//头部
     dataByte[1] = 0x02;//类型
-    dataByte[2] = 0x08;//长度
-    dataByte[3] = [self intHexByte:[FLWrapJson requireUserIdFromDb]];//用户ID
+    dataByte[2] = 0x04;//长度
+//    NSString *userId = [FLWrapJson requireUserIdFromDb][0];
+//    dataByte[3] = [self intHexByte:[userId intValue]];//用户ID
     Byte *timeByte = (Byte *)[data bytes];
     for (int i = 0; i<[data length]; i++) {
-        dataByte[4+i] = timeByte[i];
+        dataByte[3+i] = timeByte[i];
     }
-    dataByte[11] = 0xAB;//结束
+    dataByte[7] = 0xAB;//结束
     NSData *newData = [NSData dataWithBytes:&dataByte length:sizeof(dataByte)];
     NSLog(@"newdata === %@",newData);
     //写数据到蓝牙
@@ -53,16 +76,17 @@
 //结束训练
 +(void)stopTrainData:(NSData *)data
 {
-    Byte dataByte[5];
+    Byte dataByte[8];
     dataByte[0] = 0xff;//头部
     dataByte[1] = 0x03;//类型
-    dataByte[2] = 0x01;//长度
-    dataByte[3] = [self intHexByte:[FLWrapJson requireUserIdFromDb]];//用户ID
-//    Byte *timeByte = (Byte *)[data bytes];
-//    for (int i = 0; i<[data length]; i++) {
-//        dataByte[4+i] = timeByte[i];
-//    }
-    dataByte[4] = 0xAB;//结束
+    dataByte[2] = 0x04;//长度
+//    NSString *userId = [FLWrapJson requireUserIdFromDb][0];
+//    dataByte[3] = [self intHexByte:[userId intValue]];//用户ID
+    Byte *timeByte = (Byte *)[data bytes];
+    for (int i = 0; i<[data length]; i++) {
+        dataByte[3+i] = timeByte[i];
+    }
+    dataByte[7] = 0xAB;//结束
     NSData *newData = [NSData dataWithBytes:&dataByte length:sizeof(dataByte)];
     NSLog(@"newdata == %@",newData);
     //写数据到蓝牙
@@ -72,16 +96,17 @@
 //实时监测
 +(void)sparyData:(NSData *)data
 {
-    Byte dataByte[12];
+    Byte dataByte[8];
     dataByte[0] = 0xff;//头部
     dataByte[1] = 0x04;//类型
-    dataByte[2] = 0x08;//长度
-    dataByte[3] = [self intHexByte:[FLWrapJson requireUserIdFromDb]];//用户ID
+    dataByte[2] = 0x04;//长度
+//    NSString *userId = [FLWrapJson requireUserIdFromDb][0];
+//    dataByte[3] = [self intHexByte:[userId intValue]];//用户ID
     Byte *timeByte = (Byte *)[data bytes];
     for (int i = 0; i<[data length]; i++) {
-        dataByte[4+i] = timeByte[i];
+        dataByte[3+i] = timeByte[i];
     }
-    dataByte[11] = 0xAB;//结束
+    dataByte[7] = 0xAB;//结束
     NSData *newData = [NSData dataWithBytes:&dataByte length:sizeof(dataByte)];
     NSLog(@"newdata == %@",newData);
     //写数据到蓝牙
@@ -91,12 +116,17 @@
 //历史确认码
 +(void)confirmCodeHistoryData
 {
-    Byte dataByte[5];
+    Byte dataByte[8];
     dataByte[0] = 0xff;//头部
-    dataByte[1] = 0x0A;//类型
-    dataByte[2] = 0x01;//长度
-    dataByte[3] = 0x02;//历史确认码
-    dataByte[4] = 0xAB;//结束
+    dataByte[1] = 0x0B;//类型
+    dataByte[2] = 0x04;//长度
+    long long time = [DisplayUtils getNowTimestamp];
+    NSData *timeData = [FLDrawDataTool longToNSData:time];
+    Byte *timeByte = (Byte *)[timeData bytes];
+    for (int i = 0; i<[timeData length]; i++) {
+        dataByte[3+i] = timeByte[i];
+    }
+    dataByte[7] = 0xAB;//结束
     NSData *newData = [NSData dataWithBytes:&dataByte length:sizeof(dataByte)];
     NSLog(@"确定码:---%@",newData);
     //写数据到蓝牙
@@ -106,12 +136,17 @@
 //实时数据确认码
 +(void)confirmCodePresentData
 {
-    Byte dataByte[5];
+    Byte dataByte[8];
     dataByte[0] = 0xff;//头部
     dataByte[1] = 0x0A;//类型
-    dataByte[2] = 0x01;//长度
-    dataByte[3] = 0x01;//当前确认码
-    dataByte[4] = 0xAB;//结束
+    dataByte[2] = 0x04;//长度
+    long long time = [DisplayUtils getNowTimestamp];
+    NSData *timeData = [FLDrawDataTool longToNSData:time];
+    Byte *timeByte = (Byte *)[timeData bytes];
+    for (int i = 0; i<[timeData length]; i++) {
+        dataByte[3+i] = timeByte[i];
+    }
+    dataByte[7] = 0xAB;//结束
     NSData *newData = [NSData dataWithBytes:&dataByte length:sizeof(dataByte)];
     NSLog(@"确定码:---%@",newData);
     //写数据到蓝牙
@@ -142,5 +177,6 @@
     }
     return newByte[0];
 }
+
 
 @end

@@ -25,11 +25,13 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     [UserDefaultsUtils saveBoolValue:NO withKey:@"AutoConnect"];
+    [UserDefaultsUtils saveBoolValue:NO withKey:@"IsDisplayMedInfo"];
     
     //接收蓝牙断开通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(BleDisconnect) name:@"autoConnect" object:nil];
     return YES;
 }
+//接收到蓝牙断开通知后自动连接
 -(void)BleDisconnect
 {
     [[BlueToothManager getInstance]startScan];

@@ -90,13 +90,15 @@
 		64F663C51E63C8A900F4C9E7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F663C41E63C8A900F4C9E7 /* AppDelegate.m */; };
 		64F663C81E63C8A900F4C9E7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F663C71E63C8A900F4C9E7 /* ViewController.m */; };
 		64F663CB1E63C8A900F4C9E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64F663C91E63C8A900F4C9E7 /* Main.storyboard */; };
-		64F663CD1E63C8A900F4C9E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64F663CC1E63C8A900F4C9E7 /* Assets.xcassets */; };
 		64F663D01E63C8A900F4C9E7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64F663CE1E63C8A900F4C9E7 /* LaunchScreen.storyboard */; };
 		64F663DB1E63C8A900F4C9E7 /* SprayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F663DA1E63C8A900F4C9E7 /* SprayerTests.m */; };
 		64F663E61E63C8A900F4C9E7 /* SprayerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F663E51E63C8A900F4C9E7 /* SprayerUITests.m */; };
 		64F663FD1E63CB8400F4C9E7 /* BaseNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F663FA1E63CB8400F4C9E7 /* BaseNavViewController.m */; };
 		64F663FE1E63CB8400F4C9E7 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F663FC1E63CB8400F4C9E7 /* BaseViewController.m */; };
 		64F664021E63CC6D00F4C9E7 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F664011E63CC6D00F4C9E7 /* RootViewController.m */; };
+		7906CA4A1FBD399B00200B66 /* FlowValueSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7906CA481FBD399B00200B66 /* FlowValueSettingController.m */; };
+		7906CA4B1FBD399B00200B66 /* FlowValueSettingController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7906CA491FBD399B00200B66 /* FlowValueSettingController.xib */; };
+		7906CA4D1FBD733E00200B66 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7906CA4C1FBD733E00200B66 /* Assets.xcassets */; };
 		BF0327BB1ED5847400D86F94 /* HistoryDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0327BA1ED5847400D86F94 /* HistoryDetailViewController.m */; };
 		BF2B3C641EA0B2BD009E639F /* MedicalInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF2B3C631EA0B2BD009E639F /* MedicalInfoViewController.m */; };
 		BF79D0E81E6FAA7C00EE468B /* EditPatientInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF79D0E71E6FAA7C00EE468B /* EditPatientInfoViewController.m */; };
@@ -295,7 +297,6 @@
 		64F663C61E63C8A900F4C9E7 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		64F663C71E63C8A900F4C9E7 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		64F663CA1E63C8A900F4C9E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		64F663CC1E63C8A900F4C9E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		64F663CF1E63C8A900F4C9E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		64F663D11E63C8A900F4C9E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		64F663D61E63C8A900F4C9E7 /* SprayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SprayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -311,6 +312,10 @@
 		64F663FF1E63CBAC00F4C9E7 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		64F664001E63CC6D00F4C9E7 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		64F664011E63CC6D00F4C9E7 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		7906CA471FBD399B00200B66 /* FlowValueSettingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlowValueSettingController.h; sourceTree = "<group>"; };
+		7906CA481FBD399B00200B66 /* FlowValueSettingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FlowValueSettingController.m; sourceTree = "<group>"; };
+		7906CA491FBD399B00200B66 /* FlowValueSettingController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FlowValueSettingController.xib; sourceTree = "<group>"; };
+		7906CA4C1FBD733E00200B66 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF0327B91ED5847400D86F94 /* HistoryDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryDetailViewController.h; sourceTree = "<group>"; };
 		BF0327BA1ED5847400D86F94 /* HistoryDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryDetailViewController.m; sourceTree = "<group>"; };
 		BF2B3C621EA0B2BD009E639F /* MedicalInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MedicalInfoViewController.h; sourceTree = "<group>"; };
@@ -322,7 +327,7 @@
 		BF79D0EC1E6FE15200EE468B /* EditDetailPatSexInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditDetailPatSexInfoViewController.h; sourceTree = "<group>"; };
 		BF79D0ED1E6FE15200EE468B /* EditDetailPatSexInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditDetailPatSexInfoViewController.m; sourceTree = "<group>"; };
 		BF79D0F01E6FF69A00EE468B /* ValuePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValuePickerView.h; sourceTree = "<group>"; };
-		BF79D0F11E6FF69A00EE468B /* ValuePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ValuePickerView.m; path = ../PickerView/ValuePickerView.m; sourceTree = "<group>"; };
+		BF79D0F11E6FF69A00EE468B /* ValuePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValuePickerView.m; sourceTree = "<group>"; };
 		BF79D0F31E7101FF00EE468B /* AddPatientInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPatientInfoTableViewController.h; sourceTree = "<group>"; };
 		BF79D0F41E7101FF00EE468B /* AddPatientInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPatientInfoTableViewController.m; sourceTree = "<group>"; };
 		BF79D0F61E712E1C00EE468B /* DrugInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrugInfoViewController.h; sourceTree = "<group>"; };
@@ -637,7 +642,6 @@
 		644C9C6F1E6917F70030C3B9 /* ScanView */ = {
 			isa = PBXGroup;
 			children = (
-				BF79D0F11E6FF69A00EE468B /* ValuePickerView.m */,
 				644C9C701E6918080030C3B9 /* lightNormal.png */,
 				644C9C711E6918080030C3B9 /* lightSelect.png */,
 				644C9C721E6918080030C3B9 /* noticeMusic.wav */,
@@ -676,6 +680,7 @@
 		644C9C961E697DDA0030C3B9 /* SprayController */ = {
 			isa = PBXGroup;
 			children = (
+				BFE0CF5C1E825F3600613473 /* Model */,
 				644C9C971E697DDA0030C3B9 /* SprayViewController.h */,
 				644C9C981E697DDA0030C3B9 /* SprayViewController.m */,
 			);
@@ -685,7 +690,6 @@
 		644C9C991E697DDA0030C3B9 /* TrainingController */ = {
 			isa = PBXGroup;
 			children = (
-				BFDAC7951E76351800E17D7B /* View */,
 				644C9C9A1E697DDA0030C3B9 /* RetrainingViewController.h */,
 				644C9C9B1E697DDA0030C3B9 /* RetrainingViewController.m */,
 				644C9C9C1E697DDA0030C3B9 /* TrainingFirstViewController.h */,
@@ -711,7 +715,9 @@
 				644C9CA81E697DDA0030C3B9 /* BasicInformationViewController.m */,
 				644C9CA91E697DDA0030C3B9 /* UserViewController.h */,
 				644C9CAA1E697DDA0030C3B9 /* UserViewController.m */,
-				BFE0CF5C1E825F3600613473 /* Model */,
+				7906CA471FBD399B00200B66 /* FlowValueSettingController.h */,
+				7906CA481FBD399B00200B66 /* FlowValueSettingController.m */,
+				7906CA491FBD399B00200B66 /* FlowValueSettingController.xib */,
 				6425802E1E6D3E5C0019AD06 /* UserListViewController.h */,
 				6425802F1E6D3E5C0019AD06 /* UserListViewController.m */,
 				642580311E6D4AC80019AD06 /* HistoryViewController.h */,
@@ -800,7 +806,6 @@
 				64F663C61E63C8A900F4C9E7 /* ViewController.h */,
 				64F663C71E63C8A900F4C9E7 /* ViewController.m */,
 				64F663C91E63C8A900F4C9E7 /* Main.storyboard */,
-				64F663CC1E63C8A900F4C9E7 /* Assets.xcassets */,
 				64F663CE1E63C8A900F4C9E7 /* LaunchScreen.storyboard */,
 				64F663D11E63C8A900F4C9E7 /* Info.plist */,
 				64F663C01E63C8A900F4C9E7 /* Supporting Files */,
@@ -811,6 +816,7 @@
 		64F663C01E63C8A900F4C9E7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7906CA4C1FBD733E00200B66 /* Assets.xcassets */,
 				64F663FF1E63CBAC00F4C9E7 /* PrefixHeader.pch */,
 				64F663C11E63C8A900F4C9E7 /* main.m */,
 			);
@@ -859,6 +865,7 @@
 			isa = PBXGroup;
 			children = (
 				BF79D0F01E6FF69A00EE468B /* ValuePickerView.h */,
+				BF79D0F11E6FF69A00EE468B /* ValuePickerView.m */,
 			);
 			path = PickerView;
 			sourceTree = "<group>";
@@ -907,21 +914,13 @@
 			path = JHChart;
 			sourceTree = "<group>";
 		};
-		BFDAC7951E76351800E17D7B /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		BFE0CF5C1E825F3600613473 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				BFE0CF601E825F9D00613473 /* BlueToothDataModel.h */,
 				BFE0CF611E825F9D00613473 /* BlueToothDataModel.m */,
 			);
-			name = Model;
-			path = ../SprayController/Model;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		BFF420891EA76B320093BE8D /* FMDB */ = {
@@ -1010,7 +1009,7 @@
 				TargetAttributes = {
 					64F663BC1E63C8A900F4C9E7 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = TX8X4G99PU;
+						DevelopmentTeam = L5888F4Z42;
 						ProvisioningStyle = Automatic;
 					};
 					64F663D51E63C8A900F4C9E7 = {
@@ -1030,6 +1029,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -1064,16 +1064,17 @@
 				644C9C791E6918080030C3B9 /* lightSelect.png in Resources */,
 				6426203B1E80B56200263124 /* hud_info.png in Resources */,
 				6426203C1E80B56200263124 /* hud_info@2x.png in Resources */,
-				64F663CD1E63C8A900F4C9E7 /* Assets.xcassets in Resources */,
 				644C9C781E6918080030C3B9 /* lightNormal.png in Resources */,
 				64F663CB1E63C8A900F4C9E7 /* Main.storyboard in Resources */,
 				644C9C7A1E6918080030C3B9 /* noticeMusic.wav in Resources */,
+				7906CA4B1FBD399B00200B66 /* FlowValueSettingController.xib in Resources */,
 				644C9C7D1E6918080030C3B9 /* scanLine@3x.png in Resources */,
 				644C9CBE1E697E980030C3B9 /* MedicalTableViewCell.xib in Resources */,
 				6426203D1E80B56200263124 /* hud_success.png in Resources */,
 				642580381E6D4EA60019AD06 /* HistoryTableViewCell.xib in Resources */,
 				642580291E6D0CB90019AD06 /* LICENSE_jsonmodel.txt in Resources */,
 				6426203E1E80B56200263124 /* hud_success@2x.png in Resources */,
+				7906CA4D1FBD733E00200B66 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1106,6 +1107,7 @@
 				644C9CB31E697DDA0030C3B9 /* TrainingSecondViewController.m in Sources */,
 				64F43CC11E71585D009BF6F9 /* SqliteUtils.m in Sources */,
 				642620441E80B56200263124 /* FLWrapBobyTool.m in Sources */,
+				7906CA4A1FBD399B00200B66 /* FlowValueSettingController.m in Sources */,
 				BFDAC78A1E7274FA00E17D7B /* JHLineChart.m in Sources */,
 				642580211E6D0CB90019AD06 /* JSONModelClassProperty.m in Sources */,
 				BFDAC7931E7274FA00E17D7B /* JHTableDataRowModel.m in Sources */,
@@ -1340,12 +1342,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = TX8X4G99PU;
+				DEVELOPMENT_TEAM = L5888F4Z42;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Sprayer/PrefixHeader.pch";
 				INFOPLIST_FILE = Sprayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.FL.Sprayer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.FL.Pneuma.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1354,12 +1356,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = TX8X4G99PU;
+				DEVELOPMENT_TEAM = L5888F4Z42;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Sprayer/PrefixHeader.pch";
 				INFOPLIST_FILE = Sprayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.FL.Sprayer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.FL.Pneuma.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

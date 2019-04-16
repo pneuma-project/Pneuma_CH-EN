@@ -12,6 +12,9 @@
 #import "PatientInfoViewController.h"
 #import "SqliteUtils.h"
 #import "AddPatientInfoModel.h"
+#import "FlowValueSettingController.h"
+#import "UserDefaultsUtils.h"
+
 @interface UserViewController ()
 {
     UIView *view;
@@ -34,8 +37,8 @@
     [self setNavTitle:@"My Profile"];
     [self createHeadView];
     
-    imageArr = @[@"my-profile-icon-basic-information",@"my-profile-icon-patient-information",@"my-profile-icon-history"];
-    titleArr = @[@"Basic Information",@"Patient Information",@"History"];
+    imageArr = @[@"my-profile-icon-patient-information",@"my-profile-icon-basic-information",@"my-profile-icon-history",@"my-profile-icon-FlowValue",@"my-profile-icon-basic-information"];
+    titleArr = @[@"Patient Information",@"Basic Information",@"History",@"Pressure VS Flow Rate Equation",@"Drug Information"];
     
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -145,7 +148,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return imageArr.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -166,15 +169,41 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row == 0) {
+        
+        PatientInfoViewController *patientInfoVC = [[PatientInfoViewController alloc] init];
+        [self.navigationController pushViewController:patientInfoVC animated:YES];
+    }else if (indexPath.row == 1){
+        //检测用户是否存在
+        [self noUserAlert];
         BasicInformationViewController *inforVC = [[BasicInformationViewController alloc] init];
         inforVC.patientModel = _addModel;
         [self.navigationController pushViewController:inforVC animated:YES];
-    }else if (indexPath.row == 1){
-        PatientInfoViewController *patientInfoVC = [[PatientInfoViewController alloc] init];
-        [self.navigationController pushViewController:patientInfoVC animated:YES];
+        
     }else if (indexPath.row == 2){
         UserListViewController *userListVC = [[UserListViewController alloc] init];
         [self.navigationController pushViewController:userListVC animated:YES];
+    }else if (indexPath.row == 3){
+        FlowValueSettingController *FlowValueVC = [[FlowValueSettingController alloc]init];
+        [self.navigationController pushViewController:FlowValueVC animated:YES];
+    }else if (indexPath.row == 4){
+        NSString *medicineInfo = @"";
+        if (![[NSUserDefaults standardUserDefaults] objectForKey:@"MedicineInfo"]) {
+            medicineInfo = @"No cartridge";
+        }else {
+            NSString *value = [UserDefaultsUtils valueWithKey:@"MedicineInfo"];
+            medicineInfo = value;
+        }
+        UIAlertController *alerVC = [UIAlertController alertControllerWithTitle:nil message:medicineInfo preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    
+        }];
+        [alerVC addAction:action1];
+        NSMutableAttributedString *alertControllerMessageStr = [[NSMutableAttributedString alloc] initWithString:medicineInfo];
+        NSMutableParagraphStyle *ps = [[NSMutableParagraphStyle alloc] init];
+        [ps setAlignment:NSTextAlignmentLeft];
+        [alertControllerMessageStr addAttribute:NSParagraphStyleAttributeName value:ps range:NSMakeRange(0, medicineInfo.length)];
+        [alerVC setValue:alertControllerMessageStr forKey:@"attributedMessage"];
+        [self presentViewController:alerVC animated:YES completion:nil];
     }
 }
 
@@ -186,6 +215,35 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 50;
+}
+
+#pragma mark --- /*** 没有用户时的弹窗
+- (void)noUserAlert
+{
+    NSArray *userArray = [[SqliteUtils sharedManager] selectUserInfo];
+    if (userArray.count == 0) {
+        
+        
+        UIAlertController *alerVC = [UIAlertController alertControllerWithTitle:@"Prompt" message:@"This APP has no users. Please go ahead and add users" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [alerVC removeFromParentViewController];
+        }];
+        
+        
+        UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            PatientInfoViewController *VC = [[PatientInfoViewController alloc]init];
+            [self.navigationController pushViewController:VC animated:YES];
+        }];
+        
+        [alerVC addAction:action1];
+        [alerVC addAction:action2];
+        
+        [self presentViewController:alerVC animated:YES completion:nil];
+        
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {

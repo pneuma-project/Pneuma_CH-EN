@@ -43,12 +43,30 @@
 //屏幕的宽度高度
 #define screen_width [UIScreen mainScreen].bounds.size.width
 #define screen_height [UIScreen mainScreen].bounds.size.height
+#define nav_height 44
+
+//判断是否iPhone X
+#define IS_iPhoneX              ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+// 状态栏高度
+#define kStatusBarHeight        (IS_iPhoneX ? 44.f : 20.f)
+// 顶部导航栏高度
+#define kNavigationBarHeight    44.f
+// 顶部安全距离
+#define kSafeAreaTopHeight      (IS_iPhoneX ? 88.f : 64.f)
+// 底部安全距离
+#define kSafeAreaBottomHeight   (IS_iPhoneX ? 34.f : 0.f)
+// Tabbar高度
+#define kTabbarHeight           49.f + kSafeAreaBottomHeight
+// 去除上下导航栏剩余中间视图高度
+#define ContentHeight           (kScreenHeight - kSafeAreaTopHeight - kSafeAreaBottomHeight - kTabbarHeight)
 
 //
 #define tabbarHeight 49
 
-#define BleIsOpen @"BleIsOpen"//蓝牙是否打开
+#define BleConnectSuc @"BleConnectSuc"//蓝牙连接成功
 #define ConnectSucceed @"ConnectSucceed"//连接成功
 #define PeripheralDidConnect @"peripheralDidConnect"//断开连接
+
+
 
 #endif /* PrefixHeader_pch */

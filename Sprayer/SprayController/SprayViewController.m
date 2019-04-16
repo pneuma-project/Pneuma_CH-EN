@@ -14,15 +14,22 @@
 #import "DisplayUtils.h"
 #import "UserDefaultsUtils.h"
 #import "FLWrapJson.h"
+#import "FLDrawDataTool.h"
+
 #define k_MainBoundsWidth [UIScreen mainScreen].bounds.size.width
 #define k_MainBoundsHeight [UIScreen mainScreen].bounds.size.height
-@interface SprayViewController ()
+@interface SprayViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 {
     int allTotalNum;
     int allTrainTotalNum;
     int lastTrainNum;
     int userId;//当前用户ID
     NSData *timeData;
+    NSString *medicineName; //药品名称
+    
+    UILabel * yLineLabel;
+    UILabel * xLineLabel;
+    UIView * downBgView;
 }
 @property(nonatomic,strong)JHLineChart *lineChart;
 
@@ -38,6 +45,14 @@
 
 @property (nonatomic,strong)NSTimer *timer;
 
+@property(nonatomic,strong)UILabel *medicineNameL;
+@property(nonatomic,strong)UILabel *currentInfoLabel;
+
+//@property(nonatomic,strong)UILabel * yLineLabel;
+//@property(nonatomic,strong)UILabel * xLineLabel;
+
+@property(nonatomic,strong)UICollectionView *collectionView;
+
 @end
 
 @implementation SprayViewController
@@ -46,7 +61,66 @@
     [super viewDidLoad];
     self.view.backgroundColor = RGBColor(240, 248, 252, 1.0);
     [self setNavTitle:[DisplayUtils getTimestampData]];
+    [self setInterface];
 }
+
+-(void)setInterface {
+    /**
+     创建layout(布局)
+     UICollectionViewFlowLayout 继承与UICollectionLayout
+     对比其父类 好处是 可以设置每个item的边距 大小 头部和尾部的大小
+     */
+    UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc]init];
+    CGFloat itemWidth = 40;
+    // 设置每个item的大小
+    layout.itemSize = CGSizeMake(itemWidth, yLineLabel.current_h);
+    // 设置列间距
+    layout.minimumInteritemSpacing = 0;
+    // 设置行间距
+    layout.minimumLineSpacing = 20;
+    //滚动方向
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    //每个分区的四边间距UIEdgeInsetsMake
+    layout.sectionInset = UIEdgeInsetsMake(0, 20, 0, 20);
+    _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(yLineLabel.current_x_w, yLineLabel.current_y, xLineLabel.current_w, yLineLabel.current_h) collectionViewLayout:layout];
+    /** mainCollectionView 的布局(必须实现的) */
+    _collectionView.collectionViewLayout = layout;
+    //mainCollectionView 的背景色
+    _collectionView.backgroundColor = [UIColor whiteColor];
+    //设置代理协议
+    _collectionView.delegate = self;
+    //设置数据源协议
+    _collectionView.dataSource = self;
+    [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"UICollectionViewCell"];
+    [downBgView addSubview:self.collectionView];
+}
+
+#pragma mark -- UICollectionViewDelegate
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return _AllNumberArr.count;
+}
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"UICollectionViewCell" forIndexPath:indexPath];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
+    view.backgroundColor = RGBColor(10, 77, 170, 1);
+    UILabel *numL = [[UILabel alloc] initWithFrame:CGRectZero];
+    numL.font = [UIFont systemFontOfSize:14];
+    numL.textColor = [UIColor grayColor];
+    numL.textAlignment = NSTextAlignmentCenter;
+    [cell.contentView addSubview:view];
+    [cell.contentView addSubview:numL];
+    int viewH = [_AllNumberArr[indexPath.item] floatValue]/2 * yLineLabel.current_h/6;
+    view.frame = CGRectMake(0, yLineLabel.current_h-viewH, 40, viewH);
+    numL.frame = CGRectMake(0, view.current_y-20, 40, 14);
+    numL.text = [NSString stringWithFormat:@"%ld",indexPath.item+1];
+    return cell;
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [self createLineChart:indexPath.item];
+}
+
 #pragma mark ---- 插入实时数据和历史数据
 #pragma mark ----- 查询数据
 -(void)selectDataFromDb
@@ -85,6 +159,8 @@
     //获取该用户的实时喷雾数据(50个为一组)
     NSArray * arr2 = [[SqliteUtils sharedManager] selectHistoryBTInfo];
     if (arr2.count == 0) {
+        [self.AllNumberArr removeAllObjects];
+        [self.numberArr removeAllObjects];
         [self showFirstQuardrant];
         return;
     }
@@ -95,15 +171,17 @@
     //当天数据(20170421)
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"YYYYMMdd"];
-       NSDate *confromTimesp1 = [NSDate dateWithTimeIntervalSince1970:[time doubleValue]];
+    NSDate *confromTimesp1 = [NSDate dateWithTimeIntervalSince1970:[time doubleValue]];
     NSString * confromTimespStr1 = [formatter stringFromDate:confromTimesp1];
     for (BlueToothDataModel * model  in arr2) {
         //当前读取数据的时间
-         NSDate *confromTimesp2 = [NSDate dateWithTimeIntervalSince1970:[model.timestamp doubleValue]];
+        NSDate *confromTimesp2 = [NSDate dateWithTimeIntervalSince1970:[model.timestamp doubleValue]];
         NSString * confromTimespStr2 = [formatter stringFromDate:confromTimesp2];
         if (model.userId == userId&&(confromTimespStr1 == confromTimespStr2)) {
             NSArray * arr3 = [model.blueToothData componentsSeparatedByString:@","];
             [self.numberArr addObject:arr3];
+            //药品信息
+            medicineName = model.medicineName;
         }
     }
     //获取该用户实时数据每条的总和
@@ -124,9 +202,8 @@
         for (NSString * str in lastTrainData) {
             lastTrainNum += [str intValue];
         }
-        
     }
-     [self showFirstQuardrant];
+    [self showFirstQuardrant];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -139,19 +216,16 @@
     NSString * timeStamp = [formatter stringFromDate:date];
     
     NSArray * dataArr  = [[SqliteUtils sharedManager]selectRealBTInfo];
-    if(dataArr.count == 0)
-    {
-         [self selectDataFromDb];
+    if(dataArr.count == 0) {
+        [self selectDataFromDb];
         return;
     }
     for (BlueToothDataModel * model in dataArr) {
-        
         NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:[model.timestamp doubleValue]];
         NSString *confromTimespStr = [formatter stringFromDate:confromTimesp];
         if ([timeStamp isEqualToString:confromTimespStr]) {
              [self selectDataFromDb];
-        }else
-        {
+        }else{
             [[SqliteUtils sharedManager]deleteRealTimeBTData:@"delete from RealTimeBTData where id >= 0;"];
             [self selectDataFromDb];
         }
@@ -196,6 +270,7 @@
 {
     [super viewDidDisappear:animated];
     [self.timer invalidate];
+    self.timer = nil;
 }
 
 -(void)refreshViewAction
@@ -220,11 +295,13 @@
 
 -(void)writeDataAction
 {
-    NSString *time = [DisplayUtils getTimeStampWeek];
-    NSString *weakDate = [DisplayUtils getTimestampDataWeek];
-    NSMutableString *allStr = [[NSMutableString alloc] initWithString:time];
-    [allStr insertString:weakDate atIndex:10];
-    timeData = [FLWrapJson bcdCodeString:allStr];
+//    NSString *time = [DisplayUtils getTimeStampWeek];
+//    NSString *weakDate = [DisplayUtils getTimestampDataWeek];
+//    NSMutableString *allStr = [[NSMutableString alloc] initWithString:time];
+//    [allStr insertString:weakDate atIndex:10];
+//    timeData = [FLWrapJson bcdCodeString:allStr];
+    long long time = [DisplayUtils getNowTimestamp];
+    timeData = [FLDrawDataTool longToNSData:time];
     [BlueWriteData sparyData:timeData];
 }
 
@@ -293,10 +370,15 @@
     currentLabel.font = [UIFont systemFontOfSize:12];
     currentLabel.textColor = RGBColor(0, 64, 181, 1.0);
     currentLabel.text = str1;
-    UILabel * currentInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(currentLabel.current_x_w+5, referenceInfoLabel.current_y_h, 50, strSize.height)];
-    currentInfoLabel.text = [NSString stringWithFormat:@"%.1fL",lastTrainNum/600.0];
-    currentInfoLabel.textColor = RGBColor(0, 64, 181, 1.0);
-    currentInfoLabel.font = [UIFont systemFontOfSize:15];
+    _currentInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(currentLabel.current_x_w+5, referenceInfoLabel.current_y_h, 50, strSize.height)];
+    _currentInfoLabel.text = [NSString stringWithFormat:@"%.1fL",lastTrainNum/600.0];
+    _currentInfoLabel.textColor = RGBColor(0, 64, 181, 1.0);
+    _currentInfoLabel.font = [UIFont systemFontOfSize:15];
+    
+    _medicineNameL = [[UILabel alloc] initWithFrame:CGRectMake(currentLabel.current_x, currentLabel.current_y_h, 100, 12)];
+    _medicineNameL.font = [UIFont systemFontOfSize:12];
+    _medicineNameL.textColor = RGBColor(0, 64, 181, 1.0);
+    _medicineNameL.text = medicineName;
     
     UILabel * trainLabel = [[UILabel alloc]initWithFrame:CGRectMake(_upBgView.current_w-55, 10, 55, strSize.height)];
     trainLabel.text = @"Training";
@@ -340,7 +422,8 @@
     [_upBgView addSubview:referenceLabel];
     [_upBgView addSubview:referenceInfoLabel];
     [_upBgView addSubview:currentLabel];
-    [_upBgView addSubview:currentInfoLabel];
+    [_upBgView addSubview:_currentInfoLabel];
+    [_upBgView addSubview:_medicineNameL];
     [_upBgView addSubview:_slmLabel];
     [_upBgView addSubview:trainView];
     [_upBgView addSubview:trainLabel];
@@ -348,7 +431,7 @@
     [_upBgView addSubview:sprayLabel];
     [self.view addSubview:_upBgView];
     /*创建第二个柱状图 */
-    UIView * downBgView = [[UIView alloc]initWithFrame:CGRectMake(10, _upBgView.current_y_h+10, screen_width-20,(screen_height-64-tabbarHeight)/2-20)];
+    downBgView = [[UIView alloc]initWithFrame:CGRectMake(10, _upBgView.current_y_h+10, screen_width-20,(screen_height-64-tabbarHeight)/2-20)];
     downBgView.backgroundColor = [UIColor whiteColor];
     UIView * pointView = [[UIView alloc]initWithFrame:CGRectMake(10, 10, 8, 8)];
     pointView.backgroundColor = RGBColor(0, 83, 181, 1.0);
@@ -377,11 +460,12 @@
     unitLabel.font = [UIFont systemFontOfSize:12];
     unitLabel.textColor = RGBColor(203, 204, 205, 1.0);
     
-    UILabel * yLineLabel = [[UILabel alloc]initWithFrame:CGRectMake(unitLabel.current_x_w, unitLabel.current_y_h+10, 1, downBgView.current_h-unitLabel.current_y_h-40)];
+    yLineLabel = [[UILabel alloc]initWithFrame:CGRectMake(unitLabel.current_x_w, unitLabel.current_y_h+10, 1, downBgView.current_h-unitLabel.current_y_h-40)];
     yLineLabel.backgroundColor = RGBColor(204, 205, 206, 1.0);
     
     //获取总和
-    float sum = 0;
+    float sum = 10;
+    /*
     for (NSString * str in _AllNumberArr) {
         sum+=[str floatValue];
     }
@@ -406,24 +490,25 @@
     {
         sum = 10;
     }
+    */
     
     //--------------//
     for (int i =0; i<6; i++) {
-        UILabel * yNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(yLineLabel.current_x-35,unitLabel.current_y_h+i*(yLineLabel.current_h/6)+15, 30, yLineLabel.current_h/6)];
+        UILabel * yNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(yLineLabel.current_x-35,unitLabel.current_y_h+i*(yLineLabel.current_h/6)+25, 30, yLineLabel.current_h/6)];
         yNumLabel.textColor = RGBColor(204, 205, 206, 1.0);
         yNumLabel.textAlignment = NSTextAlignmentRight;
         yNumLabel.text = [NSString stringWithFormat:@"%.f",sum-i*(sum/5)];
         yNumLabel.font = [UIFont systemFontOfSize:10];
         [downBgView addSubview:yNumLabel];
- 
     }
-    UILabel * xLineLabel = [[UILabel alloc]initWithFrame:CGRectMake(yLineLabel.current_x_w, yLineLabel.current_y_h, downBgView.current_w-yLineLabel.current_x_w-30, 1)];
+    xLineLabel = [[UILabel alloc]initWithFrame:CGRectMake(yLineLabel.current_x_w, yLineLabel.current_y_h, downBgView.current_w-yLineLabel.current_x_w-30, 1)];
     xLineLabel.backgroundColor = RGBColor(204, 205, 206, 1.0);
     UILabel * downDateLabel = [[UILabel alloc]initWithFrame:CGRectMake(yLineLabel.current_x_w+xLineLabel.current_w/2-35, xLineLabel.current_y_h, 80, 30)];
     downDateLabel.text = [DisplayUtils getTimestampData];
     downDateLabel.textColor = RGBColor(0, 83, 181, 1.0);
     downDateLabel.font = [UIFont systemFontOfSize:10];
     
+     /*
     int viewH = 0;
     for (int i=0; i<_AllNumberArr.count; i++) {
         viewH+=[_AllNumberArr[i] floatValue]/(sum/5) * yLineLabel.current_h/6;
@@ -441,7 +526,10 @@
         }
         [downBgView addSubview:view];
     }
-    
+    */
+    [self setInterface];
+    [self.collectionView reloadData];
+      
     UILabel * dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(xLineLabel.current_x_w, xLineLabel.current_y_h-10, downBgView.current_w-xLineLabel.current_x_w, 20)];
     dateLabel.text = @"Date";
     dateLabel.textColor = RGBColor(204, 205, 206, 1.0);
@@ -463,22 +551,35 @@
 #pragma mark ---- 柱状图的点击事件
 -(void)tap:(UITapGestureRecognizer *)tap
 {
-    NSLog(@"点击了第%ld个柱状图",tap.view.tag - 1000);
- 
+//    NSLog(@"点击了第%ld个柱状图",tap.view.tag - 1000);
     [self createLineChart:tap.view.tag - 1000];
 }
 #pragma mark ---创建第一个曲线图
 -(void)createLineChart:(NSInteger)index
 {
-     self.lineChart = [[JHLineChart alloc] initWithFrame:CGRectMake(5, _slmLabel.current_y_h, _upBgView.current_w-25, _upBgView.current_h-_slmLabel.current_y_h) andLineChartType:JHChartLineValueNotForEveryX];
+    //展示药品信息
+    NSArray * arr2 = [[SqliteUtils sharedManager] selectHistoryBTInfo];
+    if (arr2.count != 0) {
+        BlueToothDataModel * totalModel = arr2[index];
+        NSString *medicineN = totalModel.medicineName;
+        _medicineNameL.text = medicineN;
+    }
+    if (_numberArr.count != 0) {
+        int trainNum = 0;
+        for (NSString * str in _numberArr[index]) {
+            trainNum += [str intValue];
+        }
+        _currentInfoLabel.text = [NSString stringWithFormat:@"%.1fL",trainNum/600.0];
+    }
+    
+    self.lineChart = [[JHLineChart alloc] initWithFrame:CGRectMake(5, _slmLabel.current_y_h, _upBgView.current_w-25, _upBgView.current_h-_slmLabel.current_y_h) andLineChartType:JHChartLineValueNotForEveryX];
     
     _lineChart.xLineDataArr = @[@"0",@"0.1",@"0.2",@"0.3",@"0.4",@"0.5",@"0.6",@"0.7",@"0.8",@"0.9",@"1.0",@"1.1",@"1.2",@"1.3",@"1.4",@"1.5",@"1.6",@"1.7",@"1.8",@"1.9",@"2.0",@"2.1",@"2.2",@"2.3",@"2.4",@"2.5",@"2.6",@"2.7",@"2.8",@"2.9",@"3.0",@"3.1",@"3.2",@"3.3",@"3.4",@"3.5",@"3.6",@"3.7",@"3.8",@"3.9",@"4.0",@"4.1",@"4.2",@"4.3",@"4.4",@"4.5",@"4.6",@"4.7",@"4.8",@"4.9",@"5.0"];//拿到X轴坐标
     _lineChart.contentInsets = UIEdgeInsetsMake(0, 25, 20, 10);
     _lineChart.lineChartQuadrantType = JHLineChartQuadrantTypeFirstQuardrant;
     if (_numberArr.count!=0) {
        _lineChart.valueArr = @[self.sprayDataArr,_numberArr[index]];
-    }else
-    {
+    }else{
         _lineChart.valueArr = @[self.sprayDataArr];
     }
     
@@ -513,15 +614,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

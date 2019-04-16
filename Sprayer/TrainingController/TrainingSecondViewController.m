@@ -74,7 +74,7 @@
     pointImageView.layer.mask = [DisplayUtils cornerRadiusGraph:pointImageView withSize:CGSizeMake(pointImageView.current_w/2, pointImageView.current_h/2)];
     [circleView addSubview:pointImageView];
     
-    NSString *titleStr = @"Inspiratory Cycle";
+    NSString *titleStr = @"Inspiratory Flow Throughout";
     CGSize size = [DisplayUtils stringWithWidth:titleStr withFont:17];
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(pointImageView.current_x_w+10, 5, size.width, 40)];
     titleLabel.text = titleStr;

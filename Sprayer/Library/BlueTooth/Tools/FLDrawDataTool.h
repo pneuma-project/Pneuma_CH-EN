@@ -21,4 +21,8 @@
 
 +(NSString *)hexStringFromData:(NSData*)data;
 
++(NSString *)ToHex:(long long int)tmpid;
+
++(NSData *)longToNSData:(long long)data;
+
 @end

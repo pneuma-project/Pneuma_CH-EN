@@ -18,7 +18,9 @@
 
 @property(nonatomic,strong) NSString * allBlueToothData;
 
-//填前人坑的心酸....
+//填坑的心酸....
 @property(nonatomic,strong) NSString * date;
+
+@property(nonatomic,strong) NSString *medicineName;
 
 @end

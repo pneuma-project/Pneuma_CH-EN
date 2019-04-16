@@ -269,7 +269,7 @@
     [self openHistoryBTData];
     // 4.创表
     if ([db open]) {
-        BOOL result = [db executeUpdate:@"create table if not exists historyBTDb (id integer primary key autoincrement,userid integer,nowtime text,btData text,sumBtData text,date text,userName text);"];
+        BOOL result = [db executeUpdate:@"create table if not exists historyBTDb (id integer primary key autoincrement,userid integer,nowtime text,btData text,sumBtData text,date text,userName text,medicineName text);"];
         if (result) {
             NSLog(@"成功创表");
         } else {
@@ -313,6 +313,7 @@
             model.blueToothData = [rs stringForColumn:@"btData"];
             model.allBlueToothData = [rs stringForColumn:@"sumBtData"];
             model.date = [rs stringForColumn:@"Date"];
+            model.medicineName = [rs stringForColumn:@"medicineName"];
             [mutArr addObject:model];
         }
         [db close];

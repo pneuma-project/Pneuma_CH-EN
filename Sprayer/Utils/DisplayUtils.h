@@ -61,6 +61,8 @@
  */
 +(NSString *)getTimestampData;
 
++(long long)getNowTimestamp;
+
 +(NSString *)getTimeStamp;
 
 +(NSString *)getDate:(NSString *)time;

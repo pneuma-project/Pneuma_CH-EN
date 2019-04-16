@@ -85,20 +85,14 @@ static NSString *Cell_TWO = @"cellTwo";
         return @[];
     }
     for (int  i =0; i<[dataArr count]-1; i++) {
-        
         for (int j = i+1; j<[dataArr count]; j++) {
-           
             BlueToothDataModel * model1 = dataArr[i];
             BlueToothDataModel * model2 = dataArr[j];
-           
             if ([model1.timestamp intValue] < [model2.timestamp intValue]) {
                 //交换
                 [dataArr exchangeObjectAtIndex:i withObjectAtIndex:j];
-                
             }
-            
         }
-        
     }
     //将排序好的日期分列添加入数组
     for (BlueToothDataModel * model in dataArr) {
@@ -106,52 +100,46 @@ static NSString *Cell_TWO = @"cellTwo";
     }
     //拿到每一天有多少次数据和每次数据的总和
     NSMutableArray * allNumSprayArr = [NSMutableArray array];
- 
-        for (BlueToothDataModel * model in dataArr) {
-            
-            [allNumSprayArr addObject:model.blueToothData];
-
-            //判断有几次达标
-            if (_model.btData.length == 0) {
-                [sprayArr addObject:@"1/1"];
-            }else
-            {
-                //算出最佳训练模式数据的总量
-                float sum = 0;
-                NSArray * numArr = [_model.btData componentsSeparatedByString:@","];
-                for (NSString * num in numArr) {
-                    sum+=[num floatValue];
-                }
-                sum/=600;
-                //-----------得到有几次喷雾达标------//
-                NSArray * numArr1 = [model.blueToothData componentsSeparatedByString:@","];
-                float sum1 = 0.0;
-                for (NSString * num in numArr1) {
-                    sum1+=[num floatValue];
-                }
-                sum1/=600;
-                if (sum1>=sum*0.8) {
-                    [sprayArr addObject:@"1/1"];
-                }else
-                {
-                    [sprayArr addObject:@"1/0"];
-                }
-                
-            }
-            //----------算出喷雾的平均量---------//
+    for (BlueToothDataModel * model in dataArr) {
+        [allNumSprayArr addObject:model.blueToothData];
+        //判断有几次达标
+        if (_model.btData.length == 0) {
+            [sprayArr addObject:@"1/1"];
+        }else{
+            //算出最佳训练模式数据的总量
             float sum = 0;
-            for (NSString * str in allNumSprayArr) {
-                NSArray * arr = [str componentsSeparatedByString:@","];
-                for (NSString * num in arr) {
-                    sum += [num floatValue];
-                }
+            NSArray * numArr = [_model.btData componentsSeparatedByString:@","];
+            for (NSString * num in numArr) {
+                sum+=[num floatValue];
             }
-            [inspiratoryArr addObject:[NSString stringWithFormat:@"%.2f",(sum/600.0)/allNumSprayArr.count]];
+            sum/=600;
+            //-----------得到有几次喷雾达标------//
+            NSArray * numArr1 = [model.blueToothData componentsSeparatedByString:@","];
+            float sum1 = 0.0;
+            for (NSString * num in numArr1) {
+                sum1+=[num floatValue];
+            }
+            sum1/=600;
+            if (sum1>=sum*0.8) {
+                [sprayArr addObject:@"1/1"];
+            }else{
+                [sprayArr addObject:@"1/0"];
+            }
+            
         }
-    
-    
+        //----------算出喷雾的平均量---------//
+        float allSum = 0;
+        for (NSString * str in allNumSprayArr) {
+            NSArray * arr = [str componentsSeparatedByString:@","];
+            float allNum = 0;
+            for (NSString * num in arr) {
+                allNum+=[num floatValue];
+            }
+            allSum+=allNum;
+        }
+        [inspiratoryArr addObject:[NSString stringWithFormat:@"%.2f",(allSum/600.0)/allNumSprayArr.count]];
+    }
     return @[userTimeArr,sprayArr,inspiratoryArr];
-    
 }
 
 -(void)requestData
@@ -174,7 +162,7 @@ static NSString *Cell_TWO = @"cellTwo";
         
         NSString *currentDateStr = [dateFormatter stringFromDate: detaildate];
         [timeArr1 addObject:currentDateStr];
-       }
+    }
     self.dateArr = dataArr[0];
     if (timeArr1.count == 0) {
         return;
@@ -192,26 +180,20 @@ static NSString *Cell_TWO = @"cellTwo";
     NSString * dateStr = timeArr1[0];
     [timeArr2 addObject:dateStr];
     for (int i = 0; i<timeArr1.count; i++) {
-        
         if (i==timeArr1.count -1) {
-            
             NSArray * arr = [dataArr[1][i] componentsSeparatedByString:@"/"];
             index1 += [arr[0] floatValue];
             index2 += [arr[1] floatValue];
-            
             index4 ++;
-            
 //            for (NSString * num in dataArr[2]) {
-//                index3 += [num floatValue];
+//
 //            }
+            index3 += [dataArr[2][i] floatValue];
 //            index3 /= [dataArr[2] count];
-            
-            
             [spraysArr2 addObject:[NSString stringWithFormat:@"%d/%d",index1,index2]];
             [inspiratoryArr2 addObject:[NSString stringWithFormat:@"%f",index3/index4]];
             continue;
         }
-
         if ([dateStr isEqualToString:timeArr1[i]]) {
             
             NSArray * arr = [dataArr[1][i] componentsSeparatedByString:@"/"];
@@ -220,31 +202,25 @@ static NSString *Cell_TWO = @"cellTwo";
                 
             index4 ++;
             index3 += [dataArr[2][i] floatValue];
-        }else
-        {
-            
+        }else{
             dateStr = timeArr1[i];
-            [timeArr2 addObject:dateStr];
+            [timeArr2 addObject:timeArr1[i]];
             [spraysArr2 addObject:[NSString stringWithFormat:@"%d/%d",index1,index2]];
             [inspiratoryArr2 addObject:[NSString stringWithFormat:@"%f",index3/index4]];
             index  = i;
-            index1 = 0;
-            index2 = 0;
-            index4 = 0;
-            index3 = 0;
-
+            index1 = 1;
+            index2 = 1;
+            index4 = 1;
+            index3 = [dataArr[2][i] floatValue];
         }
-        
     }
-   
-            for (NSInteger j = 0; j < timeArr2.count; j++) {
-                HistoryModel *model = [[HistoryModel alloc] init];
-                model.time = timeArr2[j];
-                model.spray = spraysArr2[j];
-                model.inspiratory = inspiratoryArr2[j];
-                [self.dataArr addObject:model];
-            }
-    
+    for (NSInteger j = 0; j < timeArr2.count; j++) {
+        HistoryModel *model = [[HistoryModel alloc] init];
+        model.time = timeArr2[j];
+        model.spray = spraysArr2[j];
+        model.inspiratory = inspiratoryArr2[j];
+        [self.dataArr addObject:model];
+    }
  }
 
 #pragma mark - CustemBBI代理方法
@@ -265,7 +241,7 @@ static NSString *Cell_TWO = @"cellTwo";
     headLabel.textColor = RGBColor(8, 86, 184, 1.0);
     headLabel.font = [UIFont systemFontOfSize:13];
     if (section == 0) {
-        headLabel.text = @"2017";
+        headLabel.text = @"2019";
     }else if (section == 1){
         headLabel.text = @"December 2016";
     }
@@ -386,7 +362,7 @@ static NSString *Cell_TWO = @"cellTwo";
         //如果当条数据和所删的数据时间是同一天，则从数据库中删除
         if([currentDateStr isEqualToString:model.time])
         {
-            [[SqliteUtils sharedManager] deleteHistoryBTData:[NSString stringWithFormat:@"delete from historyBTDb where userid = %d and nowtime = %@;",_model.userId,timeStr]];
+            [[SqliteUtils sharedManager] deleteHistoryBTData:[NSString stringWithFormat:@"delete from historyBTDb where nowtime = %@;",timeStr]];//userid = %d and   _model.userId,
         }
         
     }
@@ -429,7 +405,7 @@ static NSString *Cell_TWO = @"cellTwo";
     int allTotalNum = 0;
     int allTrainTotalNum = 0;
     int lastTrainNum = 0;
-
+    
     NSMutableArray * allNumberArr = [NSMutableArray array];
     for (NSArray * num in numberArr) {
         float allNum = 0;
@@ -447,7 +423,6 @@ static NSString *Cell_TWO = @"cellTwo";
         for (NSString * str in lastTrainData) {
             lastTrainNum += [str intValue];
         }
-        
     }
     //从用户表拿出该用户的最佳训练数据
     NSString * btDataStr;
@@ -465,6 +440,9 @@ static NSString *Cell_TWO = @"cellTwo";
         [sprayDataArr addObject:str];
         allTrainTotalNum += [str intValue];
     }
+    //药品名称
+    BlueToothDataModel * totalModel = selectDateArr[selectDateArr.count - 1];
+    NSString *medicineN = totalModel.medicineName;
     //
     HistoryDetailViewController * vc = [[HistoryDetailViewController alloc]init];
     vc.numberArr = numberArr;
@@ -474,6 +452,8 @@ static NSString *Cell_TWO = @"cellTwo";
     vc.allTrainTotalNum = allTrainTotalNum;
     vc.lastTrainNum = lastTrainNum;
     vc.titles = date;
+    vc.medicineNaStr = medicineN;
+    vc.selectDateArr = selectDateArr;
     [self.navigationController pushViewController:vc animated:YES];
 
 }

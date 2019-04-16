@@ -17,13 +17,16 @@
 
 +(instancetype)initWithImage:(UIImage *)image andTarget:(id <CustemBBI>)target andinfoStr:(NSString *)infoStr
 {
-    UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
-    imageView.userInteractionEnabled=YES;
-    imageView.image=[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    CustemNavItem *BBI=[[self alloc]initWithCustomView:imageView];
-    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc]initWithTarget:BBI action:@selector(BBIdidClick)];
-    [imageView addGestureRecognizer:tap];
-    
+//    UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
+//    imageView.userInteractionEnabled=YES;
+//    imageView.image=[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIButton * backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    backBtn.frame = CGRectMake(0, kStatusBarHeight, kNavigationBarHeight, kNavigationBarHeight);
+    [backBtn setImage:image forState:UIControlStateNormal];
+    CustemNavItem *BBI=[[self alloc]initWithCustomView:backBtn];
+    [backBtn addTarget:BBI action:@selector(BBIdidClick) forControlEvents:UIControlEventTouchUpInside];
+//    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc]initWithTarget:BBI action:@selector(BBIdidClick)];
+//    [imageView addGestureRecognizer:tap];
     BBI.delegate=target;
     BBI.infoStr=infoStr;
     return BBI;

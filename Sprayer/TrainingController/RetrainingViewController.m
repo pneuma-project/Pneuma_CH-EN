@@ -12,6 +12,8 @@
 #import "SqliteUtils.h"
 #import "AddPatientInfoModel.h"
 #import "FLWrapJson.h"
+#import "FLDrawDataTool.h"
+
 @interface RetrainingViewController ()<CustemBBI>
 {
     CGFloat  thirdVolumeH;
@@ -49,9 +51,9 @@
 //    [self.navigationItem setHidesBackButton:YES];
     self.navigationItem.rightBarButtonItem = [CustemNavItem initWithString:@"Save" andTarget:self andinfoStr:@"first"];
     self.navigationItem.leftBarButtonItem = [CustemNavItem initWithImage:[UIImage imageNamed:@"icon-back"] andTarget:self andinfoStr:@"two"];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopNSTimerAction) name:@"sparyModel" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopNSTimerAction) name:@"sparyModel" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disconnectAction) name:PeripheralDidConnect object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(startTraingAction) name:@"startTrain" object:nil];
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(startTraingAction) name:@"startTrain" object:nil];
 }
 -(void)startTraingAction
 {
@@ -105,8 +107,9 @@
         
         NSString * sql = [NSString stringWithFormat:@"update userInfo set trainData='%@' where id=%d;",dataStr,userId];
         [[SqliteUtils sharedManager] updateUserInfo:sql];
-
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(writeDataAction) userInfo:nil repeats:YES];
+        
+//        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(writeDataAction) userInfo:nil repeats:YES];
+        [self writeDataAction];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"stopTrain" object:nil userInfo:nil];
         [self.navigationController popToRootViewControllerAnimated:YES];
     }else if ([infoStr isEqualToString:@"two"]){
@@ -116,11 +119,13 @@
 
 -(void)writeDataAction
 {
-    NSString *time = [DisplayUtils getTimeStampWeek];
-    NSString *weakDate = [DisplayUtils getTimestampDataWeek];
-    NSMutableString *allStr = [[NSMutableString alloc] initWithString:time];
-    [allStr insertString:weakDate atIndex:10];
-    timeData = [FLWrapJson bcdCodeString:allStr];
+//    NSString *time = [DisplayUtils getTimeStampWeek];
+//    NSString *weakDate = [DisplayUtils getTimestampDataWeek];
+//    NSMutableString *allStr = [[NSMutableString alloc] initWithString:time];
+//    [allStr insertString:weakDate atIndex:10];
+//    timeData = [FLWrapJson bcdCodeString:allStr];
+    long long time = [DisplayUtils getNowTimestamp];
+    timeData = [FLDrawDataTool longToNSData:time];
     [BlueWriteData stopTrainData:timeData];
 }
 
@@ -149,15 +154,15 @@
     mutArr2 = [UserDefaultsUtils valueWithKey:@"ThreeTrainDataArr"];
     
     
-        for (NSString * str in mutArr) {
-            sum1 += [str intValue];
-        }
-        for (NSString * str in mutArr1) {
-            sum2+= [str intValue];
-        }
-        for (NSString * str in mutArr2) {
-            sum3 += [str intValue];
-        }
+    for (NSString * str in mutArr) {
+        sum1 += [str intValue];
+    }
+    for (NSString * str in mutArr1) {
+        sum2+= [str intValue];
+    }
+    for (NSString * str in mutArr2) {
+        sum3 += [str intValue];
+    }
     
     lineChart.valueArr = @[mutArr,mutArr1,mutArr2];
     lineChart.showYLevelLine = YES;
@@ -261,11 +266,11 @@
     view.backgroundColor = RGBColor(210, 238, 238, 1.0);
     index = 0;
     index = tap.view.tag - 100;
-    
 }
 
 -(void)retrainClick
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"stopTrain" object:nil userInfo:nil];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 - (void)didReceiveMemoryWarning {

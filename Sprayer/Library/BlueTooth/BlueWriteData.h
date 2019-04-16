@@ -12,6 +12,8 @@
 
 +(void)bleConfigWithData:(NSData *)data;
 
++(void)inquireCurrentDrugInfo:(NSData *)data;
+
 +(void)startTrainData:(NSData *)data;
 
 +(void)stopTrainData:(NSData *)data;

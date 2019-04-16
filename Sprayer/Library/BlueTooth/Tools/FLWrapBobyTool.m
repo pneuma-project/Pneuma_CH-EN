@@ -23,8 +23,8 @@
     
     NSString *model = [FLDrawDataTool NSDataToNSString:[data subdataWithRange:NSMakeRange(8, 32)]];
     
-    [loginDict setObject:[NSString stringWithFormat:@"%ld",productionDate] forKey:@"PRODUCTION_DATE"];
-    [loginDict setObject:[NSString stringWithFormat:@"%ld",version] forKey:@"VERSION"];
+    [loginDict setObject:[NSString stringWithFormat:@"%ld",(long)productionDate] forKey:@"PRODUCTION_DATE"];
+    [loginDict setObject:[NSString stringWithFormat:@"%ld",(long)version] forKey:@"VERSION"];
     [loginDict setObject:model forKey:@"MODEL"];
     
     return loginDict;
@@ -47,7 +47,7 @@
     
     NSInteger beatCount = [FLDrawDataTool NSDataToNSInteger:data];
     
-    [beatDict setObject:[NSString stringWithFormat:@"%ld",beatCount] forKey:@"beat_count"];
+    [beatDict setObject:[NSString stringWithFormat:@"%ld",(long)beatCount] forKey:@"beat_count"];
 
     return beatDict;
 }
@@ -70,20 +70,20 @@
     NSInteger SNI = [FLDrawDataTool NSDataToNSInteger:[data subdataWithRange:NSMakeRange(29, 2)]];
     NSInteger breath_count = [FLDrawDataTool NSDataToNSInteger:[data subdataWithRange:NSMakeRange(31, 4)]];
     NSInteger oneself_breath_count = [FLDrawDataTool NSDataToNSInteger:[data subdataWithRange:NSMakeRange(35, 4)]];
-    [statsDcit setObject:[NSString stringWithFormat:@"%ld",ventid] forKey:@"ventid"];
-    [statsDcit setObject:[NSString stringWithFormat:@"%ld",timestamp] forKey:@"timestamp"];
-    [statsDcit setObject:[NSString stringWithFormat:@"%ld",usage] forKey:@"usage"];
-    [statsDcit setObject:[NSString stringWithFormat:@"%ld",usage_humid] forKey:@"usage_humid"];
-    [statsDcit setObject:[NSString stringWithFormat:@"%ld",timePB] forKey:@"TIMEPB"];
-    [statsDcit setObject:[NSString stringWithFormat:@"%ld",AHI] forKey:@"AHI"];
-    [statsDcit setObject:[NSString stringWithFormat:@"%ld",OAI] forKey:@"OAI"];
-    [statsDcit setObject:[NSString stringWithFormat:@"%ld",CAI] forKey:@"CAI"];
-    [statsDcit setObject:[NSString stringWithFormat:@"%ld",AI] forKey:@"AI"];
-    [statsDcit setObject:[NSString stringWithFormat:@"%ld",HI] forKey:@"HI"];
-    [statsDcit setObject:[NSString stringWithFormat:@"%ld",RERA] forKey:@"RERA"];
-    [statsDcit setObject:[NSString stringWithFormat:@"%ld",SNI] forKey:@"SNI"];
-    [statsDcit setObject:[NSString stringWithFormat:@"%ld",breath_count] forKey:@"BREATH_COUNT"];
-    [statsDcit setObject:[NSString stringWithFormat:@"%ld",oneself_breath_count] forKey:@"ONESELF_BREATH_COUNT"];
+    [statsDcit setObject:[NSString stringWithFormat:@"%ld",(long)ventid] forKey:@"ventid"];
+    [statsDcit setObject:[NSString stringWithFormat:@"%ld",(long)timestamp] forKey:@"timestamp"];
+    [statsDcit setObject:[NSString stringWithFormat:@"%ld",(long)usage] forKey:@"usage"];
+    [statsDcit setObject:[NSString stringWithFormat:@"%ld",(long)usage_humid] forKey:@"usage_humid"];
+    [statsDcit setObject:[NSString stringWithFormat:@"%ld",(long)timePB] forKey:@"TIMEPB"];
+    [statsDcit setObject:[NSString stringWithFormat:@"%ld",(long)AHI] forKey:@"AHI"];
+    [statsDcit setObject:[NSString stringWithFormat:@"%ld",(long)OAI] forKey:@"OAI"];
+    [statsDcit setObject:[NSString stringWithFormat:@"%ld",(long)CAI] forKey:@"CAI"];
+    [statsDcit setObject:[NSString stringWithFormat:@"%ld",(long)AI] forKey:@"AI"];
+    [statsDcit setObject:[NSString stringWithFormat:@"%ld",(long)HI] forKey:@"HI"];
+    [statsDcit setObject:[NSString stringWithFormat:@"%ld",(long)RERA] forKey:@"RERA"];
+    [statsDcit setObject:[NSString stringWithFormat:@"%ld",(long)SNI] forKey:@"SNI"];
+    [statsDcit setObject:[NSString stringWithFormat:@"%ld",(long)breath_count] forKey:@"BREATH_COUNT"];
+    [statsDcit setObject:[NSString stringWithFormat:@"%ld",(long)oneself_breath_count] forKey:@"ONESELF_BREATH_COUNT"];
 
     return statsDcit;
 }
@@ -117,7 +117,7 @@
         //[alarm_list_dict setObject:ventid forKey:@"ventid"];
         char buf[1000] = {0};
         buf[0] = 0;
-        sprintf(buf, "{DURATION=%ld,timestamp=%ld,ventid=%ld,GRADE=%ld,ALARM_ID=%ld}",duration,timestamp,ventid,grade,alarm_id);
+        sprintf(buf, "{DURATION=%ld,timestamp=%ld,ventid=%ld,GRADE=%ld,ALARM_ID=%ld}",(long)duration,timestamp,ventid,grade,alarm_id);
         NSString *bufStr = [[NSString alloc] initWithCString:(const char *)buf encoding:NSASCIIStringEncoding];
         
         [alarm_list_arr addObject:bufStr];
@@ -156,7 +156,7 @@
         
         char buf[1000] = {0};
         buf[0] = 0;
-        sprintf(buf, "{DURATION=%ld,timestamp=%ld,ventid=%ld,EVENT_ID=%ld,}",duration,timestamp,ventid,event_id);
+        sprintf(buf, "{DURATION=%ld,timestamp=%ld,ventid=%ld,EVENT_ID=%ld,}",(long)duration,(long)timestamp,(long)ventid,(long)event_id);
         NSString *bufStr = [[NSString alloc] initWithCString:(const char *)buf encoding:NSASCIIStringEncoding];
         
         [event_list_Arr addObject:bufStr];

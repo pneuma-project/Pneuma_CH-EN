@@ -11,6 +11,7 @@
 #import "TrainingFirstViewController.h"
 #import "UserDefaultsUtils.h"
 #import "FLWrapJson.h"
+#import "FLDrawDataTool.h"
 
 @interface TrainingStartViewController ()<CustemBBI>
 {
@@ -49,12 +50,16 @@
 
 -(void)stopNSTimerAction
 {
+    [self.timer setFireDate:[NSDate distantFuture]];
     [self.timer invalidate];
+    self.timer = nil;
 }
 
 -(void)disconnectAction
 {
-//    [self.timer invalidate];
+    [self.timer setFireDate:[NSDate distantFuture]];
+    [self.timer invalidate];
+    self.timer = nil;
 }
 
 #pragma mark - CustemBBI代理方法
@@ -78,7 +83,7 @@
     pointImageView.layer.mask = [DisplayUtils cornerRadiusGraph:pointImageView withSize:CGSizeMake(pointImageView.current_w/2, pointImageView.current_h/2)];
     [headView addSubview:pointImageView];
     
-    NSString *titleStr = @"Inspiratory Cycle";
+    NSString *titleStr = @"Inspiratory Flow Throughout";
     CGSize size = [DisplayUtils stringWithWidth:titleStr withFont:15];
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(pointImageView.current_x_w+10, 0, size.width, 30)];
     titleLabel.text = titleStr;
@@ -129,7 +134,7 @@
     desLabel.font = [UIFont systemFontOfSize:12];
     [self.view addSubview:desLabel];
     
-    NSString *detailStr = @"1.The training process provides instruction and training on proper use of the inhaler device.\n\n2.To activate the device for use PRESS the ON button until the RED LED light turns on.\n\n3.Inhale slowly and continue to inhale completely.\n\n4.The inspiratory cycle is displayed in real time as the patient in-hales and stored on the iPhone.\n\n5.After the patient records three inspiratory curves the best in-spiratory result is chosen and displayed during spray/dose application.";
+    NSString *detailStr = @"1.The training process Provides instruction and training on proper use of the Device.\n\n2.To activate device for use Press the ON button until The RED LED light turns on.\n\n3.Inhale slowly and continue to inhale completely.\n\n4.The inspiratory flow is recorded and stored.\n\n5.After the patient records three inspiratory curves  the best inspiratory results are chosen and displayed during dosing for comparison.";
     CGSize detailSize = [DisplayUtils stringWithWidth:detailStr withFont:10];
     UILabel *detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(headView.current_x, desLabel.current_y_h, headView.current_w, detailSize.height+60)];
     detailLabel.text = detailStr;
@@ -180,11 +185,13 @@
 
 -(void)writeDataAction
 {
-    NSString *time = [DisplayUtils getTimeStampWeek];
-    NSString *weakDate = [DisplayUtils getTimestampDataWeek];
-    NSMutableString *allStr = [[NSMutableString alloc] initWithString:time];
-    [allStr insertString:weakDate atIndex:10];
-    timeData = [FLWrapJson bcdCodeString:allStr];
+//    NSString *time = [DisplayUtils getTimeStampWeek];
+//    NSString *weakDate = [DisplayUtils getTimestampDataWeek];
+//    NSMutableString *allStr = [[NSMutableString alloc] initWithString:time];
+//    [allStr insertString:weakDate atIndex:10];
+//    timeData = [FLWrapJson bcdCodeString:allStr];
+    long long time = [DisplayUtils getNowTimestamp];
+    timeData = [FLDrawDataTool longToNSData:time];
     [BlueWriteData startTrainData:timeData];
 }
 

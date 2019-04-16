@@ -136,6 +136,15 @@
     return timestamp;
 }
 
+//当前时间戳
++(long long)getNowTimestamp {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    NSDate *date = [NSDate date];
+    long long timestamp = [[NSNumber numberWithDouble:[date timeIntervalSince1970]] longLongValue];
+    return timestamp;
+}
+
 //获取当天12点的时间戳
 +(NSString *)getTimeStamp
 {
@@ -222,10 +231,9 @@
 +(NSString *)getTimeStampWeek
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"ssmmHHddMMYY"];
+    [formatter setDateFormat:@"ssmmHHddMMyy"]; ///小写yy,大写YY相差一年（有毒）
     NSDate *date = [NSDate date];
     NSString *timestamp = [formatter stringFromDate:date];
-    
     return timestamp;
 }
 

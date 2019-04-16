@@ -12,6 +12,8 @@
 #import "FLDrawDataTool.h"
 #import "SqliteUtils.h"
 #import "AddPatientInfoModel.h"
+#import "UserDefaultsUtils.h"
+
 @implementation FLWrapJson
 
 +(NSDictionary *)dataToNsDict:(NSData *)data
@@ -104,21 +106,35 @@
     NSMutableArray *dataArr = [[NSMutableArray alloc] init];
     for (int i = 0; i<data.length; i++) {
         NSInteger yaliData = [FLDrawDataTool NSDataToNSInteger:[data subdataWithRange:NSMakeRange(0+i, 1)]];
-        yaliData = (yaliData * 130)/60;
-        yaliData = [self yaliDataCalculate:yaliData];
-        [dataArr addObject:[NSString stringWithFormat:@"%ld",yaliData]];
+        float yaliNum = (yaliData * 130)/60;
+        yaliNum = [self yaliDataCalculate:yaliNum];
+        [dataArr addObject:[NSString stringWithFormat:@"%.3f",yaliNum]];
     }
     NSString *yaliStr=[dataArr componentsJoinedByString:@","];
     return yaliStr;
 }
 
 //压力公式计算
-+(NSInteger)yaliDataCalculate:(NSInteger)yaliData
++(float)yaliDataCalculate:(float)yaliData
 {
     if (yaliData <= 0) {
         return 0;
     }else{
-        float rate = 8.67*sqrtf(yaliData);
+        float k1 = 0;
+        if (![[NSUserDefaults standardUserDefaults] objectForKey:@"k1flowValue"]) {
+            k1 = 0;
+        }else {
+            NSString *value = [UserDefaultsUtils valueWithKey:@"k1flowValue"];
+            k1 = [value floatValue];
+        }
+        float k2 = 8.67;
+        if (![[NSUserDefaults standardUserDefaults] objectForKey:@"k2flowValue"]) {
+            k2 = 8.67;
+        }else {
+            NSString *value = [UserDefaultsUtils valueWithKey:@"k2flowValue"];
+            k2 = [value floatValue];
+        }
+        float rate = k1 + k2*sqrtf(yaliData);
         return rate;
     }
 }
@@ -126,14 +142,14 @@
 //数据总和
 +(NSString *)dataSumToNSString:(NSData *)data
 {
-    NSInteger sum = 0;
+    float sum = 0;
     for (int i = 0; i<data.length; i++) {
         NSInteger yaliData = [FLDrawDataTool NSDataToNSInteger:[data subdataWithRange:NSMakeRange(0+i, 1)]];
-        yaliData = (yaliData * 130)/60;
-        yaliData = [self yaliDataCalculate:yaliData];
+        float yaliNum = (yaliData * 130)/60;
+        yaliNum = [self yaliDataCalculate:yaliData];
         sum += yaliData;
     }
-    return [NSString stringWithFormat:@"%.2f",sum/600.0];
+    return [NSString stringWithFormat:@"%.3f",sum/600.0];
 }
 
 //BCD编码
@@ -167,16 +183,56 @@
     NSArray * arr = [[SqliteUtils sharedManager]selectUserInfo];
     if (arr.count!=0) {
         for (AddPatientInfoModel * model in arr) {
-            
             if (model.isSelect == 1) {
-               
                 return @[[NSString stringWithFormat:@"%d",model.userId],model.name];
             }
-            
         }
     }
     return nil;
-    
+}
+
+//获取药品名称
++(NSString *)getMedicineNameToInt:(NSData *)data
+{
+    NSInteger type = [FLDrawDataTool NSDataToNSInteger:data];
+    if (type == 1 || type == 3) { //Albutero
+        return @"Albuterol sulfate";
+    }else if (type == 2 || type == 4) { //Tiotropium
+        return @"Tiotropium bromide";
+    }else if (type == 5 || type == 0) {  //无药瓶
+        return @"No cartridge";
+    }
+    return @"";
+}
+
+//获取药品信息
++(NSString *)getMedicineInfo:(NSData *)data AndDrugInjectionTime:(NSData *)data1 AndDrugExpirationTime:(NSData *)data2 AndDrugOpeningTime:(NSData *)data3 AndVolatilizationTime:(NSData *)data4
+{
+    NSInteger type = [FLDrawDataTool NSDataToNSInteger:data];
+    NSString *timeStamp1 = [NSString stringWithFormat:@"%ld",(long)[FLDrawDataTool NSDataToNSInteger:data1]];
+    NSString *timeStamp2 = [NSString stringWithFormat:@"%ld",(long)[FLDrawDataTool NSDataToNSInteger:data2]];
+    NSString *timeStamp3 = [NSString stringWithFormat:@"%ld",(long)[FLDrawDataTool NSDataToNSInteger:data3]];
+    NSInteger volatilizationTime = [FLDrawDataTool NSDataToNSInteger:data4];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    NSDate *confromTimesp1 = [NSDate dateWithTimeIntervalSince1970:[timeStamp1 doubleValue]];
+    NSString * confromTimespStr1 = [formatter stringFromDate:confromTimesp1];
+    NSDate *confromTimesp2 = [NSDate dateWithTimeIntervalSince1970:[timeStamp2 doubleValue]];
+    NSString * confromTimespStr2 = [formatter stringFromDate:confromTimesp2];
+    NSDate *confromTimesp3 = [NSDate dateWithTimeIntervalSince1970:[timeStamp3 doubleValue]];
+    NSString * confromTimespStr3 = [formatter stringFromDate:confromTimesp3];
+    if (type == 1) { //Albutero
+        return [NSString stringWithFormat: @"Drug: Albuterol sulfate\nDose: 108 mcg (equivalent to 90 mcg albuterol base)\nLot #:  231-148-321\nFill date: %@\nExpiration date: %@\nData of first use: %@\nTotal evaporation time: %lds",confromTimespStr1,confromTimespStr2,confromTimespStr3,(long)volatilizationTime];
+    }else if (type == 2) { //Tiotropium
+        return [NSString stringWithFormat: @"Drug: Tiotropium bromide\nDose: 2.5 mcg\nLot #: 232-147-112\nFill date: %@\nExpiration date: %@\nData of first use: %@\nTotal evaporation time: %lds",confromTimespStr1,confromTimespStr2,confromTimespStr3,(long)volatilizationTime];
+    }else if (type == 3) {
+        return [NSString stringWithFormat: @"Drug: Albuterol sulfate\nDose: 108 mcg (equivalent to 90 mcg albuterol base)\nLot #:  231-148-323\nFill date: %@\nExpiration date: %@\nData of first use: %@\nTotal evaporation time: %lds",confromTimespStr1,confromTimespStr2,confromTimespStr3,(long)volatilizationTime];
+    }else if (type == 4) {
+        return [NSString stringWithFormat: @"Drug: Tiotropium bromide\nDose: 2.5 mcg\nLot #: 232-147-114\nFill date: %@\nExpiration date: %@\nData of first use: %@\nTotal evaporation time: %lds",confromTimespStr1,confromTimespStr2,confromTimespStr3,(long)volatilizationTime];
+    }else if (type == 5 || type == 0) {  //无药瓶
+        return @"No cartridge";
+    }
+    return @"";
 }
 
 @end
