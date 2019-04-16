@@ -19,7 +19,12 @@ xcuserdata/
 
 ## Other
 *.moved-aside
+<<<<<<< HEAD
 *.xcuserstate
+=======
+*.xccheckout
+*.xcscmblueprint
+>>>>>>> 9946b2a22715ee5a2ac93ac482aa6e98591f28e1
 
 ## Obj-C/Swift specific
 *.hmap
@@ -44,6 +49,7 @@ Carthage/Build
 
 # fastlane
 #
+<<<<<<< HEAD
 # It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the 
 # screenshots whenever they are needed.
 # For more information about the recommended setup visit:
@@ -53,6 +59,19 @@ fastlane/report.xml
 fastlane/screenshots
 
 #Code Injection
+=======
+# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
+# screenshots whenever they are needed.
+# For more information about the recommended setup visit:
+# https://docs.fastlane.tools/best-practices/source-control/#source-control
+
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+# Code Injection
+>>>>>>> 9946b2a22715ee5a2ac93ac482aa6e98591f28e1
 #
 # After new code Injection tools there's a generated folder /iOSInjectionProject
 # https://github.com/johnno1962/injectionforxcode
