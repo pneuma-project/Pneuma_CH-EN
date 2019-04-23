@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		425D17051250175BD9BB56B0 /* Pods_Sprayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F1056E38D5B2B9DFB9B7F8B /* Pods_Sprayer.framework */; };
 		642580001E6CFF740019AD06 /* DeviceStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64257FFF1E6CFF740019AD06 /* DeviceStatusViewController.m */; };
 		6425801F1E6D0CB90019AD06 /* JSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 642580061E6D0CB90019AD06 /* JSONModel.m */; };
 		642580201E6D0CB90019AD06 /* JSONModelArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 642580081E6D0CB90019AD06 /* JSONModelArray.m */; };
@@ -88,7 +89,6 @@
 		64F43CC41E715A3B009BF6F9 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F43CC31E715A3B009BF6F9 /* libsqlite3.0.tbd */; };
 		64F663C21E63C8A900F4C9E7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F663C11E63C8A900F4C9E7 /* main.m */; };
 		64F663C51E63C8A900F4C9E7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F663C41E63C8A900F4C9E7 /* AppDelegate.m */; };
-		64F663C81E63C8A900F4C9E7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F663C71E63C8A900F4C9E7 /* ViewController.m */; };
 		64F663CB1E63C8A900F4C9E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64F663C91E63C8A900F4C9E7 /* Main.storyboard */; };
 		64F663D01E63C8A900F4C9E7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64F663CE1E63C8A900F4C9E7 /* LaunchScreen.storyboard */; };
 		64F663DB1E63C8A900F4C9E7 /* SprayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F663DA1E63C8A900F4C9E7 /* SprayerTests.m */; };
@@ -131,7 +131,10 @@
 		BFF420981EA76B630093BE8D /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF4208F1EA76B630093BE8D /* FMDatabasePool.m */; };
 		BFF420991EA76B630093BE8D /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF420911EA76B630093BE8D /* FMDatabaseQueue.m */; };
 		BFF4209A1EA76B630093BE8D /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF420941EA76B630093BE8D /* FMResultSet.m */; };
-		BFF4209B1EA76B630093BE8D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BFF420951EA76B630093BE8D /* Info.plist */; };
+		D1D14395226F0B7000BA5302 /* UIViewControllerEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D14394226F0B7000BA5302 /* UIViewControllerEx.swift */; };
+		D1D14397226F0B7B00BA5302 /* UIViewEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D14396226F0B7B00BA5302 /* UIViewEx.swift */; };
+		D1D1439B226F0B8800BA5302 /* AniShowCloseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D14399226F0B8800BA5302 /* AniShowCloseView.swift */; };
+		D1D1439C226F0B8800BA5302 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D1439A226F0B8800BA5302 /* Common.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -294,8 +297,6 @@
 		64F663C11E63C8A900F4C9E7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		64F663C31E63C8A900F4C9E7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		64F663C41E63C8A900F4C9E7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		64F663C61E63C8A900F4C9E7 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		64F663C71E63C8A900F4C9E7 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		64F663CA1E63C8A900F4C9E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		64F663CF1E63C8A900F4C9E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		64F663D11E63C8A900F4C9E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -312,10 +313,13 @@
 		64F663FF1E63CBAC00F4C9E7 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		64F664001E63CC6D00F4C9E7 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		64F664011E63CC6D00F4C9E7 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		6F1056E38D5B2B9DFB9B7F8B /* Pods_Sprayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sprayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7906CA471FBD399B00200B66 /* FlowValueSettingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlowValueSettingController.h; sourceTree = "<group>"; };
 		7906CA481FBD399B00200B66 /* FlowValueSettingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FlowValueSettingController.m; sourceTree = "<group>"; };
 		7906CA491FBD399B00200B66 /* FlowValueSettingController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FlowValueSettingController.xib; sourceTree = "<group>"; };
 		7906CA4C1FBD733E00200B66 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		979558B3F9AD1B6241BB5A6C /* Pods-Sprayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sprayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sprayer/Pods-Sprayer.release.xcconfig"; sourceTree = "<group>"; };
+		ADF5DE4996F1CD0510168EBF /* Pods-Sprayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sprayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sprayer/Pods-Sprayer.debug.xcconfig"; sourceTree = "<group>"; };
 		BF0327B91ED5847400D86F94 /* HistoryDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryDetailViewController.h; sourceTree = "<group>"; };
 		BF0327BA1ED5847400D86F94 /* HistoryDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryDetailViewController.m; sourceTree = "<group>"; };
 		BF2B3C621EA0B2BD009E639F /* MedicalInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MedicalInfoViewController.h; sourceTree = "<group>"; };
@@ -382,6 +386,11 @@
 		BFF420931EA76B630093BE8D /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		BFF420941EA76B630093BE8D /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		BFF420951EA76B630093BE8D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D1D14393226F0B6F00BA5302 /* Sprayer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Sprayer-Bridging-Header.h"; sourceTree = "<group>"; };
+		D1D14394226F0B7000BA5302 /* UIViewControllerEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerEx.swift; sourceTree = "<group>"; };
+		D1D14396226F0B7B00BA5302 /* UIViewEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewEx.swift; sourceTree = "<group>"; };
+		D1D14399226F0B8800BA5302 /* AniShowCloseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AniShowCloseView.swift; sourceTree = "<group>"; };
+		D1D1439A226F0B8800BA5302 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -390,6 +399,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				64F43CC41E715A3B009BF6F9 /* libsqlite3.0.tbd in Frameworks */,
+				425D17051250175BD9BB56B0 /* Pods_Sprayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,6 +420,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		55DAE60084D2FB8D66486A2B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				ADF5DE4996F1CD0510168EBF /* Pods-Sprayer.debug.xcconfig */,
+				979558B3F9AD1B6241BB5A6C /* Pods-Sprayer.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		642580011E6D0C5E0019AD06 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -564,6 +583,8 @@
 		644C9C1A1E655E560030C3B9 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				D1D14396226F0B7B00BA5302 /* UIViewEx.swift */,
+				D1D14394226F0B7000BA5302 /* UIViewControllerEx.swift */,
 				644C9C341E6575F80030C3B9 /* MBProgressHUD+Add.h */,
 				644C9C351E6575F80030C3B9 /* MBProgressHUD+Add.m */,
 				644C9C1B1E655E660030C3B9 /* UIView+Category.h */,
@@ -763,6 +784,7 @@
 			isa = PBXGroup;
 			children = (
 				64F43CC31E715A3B009BF6F9 /* libsqlite3.0.tbd */,
+				6F1056E38D5B2B9DFB9B7F8B /* Pods_Sprayer.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -775,6 +797,7 @@
 				64F663E41E63C8A900F4C9E7 /* SprayerUITests */,
 				64F663BE1E63C8A900F4C9E7 /* Products */,
 				64F43CC21E715A3A009BF6F9 /* Frameworks */,
+				55DAE60084D2FB8D66486A2B /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -791,23 +814,14 @@
 		64F663BF1E63C8A900F4C9E7 /* Sprayer */ = {
 			isa = PBXGroup;
 			children = (
+				D1D14398226F0B8800BA5302 /* Tools */,
+				D1D14388226F09D700BA5302 /* Main */,
+				D1D14387226F09A500BA5302 /* Interface */,
 				644C9C371E666A440030C3B9 /* View */,
 				644C9C2C1E6575E10030C3B9 /* Library */,
 				644C9C251E6571960030C3B9 /* Utils */,
 				644C9C1A1E655E560030C3B9 /* Category */,
-				644C9C8D1E697DDA0030C3B9 /* DeviceController */,
-				644C9C991E697DDA0030C3B9 /* TrainingController */,
-				644C9C961E697DDA0030C3B9 /* SprayController */,
-				644C9CA61E697DDA0030C3B9 /* UserController */,
-				64F663F31E63C95800F4C9E7 /* BaseViewController */,
-				64F663F41E63C95800F4C9E7 /* RootViewController */,
-				64F663C31E63C8A900F4C9E7 /* AppDelegate.h */,
-				64F663C41E63C8A900F4C9E7 /* AppDelegate.m */,
-				64F663C61E63C8A900F4C9E7 /* ViewController.h */,
-				64F663C71E63C8A900F4C9E7 /* ViewController.m */,
-				64F663C91E63C8A900F4C9E7 /* Main.storyboard */,
-				64F663CE1E63C8A900F4C9E7 /* LaunchScreen.storyboard */,
-				64F663D11E63C8A900F4C9E7 /* Info.plist */,
+				D1D14389226F0A4100BA5302 /* Config */,
 				64F663C01E63C8A900F4C9E7 /* Supporting Files */,
 			);
 			path = Sprayer;
@@ -817,8 +831,6 @@
 			isa = PBXGroup;
 			children = (
 				7906CA4C1FBD733E00200B66 /* Assets.xcassets */,
-				64F663FF1E63CBAC00F4C9E7 /* PrefixHeader.pch */,
-				64F663C11E63C8A900F4C9E7 /* main.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -942,6 +954,51 @@
 			path = FMDB;
 			sourceTree = "<group>";
 		};
+		D1D14387226F09A500BA5302 /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				644C9C8D1E697DDA0030C3B9 /* DeviceController */,
+				644C9C991E697DDA0030C3B9 /* TrainingController */,
+				644C9C961E697DDA0030C3B9 /* SprayController */,
+				644C9CA61E697DDA0030C3B9 /* UserController */,
+				64F663F31E63C95800F4C9E7 /* BaseViewController */,
+				64F663F41E63C95800F4C9E7 /* RootViewController */,
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
+		D1D14388226F09D700BA5302 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				64F663C31E63C8A900F4C9E7 /* AppDelegate.h */,
+				64F663C41E63C8A900F4C9E7 /* AppDelegate.m */,
+				64F663C91E63C8A900F4C9E7 /* Main.storyboard */,
+				64F663CE1E63C8A900F4C9E7 /* LaunchScreen.storyboard */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		D1D14389226F0A4100BA5302 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				64F663D11E63C8A900F4C9E7 /* Info.plist */,
+				D1D14393226F0B6F00BA5302 /* Sprayer-Bridging-Header.h */,
+				64F663FF1E63CBAC00F4C9E7 /* PrefixHeader.pch */,
+				64F663C11E63C8A900F4C9E7 /* main.m */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		D1D14398226F0B8800BA5302 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				D1D14399226F0B8800BA5302 /* AniShowCloseView.swift */,
+				D1D1439A226F0B8800BA5302 /* Common.swift */,
+			);
+			name = Tools;
+			path = ../../sprayer2/Sprayer/Tools;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -949,9 +1006,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 64F663EA1E63C8A900F4C9E7 /* Build configuration list for PBXNativeTarget "Sprayer" */;
 			buildPhases = (
+				8DEEE8207061B1DBCB298664 /* [CP] Check Pods Manifest.lock */,
 				64F663B91E63C8A900F4C9E7 /* Sources */,
 				64F663BA1E63C8A900F4C9E7 /* Frameworks */,
 				64F663BB1E63C8A900F4C9E7 /* Resources */,
+				E564785950313FEF3647256A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1010,6 +1069,7 @@
 					64F663BC1E63C8A900F4C9E7 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = L5888F4Z42;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 					64F663D51E63C8A900F4C9E7 = {
@@ -1058,7 +1118,6 @@
 				644C9CAF1E697DDA0030C3B9 /* ScanResultViewController.xib in Resources */,
 				644C9CAC1E697DDA0030C3B9 /* DeviceViewController.xib in Resources */,
 				BF79D1011E7232CE00EE468B /* HistoricalDrugTableViewCell.xib in Resources */,
-				BFF4209B1EA76B630093BE8D /* Info.plist in Resources */,
 				6425803D1E6D515A0019AD06 /* HistoryValueTableViewCell.xib in Resources */,
 				64F663D01E63C8A900F4C9E7 /* LaunchScreen.storyboard in Resources */,
 				644C9C791E6918080030C3B9 /* lightSelect.png in Resources */,
@@ -1094,6 +1153,53 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		8DEEE8207061B1DBCB298664 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Sprayer-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E564785950313FEF3647256A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Sprayer/Pods-Sprayer-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sprayer/Pods-Sprayer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		64F663B91E63C8A900F4C9E7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -1120,7 +1226,6 @@
 				642620421E80B56200263124 /* FLByteUtil.m in Sources */,
 				644C9C591E66B5BF0030C3B9 /* UIButton+EnlargeTouchArea.m in Sources */,
 				BFDAC78E1E7274FA00E17D7B /* JHRadarChart.m in Sources */,
-				64F663C81E63C8A900F4C9E7 /* ViewController.m in Sources */,
 				642580241E6D0CB90019AD06 /* JSONAPI.m in Sources */,
 				644C9CBD1E697E980030C3B9 /* MedicalTableViewCell.m in Sources */,
 				BFDAC78B1E7274FA00E17D7B /* JHPieChart.m in Sources */,
@@ -1131,6 +1236,7 @@
 				BF0327BB1ED5847400D86F94 /* HistoryDetailViewController.m in Sources */,
 				64F663FE1E63CB8400F4C9E7 /* BaseViewController.m in Sources */,
 				644C9CB61E697DDA0030C3B9 /* TrainingViewController.m in Sources */,
+				D1D14397226F0B7B00BA5302 /* UIViewEx.swift in Sources */,
 				BF2B3C641EA0B2BD009E639F /* MedicalInfoViewController.m in Sources */,
 				BF79D0EE1E6FE15200EE468B /* EditDetailPatSexInfoViewController.m in Sources */,
 				644C9C1D1E655E660030C3B9 /* UIView+Category.m in Sources */,
@@ -1149,6 +1255,7 @@
 				BF79D0F81E712E1C00EE468B /* DrugInfoViewController.m in Sources */,
 				BFDAC7941E7274FA00E17D7B /* JHWaveChart.m in Sources */,
 				642580261E6D0CB90019AD06 /* JSONModel+networking.m in Sources */,
+				D1D1439B226F0B8800BA5302 /* AniShowCloseView.swift in Sources */,
 				644C9C7B1E6918080030C3B9 /* QRCodeReaderView.m in Sources */,
 				642580231E6D0CB90019AD06 /* NSArray+JSONModel.m in Sources */,
 				642620461E80B56200263124 /* FLWrapJson.m in Sources */,
@@ -1180,11 +1287,13 @@
 				644C9C3A1E666A6D0030C3B9 /* FL_ScaleCircle.m in Sources */,
 				BF79D0F51E7101FF00EE468B /* AddPatientInfoTableViewController.m in Sources */,
 				BFF420981EA76B630093BE8D /* FMDatabasePool.m in Sources */,
+				D1D14395226F0B7000BA5302 /* UIViewControllerEx.swift in Sources */,
 				64F664021E63CC6D00F4C9E7 /* RootViewController.m in Sources */,
 				64F663FD1E63CB8400F4C9E7 /* BaseNavViewController.m in Sources */,
 				BFDAC7901E7274FA00E17D7B /* JHScatterChart.m in Sources */,
 				BFF420971EA76B630093BE8D /* FMDatabaseAdditions.m in Sources */,
 				64F663C51E63C8A900F4C9E7 /* AppDelegate.m in Sources */,
+				D1D1439C226F0B8800BA5302 /* Common.swift in Sources */,
 				BFF420961EA76B630093BE8D /* FMDatabase.m in Sources */,
 				644C9CB21E697DDA0030C3B9 /* TrainingFirstViewController.m in Sources */,
 				642580281E6D0CB90019AD06 /* JSONValueTransformer.m in Sources */,
@@ -1340,35 +1449,47 @@
 		};
 		64F663EB1E63C8A900F4C9E7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ADF5DE4996F1CD0510168EBF /* Pods-Sprayer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = L5888F4Z42;
-				GCC_PREFIX_HEADER = "$(SRCROOT)/Sprayer/PrefixHeader.pch";
-				INFOPLIST_FILE = Sprayer/Info.plist;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Sprayer/Config/PrefixHeader.pch";
+				INFOPLIST_FILE = Sprayer/Config/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.FL.Pneuma.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Sprayer/Config/Sprayer-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		64F663EC1E63C8A900F4C9E7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 979558B3F9AD1B6241BB5A6C /* Pods-Sprayer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = L5888F4Z42;
-				GCC_PREFIX_HEADER = "$(SRCROOT)/Sprayer/PrefixHeader.pch";
-				INFOPLIST_FILE = Sprayer/Info.plist;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Sprayer/Config/PrefixHeader.pch";
+				INFOPLIST_FILE = Sprayer/Config/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.FL.Pneuma.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Sprayer/Config/Sprayer-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
 		64F663EE1E63C8A900F4C9E7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = SprayerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1381,6 +1502,7 @@
 		64F663EF1E63C8A900F4C9E7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = SprayerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1393,6 +1515,7 @@
 		64F663F11E63C8A900F4C9E7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = SprayerUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.FL.SprayerUITests;
@@ -1404,6 +1527,7 @@
 		64F663F21E63C8A900F4C9E7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = SprayerUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.FL.SprayerUITests;
