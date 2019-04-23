@@ -133,8 +133,8 @@
 		BFF4209A1EA76B630093BE8D /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF420941EA76B630093BE8D /* FMResultSet.m */; };
 		D1D14395226F0B7000BA5302 /* UIViewControllerEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D14394226F0B7000BA5302 /* UIViewControllerEx.swift */; };
 		D1D14397226F0B7B00BA5302 /* UIViewEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D14396226F0B7B00BA5302 /* UIViewEx.swift */; };
-		D1D1439B226F0B8800BA5302 /* AniShowCloseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D14399226F0B8800BA5302 /* AniShowCloseView.swift */; };
-		D1D1439C226F0B8800BA5302 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D1439A226F0B8800BA5302 /* Common.swift */; };
+		D1D143A5226F167F00BA5302 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D143A3226F167F00BA5302 /* Common.swift */; };
+		D1D143A6226F167F00BA5302 /* AniShowCloseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D143A4226F167F00BA5302 /* AniShowCloseView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -389,8 +389,8 @@
 		D1D14393226F0B6F00BA5302 /* Sprayer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Sprayer-Bridging-Header.h"; sourceTree = "<group>"; };
 		D1D14394226F0B7000BA5302 /* UIViewControllerEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerEx.swift; sourceTree = "<group>"; };
 		D1D14396226F0B7B00BA5302 /* UIViewEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewEx.swift; sourceTree = "<group>"; };
-		D1D14399226F0B8800BA5302 /* AniShowCloseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AniShowCloseView.swift; sourceTree = "<group>"; };
-		D1D1439A226F0B8800BA5302 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		D1D143A3226F167F00BA5302 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		D1D143A4226F167F00BA5302 /* AniShowCloseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AniShowCloseView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -814,7 +814,7 @@
 		64F663BF1E63C8A900F4C9E7 /* Sprayer */ = {
 			isa = PBXGroup;
 			children = (
-				D1D14398226F0B8800BA5302 /* Tools */,
+				D1D1439E226F162000BA5302 /* Tools */,
 				D1D14388226F09D700BA5302 /* Main */,
 				D1D14387226F09A500BA5302 /* Interface */,
 				644C9C371E666A440030C3B9 /* View */,
@@ -989,14 +989,13 @@
 			path = Config;
 			sourceTree = "<group>";
 		};
-		D1D14398226F0B8800BA5302 /* Tools */ = {
+		D1D1439E226F162000BA5302 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				D1D14399226F0B8800BA5302 /* AniShowCloseView.swift */,
-				D1D1439A226F0B8800BA5302 /* Common.swift */,
+				D1D143A4226F167F00BA5302 /* AniShowCloseView.swift */,
+				D1D143A3226F167F00BA5302 /* Common.swift */,
 			);
-			name = Tools;
-			path = ../../sprayer2/Sprayer/Tools;
+			path = Tools;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1209,6 +1208,7 @@
 				BFDAC78C1E7274FA00E17D7B /* JHPieForeBGView.m in Sources */,
 				BF79D1001E7232CE00EE468B /* HistoricalDrugTableViewCell.m in Sources */,
 				BFDAC7891E7274FA00E17D7B /* JHColumnChart.m in Sources */,
+				D1D143A5226F167F00BA5302 /* Common.swift in Sources */,
 				BF79D0FB1E71425B00EE468B /* HistoricalDrugViewController.m in Sources */,
 				644C9CB31E697DDA0030C3B9 /* TrainingSecondViewController.m in Sources */,
 				64F43CC11E71585D009BF6F9 /* SqliteUtils.m in Sources */,
@@ -1239,6 +1239,7 @@
 				D1D14397226F0B7B00BA5302 /* UIViewEx.swift in Sources */,
 				BF2B3C641EA0B2BD009E639F /* MedicalInfoViewController.m in Sources */,
 				BF79D0EE1E6FE15200EE468B /* EditDetailPatSexInfoViewController.m in Sources */,
+				D1D143A6226F167F00BA5302 /* AniShowCloseView.swift in Sources */,
 				644C9C1D1E655E660030C3B9 /* UIView+Category.m in Sources */,
 				644C9CB41E697DDA0030C3B9 /* TrainingStartViewController.m in Sources */,
 				BF79D0EB1E6FD24900EE468B /* EditDetailPatientInfoViewController.m in Sources */,
@@ -1255,7 +1256,6 @@
 				BF79D0F81E712E1C00EE468B /* DrugInfoViewController.m in Sources */,
 				BFDAC7941E7274FA00E17D7B /* JHWaveChart.m in Sources */,
 				642580261E6D0CB90019AD06 /* JSONModel+networking.m in Sources */,
-				D1D1439B226F0B8800BA5302 /* AniShowCloseView.swift in Sources */,
 				644C9C7B1E6918080030C3B9 /* QRCodeReaderView.m in Sources */,
 				642580231E6D0CB90019AD06 /* NSArray+JSONModel.m in Sources */,
 				642620461E80B56200263124 /* FLWrapJson.m in Sources */,
@@ -1293,7 +1293,6 @@
 				BFDAC7901E7274FA00E17D7B /* JHScatterChart.m in Sources */,
 				BFF420971EA76B630093BE8D /* FMDatabaseAdditions.m in Sources */,
 				64F663C51E63C8A900F4C9E7 /* AppDelegate.m in Sources */,
-				D1D1439C226F0B8800BA5302 /* Common.swift in Sources */,
 				BFF420961EA76B630093BE8D /* FMDatabase.m in Sources */,
 				644C9CB21E697DDA0030C3B9 /* TrainingFirstViewController.m in Sources */,
 				642580281E6D0CB90019AD06 /* JSONValueTransformer.m in Sources */,

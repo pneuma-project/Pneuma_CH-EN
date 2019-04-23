@@ -33,10 +33,10 @@ extension UIViewController{
     /// - Returns: 当前视图控制器
     class func getCurrentViewCtrl()->UIViewController{
         var window = UIApplication.shared.keyWindow
-        if window?.windowLevel != UIWindow.Level.normal {
+        if window?.windowLevel != UIWindowLevelNormal {
             let windows = UIApplication.shared.windows
             for subWin in windows {
-                if subWin.windowLevel == UIWindow.Level.normal {
+                if subWin.windowLevel == UIWindowLevelNormal {
                     window = subWin
                     break
                 }
