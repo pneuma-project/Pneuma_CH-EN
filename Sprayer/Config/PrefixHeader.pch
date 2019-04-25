@@ -66,6 +66,7 @@
 #define BleConnectSuc @"BleConnectSuc"//蓝牙连接成功
 #define ConnectSucceed @"ConnectSucceed"//连接成功
 #define PeripheralDidConnect @"peripheralDidConnect"//断开连接
+#define IsDisplayMedInfo @"IsDisplayMedInfo" //是否显示了药瓶信息
 
 
 
