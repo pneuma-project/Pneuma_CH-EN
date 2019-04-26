@@ -48,7 +48,7 @@
 //    if ([UserDefaultsUtils boolValueWithKey:@"AutoConnect"] == NO) {
 
 //    }
-    if ([UserDefaultsUtils boolValueWithKey:@"IsDisplayMedInfo"] == NO) {
+    if ([UserDefaultsUtils boolValueWithKey:IsDisplayMedInfo] == NO) {
         [self.timer setFireDate:[NSDate distantFuture]];
         [self.medicineInfoTimer setFireDate:[NSDate distantPast]];
     }else {
@@ -120,7 +120,7 @@
     [self.isOnlineBtn setImage:[UIImage imageNamed:@"device-butn-on"] forState:UIControlStateNormal];
     [self.medicineInfoTimer setFireDate:[NSDate distantPast]];
     [self.timer setFireDate:[NSDate distantFuture]];
-    [UserDefaultsUtils saveBoolValue:NO withKey:@"IsDisplayMedInfo"];
+    [UserDefaultsUtils saveBoolValue:NO withKey:IsDisplayMedInfo];
 }
 
 //停止定时器发送上电信息
@@ -133,7 +133,7 @@
 //蓝牙失去连接
 -(void)disconnectAction
 {
-    [UserDefaultsUtils saveBoolValue:NO withKey:@"IsDisplayMedInfo"];
+    [UserDefaultsUtils saveBoolValue:NO withKey:IsDisplayMedInfo];
     [self.isOnlineBtn setImage:[UIImage imageNamed:@"device-butn-off"] forState:UIControlStateNormal];
     [self.timer setFireDate:[NSDate distantFuture]];
     [self.medicineInfoTimer setFireDate:[NSDate distantFuture]];
@@ -142,7 +142,7 @@
 //展示药品名称
 -(void)displayMedicineInfoAction:(NSNotification *)notification
 {
-    [UserDefaultsUtils saveBoolValue:YES withKey:@"IsDisplayMedInfo"];
+    [UserDefaultsUtils saveBoolValue:YES withKey:IsDisplayMedInfo];
     [self.medicineInfoTimer setFireDate:[NSDate distantFuture]];
     NSDictionary *infoDict = notification.object;
     NSString *medicineInfo = infoDict[@"medicineInfo"];
