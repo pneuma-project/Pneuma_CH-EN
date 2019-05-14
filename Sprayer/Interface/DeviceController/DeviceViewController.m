@@ -15,6 +15,7 @@
 #import "UserDefaultsUtils.h"
 #import "PatientInfoViewController.h"
 #import "FLDrawDataTool.h"
+#import "Sprayer-Swift.h"
 
 @interface DeviceViewController ()
 {
@@ -26,6 +27,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *deviceConnectBtn;
 @property (nonatomic,strong)NSTimer *timer;    //发送上电信息定时器
 @property (nonatomic,strong)NSTimer *medicineInfoTimer;   //发送药品信息定时器
+
+@property(nonatomic,strong)BlueDeviceListView *blueView;  //蓝牙设备列表视图
 @end
 
 @implementation DeviceViewController
@@ -37,11 +40,14 @@
     [self setNavTitle:@"MY DEVICE"];
     self.medicineInfoTimer = [NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(writeInquireMedicineInfo) userInfo:nil repeats:YES];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(writePowerInfoDataAction) userInfo:nil repeats:YES];
+    
+    _blueView = [[BlueDeviceListView alloc] init];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchDeviceAction:) name:@"scanDevice" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bleConnectSucceedAction) name:ConnectSucceed object:nil]; //设备连接成功扫描到特征值
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disconnectAction) name:PeripheralDidConnect object:nil];//设备断开连接
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(displayMedicineInfoAction:) name:@"displayMedicineInfo" object:nil]; //展示药品信息
@@ -114,6 +120,14 @@
 }
 
 #pragma mark - 接收到通知的方法
+//搜索设备列表
+-(void)searchDeviceAction:(NSNotification *)notification
+{
+    NSDictionary *infoDict = notification.object;
+    NSArray *deviceList = infoDict[@"DeviceList"];
+    self.blueView.dataList = deviceList;
+}
+
 //蓝牙连接成功
 -(void)bleConnectSucceedAction
 {
@@ -203,6 +217,7 @@
     }
     blueManager = [BlueToothManager getInstance];
     [blueManager startScan];
+    [_blueView animationshowWithIsCenter:false];
 }
 
 

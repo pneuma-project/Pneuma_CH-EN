@@ -131,6 +131,10 @@
 		BFF420981EA76B630093BE8D /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF4208F1EA76B630093BE8D /* FMDatabasePool.m */; };
 		BFF420991EA76B630093BE8D /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF420911EA76B630093BE8D /* FMDatabaseQueue.m */; };
 		BFF4209A1EA76B630093BE8D /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF420941EA76B630093BE8D /* FMResultSet.m */; };
+		D1B8DACD2276E6DE00643EC6 /* BlueDeviceListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B8DACA2276E6DE00643EC6 /* BlueDeviceListCell.swift */; };
+		D1B8DACE2276E6DE00643EC6 /* BlueDeviceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B8DACB2276E6DE00643EC6 /* BlueDeviceListView.swift */; };
+		D1B8DACF2276E6DE00643EC6 /* BlueDeviceListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1B8DACC2276E6DE00643EC6 /* BlueDeviceListCell.xib */; };
+		D1B8DAD22276F34200643EC6 /* DeviceBoardObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B8DAD12276F34200643EC6 /* DeviceBoardObject.swift */; };
 		D1D14395226F0B7000BA5302 /* UIViewControllerEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D14394226F0B7000BA5302 /* UIViewControllerEx.swift */; };
 		D1D14397226F0B7B00BA5302 /* UIViewEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D14396226F0B7B00BA5302 /* UIViewEx.swift */; };
 		D1D143A5226F167F00BA5302 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D143A3226F167F00BA5302 /* Common.swift */; };
@@ -386,6 +390,10 @@
 		BFF420931EA76B630093BE8D /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		BFF420941EA76B630093BE8D /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		BFF420951EA76B630093BE8D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D1B8DACA2276E6DE00643EC6 /* BlueDeviceListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueDeviceListCell.swift; sourceTree = "<group>"; };
+		D1B8DACB2276E6DE00643EC6 /* BlueDeviceListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueDeviceListView.swift; sourceTree = "<group>"; };
+		D1B8DACC2276E6DE00643EC6 /* BlueDeviceListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BlueDeviceListCell.xib; sourceTree = "<group>"; };
+		D1B8DAD12276F34200643EC6 /* DeviceBoardObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceBoardObject.swift; sourceTree = "<group>"; };
 		D1D14393226F0B6F00BA5302 /* Sprayer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Sprayer-Bridging-Header.h"; sourceTree = "<group>"; };
 		D1D14394226F0B7000BA5302 /* UIViewControllerEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerEx.swift; sourceTree = "<group>"; };
 		D1D14396226F0B7B00BA5302 /* UIViewEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewEx.swift; sourceTree = "<group>"; };
@@ -678,8 +686,9 @@
 		644C9C8D1E697DDA0030C3B9 /* DeviceController */ = {
 			isa = PBXGroup;
 			children = (
-				BF79D0FC1E7232A500EE468B /* Cell */,
 				642580011E6D0C5E0019AD06 /* Model */,
+				D1B8DAD02276F31800643EC6 /* ViewModel */,
+				D1B8DAC92276E6C900643EC6 /* View */,
 				644C9C8E1E697DDA0030C3B9 /* DeviceViewController.h */,
 				644C9C8F1E697DDA0030C3B9 /* DeviceViewController.m */,
 				644C9C901E697DDA0030C3B9 /* DeviceViewController.xib */,
@@ -954,6 +963,25 @@
 			path = FMDB;
 			sourceTree = "<group>";
 		};
+		D1B8DAC92276E6C900643EC6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BF79D0FC1E7232A500EE468B /* Cell */,
+				D1B8DACB2276E6DE00643EC6 /* BlueDeviceListView.swift */,
+				D1B8DACA2276E6DE00643EC6 /* BlueDeviceListCell.swift */,
+				D1B8DACC2276E6DE00643EC6 /* BlueDeviceListCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D1B8DAD02276F31800643EC6 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D1B8DAD12276F34200643EC6 /* DeviceBoardObject.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		D1D14387226F09A500BA5302 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
@@ -1126,6 +1154,7 @@
 				64F663CB1E63C8A900F4C9E7 /* Main.storyboard in Resources */,
 				644C9C7A1E6918080030C3B9 /* noticeMusic.wav in Resources */,
 				7906CA4B1FBD399B00200B66 /* FlowValueSettingController.xib in Resources */,
+				D1B8DACF2276E6DE00643EC6 /* BlueDeviceListCell.xib in Resources */,
 				644C9C7D1E6918080030C3B9 /* scanLine@3x.png in Resources */,
 				644C9CBE1E697E980030C3B9 /* MedicalTableViewCell.xib in Resources */,
 				6426203D1E80B56200263124 /* hud_success.png in Resources */,
@@ -1218,6 +1247,7 @@
 				BF79D0FB1E71425B00EE468B /* HistoricalDrugViewController.m in Sources */,
 				644C9CB31E697DDA0030C3B9 /* TrainingSecondViewController.m in Sources */,
 				64F43CC11E71585D009BF6F9 /* SqliteUtils.m in Sources */,
+				D1B8DAD22276F34200643EC6 /* DeviceBoardObject.swift in Sources */,
 				642620441E80B56200263124 /* FLWrapBobyTool.m in Sources */,
 				7906CA4A1FBD399B00200B66 /* FlowValueSettingController.m in Sources */,
 				BFDAC78A1E7274FA00E17D7B /* JHLineChart.m in Sources */,
@@ -1254,6 +1284,7 @@
 				644C9C621E67F8590030C3B9 /* CustemNavItem.m in Sources */,
 				6426203F1E80B56200263124 /* LCProgressHUD.m in Sources */,
 				6425801F1E6D0CB90019AD06 /* JSONModel.m in Sources */,
+				D1B8DACE2276E6DE00643EC6 /* BlueDeviceListView.swift in Sources */,
 				642620381E80B56200263124 /* BlueToothManager.m in Sources */,
 				642580441E6D72270019AD06 /* PatientInfoViewController.m in Sources */,
 				BFDAC7921E7274FA00E17D7B /* JHTableChart.m in Sources */,
@@ -1282,6 +1313,7 @@
 				644C9C5A1E66B5BF0030C3B9 /* UIColor+expanded.m in Sources */,
 				6425804A1E6E88070019AD06 /* PatientInfoModel.m in Sources */,
 				642580371E6D4EA60019AD06 /* HistoryTableViewCell.m in Sources */,
+				D1B8DACD2276E6DE00643EC6 /* BlueDeviceListCell.swift in Sources */,
 				644C9CB01E697DDA0030C3B9 /* SprayViewController.m in Sources */,
 				644C9C2B1E6571B50030C3B9 /* UserDefaultsUtils.m in Sources */,
 				642580411E6D5F3D0019AD06 /* HistoryModel.m in Sources */,

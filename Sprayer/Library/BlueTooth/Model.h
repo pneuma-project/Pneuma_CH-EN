@@ -12,5 +12,8 @@
 
 @property (nonatomic, strong)CBPeripheral * peripheral;
 @property (nonatomic, assign)int num;
+@property (nonatomic, copy)NSString *macAddress;
+@property (nonatomic, assign)BOOL isLinking;
+
 
 @end

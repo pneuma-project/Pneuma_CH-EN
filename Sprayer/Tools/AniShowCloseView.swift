@@ -15,7 +15,7 @@ class AniShowCloseView: UIView {
     lazy var colorlessBackground:UIView = {
         let view = UIView.init()
         view.frame = UIScreen.main.bounds
-        view.backgroundColor = .clear
+        view.backgroundColor = HEXCOLOR(h: 0x000000, alpha: 0.4)
         //透明背景手势
         let tapG = UITapGestureRecognizer.init(target: self, action: #selector(animationClose))
         view.addGestureRecognizer(tapG)
@@ -45,7 +45,7 @@ class AniShowCloseView: UIView {
     /// 弹出
     ///
     /// - Parameter isCenter: 是否是在界面中心
-    func animationshow(isCenter:Bool) {
+    @objc func animationshow(isCenter:Bool) {
         UIViewController.getCurrentViewCtrl().view.addSubview(colorlessBackground)
         UIViewController.getCurrentViewCtrl().view.addSubview(self)
         self.frame = CGRect(x:0, y:SCREEN_HEIGHT, width:self.frame.size.width, height:self.frame.size.height)

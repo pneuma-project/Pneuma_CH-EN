@@ -12,5 +12,7 @@
 
 @synthesize peripheral;
 @synthesize num;
+@synthesize macAddress;
+@synthesize isLinking;
 
 @end

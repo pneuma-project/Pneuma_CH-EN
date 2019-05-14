@@ -29,6 +29,7 @@ typedef enum _TTGState{
 @interface BlueToothManager ()
 {
     BOOL isLinked;
+    Model *totalModel;  //当前连接蓝牙模型
 }
 @property (nonatomic,assign)TTGState state;
 @property (nonatomic,strong)NSMutableData *putData;
@@ -89,6 +90,7 @@ typedef enum _TTGState{
         [central scanForPeripheralsWithServices:nil options:nil];
 //        [LCProgressHUD showSuccessText:@"Bluetooth is on!"];
     }else{
+        totalModel = nil;
         NSLog(@"蓝牙不可用");
         isLinked = NO;
         [[NSNotificationCenter defaultCenter] postNotificationName:PeripheralDidConnect object:nil userInfo:nil];
@@ -104,35 +106,57 @@ typedef enum _TTGState{
         [_peripheralList removeAllObjects];
     }
     if (peripheral.name != nil) {
-        Model * model = [[Model alloc]init];
-        model.peripheral = peripheral;
-        model.num = [RSSI intValue];
-        //如果 外设数组数量为0 则 直接将 该 model 添加到 外设数组中
-        //如果 外设数组数量不为0 则 用遍历数组 用外设的名称 进行判断 是否 存在于该数组中
-        //如果 外设名称相同  则 只修改 该外设 所对应的 rssi
-        //如果 外设名称不同  则 将此外设 加入到外设数组中
-        if (_peripheralList.count == 0 && ([peripheral.name isEqualToString:@"nRF52832"])) {
-            [self connectPeripheralWith:peripheral];
+        if ([peripheral.name isEqualToString:@"nRF52832"]) {
+            Model *model = [[Model alloc] init];
+            NSData *data = [advertisementData objectForKey:@"kCBAdvDataManufacturerData"];
+            if (data == nil) {
+                model.macAddress = @"";
+            }else {
+                model.macAddress = [FLDrawDataTool hexStringFromData:data];
+            }
+            if ([totalModel.macAddress isEqualToString:model.macAddress]) {
+                model.isLinking = YES;
+                model.peripheral = totalModel.peripheral;
+                model.num = totalModel.num;
+            }else {
+                model.isLinking = NO;
+                model.peripheral = peripheral;
+                model.num = [RSSI intValue];
+            }
             [_peripheralList addObject:model];
-            //[[NSNotificationCenter defaultCenter] postNotificationName:@"scanDevice" object:nil userInfo:nil];
-        }else{
-            BOOL ishave = NO;
-            for (Model * mo in _peripheralList) {
-                if ([mo.peripheral.name isEqualToString:model.peripheral.name]) {
-                    mo.num = model.num;
-                    ishave = YES;
-                    break;
-                }else{
-                    
-                }
-            }
-            //判断名称是否是设备的默认名称
-            if (ishave == NO && ([peripheral.name isEqualToString:@"nRF52832"])) {
-                [_peripheralList addObject:model];
-                //[NSTimer scheduledTimerWithTimeInterval:0.5f target:self selector:@selector(scanDeivceAction) userInfo:nil repeats:YES];
-            }
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"scanDevice" object:@{@"DeviceList":_peripheralList} userInfo:nil];
         }
     }
+//    if (peripheral.name != nil) {
+//        Model * model = [[Model alloc]init];
+//        model.peripheral = peripheral;
+//        model.num = [RSSI intValue];
+//        //如果 外设数组数量为0 则 直接将 该 model 添加到 外设数组中
+//        //如果 外设数组数量不为0 则 用遍历数组 用外设的名称 进行判断 是否 存在于该数组中
+//        //如果 外设名称相同  则 只修改 该外设 所对应的 rssi
+//        //如果 外设名称不同  则 将此外设 加入到外设数组中
+//        if (_peripheralList.count == 0 && ([peripheral.name isEqualToString:@"nRF52832"])) {
+//            [self connectPeripheralWith:peripheral];
+//            [_peripheralList addObject:model];
+//            //[[NSNotificationCenter defaultCenter] postNotificationName:@"scanDevice" object:nil userInfo:nil];
+//        }else{
+//            BOOL ishave = NO;
+//            for (Model * mo in _peripheralList) {
+//                if ([mo.peripheral.name isEqualToString:model.peripheral.name]) {
+//                    mo.num = model.num;
+//                    ishave = YES;
+//                    break;
+//                }else{
+//
+//                }
+//            }
+//            //判断名称是否是设备的默认名称
+//            if (ishave == NO && ([peripheral.name isEqualToString:@"nRF52832"])) {
+//                [_peripheralList addObject:model];
+//                //[NSTimer scheduledTimerWithTimeInterval:0.5f target:self selector:@selector(scanDeivceAction) userInfo:nil repeats:YES];
+//            }
+//        }
+//    }
 }
 
 //-(void)scanDeivceAction
@@ -147,16 +171,18 @@ typedef enum _TTGState{
 }
 
 //连接设备
--(void)connectPeripheralWith:(CBPeripheral *)per
+-(void)connectPeripheralWith:(Model *)model
 {
+    totalModel = model;
     NSLog(@"开始连接外围设备...");
     [LCProgressHUD showSuccessText:NSLocalizedString(@"Start connecting peripherals", nil)];
-    [_manager connectPeripheral:per options:nil];
+    [_manager connectPeripheral:model.peripheral options:nil];
 }
 
 //连接设备失败
 -(void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
+    totalModel = nil;
     [LCProgressHUD showFailureText:NSLocalizedString(@"Connection failed", nil)];
     isLinked = NO;
     NSLog(@">>>连接到名称为（%@）的设备-失败,原因:%@",[peripheral name],[error localizedDescription]);
@@ -167,6 +193,7 @@ typedef enum _TTGState{
 //设备断开连接
 -(void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
+    totalModel = nil;
     isLinked = NO;
     [LCProgressHUD showFailureText:NSLocalizedString(@"Peripheral disconnect", nil)];
     NSLog(@">>>外设连接断开连接 %@: %@\n", [peripheral name], [error localizedDescription]);
@@ -185,12 +212,11 @@ typedef enum _TTGState{
 -(void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
     [LCProgressHUD showSuccessText:NSLocalizedString(@"Connection succeeded", nil)];
-    NSLog(@"连接到%@成功",peripheral.name);
+    NSLog(@"连接到%@成功  %ld",peripheral.name,(long)peripheral.state);
     isLinked = YES;
     _per = peripheral;
     [_per setDelegate:self];
     [_per discoverServices:nil];
-    [self stopScan];
     [UserDefaultsUtils saveBoolValue:YES withKey:@"isConnect"];
     [self.timer invalidate];
 }

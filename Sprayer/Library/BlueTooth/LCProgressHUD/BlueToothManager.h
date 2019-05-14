@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "LCProgressHUD.h"
+#import "Model.h"
 
 @interface BlueToothManager : NSObject
 <CBCentralManagerDelegate,CBPeripheralDelegate>
@@ -52,7 +53,7 @@
  *
  *  @param per 选择的设备
  */
--(void)connectPeripheralWith:(CBPeripheral *)per;
+-(void)connectPeripheralWith:(Model *)model;
 
 /**
  *  打开通知
