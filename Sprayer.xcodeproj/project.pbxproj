@@ -85,6 +85,9 @@
 		644C9CBD1E697E980030C3B9 /* MedicalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 644C9CBB1E697E980030C3B9 /* MedicalTableViewCell.m */; };
 		644C9CBE1E697E980030C3B9 /* MedicalTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 644C9CBC1E697E980030C3B9 /* MedicalTableViewCell.xib */; };
 		64BBBAA41E82AD58008A40E5 /* BlueWriteData.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BBBAA31E82AD58008A40E5 /* BlueWriteData.m */; };
+		64E8EF38228A916300B357D1 /* SURLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E8EF37228A916300B357D1 /* SURLRequest.swift */; };
+		64E8EF3B228A918700B357D1 /* SURLHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E8EF39228A918600B357D1 /* SURLHelper.swift */; };
+		64E8EF3C228A918700B357D1 /* SURLMacro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E8EF3A228A918600B357D1 /* SURLMacro.swift */; };
 		64F43CC11E71585D009BF6F9 /* SqliteUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F43CC01E71585D009BF6F9 /* SqliteUtils.m */; };
 		64F43CC41E715A3B009BF6F9 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F43CC31E715A3B009BF6F9 /* libsqlite3.0.tbd */; };
 		64F663C21E63C8A900F4C9E7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F663C11E63C8A900F4C9E7 /* main.m */; };
@@ -294,6 +297,9 @@
 		644C9CBC1E697E980030C3B9 /* MedicalTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MedicalTableViewCell.xib; sourceTree = "<group>"; };
 		64BBBAA21E82AD58008A40E5 /* BlueWriteData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlueWriteData.h; sourceTree = "<group>"; };
 		64BBBAA31E82AD58008A40E5 /* BlueWriteData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlueWriteData.m; sourceTree = "<group>"; };
+		64E8EF37228A916300B357D1 /* SURLRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SURLRequest.swift; sourceTree = "<group>"; };
+		64E8EF39228A918600B357D1 /* SURLHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SURLHelper.swift; sourceTree = "<group>"; };
+		64E8EF3A228A918600B357D1 /* SURLMacro.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SURLMacro.swift; sourceTree = "<group>"; };
 		64F43CBF1E71585D009BF6F9 /* SqliteUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SqliteUtils.h; sourceTree = "<group>"; };
 		64F43CC01E71585D009BF6F9 /* SqliteUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SqliteUtils.m; sourceTree = "<group>"; };
 		64F43CC31E715A3B009BF6F9 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -789,6 +795,16 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		64E8EF36228A912A00B357D1 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				64E8EF39228A918600B357D1 /* SURLHelper.swift */,
+				64E8EF3A228A918600B357D1 /* SURLMacro.swift */,
+				64E8EF37228A916300B357D1 /* SURLRequest.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
 		64F43CC21E715A3A009BF6F9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -823,13 +839,11 @@
 		64F663BF1E63C8A900F4C9E7 /* Sprayer */ = {
 			isa = PBXGroup;
 			children = (
+				64E8EF36228A912A00B357D1 /* Request */,
 				D1D1439E226F162000BA5302 /* Tools */,
-				D1D14388226F09D700BA5302 /* Main */,
 				D1D14387226F09A500BA5302 /* Interface */,
-				644C9C371E666A440030C3B9 /* View */,
 				644C9C2C1E6575E10030C3B9 /* Library */,
 				644C9C251E6571960030C3B9 /* Utils */,
-				644C9C1A1E655E560030C3B9 /* Category */,
 				D1D14389226F0A4100BA5302 /* Config */,
 				64F663C01E63C8A900F4C9E7 /* Supporting Files */,
 			);
@@ -985,6 +999,8 @@
 		D1D14387226F09A500BA5302 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				644C9C371E666A440030C3B9 /* View */,
+				D1D14388226F09D700BA5302 /* Main */,
 				644C9C8D1E697DDA0030C3B9 /* DeviceController */,
 				644C9C991E697DDA0030C3B9 /* TrainingController */,
 				644C9C961E697DDA0030C3B9 /* SprayController */,
@@ -1020,6 +1036,7 @@
 		D1D1439E226F162000BA5302 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				644C9C1A1E655E560030C3B9 /* Category */,
 				D1D143A4226F167F00BA5302 /* AniShowCloseView.swift */,
 				D1D143A3226F167F00BA5302 /* Common.swift */,
 			);
@@ -1214,6 +1231,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Sprayer/Pods-Sprayer-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
@@ -1223,6 +1241,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
@@ -1240,6 +1259,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				642580271E6D0CB90019AD06 /* JSONKeyMapper.m in Sources */,
+				64E8EF3B228A918700B357D1 /* SURLHelper.swift in Sources */,
 				BFDAC78C1E7274FA00E17D7B /* JHPieForeBGView.m in Sources */,
 				BF79D1001E7232CE00EE468B /* HistoricalDrugTableViewCell.m in Sources */,
 				BFDAC7891E7274FA00E17D7B /* JHColumnChart.m in Sources */,
@@ -1288,6 +1308,7 @@
 				642620381E80B56200263124 /* BlueToothManager.m in Sources */,
 				642580441E6D72270019AD06 /* PatientInfoViewController.m in Sources */,
 				BFDAC7921E7274FA00E17D7B /* JHTableChart.m in Sources */,
+				64E8EF3C228A918700B357D1 /* SURLMacro.swift in Sources */,
 				644C9CB81E697DDA0030C3B9 /* UserViewController.m in Sources */,
 				644C9CB51E697DDA0030C3B9 /* TrainingThirdViewController.m in Sources */,
 				BF79D0F81E712E1C00EE468B /* DrugInfoViewController.m in Sources */,
@@ -1338,6 +1359,7 @@
 				642620401E80B56200263124 /* Model.m in Sources */,
 				BF79D0E81E6FAA7C00EE468B /* EditPatientInfoViewController.m in Sources */,
 				644C9CAE1E697DDA0030C3B9 /* ScanResultViewController.m in Sources */,
+				64E8EF38228A916300B357D1 /* SURLRequest.swift in Sources */,
 				6425802A1E6D0CB90019AD06 /* README.md in Sources */,
 				644C9CAB1E697DDA0030C3B9 /* DeviceViewController.m in Sources */,
 				644C9C5C1E66B5BF0030C3B9 /* UIView+Common.m in Sources */,

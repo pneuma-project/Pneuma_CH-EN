@@ -9,5 +9,6 @@ target 'Sprayer' do
   pod 'Alamofire', '4.5.0'   #网络请求
   pod 'SwiftyJSON', '4.2.0'   #JSON解析
   pod 'Toast-Swift', '4.0.1'   #提示语
+  pod 'CryptoSwift', '0.7.1'          #Md5加密
   
 end

@@ -16,6 +16,8 @@ let PATH_OF_CACHE = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDi
 let PATH_OF_DOCUMENT = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0]
 let PATH_OF_LIBRARY = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.libraryDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0]
 
+// MARK: - 项目存储路径
+let downLoadFile = PATH_OF_DOCUMENT + "/DownLoad"
 
 // MARK: - 尺寸相关
 /// 屏幕分辨率
