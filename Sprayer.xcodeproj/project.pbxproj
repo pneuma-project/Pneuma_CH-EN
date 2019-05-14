@@ -88,6 +88,7 @@
 		64E8EF38228A916300B357D1 /* SURLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E8EF37228A916300B357D1 /* SURLRequest.swift */; };
 		64E8EF3B228A918700B357D1 /* SURLHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E8EF39228A918600B357D1 /* SURLHelper.swift */; };
 		64E8EF3C228A918700B357D1 /* SURLMacro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E8EF3A228A918600B357D1 /* SURLMacro.swift */; };
+		64E8EF80228AAD3300B357D1 /* Sprayer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 64E8EF7E228AAD3300B357D1 /* Sprayer.xcdatamodeld */; };
 		64F43CC11E71585D009BF6F9 /* SqliteUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F43CC01E71585D009BF6F9 /* SqliteUtils.m */; };
 		64F43CC41E715A3B009BF6F9 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F43CC31E715A3B009BF6F9 /* libsqlite3.0.tbd */; };
 		64F663C21E63C8A900F4C9E7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F663C11E63C8A900F4C9E7 /* main.m */; };
@@ -300,6 +301,7 @@
 		64E8EF37228A916300B357D1 /* SURLRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SURLRequest.swift; sourceTree = "<group>"; };
 		64E8EF39228A918600B357D1 /* SURLHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SURLHelper.swift; sourceTree = "<group>"; };
 		64E8EF3A228A918600B357D1 /* SURLMacro.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SURLMacro.swift; sourceTree = "<group>"; };
+		64E8EF7F228AAD3300B357D1 /* Sprayer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Sprayer.xcdatamodel; sourceTree = "<group>"; };
 		64F43CBF1E71585D009BF6F9 /* SqliteUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SqliteUtils.h; sourceTree = "<group>"; };
 		64F43CC01E71585D009BF6F9 /* SqliteUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SqliteUtils.m; sourceTree = "<group>"; };
 		64F43CC31E715A3B009BF6F9 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -1029,6 +1031,7 @@
 				D1D14393226F0B6F00BA5302 /* Sprayer-Bridging-Header.h */,
 				64F663FF1E63CBAC00F4C9E7 /* PrefixHeader.pch */,
 				64F663C11E63C8A900F4C9E7 /* main.m */,
+				64E8EF7E228AAD3300B357D1 /* Sprayer.xcdatamodeld */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -1269,6 +1272,7 @@
 				64F43CC11E71585D009BF6F9 /* SqliteUtils.m in Sources */,
 				D1B8DAD22276F34200643EC6 /* DeviceBoardObject.swift in Sources */,
 				642620441E80B56200263124 /* FLWrapBobyTool.m in Sources */,
+				64E8EF80228AAD3300B357D1 /* Sprayer.xcdatamodeld in Sources */,
 				7906CA4A1FBD399B00200B66 /* FlowValueSettingController.m in Sources */,
 				BFDAC78A1E7274FA00E17D7B /* JHLineChart.m in Sources */,
 				642580211E6D0CB90019AD06 /* JSONModelClassProperty.m in Sources */,
@@ -1635,6 +1639,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		64E8EF7E228AAD3300B357D1 /* Sprayer.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				64E8EF7F228AAD3300B357D1 /* Sprayer.xcdatamodel */,
+			);
+			currentVersion = 64E8EF7F228AAD3300B357D1 /* Sprayer.xcdatamodel */;
+			path = Sprayer.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 64F663B51E63C8A900F4C9E7 /* Project object */;
 }
