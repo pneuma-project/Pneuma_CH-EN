@@ -1,6 +1,9 @@
 PODS:
   - Alamofire (4.5.0)
   - CryptoSwift (0.7.1)
+  - MagicalRecord (2.3.2):
+    - MagicalRecord/Core (= 2.3.2)
+  - MagicalRecord/Core (2.3.2)
   - SnapKit (4.2.0)
   - SwiftyJSON (4.2.0)
   - Toast-Swift (4.0.1)
@@ -8,6 +11,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (= 4.5.0)
   - CryptoSwift (= 0.7.1)
+  - MagicalRecord (= 2.3.2)
   - SnapKit (= 4.2.0)
   - SwiftyJSON (= 4.2.0)
   - Toast-Swift (= 4.0.1)
@@ -16,6 +20,7 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - CryptoSwift
+    - MagicalRecord
     - SnapKit
     - SwiftyJSON
     - Toast-Swift
@@ -23,10 +28,11 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
   CryptoSwift: c290ac8976cf28c52c8b88bfe2c58c0302a0e0c0
+  MagicalRecord: 53bed74b4323b930992a725be713e53b37d19755
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   Toast-Swift: e42a638589a2f95036b4bb7626cfbdde7daf0393
 
-PODFILE CHECKSUM: 2d8f44f3062d6c46c01eb30ba2d558f2faf3e5a9
+PODFILE CHECKSUM: e5f7cf86d4e20090000d86b14ec3c456aa545e33
 
 COCOAPODS: 1.5.3

@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "RootViewController.h"
 #import "UserDefaultsUtils.h"
+#import "Sprayer-Swift.h"
 
 @interface AppDelegate ()
 
@@ -20,8 +21,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    RootViewController *rootVC = [[RootViewController alloc] init];
-    self.window.rootViewController = rootVC;
+    LoginViewController *loginVC = [[LoginViewController alloc] initWithNibName: @"LoginViewController" bundle:nil];
+    self.window.rootViewController = loginVC;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     [UserDefaultsUtils saveBoolValue:NO withKey:@"AutoConnect"];

@@ -84,6 +84,13 @@
 		644C9CB81E697DDA0030C3B9 /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 644C9CAA1E697DDA0030C3B9 /* UserViewController.m */; };
 		644C9CBD1E697E980030C3B9 /* MedicalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 644C9CBB1E697E980030C3B9 /* MedicalTableViewCell.m */; };
 		644C9CBE1E697E980030C3B9 /* MedicalTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 644C9CBC1E697E980030C3B9 /* MedicalTableViewCell.xib */; };
+		648A72CC228D4F7B00B8B430 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 648A72CA228D4F7B00B8B430 /* LoginViewController.xib */; };
+		648A72CD228D4F7B00B8B430 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648A72CB228D4F7B00B8B430 /* LoginViewController.swift */; };
+		648A72CF228D567500B8B430 /* FLUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648A72CE228D567500B8B430 /* FLUserDefaults.swift */; };
+		648A72D1228D569C00B8B430 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648A72D0228D569C00B8B430 /* Tools.swift */; };
+		648A72D6228D574E00B8B430 /* KeychainUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648A72D3228D574E00B8B430 /* KeychainUtils.swift */; };
+		648A72D7228D574E00B8B430 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 648A72D4228D574E00B8B430 /* SSKeychain.m */; };
+		648A72DD228D60D100B8B430 /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648A72DC228D60D100B8B430 /* UserInfoModel.swift */; };
 		64BBBAA41E82AD58008A40E5 /* BlueWriteData.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BBBAA31E82AD58008A40E5 /* BlueWriteData.m */; };
 		64E8EF38228A916300B357D1 /* SURLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E8EF37228A916300B357D1 /* SURLRequest.swift */; };
 		64E8EF3B228A918700B357D1 /* SURLHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E8EF39228A918600B357D1 /* SURLHelper.swift */; };
@@ -296,8 +303,18 @@
 		644C9CBA1E697E980030C3B9 /* MedicalTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MedicalTableViewCell.h; sourceTree = "<group>"; };
 		644C9CBB1E697E980030C3B9 /* MedicalTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MedicalTableViewCell.m; sourceTree = "<group>"; };
 		644C9CBC1E697E980030C3B9 /* MedicalTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MedicalTableViewCell.xib; sourceTree = "<group>"; };
+		648A72CA228D4F7B00B8B430 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		648A72CB228D4F7B00B8B430 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		648A72CE228D567500B8B430 /* FLUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FLUserDefaults.swift; sourceTree = "<group>"; };
+		648A72D0228D569C00B8B430 /* Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
+		648A72D3228D574E00B8B430 /* KeychainUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainUtils.swift; sourceTree = "<group>"; };
+		648A72D4228D574E00B8B430 /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
+		648A72D5228D574E00B8B430 /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
+		648A72DC228D60D100B8B430 /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		64BBBAA21E82AD58008A40E5 /* BlueWriteData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlueWriteData.h; sourceTree = "<group>"; };
 		64BBBAA31E82AD58008A40E5 /* BlueWriteData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlueWriteData.m; sourceTree = "<group>"; };
+		64CF5F3E228D662700595018 /* UserInfoData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserInfoData+CoreDataClass.swift"; sourceTree = "<group>"; };
+		64CF5F3F228D662700595018 /* UserInfoData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserInfoData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		64E8EF37228A916300B357D1 /* SURLRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SURLRequest.swift; sourceTree = "<group>"; };
 		64E8EF39228A918600B357D1 /* SURLHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SURLHelper.swift; sourceTree = "<group>"; };
 		64E8EF3A228A918600B357D1 /* SURLMacro.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SURLMacro.swift; sourceTree = "<group>"; };
@@ -797,6 +814,60 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		648A72C5228D4F2800B8B430 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				648A72C8228D4F6400B8B430 /* ViewModel */,
+				648A72C7228D4F5700B8B430 /* ViewController */,
+				648A72C6228D4F4500B8B430 /* Model */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		648A72C6228D4F4500B8B430 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				64CF5F3E228D662700595018 /* UserInfoData+CoreDataClass.swift */,
+				64CF5F3F228D662700595018 /* UserInfoData+CoreDataProperties.swift */,
+				648A72DC228D60D100B8B430 /* UserInfoModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		648A72C7228D4F5700B8B430 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				648A72C9228D4F6C00B8B430 /* Controller */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		648A72C8228D4F6400B8B430 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		648A72C9228D4F6C00B8B430 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				648A72CB228D4F7B00B8B430 /* LoginViewController.swift */,
+				648A72CA228D4F7B00B8B430 /* LoginViewController.xib */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		648A72D2228D573200B8B430 /* KeyChain */ = {
+			isa = PBXGroup;
+			children = (
+				648A72D3228D574E00B8B430 /* KeychainUtils.swift */,
+				648A72D5228D574E00B8B430 /* SSKeychain.h */,
+				648A72D4228D574E00B8B430 /* SSKeychain.m */,
+			);
+			path = KeyChain;
+			sourceTree = "<group>";
+		};
 		64E8EF36228A912A00B357D1 /* Request */ = {
 			isa = PBXGroup;
 			children = (
@@ -1001,6 +1072,7 @@
 		D1D14387226F09A500BA5302 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				648A72C5228D4F2800B8B430 /* Login */,
 				644C9C371E666A440030C3B9 /* View */,
 				D1D14388226F09D700BA5302 /* Main */,
 				644C9C8D1E697DDA0030C3B9 /* DeviceController */,
@@ -1039,9 +1111,12 @@
 		D1D1439E226F162000BA5302 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				648A72D2228D573200B8B430 /* KeyChain */,
 				644C9C1A1E655E560030C3B9 /* Category */,
 				D1D143A4226F167F00BA5302 /* AniShowCloseView.swift */,
 				D1D143A3226F167F00BA5302 /* Common.swift */,
+				648A72CE228D567500B8B430 /* FLUserDefaults.swift */,
+				648A72D0228D569C00B8B430 /* Tools.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -1179,6 +1254,7 @@
 				644C9CBE1E697E980030C3B9 /* MedicalTableViewCell.xib in Resources */,
 				6426203D1E80B56200263124 /* hud_success.png in Resources */,
 				642580381E6D4EA60019AD06 /* HistoryTableViewCell.xib in Resources */,
+				648A72CC228D4F7B00B8B430 /* LoginViewController.xib in Resources */,
 				642580291E6D0CB90019AD06 /* LICENSE_jsonmodel.txt in Resources */,
 				6426203E1E80B56200263124 /* hud_success@2x.png in Resources */,
 				7906CA4D1FBD733E00200B66 /* Assets.xcassets in Resources */,
@@ -1235,6 +1311,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Sprayer/Pods-Sprayer-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/MagicalRecord/MagicalRecord.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
@@ -1245,6 +1322,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MagicalRecord.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
@@ -1261,6 +1339,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				648A72CD228D4F7B00B8B430 /* LoginViewController.swift in Sources */,
 				642580271E6D0CB90019AD06 /* JSONKeyMapper.m in Sources */,
 				64E8EF3B228A918700B357D1 /* SURLHelper.swift in Sources */,
 				BFDAC78C1E7274FA00E17D7B /* JHPieForeBGView.m in Sources */,
@@ -1269,6 +1348,7 @@
 				D1D143A5226F167F00BA5302 /* Common.swift in Sources */,
 				BF79D0FB1E71425B00EE468B /* HistoricalDrugViewController.m in Sources */,
 				644C9CB31E697DDA0030C3B9 /* TrainingSecondViewController.m in Sources */,
+				648A72D7228D574E00B8B430 /* SSKeychain.m in Sources */,
 				64F43CC11E71585D009BF6F9 /* SqliteUtils.m in Sources */,
 				D1B8DAD22276F34200643EC6 /* DeviceBoardObject.swift in Sources */,
 				642620441E80B56200263124 /* FLWrapBobyTool.m in Sources */,
@@ -1288,7 +1368,9 @@
 				BFDAC78E1E7274FA00E17D7B /* JHRadarChart.m in Sources */,
 				642580241E6D0CB90019AD06 /* JSONAPI.m in Sources */,
 				644C9CBD1E697E980030C3B9 /* MedicalTableViewCell.m in Sources */,
+				648A72D6228D574E00B8B430 /* KeychainUtils.swift in Sources */,
 				BFDAC78B1E7274FA00E17D7B /* JHPieChart.m in Sources */,
+				648A72D1228D569C00B8B430 /* Tools.swift in Sources */,
 				BFF4209A1EA76B630093BE8D /* FMResultSet.m in Sources */,
 				642620411E80B56200263124 /* SyTableViewCell.m in Sources */,
 				644C9C5B1E66B5BF0030C3B9 /* UIImage+Common.m in Sources */,
@@ -1300,6 +1382,7 @@
 				BF2B3C641EA0B2BD009E639F /* MedicalInfoViewController.m in Sources */,
 				BF79D0EE1E6FE15200EE468B /* EditDetailPatSexInfoViewController.m in Sources */,
 				D1D143A6226F167F00BA5302 /* AniShowCloseView.swift in Sources */,
+				648A72CF228D567500B8B430 /* FLUserDefaults.swift in Sources */,
 				644C9C1D1E655E660030C3B9 /* UIView+Category.m in Sources */,
 				644C9CB41E697DDA0030C3B9 /* TrainingStartViewController.m in Sources */,
 				BF79D0EB1E6FD24900EE468B /* EditDetailPatientInfoViewController.m in Sources */,
@@ -1310,6 +1393,7 @@
 				6425801F1E6D0CB90019AD06 /* JSONModel.m in Sources */,
 				D1B8DACE2276E6DE00643EC6 /* BlueDeviceListView.swift in Sources */,
 				642620381E80B56200263124 /* BlueToothManager.m in Sources */,
+				648A72DD228D60D100B8B430 /* UserInfoModel.swift in Sources */,
 				642580441E6D72270019AD06 /* PatientInfoViewController.m in Sources */,
 				BFDAC7921E7274FA00E17D7B /* JHTableChart.m in Sources */,
 				64E8EF3C228A918700B357D1 /* SURLMacro.swift in Sources */,

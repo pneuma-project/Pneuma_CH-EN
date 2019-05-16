@@ -10,5 +10,6 @@ target 'Sprayer' do
   pod 'SwiftyJSON', '4.2.0'   #JSON解析
   pod 'Toast-Swift', '4.0.1'   #提示语
   pod 'CryptoSwift', '0.7.1'          #Md5加密
+  pod 'MagicalRecord', '2.3.2'        #CoreData
   
 end
