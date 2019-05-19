@@ -211,12 +211,12 @@
 #pragma mark - 点击事件
 -(void)startBtnAction
 {
-    NSArray * arr = [[SqliteUtils sharedManager]selectUserInfo];
-    if (arr.count == 0) {
-        
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"gotoLogin" object:nil userInfo:nil];
-        return;
-    }
+//    NSArray * arr = [[SqliteUtils sharedManager]selectUserInfo];
+//    if (arr.count == 0) {
+//        
+//        [[NSNotificationCenter defaultCenter]postNotificationName:@"gotoLogin" object:nil userInfo:nil];
+//        return;
+//    }
     [UserDefaultsUtils saveValue:@[] forKey:@"trainDataArr"];
     TrainingStartViewController *trainingStartVC = [[TrainingStartViewController alloc] init];
     [self.navigationController pushViewController:trainingStartVC animated:YES];

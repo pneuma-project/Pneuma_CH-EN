@@ -38,7 +38,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shouldLoginAction) name:@"gotoLogin" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shouldLoginAction) name:@"gotoLogin" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shouldTrainAction) name:@"gotoTrain" object:nil];
 }
 
@@ -47,13 +47,11 @@
     [super viewWillDisappear:animated];
 }
 
--(void)shouldLoginAction
-{
-    
-    self.tabbarController.selectedIndex = 3;
-    self.tabbarController.tabBar.hidden = NO;
-    
-}
+//-(void)shouldLoginAction
+//{
+//    self.tabbarController.selectedIndex = 3;
+//    self.tabbarController.tabBar.hidden = NO;
+//}
 
 -(void)shouldTrainAction
 {

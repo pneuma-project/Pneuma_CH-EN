@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Toast_Swift
 
 // MARK: - UIView类别
 extension UIView{
@@ -24,6 +25,10 @@ extension UIView{
         maskLayer.frame = rect
         maskLayer.path = maskPath.cgPath
         self.layer.mask = maskLayer
+    }
+    
+    func makeToast(_ message:String ,duration:TimeInterval,position: ToastPosition) {
+        self.makeToast(message, duration: duration, position: position, title: nil, image: nil, style: ToastStyle(), completion: nil)
     }
     
 }

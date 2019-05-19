@@ -51,39 +51,26 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bleConnectSucceedAction) name:ConnectSucceed object:nil]; //设备连接成功扫描到特征值
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disconnectAction) name:PeripheralDidConnect object:nil];//设备断开连接
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(displayMedicineInfoAction:) name:@"displayMedicineInfo" object:nil]; //展示药品信息
-//    if ([UserDefaultsUtils boolValueWithKey:@"AutoConnect"] == NO) {
 
-//    }
-    if ([UserDefaultsUtils boolValueWithKey:IsDisplayMedInfo] == NO) {
-        [self.timer setFireDate:[NSDate distantFuture]];
-        [self.medicineInfoTimer setFireDate:[NSDate distantPast]];
+    if ([UserDefaultsUtils boolValueWithKey:@"isConnect"] == YES) {
+        if ([UserDefaultsUtils boolValueWithKey:IsDisplayMedInfo] == NO){
+            [self.timer setFireDate:[NSDate distantFuture]];
+            [self.medicineInfoTimer setFireDate:[NSDate distantPast]];
+        }else {
+            [self.timer setFireDate:[NSDate distantPast]];
+            [self.medicineInfoTimer setFireDate:[NSDate distantFuture]];
+        }
     }else {
-        [self.timer setFireDate:[NSDate distantPast]];
+        [self.timer setFireDate:[NSDate distantFuture]];
         [self.medicineInfoTimer setFireDate:[NSDate distantFuture]];
     }
-    
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    /****************  添加测试时间控制  ****************/
-//    NSDate *currentDate = [NSDate date];
-//    NSDateFormatter *dateF = [[NSDateFormatter alloc]init];
-//    dateF.dateFormat = @"yyy-MM-dd";
-//    NSString *dateStr = [dateF stringFromDate:currentDate];
-//    NSString *finishTimer = @"2017-11-17";
-//
-//    BOOL result = [dateStr compare:finishTimer] == NSOrderedDescending;
-//    BOOL result2 = [dateStr compare:finishTimer] == NSOrderedSame;
-//    if (result2 == 1 || result == 1) {
-//        UIAlertController *alerVC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"App测试使用权限已到期，请联系开发服务商" preferredStyle:UIAlertControllerStyleAlert];
-//        [self presentViewController:alerVC animated:YES completion:nil];
-//    }
-    /****************  添加测试时间控制  ****************/
-    
     /** 检测本地是否保存有用户 */
-    [self noUserAlert];
+//    [self noUserAlert];
     
     //接收通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopNSTimerAction) name:@"startTrain" object:nil];
@@ -210,11 +197,11 @@
     [self.navigationController pushViewController:scanVC animated:YES];
 }
 - (IBAction)DeviceConnectionAction:(id)sender {
-    NSArray * arr = [[SqliteUtils sharedManager]selectUserInfo];
-    if (arr.count == 0) {
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"gotoLogin" object:nil userInfo:nil];
-        return;
-    }
+//    NSArray * arr = [[SqliteUtils sharedManager]selectUserInfo];
+//    if (arr.count == 0) {
+//        [[NSNotificationCenter defaultCenter]postNotificationName:@"gotoLogin" object:nil userInfo:nil];
+//        return;
+//    }
     blueManager = [BlueToothManager getInstance];
     [blueManager startScan];
     [_blueView animationshowWithIsCenter:false];

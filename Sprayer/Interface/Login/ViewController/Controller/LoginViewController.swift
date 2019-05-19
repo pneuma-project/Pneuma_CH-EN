@@ -82,7 +82,7 @@ class LoginViewController: UIViewController,UIGestureRecognizerDelegate {
         //手机号下的分割线
         oneLineLabel.backgroundColor = HEXCOLOR(h: 0xdadada, alpha: 1.0)
         oneLineLabel.snp.makeConstraints { (maker) in
-            maker.top.equalTo(ISIPHONE6p ? 184 : 160)
+            maker.top.equalTo(200*IPONE_SCALE)
             maker.left.equalTo(ISIPHONE6p ? 35 : 30)
             maker.right.equalTo(ISIPHONE6p ? -35 : -30)
             maker.height.equalTo(0.5)
@@ -223,8 +223,6 @@ class LoginViewController: UIViewController,UIGestureRecognizerDelegate {
     
     //MARK: - 手机号登录
     @IBAction func LoginAction(_ sender: Any) {
-        let rootVC = RootViewController()
-        UIApplication.shared.keyWindow?.rootViewController = rootVC
         if iphoneTF.isFirstResponder {
             iphoneTF.resignFirstResponder()
         }else if passwordTF.isFirstResponder {
@@ -244,22 +242,17 @@ class LoginViewController: UIViewController,UIGestureRecognizerDelegate {
         
         //密码md5加密
         let pwd = Tools.getMD5Str(content: passwordTF.text!)
-        let appVersion = "V" + APP_VERSION + "." + BUNDLE_VERSION + "." + "\(SCHANNEL_ID)"
-        let params = ["username":iphoneTF.text!,"password":pwd,"system":1,"appVersion":appVersion,"machineCode":getUUID()] as [String : Any]
-        SURLRequest.sharedInstance.requestPostWithHeader("", param: params, checkSum: ["\(iphoneTF.text!)","\(pwd)","2","\(appVersion)","\(getUUID())"], suc: { [weak self](responseObject) in
+        let appVersion = "V" + APP_VERSION
+        let params = ["username":iphoneTF.text!,"password":pwd,"system":1,"appVersion":appVersion,"machineCode":getUUID(),"type":0] as [String : Any]
+        SURLRequest.sharedInstance.requestPostWithHeader(Login_Url, param: params, checkSum: ["\(iphoneTF.text!)","\(pwd)","1","\(appVersion)","\(getUUID())","0"], suc: { [weak self](responseObject) in
             if let weekself = self{
                 //隐藏加载动画
                 weekself.view.hideToastActivity()
                 Dprint("LOGIN_URL:\(responseObject)")
                 let jsonDict = JSON(responseObject)
-                if jsonDict["result"].stringValue == "ok" {  //后台登录成功
-                    let content = jsonDict["content"]
-                    if content["loginKey"].stringValue == "" {
-                        weekself.view.makeToast("密码错误", duration: 1.0, position: .center)
-                        return
-                    }
+                if jsonDict["code"].stringValue == "200" {  //后台登录成功
+                    let content = jsonDict["result"]
                     UserInfoModel.userData(content: content)
-                    
 //                    FLUserDefaultsStringSet(key: "pwd", obj: weekself.passwordTF.text!)
                     FLUserDefaultsStringSet(key: "userName", obj: weekself.iphoneTF.text!)
                     if weekself.isRememberSelect {
@@ -267,22 +260,22 @@ class LoginViewController: UIViewController,UIGestureRecognizerDelegate {
                     }else {
                         FLUserDefaultsStringSet(key: "password", obj: "")
                     }
+                    weekself.loginSucceeAction()
                 }else {
-                    let content:JSON = jsonDict["content"]
-                    let message = content["message"].stringValue
-                    if message == "4000000" {
+                    let code = jsonDict["code"].stringValue
+                    if code == "4000000" {
                         weekself.view.makeToast("用户名为空", duration: 1.0, position: .center)
-                    }else if message == "4000001" {
+                    }else if code == "4000001" {
                         weekself.view.makeToast("密码为空", duration: 1.0, position: .center)
-                    }else if message == "4000002" {
+                    }else if code == "4000002" {
                         weekself.view.makeToast("此账号不存在", duration: 1.0, position: .center)
-                    }else if message == "4000003" {
+                    }else if code == "4000003" {
                         weekself.view.makeToast("密码错误", duration: 1.0, position: .center)
-                    }else if message == "4000004" {
+                    }else if code == "4000004" {
                         weekself.view.makeToast("您的设备或账号已被禁封", duration: 2.0, position: .center)
-                    }else if message == "5000000" {
+                    }else if code == "5000000" {
                         weekself.view.makeToast("异常错误", duration: 2.0, position: .center)
-                    }else if message == "7000000" {
+                    }else if code == "7000000" {
                         weekself.view.makeToast("机器码为空", duration: 2.0, position: .center)
                     }else{
                         weekself.view.makeToast("未知错误", duration: 2.0, position: .center)
@@ -311,7 +304,8 @@ class LoginViewController: UIViewController,UIGestureRecognizerDelegate {
     
     //MARK: - 登录成功后的跳转
     func loginSucceeAction() {
-        
+        let rootVC = RootViewController()
+        UIApplication.shared.keyWindow?.rootViewController = rootVC
     }
 }
 

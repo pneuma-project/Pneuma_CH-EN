@@ -14,6 +14,6 @@
 @property (nonatomic, assign)int num;
 @property (nonatomic, copy)NSString *macAddress;
 @property (nonatomic, assign)BOOL isLinking;
-
+@property (nonatomic, assign)BOOL isBindCurrent;
 
 @end

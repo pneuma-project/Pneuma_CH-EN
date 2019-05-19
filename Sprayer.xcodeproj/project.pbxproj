@@ -92,6 +92,9 @@
 		648A72D7228D574E00B8B430 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 648A72D4228D574E00B8B430 /* SSKeychain.m */; };
 		648A72DD228D60D100B8B430 /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648A72DC228D60D100B8B430 /* UserInfoModel.swift */; };
 		64BBBAA41E82AD58008A40E5 /* BlueWriteData.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BBBAA31E82AD58008A40E5 /* BlueWriteData.m */; };
+		64CF5F44228E8DD300595018 /* SURLLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CF5F43228E8DD300595018 /* SURLLogin.swift */; };
+		64CF5F46228E90AE00595018 /* SURLSuckFog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CF5F45228E90AE00595018 /* SURLSuckFog.swift */; };
+		64CF5F48228E956E00595018 /* DeviceRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CF5F47228E956E00595018 /* DeviceRequestObject.swift */; };
 		64E8EF38228A916300B357D1 /* SURLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E8EF37228A916300B357D1 /* SURLRequest.swift */; };
 		64E8EF3B228A918700B357D1 /* SURLHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E8EF39228A918600B357D1 /* SURLHelper.swift */; };
 		64E8EF3C228A918700B357D1 /* SURLMacro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E8EF3A228A918600B357D1 /* SURLMacro.swift */; };
@@ -315,6 +318,9 @@
 		64BBBAA31E82AD58008A40E5 /* BlueWriteData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlueWriteData.m; sourceTree = "<group>"; };
 		64CF5F3E228D662700595018 /* UserInfoData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserInfoData+CoreDataClass.swift"; sourceTree = "<group>"; };
 		64CF5F3F228D662700595018 /* UserInfoData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserInfoData+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		64CF5F43228E8DD300595018 /* SURLLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SURLLogin.swift; sourceTree = "<group>"; };
+		64CF5F45228E90AE00595018 /* SURLSuckFog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SURLSuckFog.swift; sourceTree = "<group>"; };
+		64CF5F47228E956E00595018 /* DeviceRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRequestObject.swift; sourceTree = "<group>"; };
 		64E8EF37228A916300B357D1 /* SURLRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SURLRequest.swift; sourceTree = "<group>"; };
 		64E8EF39228A918600B357D1 /* SURLHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SURLHelper.swift; sourceTree = "<group>"; };
 		64E8EF3A228A918600B357D1 /* SURLMacro.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SURLMacro.swift; sourceTree = "<group>"; };
@@ -868,9 +874,19 @@
 			path = KeyChain;
 			sourceTree = "<group>";
 		};
+		64CF5F42228E8D8A00595018 /* URL */ = {
+			isa = PBXGroup;
+			children = (
+				64CF5F43228E8DD300595018 /* SURLLogin.swift */,
+				64CF5F45228E90AE00595018 /* SURLSuckFog.swift */,
+			);
+			path = URL;
+			sourceTree = "<group>";
+		};
 		64E8EF36228A912A00B357D1 /* Request */ = {
 			isa = PBXGroup;
 			children = (
+				64CF5F42228E8D8A00595018 /* URL */,
 				64E8EF39228A918600B357D1 /* SURLHelper.swift */,
 				64E8EF3A228A918600B357D1 /* SURLMacro.swift */,
 				64E8EF37228A916300B357D1 /* SURLRequest.swift */,
@@ -1065,6 +1081,7 @@
 			isa = PBXGroup;
 			children = (
 				D1B8DAD12276F34200643EC6 /* DeviceBoardObject.swift */,
+				64CF5F47228E956E00595018 /* DeviceRequestObject.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1378,10 +1395,12 @@
 				BF0327BB1ED5847400D86F94 /* HistoryDetailViewController.m in Sources */,
 				64F663FE1E63CB8400F4C9E7 /* BaseViewController.m in Sources */,
 				644C9CB61E697DDA0030C3B9 /* TrainingViewController.m in Sources */,
+				64CF5F46228E90AE00595018 /* SURLSuckFog.swift in Sources */,
 				D1D14397226F0B7B00BA5302 /* UIViewEx.swift in Sources */,
 				BF2B3C641EA0B2BD009E639F /* MedicalInfoViewController.m in Sources */,
 				BF79D0EE1E6FE15200EE468B /* EditDetailPatSexInfoViewController.m in Sources */,
 				D1D143A6226F167F00BA5302 /* AniShowCloseView.swift in Sources */,
+				64CF5F44228E8DD300595018 /* SURLLogin.swift in Sources */,
 				648A72CF228D567500B8B430 /* FLUserDefaults.swift in Sources */,
 				644C9C1D1E655E660030C3B9 /* UIView+Category.m in Sources */,
 				644C9CB41E697DDA0030C3B9 /* TrainingStartViewController.m in Sources */,
@@ -1417,6 +1436,7 @@
 				BF79D0F21E6FF69A00EE468B /* ValuePickerView.m in Sources */,
 				BFDAC78D1E7274FA00E17D7B /* JHPieItemsView.m in Sources */,
 				644C9CB11E697DDA0030C3B9 /* RetrainingViewController.m in Sources */,
+				64CF5F48228E956E00595018 /* DeviceRequestObject.swift in Sources */,
 				642580201E6D0CB90019AD06 /* JSONModelArray.m in Sources */,
 				644C9C331E6575E80030C3B9 /* MBProgressHUD.m in Sources */,
 				644C9C5A1E66B5BF0030C3B9 /* UIColor+expanded.m in Sources */,

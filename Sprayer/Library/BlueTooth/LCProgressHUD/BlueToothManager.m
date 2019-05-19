@@ -14,6 +14,9 @@
 #import "SqliteUtils.h"
 #import "AddPatientInfoModel.h"
 #import "BlueToothDataModel.h"
+#import "Sprayer-Swift.h"
+#import "MagicalRecord.h"
+
 typedef enum _TTGState{
     
     stx_h = 0,
@@ -106,63 +109,58 @@ typedef enum _TTGState{
         [_peripheralList removeAllObjects];
     }
     if (peripheral.name != nil) {
-        if ([peripheral.name isEqualToString:@"nRF52832"]) {
+        if ([peripheral.name isEqualToString:@"ClearGrass Temp & RH"]) {//1.SKB369   2.nRF52832
             Model *model = [[Model alloc] init];
             NSData *data = [advertisementData objectForKey:@"kCBAdvDataManufacturerData"];
-            if (data == nil) {
-                model.macAddress = @"";
-            }else {
-                model.macAddress = [FLDrawDataTool hexStringFromData:data];
+            NSString *macAddress = [FLDrawDataTool hexStringFromData:data];
+            for (Model * model in _peripheralList) {
+                if ([model.macAddress isEqualToString:macAddress]) {
+                    return;
+                }
             }
-            if ([totalModel.macAddress isEqualToString:model.macAddress]) {
-                model.isLinking = YES;
-                model.peripheral = totalModel.peripheral;
-                model.num = totalModel.num;
-            }else {
-                model.isLinking = NO;
-                model.peripheral = peripheral;
-                model.num = [RSSI intValue];
-            }
-            [_peripheralList addObject:model];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"scanDevice" object:@{@"DeviceList":_peripheralList} userInfo:nil];
+            [DeviceRequestObject.shared requestGetMacAddressBindStateWithMacAddress:macAddress sucBlock:^(NSInteger status) {  //1：未绑定   2：已绑定
+                if (status == 2) {
+                    if ([macAddress isEqualToString:[UserInfoData MR_findFirst].macAddress]) {
+                        if (data == nil) {
+                            model.macAddress = @"";
+                        }else {
+                            model.macAddress = macAddress;
+                        }
+                        if ([totalModel.macAddress isEqualToString:model.macAddress]) {
+                            model.isLinking = YES;
+                            model.peripheral = totalModel.peripheral;
+                            model.num = totalModel.num;
+                        }else {
+                            model.isLinking = NO;
+                            model.peripheral = peripheral;
+                            model.num = [RSSI intValue];
+                        }
+                        model.isBindCurrent = YES;
+                        [_peripheralList addObject:model];
+                    }
+                }else {
+                    if (data == nil) {
+                        model.macAddress = @"";
+                    }else {
+                        model.macAddress = macAddress;
+                    }
+                    if ([totalModel.macAddress isEqualToString:model.macAddress]) {
+                        model.isLinking = YES;
+                        model.peripheral = totalModel.peripheral;
+                        model.num = totalModel.num;
+                    }else {
+                        model.isLinking = NO;
+                        model.peripheral = peripheral;
+                        model.num = [RSSI intValue];
+                    }
+                    model.isBindCurrent = NO;
+                    [_peripheralList addObject:model];
+                }
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"scanDevice" object:@{@"DeviceList":_peripheralList} userInfo:nil];
+            }];
         }
     }
-//    if (peripheral.name != nil) {
-//        Model * model = [[Model alloc]init];
-//        model.peripheral = peripheral;
-//        model.num = [RSSI intValue];
-//        //如果 外设数组数量为0 则 直接将 该 model 添加到 外设数组中
-//        //如果 外设数组数量不为0 则 用遍历数组 用外设的名称 进行判断 是否 存在于该数组中
-//        //如果 外设名称相同  则 只修改 该外设 所对应的 rssi
-//        //如果 外设名称不同  则 将此外设 加入到外设数组中
-//        if (_peripheralList.count == 0 && ([peripheral.name isEqualToString:@"nRF52832"])) {
-//            [self connectPeripheralWith:peripheral];
-//            [_peripheralList addObject:model];
-//            //[[NSNotificationCenter defaultCenter] postNotificationName:@"scanDevice" object:nil userInfo:nil];
-//        }else{
-//            BOOL ishave = NO;
-//            for (Model * mo in _peripheralList) {
-//                if ([mo.peripheral.name isEqualToString:model.peripheral.name]) {
-//                    mo.num = model.num;
-//                    ishave = YES;
-//                    break;
-//                }else{
-//
-//                }
-//            }
-//            //判断名称是否是设备的默认名称
-//            if (ishave == NO && ([peripheral.name isEqualToString:@"nRF52832"])) {
-//                [_peripheralList addObject:model];
-//                //[NSTimer scheduledTimerWithTimeInterval:0.5f target:self selector:@selector(scanDeivceAction) userInfo:nil repeats:YES];
-//            }
-//        }
-//    }
 }
-
-//-(void)scanDeivceAction
-//{
-    //[[NSNotificationCenter defaultCenter] postNotificationName:@"scanDevice" object:nil userInfo:nil];
-//}
 
 //获取扫描到设备的列表
 -(NSMutableArray *)getNameList

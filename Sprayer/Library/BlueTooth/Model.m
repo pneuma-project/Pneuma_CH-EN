@@ -14,5 +14,6 @@
 @synthesize num;
 @synthesize macAddress;
 @synthesize isLinking;
+@synthesize isBindCurrent;
 
 @end

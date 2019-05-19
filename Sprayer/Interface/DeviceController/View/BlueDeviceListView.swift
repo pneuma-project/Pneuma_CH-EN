@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import MagicalRecord
 
 class BlueDeviceListView: AniShowCloseView,UITableViewDelegate,UITableViewDataSource {
 
@@ -85,7 +86,20 @@ class BlueDeviceListView: AniShowCloseView,UITableViewDelegate,UITableViewDataSo
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.animationClose()
         let model = dataList[indexPath.row]
-        BlueToothManager.getInstance()?.connectPeripheral(with: model)
-        BlueToothManager.getInstance()?.stopScan()  //停止扫描
+        if UserInfoData.mr_findFirst()?.macAddress == "" {
+            DeviceRequestObject.shared.requestEditMacAddress(macAddress: model.macAddress) { (status) in
+                if status == 1 {
+                    BlueToothManager.getInstance()?.connectPeripheral(with: model)
+                }
+            }
+            BlueToothManager.getInstance()?.stopScan()  //停止扫描
+        }else {
+            if UserInfoData.mr_findFirst()?.macAddress == model.macAddress {
+                BlueToothManager.getInstance()?.connectPeripheral(with: model)
+            }else {
+                UIViewController.getCurrentViewCtrl().view.makeToast("Please connect the bound device to this account", duration: 1.0, position: .bottom)
+            }
+            BlueToothManager.getInstance()?.stopScan()  //停止扫描
+        }
     }
 }

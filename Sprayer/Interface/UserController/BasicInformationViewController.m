@@ -15,6 +15,9 @@
 #import "EditDetailPatientInfoViewController.h"
 #import "ValuePickerView.h"
 #import "MedicalInfoViewController.h"
+#import "MagicalRecord.h"
+#import "Sprayer-Swift.h"
+
 static NSString *ONE_Cell = @"ONECELL";
 static NSString *TWO_Cell = @"TWOCELL";
 static NSString *THREE_Cell = @"THREECELL";
@@ -151,25 +154,26 @@ static NSString *THREE_Cell = @"THREECELL";
         valueLabel.tag = 100+indexPath.row;
             switch (indexPath.row) {
                 case 0:
-                    valueLabel.text = _patientModel.name;
+                    valueLabel.text = [UserInfoData MR_findFirst].name;
                     break;
                 case 1:
-                    valueLabel.text = _patientModel.phone;
+                    valueLabel.text = [UserInfoData MR_findFirst].phone;
                     break;
                 case 2:
-                    valueLabel.text = _patientModel.sex;
+                    ////性别 1:male   2:female
+                    valueLabel.text = [NSString stringWithFormat:@"%@",[UserInfoData MR_findFirst].sex == 1 ? @"male":@"female"];
                     break;
                 case 3:
-                    valueLabel.text = _patientModel.age;
+                    valueLabel.text = [NSString stringWithFormat:@"%d",[UserInfoData MR_findFirst].age];
                     break;
                 case 4:
-                    valueLabel.text = _patientModel.race;
+                    valueLabel.text = [UserInfoData MR_findFirst].race;
                     break;
                 case 5:
-                    valueLabel.text = _patientModel.height;
+                    valueLabel.text = [NSString stringWithFormat:@"%d ft",[UserInfoData MR_findFirst].height];
                     break;
                 case 6:
-                    valueLabel.text = _patientModel.weight;
+                    valueLabel.text = [NSString stringWithFormat:@"%d ibs",[UserInfoData MR_findFirst].weight];
                     break;
                 default:
                     break;
@@ -202,7 +206,7 @@ static NSString *THREE_Cell = @"THREECELL";
         return cell;
     }else if (indexPath.section == 2){
         UILabel *keyLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 2, screen_width/2, 40)];
-        keyLabel.text = @"Device serial number:";
+        keyLabel.text = [NSString stringWithFormat:@"Device serial number:%@",[UserInfoData MR_findFirst].macAddress];
         keyLabel.textColor = RGBColor(50, 51, 52, 1.0);
         keyLabel.font = [UIFont systemFontOfSize:14];
         UILabel * valueLabel = [[UILabel alloc]initWithFrame:CGRectMake(screen_width-80, 0, 70, cell.current_h)];

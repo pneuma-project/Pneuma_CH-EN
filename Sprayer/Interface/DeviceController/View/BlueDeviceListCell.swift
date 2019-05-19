@@ -18,11 +18,18 @@ class BlueDeviceListCell: UITableViewCell {
             }else {
                 isLinkingImg.isHidden = true
             }
+            if blueModel.isBindCurrent {
+                detailL.isHidden = false
+                detailL.text = "The account is bound to the device"
+            }else {
+                detailL.isHidden = true
+            }
         }
     }
     
     @IBOutlet weak var nameL: UILabel!
     @IBOutlet weak var isLinkingImg: UIImageView!
+    @IBOutlet weak var detailL: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -41,8 +48,15 @@ class BlueDeviceListCell: UITableViewCell {
         nameL.font = UIFont.systemFont(ofSize: CGFloat(16*IPONE_SCALE))
         nameL.snp.makeConstraints { (make) in
             make.left.equalTo(20*IPONE_SCALE)
-            make.centerY.equalToSuperview()
+            make.top.equalTo(5*IPONE_SCALE)
             make.height.equalTo(16*IPONE_SCALE)
+        }
+        
+        detailL.font = UIFont.systemFont(ofSize: CGFloat(14*IPONE_SCALE))
+        detailL.snp.makeConstraints { (make) in
+            make.left.equalTo(nameL)
+            make.bottom.equalTo(-5*IPONE_SCALE)
+            make.height.equalTo(14*IPONE_SCALE)
         }
         
         isLinkingImg.isHidden = true

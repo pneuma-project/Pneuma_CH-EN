@@ -37,8 +37,8 @@
     [self setNavTitle:@"My Profile"];
     [self createHeadView];
     
-    imageArr = @[@"my-profile-icon-patient-information",@"my-profile-icon-basic-information",@"my-profile-icon-history",@"my-profile-icon-FlowValue",@"my-profile-icon-basic-information"];
-    titleArr = @[@"Patient Information",@"Basic Information",@"History",@"Pressure VS Flow Rate Equation",@"Drug Information"];
+    imageArr = @[@"my-profile-icon-basic-information",@"my-profile-icon-history",@"my-profile-icon-FlowValue",@"my-profile-icon-basic-information"];   //@"my-profile-icon-patient-information",
+    titleArr = @[@"Basic Information",@"History",@"Pressure VS Flow Rate Equation",@"Drug Information"];//@"Patient Information",
     
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -168,24 +168,24 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.row == 0) {
-        
-        PatientInfoViewController *patientInfoVC = [[PatientInfoViewController alloc] init];
-        [self.navigationController pushViewController:patientInfoVC animated:YES];
-    }else if (indexPath.row == 1){
+//    if (indexPath.row == 0) {
+//
+//        PatientInfoViewController *patientInfoVC = [[PatientInfoViewController alloc] init];
+//        [self.navigationController pushViewController:patientInfoVC animated:YES];
+//    }else
+    if (indexPath.row == 0){
         //检测用户是否存在
-        [self noUserAlert];
+//        [self noUserAlert];
         BasicInformationViewController *inforVC = [[BasicInformationViewController alloc] init];
-        inforVC.patientModel = _addModel;
+//        inforVC.patientModel = _addModel;
         [self.navigationController pushViewController:inforVC animated:YES];
-        
-    }else if (indexPath.row == 2){
+    }else if (indexPath.row == 1){
         UserListViewController *userListVC = [[UserListViewController alloc] init];
         [self.navigationController pushViewController:userListVC animated:YES];
-    }else if (indexPath.row == 3){
+    }else if (indexPath.row == 2){
         FlowValueSettingController *FlowValueVC = [[FlowValueSettingController alloc]init];
         [self.navigationController pushViewController:FlowValueVC animated:YES];
-    }else if (indexPath.row == 4){
+    }else if (indexPath.row == 3){
         NSString *medicineInfo = @"";
         if (![[NSUserDefaults standardUserDefaults] objectForKey:@"MedicineInfo"]) {
             medicineInfo = @"No cartridge";

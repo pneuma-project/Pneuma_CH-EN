@@ -10,6 +10,7 @@
 #import "RootViewController.h"
 #import "UserDefaultsUtils.h"
 #import "Sprayer-Swift.h"
+#import "MagicalRecord.h"
 
 @interface AppDelegate ()
 
@@ -25,8 +26,12 @@
     self.window.rootViewController = loginVC;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    //初始化 MagicalRecord
+    [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"Sprayer.sqlite"];
+    
     [UserDefaultsUtils saveBoolValue:NO withKey:@"AutoConnect"];
     [UserDefaultsUtils saveBoolValue:NO withKey:IsDisplayMedInfo];
+    
     
     //接收蓝牙断开通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(BleDisconnect) name:@"autoConnect" object:nil];
@@ -73,7 +78,7 @@
     // The persistent container for the application. This implementation creates and returns a container, having loaded the store for the application to it.
     @synchronized (self) {
         if (_persistentContainer == nil) {
-            _persistentContainer = [[NSPersistentContainer alloc] initWithName:@"coreData"];
+            _persistentContainer = [[NSPersistentContainer alloc] initWithName:@"Sprayer"];
             [_persistentContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *storeDescription, NSError *error) {
                 if (error != nil) {
                     // Replace this implementation with code to handle the error appropriately.
