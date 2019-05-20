@@ -23,9 +23,13 @@ class DeviceRequestObject: NSObject {
         if let loginKey = UserInfoData.mr_findFirst()?.loginKey {
             SURLRequest.sharedInstance.requestPostWithHeader(Url_EditMacAddress, param: ["loginKey":loginKey,"macAddress":macAddress], checkSum: [loginKey,macAddress], suc: { (data) in
                 Dprint("EditMacAddress_Url:\(data)")
-                let dataStatus = JSON(data).intValue
-                if let block = sucBlock {
-                    block(dataStatus)
+                let dataJson = JSON(data)
+                let code = dataJson["code"].stringValue
+                if code == "200" {
+                    let result = dataJson["result"].intValue
+                    if let block = sucBlock {
+                        block(result)
+                    }
                 }
             }) { (error) in
                 Dprint("EditMacAddress_UrlError:\(error)")
@@ -49,4 +53,43 @@ class DeviceRequestObject: NSObject {
             Dprint("URL_GetMacAddressBindStateError:\(error)")
         }
     }
+    
+    //添加训练数据
+    @objc func requestSaveTrainData(medicineId:Int32,trainData:String,dataSum:Int32,addDate:String) {
+        if let loginKey = UserInfoData.mr_findFirst()?.loginKey {
+            SURLRequest.sharedInstance.requestPostWithHeader(URL_SaveTrainData, param: ["loginKey":loginKey,"medicineId":medicineId,"trainData":trainData,"dataSum":dataSum,"addDate":addDate], checkSum: [loginKey,"\(medicineId)",trainData,"\(dataSum)",addDate], suc: { (data) in
+                Dprint("URL_SaveTrainData:\(data)")
+                let dataJson = JSON(data)
+                let code = dataJson["code"].stringValue
+                if code == "200" {
+
+                }
+            }) { (error) in
+                Dprint("URL_SaveTrainDataError:\(error)")
+            }
+        }
+    }
+    
+    //获取最新一条训练数据
+    @objc var requestGetNewTrainDataSuc:((_ model:SprayerDataModel)->())?
+    @objc func requestGetNewTrainData() {
+        if let loginKey = UserInfoData.mr_findFirst()?.loginKey {
+            SURLRequest.sharedInstance.requestPostWithHeader(URL_GetNewTrainData, param: ["loginKey":loginKey], checkSum: [loginKey], suc: { (data) in
+                Dprint("URL_GetNewTrainData:\(data)")
+                let dataJson = JSON(data)
+                let code = dataJson["code"].stringValue
+                if code == "200" {
+                    let result = dataJson["result"]
+                    let model = SprayerDataModel.getFromModel(json: result)
+                    if let block = DeviceRequestObject.shared.requestGetNewTrainDataSuc {
+                        block(model)
+                    }
+                }
+            }) { (error) in
+                Dprint("URL_GetNewTrainDataError:\(error)")
+            }
+        }
+    }
+    
+    
 }

@@ -22,7 +22,8 @@ class BlueDeviceListCell: UITableViewCell {
                 detailL.isHidden = false
                 detailL.text = "The account is bound to the device"
             }else {
-                detailL.isHidden = true
+                detailL.isHidden = false
+                detailL.text = "Unbound"
             }
         }
     }

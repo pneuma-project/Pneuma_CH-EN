@@ -149,6 +149,7 @@
 		D1B8DACE2276E6DE00643EC6 /* BlueDeviceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B8DACB2276E6DE00643EC6 /* BlueDeviceListView.swift */; };
 		D1B8DACF2276E6DE00643EC6 /* BlueDeviceListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1B8DACC2276E6DE00643EC6 /* BlueDeviceListCell.xib */; };
 		D1B8DAD22276F34200643EC6 /* DeviceBoardObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B8DAD12276F34200643EC6 /* DeviceBoardObject.swift */; };
+		D1D141862292487300922483 /* SprayerDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D141852292487300922483 /* SprayerDataModel.swift */; };
 		D1D14395226F0B7000BA5302 /* UIViewControllerEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D14394226F0B7000BA5302 /* UIViewControllerEx.swift */; };
 		D1D14397226F0B7B00BA5302 /* UIViewEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D14396226F0B7B00BA5302 /* UIViewEx.swift */; };
 		D1D143A5226F167F00BA5302 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D143A3226F167F00BA5302 /* Common.swift */; };
@@ -425,6 +426,7 @@
 		D1B8DACB2276E6DE00643EC6 /* BlueDeviceListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueDeviceListView.swift; sourceTree = "<group>"; };
 		D1B8DACC2276E6DE00643EC6 /* BlueDeviceListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BlueDeviceListCell.xib; sourceTree = "<group>"; };
 		D1B8DAD12276F34200643EC6 /* DeviceBoardObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceBoardObject.swift; sourceTree = "<group>"; };
+		D1D141852292487300922483 /* SprayerDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SprayerDataModel.swift; sourceTree = "<group>"; };
 		D1D14393226F0B6F00BA5302 /* Sprayer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Sprayer-Bridging-Header.h"; sourceTree = "<group>"; };
 		D1D14394226F0B7000BA5302 /* UIViewControllerEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerEx.swift; sourceTree = "<group>"; };
 		D1D14396226F0B7B00BA5302 /* UIViewEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewEx.swift; sourceTree = "<group>"; };
@@ -475,6 +477,7 @@
 				6425802C1E6D0CD30019AD06 /* DeviceStatusModel.m */,
 				BFDAC7011E723E7300E17D7B /* HistoricalModel.h */,
 				BFDAC7021E723E7300E17D7B /* HistoricalModel.m */,
+				D1D141852292487300922483 /* SprayerDataModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1392,6 +1395,7 @@
 				642620411E80B56200263124 /* SyTableViewCell.m in Sources */,
 				644C9C5B1E66B5BF0030C3B9 /* UIImage+Common.m in Sources */,
 				BFDAC7911E7274FA00E17D7B /* JHShowInfoView.m in Sources */,
+				D1D141862292487300922483 /* SprayerDataModel.swift in Sources */,
 				BF0327BB1ED5847400D86F94 /* HistoryDetailViewController.m in Sources */,
 				64F663FE1E63CB8400F4C9E7 /* BaseViewController.m in Sources */,
 				644C9CB61E697DDA0030C3B9 /* TrainingViewController.m in Sources */,

@@ -358,7 +358,7 @@
     
 //    NSArray *leftArr = _dataArrOfY;
     NSArray * leftArr = @[@"200",@"180",@"160",@"140",@"120",@"100",@"80",@"60",@"40",@"20",@"0"];
-    for (int i = 0;i< _dataArrOfY.count ;i++ ) {
+    for (int i = 0;i< leftArr.count ;i++ ) {
         
         UILabel *leftLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, i*(Ymargin)+40-Ymargin/2, titleWOfY, Ymargin)];
         leftLabel.font = [UIFont systemFontOfSize:10.0f];

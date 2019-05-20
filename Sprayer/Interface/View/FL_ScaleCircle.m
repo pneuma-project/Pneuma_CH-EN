@@ -98,4 +98,9 @@
     radius = MIN(self.bounds.size.height/2-self.lineWith/2, self.bounds.size.width/2-self.lineWith/2);
 }
 
+-(void)setNumber:(NSString *)number {
+    self.scoreLabel.text = number;
+    
+}
+
 @end

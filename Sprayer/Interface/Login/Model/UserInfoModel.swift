@@ -61,6 +61,10 @@ class UserInfoModel: NSObject {
     var addDate: Int64 = 0
     var editDate: Int64 = 0
     
+    var loginKey:String = ""
+    
+    var age:Int16 = 0
+    
     class func userData(content: JSON) {
         guard let arr = UserInfoData.mr_findAll() as? [UserInfoData] else {
             return
@@ -93,6 +97,8 @@ class UserInfoModel: NSObject {
         
         userInfo.addDate = content["addDate"].int64Value
         userInfo.editDate = content["editDate"].int64Value
+        userInfo.loginKey = content["loginKey"].stringValue
+        userInfo.age = content["age"].int16Value
         NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
     }  //存储个人信息数据
 }
