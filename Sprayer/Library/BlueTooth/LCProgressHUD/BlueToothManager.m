@@ -361,73 +361,69 @@ typedef enum _TTGState{
                     NSLog(@"newdata = %@",newData);
                     NSInteger type = [FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(0, 1)]];
                     if (type == 2) {//历史数据
-                        [BlueWriteData confirmCodeHistoryData];
-                        NSString *medicineName = [FLWrapJson getMedicineNameToInt:[newData subdataWithRange:NSMakeRange(2, 2)]];
-//                        NSString *timeStamp = [FLWrapJson dataToNSStringTime:[newData subdataWithRange:NSMakeRange(3, 7)]];
                         NSString *timeStamp = [NSString stringWithFormat:@"%ld",(long)[FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(4, 4)]]];
                         NSString *sprayData = [FLWrapJson dataToNSString:[newData subdataWithRange:NSMakeRange(8, 50)]];
                         NSString *sumData = [FLWrapJson dataSumToNSString:[newData subdataWithRange:NSMakeRange(8, 50)]];
+                        //药品id
+                        NSInteger medicineId = [FLDrawDataTool NSDataToNSInteger:data];
                         //时间戳转时间
                         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                         [formatter setDateStyle:NSDateFormatterMediumStyle];
                         [formatter setTimeStyle:NSDateFormatterShortStyle];
                         [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
-                        NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:[timeStamp doubleValue]];
-                        NSString *confromTimespStr = [formatter stringFromDate:confromTimesp];
-                        NSArray * historyArr = [[SqliteUtils sharedManager] selectHistoryBTInfo];
-                        if (historyArr.count > 0) {
-                            for (BlueToothDataModel * model in historyArr) {
-                                NSLog(@"<<< %@ >>>", model.timestamp);
-                                if ([timeStamp isEqualToString:model.timestamp]) {
-                                    return;
-                                }
+                        NSDate *historyTime = [NSDate dateWithTimeIntervalSince1970:[timeStamp doubleValue]];
+                        NSString *historyTimeStr = [formatter stringFromDate:historyTime];
+                        [DeviceRequestObject.shared requestSaveSuckFogDataWithMedicineId:[NSString stringWithFormat:@"%ld",(long)medicineId] suckFogData:sprayData dataSum:[sumData floatValue] addDate:historyTimeStr sucBlock:^(NSString * _Nonnull code) {
+                            if ([code isEqualToString:@"200"]) {
+                                [BlueWriteData confirmCodeHistoryData];
                             }
-                        }
-                        //插入历史数据表
-                        [self insertHistoryDb:@[timeStamp,sprayData,sumData,confromTimespStr,medicineName]];
+                        }];
                     }else if (type == 3){//训练数据
                         [BlueWriteData confirmCodePresentData];
-//                        NSString *timeStamp = [FLWrapJson dataToNSStringTime:[newData subdataWithRange:NSMakeRange(3, 7)]];
                         NSString *sprayData = [FLWrapJson dataToNSString:[newData subdataWithRange:NSMakeRange(8, 50)]];
-//                        NSString *sumData = [FLWrapJson dataSumToNSString:[newData subdataWithRange:NSMakeRange(8, 50)]];
-//                        [self.trainDataArr addObject:sprayData];
                         NSArray *mutArr = [UserDefaultsUtils valueWithKey:@"trainDataArr"];
                         NSMutableArray *newArr = [NSMutableArray arrayWithArray:mutArr];
                         [newArr addObject:sprayData];
                         [UserDefaultsUtils saveValue:newArr forKey:@"trainDataArr"];
+                        
+                        NSString *timeStamp = [NSString stringWithFormat:@"%ld",(long)[FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(4, 4)]]];
+                        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                        [formatter setDateStyle:NSDateFormatterMediumStyle];
+                        [formatter setTimeStyle:NSDateFormatterShortStyle];
+                        [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+                        NSDate *trainTime = [NSDate dateWithTimeIntervalSince1970:[timeStamp doubleValue]];
+                        NSString *trainTimeStr = [formatter stringFromDate:trainTime];
+                        NSArray *trainTimeArr = [UserDefaultsUtils valueWithKey:@"trainTimeArr"];
+                        NSMutableArray *newTrainTimeArr = [NSMutableArray arrayWithArray:trainTimeArr];
+                        [newTrainTimeArr addObject:trainTimeStr];
+                        [UserDefaultsUtils saveValue:newTrainTimeArr forKey:@"trainTimeArr"];
+                        
+                        NSInteger medicineId = [FLDrawDataTool NSDataToNSInteger:data];
+                        NSArray *medicineIdArr = [UserDefaultsUtils valueWithKey:@"medicineIdArr"];
+                        NSMutableArray *newMedicineIdArr = [NSMutableArray arrayWithArray:medicineIdArr];
+                        [newMedicineIdArr addObject:[NSString stringWithFormat:@"%ld",(long)medicineId]];
+                        [UserDefaultsUtils saveValue:newTrainTimeArr forKey:@"medicineIdArr"];
+                        
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshView" object:nil userInfo:nil];
                     }else if (type == 1){//当前实时喷雾
-                        NSLog(@"newData = %ld",newData.length);
-                        [BlueWriteData confirmCodePresentData];
-//                        NSString *timeStamp = [FLWrapJson dataToNSStringTime:[newData subdataWithRange:NSMakeRange(3, 7)]];
+                        NSLog(@"newData = %lu",(unsigned long)newData.length);
                         NSString *timeStamp = [NSString stringWithFormat:@"%ld",(long)[FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(4, 4)]]];
                         NSString *sprayData = [FLWrapJson dataToNSString:[newData subdataWithRange:NSMakeRange(8, 50)]];
                         NSString *sumData = [FLWrapJson dataSumToNSString:[newData subdataWithRange:NSMakeRange(8, 50)]];
-                        //------------------------------//
-                        NSArray * arr = [[SqliteUtils sharedManager]selectUserInfo];
-                        int  userId = 0;
-                        NSString * name;
-                        if (arr.count!=0) {
-                            for (AddPatientInfoModel * model in arr) {
-                                if (model.isSelect == 1) {
-                                    userId = model.userId;
-                                    name = model.name;
-                                    continue;
-                                }
-                            }
-                        }
-                        NSString * sql = [NSString stringWithFormat:@"insert into RealTimeBTData(userid,nowtime,btData,sumBtData) values('%d','%@','%@','%@');",userId,timeStamp,sprayData,sumData];
-                        //药品名称
-                        NSString *medicineName = [FLWrapJson getMedicineNameToInt:[newData subdataWithRange:NSMakeRange(2, 2)]];
+                        //药品id
+                        NSInteger medicineId = [FLDrawDataTool NSDataToNSInteger:data];
                         //当前读取数据的时间
                         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                         [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
-                        NSDate *confromTimesp2 = [NSDate dateWithTimeIntervalSince1970:[timeStamp doubleValue]];
-                        NSString * confromTimespStr2 = [formatter stringFromDate:confromTimesp2];
-                        NSString * sql1 = [NSString stringWithFormat:@"insert into historyBTDb(userid,nowtime,btData,sumBtData,date,userName,medicineName) values('%d','%@','%@','%@','%@','%@','%@');",userId,timeStamp,sprayData,sumData,confromTimespStr2,name,medicineName];
-                        [[SqliteUtils sharedManager]insertRealBTInfo:sql];
-                        [[SqliteUtils sharedManager]insertHistoryBTInfo:sql1];
+                        NSDate *sprayTime = [NSDate dateWithTimeIntervalSince1970:[timeStamp doubleValue]];
+                        NSString * sprayTimeStr = [formatter stringFromDate:sprayTime];
+                       
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshSprayView" object:nil userInfo:nil];
+                        [DeviceRequestObject.shared requestSaveSuckFogDataWithMedicineId:[NSString stringWithFormat:@"%ld",(long)medicineId] suckFogData:sprayData dataSum:[sumData floatValue] addDate:sprayTimeStr sucBlock:^(NSString * _Nonnull code) {
+                            if ([code isEqualToString:@"200"]) {
+                                [BlueWriteData confirmCodePresentData];
+                            }
+                        }];
                     }else if (type == 5) { //
                         NSString *medicineInfo = [FLWrapJson getMedicineInfo:[newData subdataWithRange:NSMakeRange(2, 2)] AndDrugInjectionTime:[newData subdataWithRange:NSMakeRange(4, 4)] AndDrugExpirationTime:[newData subdataWithRange:NSMakeRange(8, 4)] AndDrugOpeningTime:[newData subdataWithRange:NSMakeRange(12, 4)] AndVolatilizationTime:[newData subdataWithRange:NSMakeRange(16, 4)]];
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"displayMedicineInfo" object:@{@"medicineInfo":medicineInfo} userInfo:nil];

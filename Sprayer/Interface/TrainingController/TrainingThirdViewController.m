@@ -91,14 +91,21 @@
     
     //曲线图
     NSArray * mutArr;
+    NSString *trainTime;
+    NSString *medicineId;
     //判断是否第一次进入设备
     if (isFirst == NO) {
         isFirst = YES;
         mutArr = @[];
-    }else if(isLeave == NO)
-    {
+        trainTime = @"";
+        medicineId = @"";
+    }else if(isLeave == NO) {
         mutArr = [[[UserDefaultsUtils valueWithKey:@"trainDataArr"]lastObject] componentsSeparatedByString:@","];
         [UserDefaultsUtils saveValue:mutArr forKey:@"ThreeTrainDataArr"];
+        trainTime = [[UserDefaultsUtils valueWithKey:@"trainTimeArr"] lastObject];
+        [UserDefaultsUtils saveValue:trainTime forKey:@"ThreeTrainTimeArr"];
+        medicineId = [[UserDefaultsUtils valueWithKey:@"medicineIdArr"] lastObject];
+        [UserDefaultsUtils saveValue:trainTime forKey:@"ThreeMedicineIdArr"];
     }
     
     allNum = 0;

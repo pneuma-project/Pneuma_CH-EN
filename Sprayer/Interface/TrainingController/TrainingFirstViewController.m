@@ -94,13 +94,21 @@
     //曲线图
     NSArray * arr = [UserDefaultsUtils valueWithKey:@"trainDataArr"];
     NSArray * mutArr;
+    NSString *trainTime;
+    NSString *medicineId;
     if (arr.count != 0) {
         if (isLeave == NO) {
             mutArr = [[[UserDefaultsUtils valueWithKey:@"trainDataArr"] lastObject] componentsSeparatedByString:@","];
             [UserDefaultsUtils saveValue:mutArr forKey:@"OneTrainDataArr"];
+            trainTime = [[UserDefaultsUtils valueWithKey:@"trainTimeArr"] lastObject];
+            [UserDefaultsUtils saveValue:trainTime forKey:@"OneTrainTimeArr"];
+            medicineId = [[UserDefaultsUtils valueWithKey:@"medicineIdArr"] lastObject];
+            [UserDefaultsUtils saveValue:trainTime forKey:@"OneMedicineIdArr"];
         }
     }else{
         mutArr = @[];
+        trainTime = @"";
+        medicineId = @"";
     }
     
     allNum = 0;

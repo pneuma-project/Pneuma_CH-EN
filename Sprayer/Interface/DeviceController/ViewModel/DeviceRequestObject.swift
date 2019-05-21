@@ -55,14 +55,14 @@ class DeviceRequestObject: NSObject {
     }
     
     //添加训练数据
-    @objc func requestSaveTrainData(medicineId:Int32,trainData:String,dataSum:Int32,addDate:String) {
+    @objc func requestSaveTrainData(medicineId:String,trainData:String,dataSum:Float,addDate:String,sucBlock:((_ code:String)->())?) {
         if let loginKey = UserInfoData.mr_findFirst()?.loginKey {
-            SURLRequest.sharedInstance.requestPostWithHeader(URL_SaveTrainData, param: ["loginKey":loginKey,"medicineId":medicineId,"trainData":trainData,"dataSum":dataSum,"addDate":addDate], checkSum: [loginKey,"\(medicineId)",trainData,"\(dataSum)",addDate], suc: { (data) in
+            SURLRequest.sharedInstance.requestPostWithHeader(URL_SaveTrainData, param: ["loginKey":loginKey,"medicineId":medicineId,"trainData":trainData,"dataSum":dataSum,"addDate":addDate], checkSum: [loginKey,medicineId,trainData,"\(dataSum)",addDate], suc: { (data) in
                 Dprint("URL_SaveTrainData:\(data)")
                 let dataJson = JSON(data)
                 let code = dataJson["code"].stringValue
-                if code == "200" {
-
+                if let block = sucBlock {
+                    block(code)
                 }
             }) { (error) in
                 Dprint("URL_SaveTrainDataError:\(error)")
@@ -91,5 +91,19 @@ class DeviceRequestObject: NSObject {
         }
     }
     
-    
+    //添加吸雾数据
+    @objc func requestSaveSuckFogData(medicineId:String,suckFogData:String,dataSum:Float,addDate:String,sucBlock:((_ code:String)->())?) {
+        if let loginKey = UserInfoData.mr_findFirst()?.loginKey {
+            SURLRequest.sharedInstance.requestPostWithHeader(URL_SaveSuckFogData, param: ["loginKey":loginKey,"medicineId":medicineId,"suckFogData":suckFogData,"dataSum":dataSum,"addDate":addDate], checkSum: [loginKey,medicineId,suckFogData,"\(dataSum)",addDate], suc: { (data) in
+                Dprint("URL_SaveSuckFogData:\(data)")
+                let dataJson = JSON(data)
+                let code = dataJson["code"].stringValue
+                if let block = sucBlock {
+                    block(code)
+                }
+            }) { (error) in
+                Dprint("URL_SaveSuckFogDataError:\(error)")
+            }
+        }
+    }
 }

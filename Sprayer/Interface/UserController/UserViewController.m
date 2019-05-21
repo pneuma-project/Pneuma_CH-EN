@@ -14,6 +14,8 @@
 #import "AddPatientInfoModel.h"
 #import "FlowValueSettingController.h"
 #import "UserDefaultsUtils.h"
+#import "MagicalRecord.h"
+#import "Sprayer-Swift.h"
 
 @interface UserViewController ()
 {
@@ -47,28 +49,23 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"transparent"] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage imageNamed:@"transparent"]];
     
-    NSArray * arr = [[SqliteUtils sharedManager] selectUserInfo];
-    if (arr.count!=0) {
-        for (AddPatientInfoModel * model in arr) {
-            
-            if (model.isSelect == 1) {
-                 nameLabel.text = model.name;
-                _addModel = [[AddPatientInfoModel alloc]init];
-                _addModel = model;
-                continue;
-            }
-            
-        }
-    } else {
-        _addModel = nil;
-        nameLabel.text = nil;
-    }
-}
-
-//- (void)loadCurrentInfo
-//{
+//    NSArray * arr = [[SqliteUtils sharedManager] selectUserInfo];
+//    if (arr.count!=0) {
+//        for (AddPatientInfoModel * model in arr) {
 //
-//}
+//            if (model.isSelect == 1) {
+//                 nameLabel.text = model.name;
+//                _addModel = [[AddPatientInfoModel alloc]init];
+//                _addModel = model;
+//                continue;
+//            }
+//
+//        }
+//    } else {
+//        _addModel = nil;
+//        nameLabel.text = nil;
+//    }
+}
 
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -114,7 +111,7 @@
     nameLabel.center=CGPointMake(view.center.x, 120);
     nameLabel.textAlignment=NSTextAlignmentCenter;
     nameLabel.textColor=[UIColor whiteColor];
-    nameLabel.text=@"";
+    nameLabel.text=[UserInfoData MR_findFirst].name;
     UITapGestureRecognizer *nametap=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(infoSet)];
     nameLabel.userInteractionEnabled=YES;
     [nameLabel addGestureRecognizer:nametap];

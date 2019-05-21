@@ -99,7 +99,8 @@
 }
 
 -(void)setNumber:(NSString *)number {
-    self.scoreLabel.text = number;
+    _number = number;
+    self.scoreLabel.text = _number;
     
 }
 

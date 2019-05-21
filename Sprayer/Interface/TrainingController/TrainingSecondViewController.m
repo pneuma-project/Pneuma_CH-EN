@@ -83,16 +83,22 @@
     
     //曲线图
     NSArray * mutArr;
-     //判断是否第一次进入设备
-        if (isFirst == NO) {
-            isFirst = YES;
-            mutArr = @[];
-        }else if(isLeave == NO)
-        {
-            mutArr = [[[UserDefaultsUtils valueWithKey:@"trainDataArr"]lastObject] componentsSeparatedByString:@","];
-            [UserDefaultsUtils saveValue:mutArr forKey:@"TwoTrainDataArr"];
-        }
-       
+    NSString *trainTime;
+    NSString *medicineId;
+    //判断是否第一次进入设备
+    if (isFirst == NO) {
+        isFirst = YES;
+        mutArr = @[];
+        trainTime = @"";
+        medicineId = @"";
+    }else if(isLeave == NO) {
+        mutArr = [[[UserDefaultsUtils valueWithKey:@"trainDataArr"]lastObject] componentsSeparatedByString:@","];
+        [UserDefaultsUtils saveValue:mutArr forKey:@"TwoTrainDataArr"];
+        trainTime = [[UserDefaultsUtils valueWithKey:@"trainTimeArr"] lastObject];
+        [UserDefaultsUtils saveValue:trainTime forKey:@"TwoTrainTimeArr"];
+        medicineId = [[UserDefaultsUtils valueWithKey:@"medicineIdArr"] lastObject];
+        [UserDefaultsUtils saveValue:trainTime forKey:@"TwoMedicineIdArr"];
+    }
     
     allNum = 0;
     for (NSString * str in mutArr) {

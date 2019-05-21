@@ -306,6 +306,7 @@ class LoginViewController: UIViewController,UIGestureRecognizerDelegate {
     func loginSucceeAction() {
         let rootVC = RootViewController()
         UIApplication.shared.keyWindow?.rootViewController = rootVC
+        
     }
 }
 

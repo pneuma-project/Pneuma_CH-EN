@@ -13,6 +13,8 @@
 #import "AddPatientInfoModel.h"
 #import "FLWrapJson.h"
 #import "FLDrawDataTool.h"
+#import "Sprayer-Swift.h"
+#import "MagicalRecord.h"
 
 @interface RetrainingViewController ()<CustemBBI>
 {
@@ -44,6 +46,15 @@
     [UserDefaultsUtils saveValue:@[] forKey:@"TwoTrainDataArr"];
     [UserDefaultsUtils saveValue:@[] forKey:@"ThreeTrainDataArr"];
     
+    [UserDefaultsUtils saveValue:@[] forKey:@"trainTimeArr"];
+    [UserDefaultsUtils saveValue:@[] forKey:@"OneTrainTimeArr"];
+    [UserDefaultsUtils saveValue:@[] forKey:@"TwoTrainTimeArr"];
+    [UserDefaultsUtils saveValue:@[] forKey:@"ThreeTrainTimeArr"];
+    
+    [UserDefaultsUtils saveValue:@[] forKey:@"medicineIdArr"];
+    [UserDefaultsUtils saveValue:@[] forKey:@"OneMedicineIdArr"];
+    [UserDefaultsUtils saveValue:@[] forKey:@"TwoMedicineIdArr"];
+    [UserDefaultsUtils saveValue:@[] forKey:@"ThreeMedicineIdArr"];
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -75,43 +86,37 @@
 {
     if ([infoStr isEqualToString:@"first"]) {
         
-        NSArray * arr = [[SqliteUtils sharedManager] selectUserInfo];
-        int userId = 0;
-        NSArray * trainData;
-        if (arr.count!=0) {
-            for (AddPatientInfoModel * model in arr) {
-                
-                if (model.isSelect == 1) {
-                    userId = model.userId;
-                    continue;
-                }
-                
-            }
-        }
+        NSMutableArray * trainData;
+        NSString *trainTime;
+        NSString *medicineId;
+        float trainSum = 0;
         if (index == 100) {
             trainData = [UserDefaultsUtils valueWithKey:@"OneTrainDataArr"];
-        }else if (index == 101)
-        {
+            trainTime = [UserDefaultsUtils valueWithKey:@"OneTrainTimeArr"];
+            medicineId = [UserDefaultsUtils valueWithKey:@"OneMedicineIdArr"];
+        }else if (index == 101){
             trainData = [UserDefaultsUtils valueWithKey:@"TwoTrainDataArr"];
-        }else if (index == 102)
-        {
+            trainTime = [UserDefaultsUtils valueWithKey:@"TwoTrainTimeArr"];
+            medicineId = [UserDefaultsUtils valueWithKey:@"TwoMedicineIdArr"];
+        }else if (index == 102){
             trainData =[UserDefaultsUtils valueWithKey:@"ThreeTrainDataArr"];
+            trainTime = [UserDefaultsUtils valueWithKey:@"ThreeTrainTimeArr"];
+            medicineId = [UserDefaultsUtils valueWithKey:@"ThreeMedicineIdArr"];
         }
-        //把数据变成字符串
-        NSMutableString * mutStr = [NSMutableString string];
         for (NSString * str in trainData) {
-            [mutStr appendString:str];
-            [mutStr appendString:@","];
+            trainSum += [str floatValue];
         }
-        NSString * dataStr = [mutStr substringToIndex:mutStr.length-1];
-        
-        NSString * sql = [NSString stringWithFormat:@"update userInfo set trainData='%@' where id=%d;",dataStr,userId];
-        [[SqliteUtils sharedManager] updateUserInfo:sql];
-        
-//        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(writeDataAction) userInfo:nil repeats:YES];
+        NSString *trainDataStr = [trainData componentsJoinedByString:@","];
+        [DeviceRequestObject.shared requestSaveTrainDataWithMedicineId:medicineId trainData:trainDataStr dataSum:trainSum/600.0 addDate:trainTime sucBlock:^(NSString * _Nonnull code) {
+            if ([code isEqualToString:@"200"]) {
+                [LCProgressHUD showSuccessText:NSLocalizedString(@"Upload success", nil)];
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }else {
+                [LCProgressHUD showSuccessText:NSLocalizedString(@"Upload failed", nil)];
+            }
+        }];
         [self writeDataAction];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"stopTrain" object:nil userInfo:nil];
-        [self.navigationController popToRootViewControllerAnimated:YES];
     }else if ([infoStr isEqualToString:@"two"]){
         [self.navigationController popViewControllerAnimated:YES];
     }
@@ -119,11 +124,6 @@
 
 -(void)writeDataAction
 {
-//    NSString *time = [DisplayUtils getTimeStampWeek];
-//    NSString *weakDate = [DisplayUtils getTimestampDataWeek];
-//    NSMutableString *allStr = [[NSMutableString alloc] initWithString:time];
-//    [allStr insertString:weakDate atIndex:10];
-//    timeData = [FLWrapJson bcdCodeString:allStr];
     long long time = [DisplayUtils getNowTimestamp];
     timeData = [FLDrawDataTool longToNSData:time];
     [BlueWriteData stopTrainData:timeData];
