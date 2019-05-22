@@ -16,6 +16,7 @@
 #import "UserDefaultsUtils.h"
 #import "MagicalRecord.h"
 #import "Sprayer-Swift.h"
+#import "HistoryViewController.h"
 
 @interface UserViewController ()
 {
@@ -165,20 +166,13 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    if (indexPath.row == 0) {
-//
-//        PatientInfoViewController *patientInfoVC = [[PatientInfoViewController alloc] init];
-//        [self.navigationController pushViewController:patientInfoVC animated:YES];
-//    }else
     if (indexPath.row == 0){
         //检测用户是否存在
-//        [self noUserAlert];
         BasicInformationViewController *inforVC = [[BasicInformationViewController alloc] init];
-//        inforVC.patientModel = _addModel;
         [self.navigationController pushViewController:inforVC animated:YES];
     }else if (indexPath.row == 1){
-        UserListViewController *userListVC = [[UserListViewController alloc] init];
-        [self.navigationController pushViewController:userListVC animated:YES];
+        HistoryViewController *historyVC = [[HistoryViewController alloc] init];
+        [self.navigationController pushViewController:historyVC animated:YES];
     }else if (indexPath.row == 2){
         FlowValueSettingController *FlowValueVC = [[FlowValueSettingController alloc]init];
         [self.navigationController pushViewController:FlowValueVC animated:YES];

@@ -106,4 +106,54 @@ class DeviceRequestObject: NSObject {
             }
         }
     }
+    
+    ///获取当天吸雾数据
+    @objc var requestGetNowDataSuckFogDataSuc:((_ dataList:[SprayerDataModel])->())?
+    @objc func requestGetNowDataSuckFogData(addDate:String,endDate:String) {
+        if let loginKey = UserInfoData.mr_findFirst()?.loginKey {
+            SURLRequest.sharedInstance.requestPostWithHeader(URL_GetNowDateSuckFogData, param: ["loginKey":loginKey,"addDate":addDate,"endDate":endDate], checkSum: [loginKey,addDate,endDate], suc: { (data) in
+                Dprint("URL_GetNowDateSuckFogData:\(data)")
+                let dataJson = JSON(data)
+                let code = dataJson["code"].stringValue
+                if code == "200" {
+                    var dataArr:[SprayerDataModel] = []
+                    let resultJsonArr = dataJson["result"].arrayValue
+                    for resultJson:JSON in resultJsonArr {
+                        let model = SprayerDataModel.getFromModel(json: resultJson)
+                        dataArr.append(model)
+                    }
+                    if let block = DeviceRequestObject.shared.requestGetNowDataSuckFogDataSuc {
+                        block(dataArr)
+                    }
+                }
+            }) { (error) in
+                Dprint("URL_GetNowDateSuckFogDataError:\(error)")
+            }
+        }
+    }
+    
+    //获取历史喷雾数据
+    @objc var requestGetHistorySuckFogDataSuc:((_ dataList:[SprayerDataModel])->())?
+    @objc func requestGetHistorySuckFogData() {
+        if let loginKey = UserInfoData.mr_findFirst()?.loginKey {
+            SURLRequest.sharedInstance.requestPostWithHeader(URL_GetHistorySuckFogData, param: ["loginKey":loginKey], checkSum: [loginKey], suc: { (data) in
+                Dprint("URL_GetHistorySuckFogData:\(data)")
+                let dataJson = JSON(data)
+                let code = dataJson["code"].stringValue
+                if code == "200" {
+                    var dataArr:[SprayerDataModel] = []
+                    let resultJsonArr = dataJson["result"].arrayValue
+                    for resultJson:JSON in resultJsonArr {
+                        let model = SprayerDataModel.getFromModel(json: resultJson)
+                        dataArr.append(model)
+                    }
+                    if let block = DeviceRequestObject.shared.requestGetHistorySuckFogDataSuc {
+                        block(dataArr)
+                    }
+                }
+            }) { (error) in
+                Dprint("URL_GetHistorySuckFogDataError:\(error)")
+            }
+        }
+    }
 }

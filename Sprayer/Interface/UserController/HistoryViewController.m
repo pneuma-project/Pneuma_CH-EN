@@ -13,6 +13,7 @@
 #import "BlueToothDataModel.h"
 #import "SqliteUtils.h"
 #import "HistoryDetailViewController.h"
+#import "Sprayer-Swift.h"
 static NSString *Cell_ONE = @"cellOne";
 static NSString *Cell_TWO = @"cellTwo";
 
@@ -20,7 +21,7 @@ static NSString *Cell_TWO = @"cellTwo";
 
 @property (nonatomic,strong)NSMutableArray *dataArr;
 
-@property (nonatomic,strong) NSArray * dateArr;//获取每一条历史数据的日期的数组
+//@property (nonatomic,strong) NSArray * dateArr;//获取每一条历史数据的日期的数组
 
 @end
 
@@ -40,6 +41,7 @@ static NSString *Cell_TWO = @"cellTwo";
     self.view.backgroundColor = RGBColor(242, 250, 254, 1.0);
     [self setNavTitle:@"History"];
     [self registerCell];
+//    [self requestData];
     [self requestData];
 }
 
@@ -64,7 +66,19 @@ static NSString *Cell_TWO = @"cellTwo";
     [self.tableView registerNib:[UINib nibWithNibName:@"HistoryTableViewCell" bundle:nil] forCellReuseIdentifier:Cell_ONE];
     [self.tableView registerNib:[UINib nibWithNibName:@"HistoryValueTableViewCell" bundle:nil] forCellReuseIdentifier:Cell_TWO];
 }
+
 #pragma mark --- 拿到每一天的所有数据
+-(void)requestData {
+    [DeviceRequestObject.shared requestGetHistorySuckFogData];
+    [DeviceRequestObject.shared setRequestGetHistorySuckFogDataSuc:^(NSArray<SprayerDataModel *> * _Nonnull dataList) {
+        for (SprayerDataModel *model in dataList) {
+            [self.dataArr addObject:model];
+        }
+        [self.tableView reloadData];
+    }];
+}
+
+
 -(NSArray *)selectFromData
 {
     //查询数据库(获取所有用户数据)
@@ -142,86 +156,86 @@ static NSString *Cell_TWO = @"cellTwo";
     return @[userTimeArr,sprayArr,inspiratoryArr];
 }
 
--(void)requestData
-{
-    NSArray * dataArr = [self selectFromData];
-    NSLog(@"%@",dataArr);
-    if (dataArr.count == 0) {
-        return;
-    }
-    NSMutableArray *timeArr1 = [NSMutableArray array];
-    //将时间戳转为应为缩写
-    for (NSString * timeStr in dataArr[0]) {
-        
-        NSTimeInterval time=[timeStr doubleValue];
-        NSDate *detaildate=[NSDate dateWithTimeIntervalSince1970:time];
-        //实例化一个NSDateFormatter对象
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        //设定时间格式,这里可以设置成自己需要的格式
-        [dateFormatter setDateFormat:@"MMM dd"];
-        
-        NSString *currentDateStr = [dateFormatter stringFromDate: detaildate];
-        [timeArr1 addObject:currentDateStr];
-    }
-    self.dateArr = dataArr[0];
-    if (timeArr1.count == 0) {
-        return;
-    }
-    //将数据按天数分类
-    NSMutableArray * timeArr2 = [NSMutableArray array];
-    NSMutableArray * spraysArr2 = [NSMutableArray array];
-    NSMutableArray * inspiratoryArr2 = [NSMutableArray array];
-    int index = 0;
-    int index1 = 0;
-    int index2 = 0;
-    float index3 = 0;
-    float index4 = 0;
-    
-    NSString * dateStr = timeArr1[0];
-    [timeArr2 addObject:dateStr];
-    for (int i = 0; i<timeArr1.count; i++) {
-        if (i==timeArr1.count -1) {
-            NSArray * arr = [dataArr[1][i] componentsSeparatedByString:@"/"];
-            index1 += [arr[0] floatValue];
-            index2 += [arr[1] floatValue];
-            index4 ++;
-//            for (NSString * num in dataArr[2]) {
+//-(void)requestData
+//{
+//    NSArray * dataArr = [self selectFromData];
+//    NSLog(@"%@",dataArr);
+//    if (dataArr.count == 0) {
+//        return;
+//    }
+//    NSMutableArray *timeArr1 = [NSMutableArray array];
+//    //将时间戳转为应为缩写
+//    for (NSString * timeStr in dataArr[0]) {
 //
-//            }
-            index3 += [dataArr[2][i] floatValue];
-//            index3 /= [dataArr[2] count];
-            [spraysArr2 addObject:[NSString stringWithFormat:@"%d/%d",index1,index2]];
-            [inspiratoryArr2 addObject:[NSString stringWithFormat:@"%f",index3/index4]];
-            continue;
-        }
-        if ([dateStr isEqualToString:timeArr1[i]]) {
-            
-            NSArray * arr = [dataArr[1][i] componentsSeparatedByString:@"/"];
-            index1 += [arr[0] intValue];
-            index2 += [arr[1] intValue];
-                
-            index4 ++;
-            index3 += [dataArr[2][i] floatValue];
-        }else{
-            dateStr = timeArr1[i];
-            [timeArr2 addObject:timeArr1[i]];
-            [spraysArr2 addObject:[NSString stringWithFormat:@"%d/%d",index1,index2]];
-            [inspiratoryArr2 addObject:[NSString stringWithFormat:@"%f",index3/index4]];
-            index  = i;
-            index1 = 1;
-            index2 = 1;
-            index4 = 1;
-            index3 = [dataArr[2][i] floatValue];
-        }
-    }
-    for (NSInteger j = 0; j < timeArr2.count; j++) {
-        HistoryModel *model = [[HistoryModel alloc] init];
-        model.time = timeArr2[j];
-        model.spray = spraysArr2[j];
-        model.inspiratory = inspiratoryArr2[j];
-        [self.dataArr addObject:model];
-    }
- }
+//        NSTimeInterval time=[timeStr doubleValue];
+//        NSDate *detaildate=[NSDate dateWithTimeIntervalSince1970:time];
+//        //实例化一个NSDateFormatter对象
+//        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//        //设定时间格式,这里可以设置成自己需要的格式
+//        [dateFormatter setDateFormat:@"MMM dd"];
+//
+//        NSString *currentDateStr = [dateFormatter stringFromDate: detaildate];
+//        [timeArr1 addObject:currentDateStr];
+//    }
+//    self.dateArr = dataArr[0];
+//    if (timeArr1.count == 0) {
+//        return;
+//    }
+//    //将数据按天数分类
+//    NSMutableArray * timeArr2 = [NSMutableArray array];
+//    NSMutableArray * spraysArr2 = [NSMutableArray array];
+//    NSMutableArray * inspiratoryArr2 = [NSMutableArray array];
+//    int index = 0;
+//    int index1 = 0;
+//    int index2 = 0;
+//    float index3 = 0;
+//    float index4 = 0;
+//
+//    NSString * dateStr = timeArr1[0];
+//    [timeArr2 addObject:dateStr];
+//    for (int i = 0; i<timeArr1.count; i++) {
+//        if (i==timeArr1.count -1) {
+//            NSArray * arr = [dataArr[1][i] componentsSeparatedByString:@"/"];
+//            index1 += [arr[0] floatValue];
+//            index2 += [arr[1] floatValue];
+//            index4 ++;
+////            for (NSString * num in dataArr[2]) {
+////
+////            }
+//            index3 += [dataArr[2][i] floatValue];
+////            index3 /= [dataArr[2] count];
+//            [spraysArr2 addObject:[NSString stringWithFormat:@"%d/%d",index1,index2]];
+//            [inspiratoryArr2 addObject:[NSString stringWithFormat:@"%f",index3/index4]];
+//            continue;
+//        }
+//        if ([dateStr isEqualToString:timeArr1[i]]) {
+//
+//            NSArray * arr = [dataArr[1][i] componentsSeparatedByString:@"/"];
+//            index1 += [arr[0] intValue];
+//            index2 += [arr[1] intValue];
+//
+//            index4 ++;
+//            index3 += [dataArr[2][i] floatValue];
+//        }else{
+//            dateStr = timeArr1[i];
+//            [timeArr2 addObject:timeArr1[i]];
+//            [spraysArr2 addObject:[NSString stringWithFormat:@"%d/%d",index1,index2]];
+//            [inspiratoryArr2 addObject:[NSString stringWithFormat:@"%f",index3/index4]];
+//            index  = i;
+//            index1 = 1;
+//            index2 = 1;
+//            index4 = 1;
+//            index3 = [dataArr[2][i] floatValue];
+//        }
+//    }
+//    for (NSInteger j = 0; j < timeArr2.count; j++) {
+//        HistoryModel *model = [[HistoryModel alloc] init];
+//        model.time = timeArr2[j];
+//        model.spray = spraysArr2[j];
+//        model.inspiratory = inspiratoryArr2[j];
+//        [self.dataArr addObject:model];
+//    }
+// }
 
 #pragma mark - CustemBBI代理方法
 -(void)BBIdidClickWithName:(NSString *)infoStr
@@ -257,7 +271,7 @@ static NSString *Cell_TWO = @"cellTwo";
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-        return self.dataArr.count+1;
+    return self.dataArr.count+1;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -269,14 +283,13 @@ static NSString *Cell_TWO = @"cellTwo";
     }else{
         HistoryValueTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:Cell_TWO forIndexPath:indexPath];
         if (self.dataArr) {
-         
             //祭FL挖的坑，踩坑人2：你祭了他的坑不能填平一点吗。。。
             NSInteger index = indexPath.row - 1;
-
-            HistoryModel *model = self.dataArr[index];
-            cell.timeLabel.text = model.time;
-            cell.spraysLabel.text = model.spray;
-            cell.inspiratoryLabel.text = model.inspiratory;
+            SprayerDataModel *model = self.dataArr[index];
+            NSString *timeStr = [DisplayUtils getTimeStampToString:@"MM-dd" AndTime:[NSString stringWithFormat:@"%lld",model.addDate/1000]];
+            cell.timeLabel.text = timeStr;
+            cell.spraysLabel.text = [NSString stringWithFormat:@"%ld/%ld",(long)model.suckFogNum,(long)model.goodSuckFogNum];
+            cell.inspiratoryLabel.text = [NSString stringWithFormat:@"%.3f",model.dataSum];
         }
         return cell;
     }
@@ -347,25 +360,25 @@ static NSString *Cell_TWO = @"cellTwo";
 #pragma mark ----- 删除所选的历史数据
 -(void)deleteFromDb :(NSInteger)index
 {
-    HistoryModel *model = self.dataArr[index];
-    //将时间戳转为应为缩写
-    for (NSString * timeStr in _dateArr) {
-        
-        NSTimeInterval time=[timeStr doubleValue];
-        NSDate *detaildate=[NSDate dateWithTimeIntervalSince1970:time];
-        //实例化一个NSDateFormatter对象
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        //设定时间格式,这里可以设置成自己需要的格式
-        [dateFormatter setDateFormat:@"MMM dd"];
-        
-        NSString *currentDateStr = [dateFormatter stringFromDate: detaildate];
-        //如果当条数据和所删的数据时间是同一天，则从数据库中删除
-        if([currentDateStr isEqualToString:model.time])
-        {
-            [[SqliteUtils sharedManager] deleteHistoryBTData:[NSString stringWithFormat:@"delete from historyBTDb where nowtime = %@;",timeStr]];//userid = %d and   _model.userId,
-        }
-        
-    }
+//    HistoryModel *model = self.dataArr[index];
+//    //将时间戳转为应为缩写
+//    for (NSString * timeStr in _dateArr) {
+//
+//        NSTimeInterval time=[timeStr doubleValue];
+//        NSDate *detaildate=[NSDate dateWithTimeIntervalSince1970:time];
+//        //实例化一个NSDateFormatter对象
+//        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//        //设定时间格式,这里可以设置成自己需要的格式
+//        [dateFormatter setDateFormat:@"MMM dd"];
+//
+//        NSString *currentDateStr = [dateFormatter stringFromDate: detaildate];
+//        //如果当条数据和所删的数据时间是同一天，则从数据库中删除
+//        if([currentDateStr isEqualToString:model.time])
+//        {
+//            [[SqliteUtils sharedManager] deleteHistoryBTData:[NSString stringWithFormat:@"delete from historyBTDb where nowtime = %@;",timeStr]];//userid = %d and   _model.userId,
+//        }
+//
+//    }
 
     
 }

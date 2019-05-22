@@ -124,12 +124,21 @@
 }
 
 #pragma mark - 获取时间戳
+//时间戳转时间
++(NSString *)getTimeStampToString:(NSString *)dataFormat AndTime:(NSString *)timeStamp {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:dataFormat];
+    NSDate *timeDate = [NSDate dateWithTimeIntervalSince1970:[timeStamp doubleValue]];
+    NSString * timeStr = [formatter stringFromDate:timeDate];
+    return timeStr;
+}
+
 //获取时间戳
 //当前时间
-+(NSString *)getTimestampData
++(NSString *)getTimestampData:(NSString *)dateFormat
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"MMMM dd,YYYY"];
+    [formatter setDateFormat:dateFormat];
     NSDate *date = [NSDate date];
 //    NSString *timestamp = [[NSString alloc] initWithFormat:@"%ld",(long)date.timeIntervalSince1970];
     NSString *timestamp = [formatter stringFromDate:date];

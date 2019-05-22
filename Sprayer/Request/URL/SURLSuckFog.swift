@@ -65,16 +65,29 @@ let URL_SaveSuckFogData = Base_SuckFog_Url + "save/suck/fog/data"
 /**
  * 获取历史吸雾数据
  * @param loginKey     用户凭证
- * @param offset
- * @param count
  * @param checkSum
  * @return
  * @throws ApiException
 @PostMapping(value = "get/history/suck/fog/data")
 @ResponseBody
 public Result<List<PnSuckFogDataModel>> getHistorySuckFogData(@RequestParam("loginKey") String loginKey,
-@RequestParam("offset") Integer offset,
-@RequestParam("count") Integer count,
 @RequestHeader("checkSum") String checkSum) throws ApiException {
   */
 let URL_GetHistorySuckFogData = Base_SuckFog_Url + "get/history/suck/fog/data"
+
+/**
+ * 获取当天吸雾数据
+ * @param loginKey     用户凭证
+ * @param addDate
+ * @param endDate
+ * @param checkSum
+ * @return
+ * @throws ApiException
+@PostMapping(value = "get/now/date/suck/fog/data")
+@ResponseBody
+public Result<List<PnSuckFogDataModel>> getNowDateSuckFogData(@RequestParam("loginKey") String loginKey,
+@RequestParam("addDate") String addDate,
+@RequestParam("endDate") String endDate,
+@RequestHeader("checkSum") String checkSum) throws ApiException {
+ */
+let URL_GetNowDateSuckFogData = Base_SuckFog_Url + "get/now/date/suck/fog/data"

@@ -293,7 +293,7 @@
     xLineLabel = [[UILabel alloc]initWithFrame:CGRectMake(yLineLabel.current_x_w, yLineLabel.current_y_h, downBgView.current_w-yLineLabel.current_x_w-30, 1)];
     xLineLabel.backgroundColor = RGBColor(204, 205, 206, 1.0);
     UILabel * downDateLabel = [[UILabel alloc]initWithFrame:CGRectMake(yLineLabel.current_x_w+xLineLabel.current_w/2-35, xLineLabel.current_y_h, 80, 30)];
-    downDateLabel.text = [DisplayUtils getTimestampData];
+    downDateLabel.text = [DisplayUtils getTimestampData:@"MMMM dd,YYYY"];
     downDateLabel.textColor = RGBColor(0, 83, 181, 1.0);
     downDateLabel.font = [UIFont systemFontOfSize:10];
     

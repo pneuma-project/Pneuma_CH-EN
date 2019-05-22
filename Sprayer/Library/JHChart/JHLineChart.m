@@ -158,8 +158,6 @@
  *  更新Y轴的刻度大小
  */
 - (void)updateYScale{
-    
-    
         switch (_lineChartQuadrantType) {
         case JHLineChartQuadrantTypeFirstAndFouthQuardrant:{
             

@@ -26,7 +26,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = RGBColor(242, 250, 254, 1.0);
-    [self setNavTitle:[DisplayUtils getTimestampData]];
+    [self setNavTitle:[DisplayUtils getTimestampData:@"MMMM dd,YYYY"]];
     [self createView];
 }
 -(void)viewDidDisappear:(BOOL)animated

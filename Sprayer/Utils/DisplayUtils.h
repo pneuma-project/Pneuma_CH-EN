@@ -59,7 +59,9 @@
  * \param ...
  * \param ...
  */
-+(NSString *)getTimestampData;
++(NSString *)getTimeStampToString:(NSString *)dataFormat AndTime:(NSString *)timeStamp;
+
++(NSString *)getTimestampData:(NSString *)dateFormat;
 
 +(long long)getNowTimestamp;
 
