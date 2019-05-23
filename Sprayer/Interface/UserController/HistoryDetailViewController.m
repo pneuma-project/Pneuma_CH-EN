@@ -14,16 +14,26 @@
 #import "DisplayUtils.h"
 #import "UserDefaultsUtils.h"
 #import "FLWrapJson.h"
+#import "Sprayer-Swift.h"
 #define k_MainBoundsWidth [UIScreen mainScreen].bounds.size.width
 #define k_MainBoundsHeight [UIScreen mainScreen].bounds.size.height
 
 @interface HistoryDetailViewController ()<CustemBBI,UICollectionViewDelegate,UICollectionViewDataSource>
 {
     NSString *medicineName; //药品名称
+    float allTotalNum;
+    float allTrainTotalNum;
+    float lastTrainNum;
+    NSInteger indexItem;
     
     UILabel * yLineLabel;
     UILabel * xLineLabel;
     UIView * downBgView;
+    
+    UILabel * referenceInfoLabel;
+    UILabel * totalInfoLabel;
+    UILabel *medicineNameL;
+    UILabel *currentInfoLabel;
 }
 @property(nonatomic,strong)JHLineChart *lineChart;
 
@@ -31,22 +41,38 @@
 
 @property(nonatomic,strong)UILabel * slmLabel;
 
-@property(nonatomic,strong)UILabel *medicineNameL;
-@property(nonatomic,strong)UILabel *currentInfoLabel;
-
 @property(nonatomic,strong)UICollectionView *collectionView;
+
+@property(nonatomic,strong)NSMutableArray<SprayerDataModel *> * totalDayDataList;//当天喷雾数据
+
+@property(nonatomic,strong)NSMutableArray * sprayDataArr;//训练最佳曲线数据
 @end
 
 @implementation HistoryDetailViewController
+
+-(NSMutableArray<SprayerDataModel *> *)totalDayDataList {
+    if (!_totalDayDataList) {
+        _totalDayDataList = [[NSMutableArray alloc] init];
+    }
+    return _totalDayDataList;
+}
+
+-(NSMutableArray *)sprayDataArr {
+    if (!_sprayDataArr) {
+        _sprayDataArr = [[NSMutableArray alloc] init];
+    }
+    return _sprayDataArr;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = RGBColor(240, 248, 252, 1.0);
     [self setNavTitle:_titles];
+    indexItem = 0;
     [self showFirstQuardrant];
     [self setInterface];
-
+    [self requestData];
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -104,7 +130,7 @@
 
 #pragma mark -- UICollectionViewDelegate
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return _AllNumberArr.count;
+    return self.totalDayDataList.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -117,16 +143,66 @@
     numL.textAlignment = NSTextAlignmentCenter;
     [cell.contentView addSubview:view];
     [cell.contentView addSubview:numL];
-    int viewH = [_AllNumberArr[indexPath.item] floatValue]/2 * yLineLabel.current_h/6;
+    int viewH = (self.totalDayDataList[indexPath.item].dataSum)/2 * yLineLabel.current_h/6;
     view.frame = CGRectMake(0, yLineLabel.current_h-viewH, 40, viewH);
     numL.frame = CGRectMake(0, view.current_y-20, 40, 14);
-    numL.text = [NSString stringWithFormat:@"%d",indexPath.item+1];
+    numL.text = [NSString stringWithFormat:@"%ld(%.1f)",indexPath.item+1,self.totalDayDataList[indexPath.item].dataSum];
     return cell;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    indexItem = indexPath.item;
     [self createLineChart:indexPath.item];
 }
+
+//MARK: - 请求数据
+-(void)requestData{
+    [DeviceRequestObject.shared requestGetNewTrainData];
+    //    __weak typeof(self) weakSelf = self;
+    [DeviceRequestObject.shared setRequestGetNewTrainDataSuc:^(SprayerDataModel * _Nonnull model) {
+        if ([model.suckFogData isEqualToString:@""]) {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Please go to training" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"gotoTrain" object:nil userInfo:nil];
+            }];
+            [alertController addAction:alertAction];
+            [self presentViewController:alertController animated:YES completion:nil];
+        }
+        allTrainTotalNum = model.dataSum;
+        if (model.medicineId == 1 || model.medicineId == 3) {
+            medicineName = @"Albuterol sulfate";
+        }else if (model.medicineId == 2 || model.medicineId == 4) {
+            medicineName = @"Tiotropium bromide";
+        }
+        referenceInfoLabel.text = [NSString stringWithFormat:@"%.1fL",allTrainTotalNum];
+        medicineNameL.text = medicineName;
+        NSArray * trainArr = [model.suckFogData componentsSeparatedByString:@","];
+        [self.sprayDataArr removeAllObjects];
+        for (NSString * str in trainArr) {
+            [self.sprayDataArr addObject:str];
+        }
+        
+        NSString *dateTime = [[DisplayUtils getTimeStampToString:@"YYYY-MM-dd" AndTime:self.selectDate] substringToIndex:10];
+        NSString * startStr = [NSString stringWithFormat:@"%@ 00:00:00",dateTime];
+        NSString * endStr = [NSString stringWithFormat:@"%@ 23:59:59",dateTime];
+        [DeviceRequestObject.shared requestGetNowDataSuckFogDataWithAddDate:startStr endDate:endStr];
+    }];
+    
+    [DeviceRequestObject.shared setRequestGetNowDataSuckFogDataSuc:^(NSArray<SprayerDataModel *> * _Nonnull dataList) {
+        if (dataList.count != 0) {
+            lastTrainNum = dataList[indexItem].dataSum;
+            currentInfoLabel.text = [NSString stringWithFormat:@"%.1fL",lastTrainNum];
+            totalInfoLabel.text = [NSString stringWithFormat:@"%.1fL",lastTrainNum];
+            [self.totalDayDataList removeAllObjects];
+            for (SprayerDataModel *model in dataList) {
+                [self.totalDayDataList addObject:model];
+            }
+            [self.collectionView reloadData];
+            [self createLineChart:indexItem];
+        }
+    }];
+}
+
 
 #pragma mark ----导航栏点击事件
 -(void)leftTap
@@ -136,9 +212,6 @@
 }
 
 - (void)showFirstQuardrant{
-    for (UIView *subview in self.view.subviews) {
-        [subview removeFromSuperview];
-    }
     _upBgView = [[UIView alloc]initWithFrame:CGRectMake(10, 74, screen_width-20, (screen_height-64-tabbarHeight)/2-20)];
     _upBgView.layer.cornerRadius = 3.0;
     _upBgView.backgroundColor = [UIColor whiteColor];
@@ -150,10 +223,10 @@
     referenceLabel.textColor = RGBColor(0, 64, 181, 1.0);
     referenceLabel.text = str;
     
-    UILabel * referenceInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(referenceLabel.current_x_w+5, 10, 50,strSize.height)];
+    referenceInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(referenceLabel.current_x_w+5, 10, 50,strSize.height)];
     referenceInfoLabel.textColor = RGBColor(0, 64, 181, 1.0);
     referenceInfoLabel.font = [UIFont systemFontOfSize:15];
-    referenceInfoLabel.text = [NSString stringWithFormat:@"%.1fL",_allTrainTotalNum/600.0];
+    referenceInfoLabel.text = [NSString stringWithFormat:@"%.1fL",allTrainTotalNum];
     
     NSString * str1 = @"Current Total Volume:";
     strSize = [DisplayUtils stringWithWidth:str1 withFont:12];
@@ -161,29 +234,32 @@
     currentLabel.font = [UIFont systemFontOfSize:12];
     currentLabel.textColor = RGBColor(0, 64, 181, 1.0);
     currentLabel.text = str1;
-    _currentInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(currentLabel.current_x_w+5, referenceInfoLabel.current_y_h, 50, strSize.height)];
-    _currentInfoLabel.text = [NSString stringWithFormat:@"%.1fL",_lastTrainNum/600.0];
-    _currentInfoLabel.textColor = RGBColor(0, 64, 181, 1.0);
-    _currentInfoLabel.font = [UIFont systemFontOfSize:15];
     
-    _medicineNameL = [[UILabel alloc] initWithFrame:CGRectMake(currentLabel.current_x, currentLabel.current_y_h, 100, 12)];
-    _medicineNameL.font = [UIFont systemFontOfSize:12];
-    _medicineNameL.textColor = RGBColor(0, 64, 181, 1.0);
-    _medicineNameL.text = self.medicineNaStr;
+    currentInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(currentLabel.current_x_w+5, referenceInfoLabel.current_y_h, 50, strSize.height)];
+    currentInfoLabel.text = [NSString stringWithFormat:@"%.1fL",lastTrainNum];
+    currentInfoLabel.textColor = RGBColor(0, 64, 181, 1.0);
+    currentInfoLabel.font = [UIFont systemFontOfSize:15];
+    
+    medicineNameL = [[UILabel alloc] initWithFrame:CGRectMake(currentLabel.current_x, currentLabel.current_y_h, 100, 12)];
+    medicineNameL.font = [UIFont systemFontOfSize:12];
+    medicineNameL.textColor = RGBColor(0, 64, 181, 1.0);
     
     UILabel * trainLabel = [[UILabel alloc]initWithFrame:CGRectMake(_upBgView.current_w-55, 10, 55, strSize.height)];
     trainLabel.text = @"Training";
     trainLabel.textColor = RGBColor(238, 146, 1, 1.0);
     trainLabel.font = [UIFont systemFontOfSize:12];
+    
     UIView * trainView = [[UIView alloc]initWithFrame:CGRectMake(trainLabel.current_x-15, 15, 10, 3)];
     CGPoint trainPoint = trainView.center;
     trainPoint.y = trainLabel.center.y;
     trainView.center = trainPoint;
     trainView.backgroundColor = RGBColor(238, 146, 1, 1.0);
+    
     UILabel * sprayLabel = [[UILabel alloc]initWithFrame:CGRectMake(trainLabel.current_x, trainLabel.current_y_h, 55, strSize.height)];
     sprayLabel.text = @"Spray";
     sprayLabel.textColor = RGBColor(0, 83, 181, 1.0);
     sprayLabel.font = [UIFont systemFontOfSize:12];
+    
     UIView * sprayView = [[UIView alloc]initWithFrame:CGRectMake(sprayLabel.current_x-15, 15, 10, 3)];
     CGPoint sprayPoint = sprayView.center;
     sprayPoint.y = sprayLabel.center.y;
@@ -194,13 +270,6 @@
     _slmLabel.text = @"SLM";
     _slmLabel.font = [UIFont systemFontOfSize:12];
     _slmLabel.textColor = RGBColor(221, 222, 223, 1.0);
-    /*     创建第一个折线图       */
-    if (_numberArr.count == 0) {
-        [self createLineChart:0];
-    }else
-    {
-        [self createLineChart:_numberArr.count-1];
-    }
     
     UILabel * SecLabel = [[UILabel alloc]initWithFrame:CGRectMake(_lineChart.current_x_w, _lineChart.current_y_h-30, _upBgView.current_w-_lineChart.current_x_w, 20)];
     SecLabel.text = @"Sec";
@@ -211,8 +280,8 @@
     [_upBgView addSubview:referenceLabel];
     [_upBgView addSubview:referenceInfoLabel];
     [_upBgView addSubview:currentLabel];
-    [_upBgView addSubview:_currentInfoLabel];
-    [_upBgView addSubview:_medicineNameL];
+    [_upBgView addSubview:currentInfoLabel];
+    [_upBgView addSubview:medicineNameL];
     [_upBgView addSubview:_slmLabel];
     [_upBgView addSubview:trainView];
     [_upBgView addSubview:trainLabel];
@@ -233,9 +302,9 @@
     insPoint.y = inspirationLabel.center.y;
     pointView.center = insPoint;
     
-    UILabel * totalInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(downBgView.current_w-60, inspirationLabel.current_y+15, 60, 30)];
+    totalInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(downBgView.current_w-60, inspirationLabel.current_y+15, 60, 30)];
     
-    totalInfoLabel.text = [NSString stringWithFormat:@"%.1fL",_allTotalNum/600.0];
+    totalInfoLabel.text = [NSString stringWithFormat:@"%.1fL",allTotalNum];
     totalInfoLabel.textAlignment = NSTextAlignmentLeft;
     totalInfoLabel.textColor = RGBColor(0, 83, 181, 1.0);
     totalInfoLabel.font = [UIFont systemFontOfSize:16];
@@ -254,33 +323,6 @@
     
     //获取总和
     float sum = 10;
-    
-//    for (NSString * str in _AllNumberArr) {
-//        sum+=[str floatValue];
-//    }
-//    //    sum/=600.0;
-//    //最大值取整数
-//    if (sum/10000>1) {
-//        sum = sum/10000+1;
-//        sum *= 10000;
-//    }else if (sum/1000>1)
-//    {
-//        sum = sum/1000+1;
-//        sum *= 1000;
-//    }else if (sum/100>1)
-//    {
-//        sum = sum/100+1;
-//        sum *= 100;
-//    }else if (sum/10>1)
-//    {
-//        sum = sum/10+1;
-//        sum *= 10;
-//    }else
-//    {
-//        sum = 10;
-//    }
-    
-    //--------------//
     for (int i =0; i<6; i++) {
         UILabel * yNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(yLineLabel.current_x-35,unitLabel.current_y_h+i*(yLineLabel.current_h/6)+15, 30, yLineLabel.current_h/6)];
         yNumLabel.textColor = RGBColor(204, 205, 206, 1.0);
@@ -293,29 +335,11 @@
     xLineLabel = [[UILabel alloc]initWithFrame:CGRectMake(yLineLabel.current_x_w, yLineLabel.current_y_h, downBgView.current_w-yLineLabel.current_x_w-30, 1)];
     xLineLabel.backgroundColor = RGBColor(204, 205, 206, 1.0);
     UILabel * downDateLabel = [[UILabel alloc]initWithFrame:CGRectMake(yLineLabel.current_x_w+xLineLabel.current_w/2-35, xLineLabel.current_y_h, 80, 30)];
-    downDateLabel.text = [DisplayUtils getTimestampData:@"MMMM dd,YYYY"];
+    downDateLabel.text = [DisplayUtils getTimeStampToString:@"MMMM dd,YYYY" AndTime:self.selectDate];
     downDateLabel.textColor = RGBColor(0, 83, 181, 1.0);
     downDateLabel.font = [UIFont systemFontOfSize:10];
     
-//    int viewH = 0;
-//    for (int i=0; i<_AllNumberArr.count; i++) {
-//        viewH+=[_AllNumberArr[i] floatValue]/(sum/5) * yLineLabel.current_h/6;
-//        //        NSLog(@"-------%d",viewH);
-//        UIView * view = [[UIView alloc]initWithFrame:CGRectMake(downDateLabel.current_x+15, xLineLabel.current_y-viewH, downDateLabel.current_w-30,[_AllNumberArr[i] floatValue]/(sum/5) * yLineLabel.current_h/6)];
-//        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
-//        tap.numberOfTouchesRequired = 1;
-//        view.tag = 1000+i;
-//        [view addGestureRecognizer:tap];
-//        if (i%2==0) {
-//            view.backgroundColor = RGBColor(0, 83, 181, 1.0);
-//        }else
-//        {
-//            view.backgroundColor = RGBColor(238, 146, 1, 1.0);
-//        }
-//        [downBgView addSubview:view];
-//    }
     [self setInterface];
-    [self.collectionView reloadData];
     
     UILabel * dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(xLineLabel.current_x_w, xLineLabel.current_y_h-10, downBgView.current_w-xLineLabel.current_x_w, 20)];
     dateLabel.text = @"Date";
@@ -346,23 +370,25 @@
 -(void)createLineChart:(NSInteger)index
 {
     //展示药品信息
-    BlueToothDataModel * totalModel = self.selectDateArr[index];
-    NSString *medicineN = totalModel.medicineName;
-    _medicineNameL.text = medicineN;
-    
-    int trainNum = 0;
-    for (NSString * str in _numberArr[index]) {
-        trainNum += [str intValue];
+    if (self.totalDayDataList.count != 0) {
+        SprayerDataModel *model = self.totalDayDataList[index];
+        if (model.medicineId == 1 || model.medicineId == 3) {
+            medicineName = @"Albuterol sulfate";
+        }else if (model.medicineId == 2 || model.medicineId == 4) {
+            medicineName = @"Tiotropium bromide";
+        }
+        medicineNameL.text = medicineName;
+        currentInfoLabel.text = [NSString stringWithFormat:@"%.1fL",model.dataSum];
+        totalInfoLabel.text = [NSString stringWithFormat:@"%.1fL",model.dataSum];
     }
-    _currentInfoLabel.text = [NSString stringWithFormat:@"%.1fL",trainNum/600.0];
     
     self.lineChart = [[JHLineChart alloc] initWithFrame:CGRectMake(5, _slmLabel.current_y_h, _upBgView.current_w-25, _upBgView.current_h-_slmLabel.current_y_h) andLineChartType:JHChartLineValueNotForEveryX];
     
     _lineChart.xLineDataArr = @[@"0",@"0.1",@"0.2",@"0.3",@"0.4",@"0.5",@"0.6",@"0.7",@"0.8",@"0.9",@"1.0",@"1.1",@"1.2",@"1.3",@"1.4",@"1.5",@"1.6",@"1.7",@"1.8",@"1.9",@"2.0",@"2.1",@"2.2",@"2.3",@"2.4",@"2.5",@"2.6",@"2.7",@"2.8",@"2.9",@"3.0",@"3.1",@"3.2",@"3.3",@"3.4",@"3.5",@"3.6",@"3.7",@"3.8",@"3.9",@"4.0",@"4.1",@"4.2",@"4.3",@"4.4",@"4.5",@"4.6",@"4.7",@"4.8",@"4.9",@"5.0"];//拿到X轴坐标
     _lineChart.contentInsets = UIEdgeInsetsMake(0, 25, 20, 10);
     _lineChart.lineChartQuadrantType = JHLineChartQuadrantTypeFirstQuardrant;
-    if (_numberArr.count!=0) {
-        _lineChart.valueArr = @[self.sprayDataArr,_numberArr[index]];
+    if (self.totalDayDataList.count!=0) {
+        _lineChart.valueArr = @[self.sprayDataArr,[self.totalDayDataList[index].suckFogData componentsSeparatedByString:@","]];
     }else
     {
         _lineChart.valueArr = @[self.sprayDataArr];

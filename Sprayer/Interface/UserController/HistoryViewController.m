@@ -312,8 +312,11 @@ static NSString *Cell_TWO = @"cellTwo";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row !=0) {
-        HistoryModel *model = self.dataArr[indexPath.row-1];
-        [self filterTheDataInSelectDate:model.time];
+        SprayerDataModel *model = self.dataArr[indexPath.row-1];
+        HistoryDetailViewController * vc = [[HistoryDetailViewController alloc]init];
+        vc.selectDate = [NSString stringWithFormat:@"%lld",model.addDate/1000];
+        vc.titles = [DisplayUtils getTimeStampToString:@"MMM dd" AndTime:[NSString stringWithFormat:@"%lld",model.addDate/1000]];
+        [self.navigationController pushViewController:vc animated:YES];
     }
    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -331,177 +334,89 @@ static NSString *Cell_TWO = @"cellTwo";
     
 }
 //定义编辑样式
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return UITableViewCellEditingStyleDelete;
-}
-//进入编辑模式，按下出现的编辑按钮后,进行删除操作
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        if (indexPath.row != 0) {
-//            // Delete the row from the data source.
-//            //从数据表中删除掉选中用户相关的所有数据表
-//            [self deleteFromDb:indexPath.row-1];
-//            [self.dataArr removeObjectAtIndex:indexPath.row-1];
-//            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [self alertToDeleteWhenClickYes:^{
-                [self deleteDataWith:indexPath andTableView:tableView];
-            } OrNo:nil];
-        }
-    }
-}
-//修改编辑按钮文字
-- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return @"delete";
-}
-
-#pragma mark ----- 删除所选的历史数据
--(void)deleteFromDb :(NSInteger)index
-{
-//    HistoryModel *model = self.dataArr[index];
-//    //将时间戳转为应为缩写
-//    for (NSString * timeStr in _dateArr) {
-//
-//        NSTimeInterval time=[timeStr doubleValue];
-//        NSDate *detaildate=[NSDate dateWithTimeIntervalSince1970:time];
-//        //实例化一个NSDateFormatter对象
-//        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//        //设定时间格式,这里可以设置成自己需要的格式
-//        [dateFormatter setDateFormat:@"MMM dd"];
-//
-//        NSString *currentDateStr = [dateFormatter stringFromDate: detaildate];
-//        //如果当条数据和所删的数据时间是同一天，则从数据库中删除
-//        if([currentDateStr isEqualToString:model.time])
-//        {
-//            [[SqliteUtils sharedManager] deleteHistoryBTData:[NSString stringWithFormat:@"delete from historyBTDb where nowtime = %@;",timeStr]];//userid = %d and   _model.userId,
+//- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return UITableViewCellEditingStyleDelete;
+//}
+////进入编辑模式，按下出现的编辑按钮后,进行删除操作
+//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    if (editingStyle == UITableViewCellEditingStyleDelete) {
+//        if (indexPath.row != 0) {
+////            // Delete the row from the data source.
+////            //从数据表中删除掉选中用户相关的所有数据表
+////            [self deleteFromDb:indexPath.row-1];
+////            [self.dataArr removeObjectAtIndex:indexPath.row-1];
+////            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+//            [self alertToDeleteWhenClickYes:^{
+//                [self deleteDataWith:indexPath andTableView:tableView];
+//            } OrNo:nil];
 //        }
-//
 //    }
-
-    
-}
-#pragma mark ---- 筛选出选择的日期的所有历史数据
--(void)filterTheDataInSelectDate:(NSString *)date
-{
-    //查询数据库(获取所有用户数据)
-    NSArray * arr = [[SqliteUtils sharedManager] selectHistoryBTInfo];
-    NSMutableArray * dataArr = [NSMutableArray array];
-    //筛选出该用户的所有历史数据
-    for (BlueToothDataModel * model in arr) {
-        if (model.userId == _model.userId) {
-            [dataArr addObject:model];
-        }
-    }
-   
-    //筛选出该用户当前选的日期的数据
-    NSMutableArray * selectDateArr = [NSMutableArray array];
-    for (BlueToothDataModel * model in dataArr) {
-        
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"MMM dd"];
-        NSDate *confromTimesp2 = [NSDate dateWithTimeIntervalSince1970:[model.timestamp doubleValue]];
-        NSString * confromTimespStr2 = [formatter stringFromDate:confromTimesp2];
-        if ([confromTimespStr2 isEqualToString:date]) {
-            [selectDateArr addObject:model];
-        }
-        
-    }
-    //将详情页面所要显示的数据取出
-    NSMutableArray * numberArr = [NSMutableArray array];
-    for (BlueToothDataModel * model in selectDateArr) {
-        NSArray * arr = [model.blueToothData componentsSeparatedByString:@","];
-        [numberArr addObject:arr];
-    }
-    //
-    int allTotalNum = 0;
-    int allTrainTotalNum = 0;
-    int lastTrainNum = 0;
-    
-    NSMutableArray * allNumberArr = [NSMutableArray array];
-    for (NSArray * num in numberArr) {
-        float allNum = 0;
-        for (NSString * str in num) {
-            allNum+=[str floatValue];
-        }
-        [allNumberArr addObject:[NSString stringWithFormat:@"%.2f",allNum/600.0]];
-         allTotalNum += allNum;
-    }
-    //
-    NSInteger count = numberArr.count;
-    if (count!=0) {
-        NSArray * lastTrainData = numberArr[count-1];
-        lastTrainNum = 0;
-        for (NSString * str in lastTrainData) {
-            lastTrainNum += [str intValue];
-        }
-    }
-    //从用户表拿出该用户的最佳训练数据
-    NSString * btDataStr;
-    NSArray * arr1 = [[SqliteUtils sharedManager]selectUserInfo];
-    if (arr.count!=0) {
-        for (AddPatientInfoModel * model in arr1) {
-            if (model.userId == _model.userId) {
-                
-                btDataStr = model.btData;
-            }
-        }
-    }
-    NSMutableArray * sprayDataArr = [NSMutableArray array];
-    for (NSString * str in [btDataStr componentsSeparatedByString:@","]) {
-        [sprayDataArr addObject:str];
-        allTrainTotalNum += [str intValue];
-    }
-    //药品名称
-    BlueToothDataModel * totalModel = selectDateArr[selectDateArr.count - 1];
-    NSString *medicineN = totalModel.medicineName;
-    //
-    HistoryDetailViewController * vc = [[HistoryDetailViewController alloc]init];
-    vc.numberArr = numberArr;
-    vc.AllNumberArr = allNumberArr;
-    vc.sprayDataArr = sprayDataArr;
-    vc.allTotalNum = allTotalNum;
-    vc.allTrainTotalNum = allTrainTotalNum;
-    vc.lastTrainNum = lastTrainNum;
-    vc.titles = date;
-    vc.medicineNaStr = medicineN;
-    vc.selectDateArr = selectDateArr;
-    [self.navigationController pushViewController:vc animated:YES];
-
-}
+//}
+////修改编辑按钮文字
+//- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return @"delete";
+//}
+//
+//#pragma mark ----- 删除所选的历史数据
+//-(void)deleteFromDb :(NSInteger)index
+//{
+////    HistoryModel *model = self.dataArr[index];
+////    //将时间戳转为应为缩写
+////    for (NSString * timeStr in _dateArr) {
+////
+////        NSTimeInterval time=[timeStr doubleValue];
+////        NSDate *detaildate=[NSDate dateWithTimeIntervalSince1970:time];
+////        //实例化一个NSDateFormatter对象
+////        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+////        //设定时间格式,这里可以设置成自己需要的格式
+////        [dateFormatter setDateFormat:@"MMM dd"];
+////
+////        NSString *currentDateStr = [dateFormatter stringFromDate: detaildate];
+////        //如果当条数据和所删的数据时间是同一天，则从数据库中删除
+////        if([currentDateStr isEqualToString:model.time])
+////        {
+////            [[SqliteUtils sharedManager] deleteHistoryBTData:[NSString stringWithFormat:@"delete from historyBTDb where nowtime = %@;",timeStr]];//userid = %d and   _model.userId,
+////        }
+////
+////    }
+//
+//
+//}
 
 #pragma mark - 删除相关
 //删除用户时给出提示
-- (void)alertToDeleteWhenClickYes:(void (^)())clickYes OrNo:(void (^)())clickNo
-{
-    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil
-                                                                     message:@"Do you want to delete it?" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *actionYes = [UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        if (clickYes) {
-            clickYes();
-        }
-    }];
-    [alertVC addAction:actionYes];
-    
-    UIAlertAction *actionNo = [UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        if (clickNo) {
-            clickNo();
-        }
-    }];
-    [alertVC addAction:actionNo];
-    
-    [self presentViewController:alertVC animated:NO completion:nil];
-}
+//- (void)alertToDeleteWhenClickYes:(void (^)())clickYes OrNo:(void (^)())clickNo
+//{
+//    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil
+//                                                                     message:@"Do you want to delete it?" preferredStyle:UIAlertControllerStyleAlert];
+//    UIAlertAction *actionYes = [UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        if (clickYes) {
+//            clickYes();
+//        }
+//    }];
+//    [alertVC addAction:actionYes];
+//    
+//    UIAlertAction *actionNo = [UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        if (clickNo) {
+//            clickNo();
+//        }
+//    }];
+//    [alertVC addAction:actionNo];
+//    
+//    [self presentViewController:alertVC animated:NO completion:nil];
+//}
 //根据传过来的indexPath和tableView来响应删除按钮
-- (void)deleteDataWith:(NSIndexPath *)indexPath andTableView:(UITableView *)tableView
-{
-    // Delete the row from the data source.
-    //从数据表中删除掉选中用户相关的所有数据表
-    [self deleteFromDb:indexPath.row-1];
-    [self.dataArr removeObjectAtIndex:indexPath.row-1];
-    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-}
+//- (void)deleteDataWith:(NSIndexPath *)indexPath andTableView:(UITableView *)tableView
+//{
+//    // Delete the row from the data source.
+//    //从数据表中删除掉选中用户相关的所有数据表
+//    [self deleteFromDb:indexPath.row-1];
+//    [self.dataArr removeObjectAtIndex:indexPath.row-1];
+//    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+//}
 
 
 - (void)didReceiveMemoryWarning {

@@ -21,7 +21,7 @@
 #define k_MainBoundsHeight [UIScreen mainScreen].bounds.size.height
 @interface SprayViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 {
-    int allTotalNum;
+    float allTotalNum;
     float allTrainTotalNum;
     float lastTrainNum;
     NSInteger indexItem;
@@ -47,9 +47,6 @@
 
 @property(nonatomic,strong)NSMutableArray * sprayDataArr;//训练最佳曲线数据(1.2....)
 
-@property(nonatomic,strong)NSMutableArray * AllNumberArr;//柱状图实时数据总和（num,num）
-
-@property(nonatomic,strong)NSMutableArray * numberArr;//单条实时曲线图的数据（50一组）((1.2....),(1.2...))
 @property(nonatomic,strong)NSMutableArray<SprayerDataModel *> * totalDayDataList;//当天喷雾数据
 
 @property (nonatomic,strong)NSTimer *timer;
@@ -205,7 +202,7 @@
     
     totalInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(downBgView.current_w-60, inspirationLabel.current_y+15, 60, 30)];
     
-    totalInfoLabel.text = [NSString stringWithFormat:@"%.1fL",allTotalNum/600.0];
+    totalInfoLabel.text = [NSString stringWithFormat:@"%.1fL",allTotalNum];
     totalInfoLabel.textAlignment = NSTextAlignmentLeft;
     totalInfoLabel.textColor = RGBColor(0, 83, 181, 1.0);
     totalInfoLabel.font = [UIFont systemFontOfSize:16];
@@ -308,7 +305,7 @@
     int viewH = (self.totalDayDataList[indexPath.item].dataSum)/2 * yLineLabel.current_h/6;
     view.frame = CGRectMake(0, yLineLabel.current_h-viewH, 40, viewH);
     numL.frame = CGRectMake(0, view.current_y-20, 40, 14);
-    numL.text = [NSString stringWithFormat:@"%ld(%.1f)",indexPath.item+1,self.totalDayDataList[indexPath.item].dataSum];
+    numL.text = [NSString stringWithFormat:@"%d(%.1f)",indexPath.item+1,self.totalDayDataList[indexPath.item].dataSum];
     return cell;
 }
 
@@ -391,24 +388,25 @@
         for (NSString * str in trainArr) {
             [self.sprayDataArr addObject:str];
         }
-        
-        NSString *startDate = [[DisplayUtils getTimestampData:@"YYYY-MM-dd"] substringToIndex:10];
-        NSString *endDate = [[DisplayUtils getTimestampData:@"YYYY-MM-dd"] substringToIndex:10];
-        NSString * startStr = [NSString stringWithFormat:@"%@ 00:00:00",startDate];
-        NSString * endStr = [NSString stringWithFormat:@"%@ 23:59:59",endDate];
+        [self createLineChart:0];
+        NSString *dateTime = [[DisplayUtils getTimestampData:@"YYYY-MM-dd"] substringToIndex:10];
+        NSString * startStr = [NSString stringWithFormat:@"%@ 00:00:00",dateTime];
+        NSString * endStr = [NSString stringWithFormat:@"%@ 23:59:59",dateTime];
         [DeviceRequestObject.shared requestGetNowDataSuckFogDataWithAddDate:startStr endDate:endStr];
     }];
     
     [DeviceRequestObject.shared setRequestGetNowDataSuckFogDataSuc:^(NSArray<SprayerDataModel *> * _Nonnull dataList) {
-        lastTrainNum = dataList[indexItem].dataSum;
-        currentInfoLabel.text = [NSString stringWithFormat:@"%.1fL",lastTrainNum];
-        totalInfoLabel.text = [NSString stringWithFormat:@"%.1fL",lastTrainNum];
-        [self.totalDayDataList removeAllObjects];
-        for (SprayerDataModel *model in dataList) {
-            [self.totalDayDataList addObject:model];
+        if (dataList.count != 0) {
+            lastTrainNum = dataList[indexItem].dataSum;
+            currentInfoLabel.text = [NSString stringWithFormat:@"%.1fL",lastTrainNum];
+            totalInfoLabel.text = [NSString stringWithFormat:@"%.1fL",lastTrainNum];
+            [self.totalDayDataList removeAllObjects];
+            for (SprayerDataModel *model in dataList) {
+                [self.totalDayDataList addObject:model];
+            }
+            [self.collectionView reloadData];
+            [self createLineChart:indexItem];
         }
-        [self.collectionView reloadData];
-        [self createLineChart:indexItem];
     }];
 }
 
@@ -425,20 +423,25 @@
 #pragma mark ---创建曲线图
 -(void)createLineChart:(NSInteger)index
 {
-    
-    //展示药品信息
-    SprayerDataModel *model = self.totalDayDataList[index];
-    if (model.medicineId == 1 || model.medicineId == 3) {
-        medicineName = @"Albuterol sulfate";
-    }else if (model.medicineId == 2 || model.medicineId == 4) {
-        medicineName = @"Tiotropium bromide";
+    for (UIView *view in _upBgView.subviews) {
+        if ([view isKindOfClass:[JHLineChart class]]) {
+            [view removeFromSuperview];
+        }
     }
-    medicineNameL.text = medicineName;
-    currentInfoLabel.text = [NSString stringWithFormat:@"%.1fL",model.dataSum];
-    totalInfoLabel.text = [NSString stringWithFormat:@"%.1fL",model.dataSum];
+    //展示药品信息
+    if (self.totalDayDataList.count != 0) {
+        SprayerDataModel *model = self.totalDayDataList[index];
+        if (model.medicineId == 1 || model.medicineId == 3) {
+            medicineName = @"Albuterol sulfate";
+        }else if (model.medicineId == 2 || model.medicineId == 4) {
+            medicineName = @"Tiotropium bromide";
+        }
+        medicineNameL.text = medicineName;
+        currentInfoLabel.text = [NSString stringWithFormat:@"%.1fL",model.dataSum];
+        totalInfoLabel.text = [NSString stringWithFormat:@"%.1fL",model.dataSum];
+    }
     
     self.lineChart = [[JHLineChart alloc] initWithFrame:CGRectMake(5, _slmLabel.current_y_h, _upBgView.current_w-25, _upBgView.current_h-_slmLabel.current_y_h) andLineChartType:JHChartLineValueNotForEveryX];
-    
     _lineChart.xLineDataArr = @[@"0",@"0.1",@"0.2",@"0.3",@"0.4",@"0.5",@"0.6",@"0.7",@"0.8",@"0.9",@"1.0",@"1.1",@"1.2",@"1.3",@"1.4",@"1.5",@"1.6",@"1.7",@"1.8",@"1.9",@"2.0",@"2.1",@"2.2",@"2.3",@"2.4",@"2.5",@"2.6",@"2.7",@"2.8",@"2.9",@"3.0",@"3.1",@"3.2",@"3.3",@"3.4",@"3.5",@"3.6",@"3.7",@"3.8",@"3.9",@"4.0",@"4.1",@"4.2",@"4.3",@"4.4",@"4.5",@"4.6",@"4.7",@"4.8",@"4.9",@"5.0"];//拿到X轴坐标
     _lineChart.contentInsets = UIEdgeInsetsMake(0, 25, 20, 10);
     _lineChart.lineChartQuadrantType = JHLineChartQuadrantTypeFirstQuardrant;
