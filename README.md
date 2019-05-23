@@ -1,5 +1,5 @@
 # sprayer
-喷雾器项目
+喷雾器项目网络版本
 
 后台管理系统地址：http://pneuma-admin.com/pneuma-manager/ index.html
 
