@@ -109,7 +109,7 @@ typedef enum _TTGState{
         [_peripheralList removeAllObjects];
     }
     if (peripheral.name != nil) {
-        if ([peripheral.name isEqualToString:@"nRF52832"]) {//1.SKB369   2.nRF52832
+        if ([peripheral.name isEqualToString:@"nRF52832"] || [peripheral.name isEqualToString:@"SKB369"]) {//1.SKB369   2.nRF52832
             Model *model = [[Model alloc] init];
             NSData *data = [advertisementData objectForKey:@"kCBAdvDataManufacturerData"];
             NSString *macAddress = [FLDrawDataTool hexStringFromData:data];
