@@ -139,6 +139,7 @@ static NSString *THREE_Cell = @"THREECELL";
     NSArray *titleArr = @[@"Name:",@"Phone:",@"Sex:",@"Age:",@"Race:",@"Height:",@"Weight:"];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ONE_Cell];
     cell.backgroundColor = [UIColor whiteColor];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (cell) {
         for (UIView *subView in cell.subviews) {
             [subView removeFromSuperview];
@@ -206,11 +207,11 @@ static NSString *THREE_Cell = @"THREECELL";
         return cell;
     }else if (indexPath.section == 2){
         UILabel *keyLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 2, screen_width/2, 40)];
-        keyLabel.text = [NSString stringWithFormat:@"Device serial number:%@",[UserInfoData MR_findFirst].macAddress];
+        keyLabel.text = @"Device serial number:";
         keyLabel.textColor = RGBColor(50, 51, 52, 1.0);
         keyLabel.font = [UIFont systemFontOfSize:14];
-        UILabel * valueLabel = [[UILabel alloc]initWithFrame:CGRectMake(screen_width-80, 0, 70, cell.current_h)];
-        valueLabel.text =_patientModel.deviceSerialNum;
+        UILabel * valueLabel = [[UILabel alloc]initWithFrame:CGRectMake(screen_width-150, 0, 150, cell.current_h)];
+        valueLabel.text = [UserInfoData MR_findFirst].macAddress;
         valueLabel.textColor = RGBColor(50, 51, 52, 1.0);
         valueLabel.font = [UIFont systemFontOfSize:14];
         valueLabel.textAlignment = NSTextAlignmentRight;
@@ -240,31 +241,24 @@ static NSString *THREE_Cell = @"THREECELL";
             EditDetailPatSexInfoViewController * sexVC = [[EditDetailPatSexInfoViewController alloc]init];
             sexVC.sexDelegate = self;
             UILabel * label = (UILabel *)[self.view viewWithTag:102];
-            
             if (label.text.length!=0) {
                 sexVC.sexStr = label.text;
             }
             [self.navigationController pushViewController:sexVC animated:YES];
-        }else if(indexPath.row == 3||indexPath.row == 4||indexPath.row == 5||indexPath.row ==6)
-        {
+        }else if(indexPath.row == 3||indexPath.row == 4||indexPath.row == 5||indexPath.row ==6){
             [self createPickerView:indexPath.row :titleArr[indexPath.row]];
-            
-        }else
-        {
+        }else{
             EditDetailPatientInfoViewController * editDetailVC = [[EditDetailPatientInfoViewController alloc]init];
             editDetailVC.nameStr = titleArr[indexPath.row];
             UILabel * label = (UILabel *)[self.view viewWithTag:100+indexPath.row];
-            
             if (label.text.length!=0) {
                 editDetailVC.infoStr = label.text;
             }
-            
             editDetailVC.index = indexPath.row;
             editDetailVC.infoDelegate = self;
             [self.navigationController pushViewController:editDetailVC animated:YES];
         }
-    }else
-    {
+    }else{
         return;
     }
 
