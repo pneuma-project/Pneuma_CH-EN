@@ -108,7 +108,7 @@
 }
 
 -(void)setUpInterface{
-    _upBgView = [[UIView alloc]initWithFrame:CGRectMake(10, 74, screen_width-20, (screen_height-64-tabbarHeight)/2-20)];
+    _upBgView = [[UIView alloc]initWithFrame:CGRectMake(10, kSafeAreaTopHeight+10, screen_width-20, (screen_height-kSafeAreaTopHeight-kTabbarHeight)/2-20)];
     _upBgView.layer.cornerRadius = 3.0;
     _upBgView.backgroundColor = [UIColor whiteColor];
     
@@ -187,7 +187,7 @@
     [self.view addSubview:_upBgView];
     
     /*创建第二个柱状图 */
-    downBgView = [[UIView alloc]initWithFrame:CGRectMake(10, _upBgView.current_y_h+10, screen_width-20,(screen_height-64-tabbarHeight)/2-20)];
+    downBgView = [[UIView alloc]initWithFrame:CGRectMake(10, _upBgView.current_y_h+10, screen_width-20,(screen_height-kSafeAreaTopHeight-kTabbarHeight)/2-20)];
     downBgView.backgroundColor = [UIColor whiteColor];
     UIView * pointView = [[UIView alloc]initWithFrame:CGRectMake(10, 10, 8, 8)];
     pointView.backgroundColor = RGBColor(0, 83, 181, 1.0);

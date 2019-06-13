@@ -29,6 +29,11 @@
 @property (nonatomic,strong)NSTimer *medicineInfoTimer;   //发送药品信息定时器
 
 @property(nonatomic,strong)BlueDeviceListView *blueView;  //蓝牙设备列表视图
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topViewTop;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *deviceImgBottom;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *deviceBtnBottom;
+
 @end
 
 @implementation DeviceViewController
@@ -38,6 +43,7 @@
     // Do any additional setup after loading the view from its nib.
     self.view.backgroundColor = [UIColor whiteColor];
     [self setNavTitle:@"MY DEVICE"];
+    [self setLayoutConstraint];
     self.medicineInfoTimer = [NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(writeInquireMedicineInfo) userInfo:nil repeats:YES];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(writePowerInfoDataAction) userInfo:nil repeats:YES];
     
@@ -83,6 +89,12 @@
     NSLog(@"self = %@",self.timer);
     [self.timer setFireDate:[NSDate distantFuture]];
     [self.medicineInfoTimer setFireDate:[NSDate distantFuture]];
+}
+
+-(void)setLayoutConstraint {
+    _topViewTop.constant = kSafeAreaTopHeight;
+    _deviceImgBottom.constant = kTabbarHeight;
+    _deviceBtnBottom.constant = 36.0+kTabbarHeight;
 }
 
 #pragma mark - 没有用户时的弹窗

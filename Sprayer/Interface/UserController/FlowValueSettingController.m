@@ -14,6 +14,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *k1ValueTF;
 @property (weak, nonatomic) IBOutlet UITextField *k2ValueTF;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topFlowTop;
 
 @end
 
@@ -36,6 +37,7 @@
     }else {
         self.k2ValueTF.text = [UserDefaultsUtils valueWithKey:@"k2flowValue"];
     }
+    _topFlowTop.constant = kSafeAreaTopHeight+11;
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{

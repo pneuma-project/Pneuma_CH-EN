@@ -71,7 +71,7 @@
 #pragma mark - 创建UI
 -(void)createView
 {
-    headView = [[UIView alloc] initWithFrame:CGRectMake(15, 80, screen_width-30, (screen_height-64-tabbarHeight-100)/2)];
+    headView = [[UIView alloc] initWithFrame:CGRectMake(15, kSafeAreaTopHeight+16, screen_width-30, (screen_height-kSafeAreaTopHeight-kTabbarHeight-100)/2)];
     headView.backgroundColor = [UIColor whiteColor];
     headView.layer.mask = [DisplayUtils cornerRadiusGraph:headView withSize:CGSizeMake(5, 5)];
     [self.view addSubview:headView];

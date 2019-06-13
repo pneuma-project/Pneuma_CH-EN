@@ -119,7 +119,7 @@
     //按钮
     UIButton *startBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     startBtn.frame = CGRectMake(50, 0, screen_width-100, 40);
-    startBtn.center = CGPointMake(screen_width/2, chatBgView.current_y_h+(footView.current_h-chatBgView.current_y_h-tabbarHeight)/2);
+    startBtn.center = CGPointMake(screen_width/2, chatBgView.current_y_h+(footView.current_h-chatBgView.current_y_h-kTabbarHeight)/2);
     if (isTrain == NO) {
         [startBtn setTitle:@"Start Training" forState:UIControlStateNormal];
     }else{

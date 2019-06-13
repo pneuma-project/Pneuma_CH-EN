@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -11,15 +11,18 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DeviceViewController">
             <connections>
+                <outlet property="deviceBtnBottom" destination="Sep-mc-J5T" id="uh7-ro-07u"/>
                 <outlet property="deviceConnectBtn" destination="PHm-bB-SKg" id="SnR-tA-RhB"/>
+                <outlet property="deviceImgBottom" destination="bBN-49-B7Y" id="YTF-SG-1eR"/>
                 <outlet property="isOnlineBtn" destination="db8-ly-25h" id="HG2-uV-WJk"/>
                 <outlet property="serialLabel" destination="wkq-UR-57u" id="dnX-n5-M8T"/>
+                <outlet property="topViewTop" destination="fLc-Bl-zij" id="u0j-UD-QPW"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9JA-k5-Fes">
@@ -44,7 +47,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="db8-ly-25h">
-                            <rect key="frame" x="315" y="8.5" width="44" height="38"/>
+                            <rect key="frame" x="315" y="8.6666666666666714" width="44" height="38"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="38" id="83D-wX-s6U"/>
                                 <constraint firstAttribute="width" constant="44" id="yjD-UW-Ihb"/>
@@ -79,10 +82,10 @@
                     </constraints>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="device-img-shebei" translatesAutoresizingMaskIntoConstraints="NO" id="mbH-pG-m1Z">
-                    <rect key="frame" x="0.0" y="119" width="375" height="499"/>
+                    <rect key="frame" x="0.0" y="119" width="375" height="644"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PHm-bB-SKg">
-                    <rect key="frame" x="50" y="542" width="275" height="40"/>
+                    <rect key="frame" x="50" y="687" width="275" height="40"/>
                     <color key="backgroundColor" red="0.039215686274509803" green="0.30196078431372547" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="oms-4h-eO0"/>
