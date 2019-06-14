@@ -131,7 +131,7 @@
 
 -(void)createView
 {
-    UIView * upBgView = [[UIView alloc]initWithFrame:CGRectMake(10, 74, screen_width-20, (screen_height-64-tabbarHeight)/2-20)];
+    UIView * upBgView = [[UIView alloc]initWithFrame:CGRectMake(10, kSafeAreaTopHeight+10, screen_width-20, (screen_height-64-kTabbarHeight)/2-20)];
     upBgView.layer.cornerRadius = 3.0;
     upBgView.backgroundColor = [UIColor whiteColor];
     
@@ -145,9 +145,9 @@
     lineChart.contentInsets = UIEdgeInsetsMake(0, 25, 20, 10);
     lineChart.lineChartQuadrantType = JHLineChartQuadrantTypeFirstQuardrant;
 
-    NSArray * mutArr; sum1 = 0;
-    NSArray * mutArr1; sum2 = 0;
-    NSArray * mutArr2; sum3 = 0;
+    NSArray * mutArr = @[]; sum1 = 0;
+    NSArray * mutArr1 = @[]; sum2 = 0;
+    NSArray * mutArr2 = @[]; sum3 = 0;
    
     mutArr = [UserDefaultsUtils valueWithKey:@"OneTrainDataArr"];
     mutArr1 = [UserDefaultsUtils valueWithKey:@"TwoTrainDataArr"];
@@ -163,8 +163,9 @@
     for (NSString * str in mutArr2) {
         sum3 += [str intValue];
     }
-    
-    lineChart.valueArr = @[mutArr,mutArr1,mutArr2];
+    if (mutArr.count != 0 && mutArr1.count != 0 && mutArr2.count != 0) {
+        lineChart.valueArr = @[mutArr,mutArr1,mutArr2];
+    }
     lineChart.showYLevelLine = YES;
     lineChart.showYLine = NO;
     lineChart.showValueLeadingLine = NO;
@@ -198,7 +199,7 @@
     [self.view addSubview:upBgView];
     [lineChart showAnimation];
     
-    UIView * downView = [[UIView alloc]initWithFrame:CGRectMake(upBgView.current_x, upBgView.current_y_h+10, upBgView.current_w,screen_height-tabbarHeight-74-upBgView.current_h-10)];
+    UIView * downView = [[UIView alloc]initWithFrame:CGRectMake(upBgView.current_x, upBgView.current_y_h+10, upBgView.current_w,screen_height-kTabbarHeight-74-upBgView.current_h-10)];
     
     downView.backgroundColor = [UIColor clearColor];
    

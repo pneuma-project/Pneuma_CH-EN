@@ -66,13 +66,13 @@
 #pragma mark - 创建UI
 -(void)createView
 {
-    UILabel *firstResultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 70, screen_width, 60)];
+    UILabel *firstResultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, kSafeAreaTopHeight+6, screen_width, 60)];
     firstResultLabel.text = @"First Inspiratory Cycle Results";
     firstResultLabel.textColor = RGBColor(8, 86, 184, 1.0);
     firstResultLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:firstResultLabel];
     
-    circleView = [[UIView alloc] initWithFrame:CGRectMake(15, firstResultLabel.current_y_h+10, screen_width-30, (screen_height-firstResultLabel.current_y_h-tabbarHeight)/2)];
+    circleView = [[UIView alloc] initWithFrame:CGRectMake(15, firstResultLabel.current_y_h+10, screen_width-30, (screen_height-firstResultLabel.current_y_h-kTabbarHeight)/2)];
     circleView.backgroundColor = [UIColor whiteColor];
     circleView.layer.mask = [DisplayUtils cornerRadiusGraph:circleView withSize:CGSizeMake(5, 5)];
     [self.view addSubview:circleView];
@@ -166,7 +166,7 @@
     //第二次训练按钮
     UIButton *secondBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     secondBtn.frame = CGRectMake(50, 0, screen_width-100, 40);
-    secondBtn.center = CGPointMake(screen_width/2, circleView.current_y_h+(self.view.current_h-circleView.current_y_h-tabbarHeight)/2);
+    secondBtn.center = CGPointMake(screen_width/2, circleView.current_y_h+(self.view.current_h-circleView.current_y_h-kTabbarHeight)/2);
     [secondBtn setTitle:@"The Second Training" forState:UIControlStateNormal];
     [secondBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     secondBtn.titleLabel.font = [UIFont systemFontOfSize:15];

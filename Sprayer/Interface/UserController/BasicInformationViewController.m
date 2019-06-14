@@ -72,7 +72,7 @@ static NSString *THREE_Cell = @"THREECELL";
 -(void)createHeadView
 {
     self.pickerView = [[ValuePickerView alloc]init];
-    headView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, screen_width, 100)];
+    headView = [[UIView alloc] initWithFrame:CGRectMake(0, kSafeAreaTopHeight, screen_width, 100)];
     
     headImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
     headImageView.center = CGPointMake(screen_width/2, 50);

@@ -64,13 +64,13 @@
 #pragma mark - 创建UI
 -(void)createView
 {
-    UILabel *thirdResultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 70, screen_width, 60)];
+    UILabel *thirdResultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, kSafeAreaTopHeight+6, screen_width, 60)];
     thirdResultLabel.text = @"Third Inspiratory Cycle Results";
     thirdResultLabel.textColor = RGBColor(8, 86, 184, 1.0);
     thirdResultLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:thirdResultLabel];
     
-    circleView = [[UIView alloc] initWithFrame:CGRectMake(15, thirdResultLabel.current_y_h+10, screen_width-30, (screen_height-thirdResultLabel.current_y_h-tabbarHeight)/2)];
+    circleView = [[UIView alloc] initWithFrame:CGRectMake(15, thirdResultLabel.current_y_h+10, screen_width-30, (screen_height-thirdResultLabel.current_y_h-kTabbarHeight)/2)];
     circleView.backgroundColor = [UIColor whiteColor];
     circleView.layer.mask = [DisplayUtils cornerRadiusGraph:circleView withSize:CGSizeMake(5, 5)];
     [self.view addSubview:circleView];
@@ -165,7 +165,7 @@
     //训练完成按钮
     UIButton *completeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     completeBtn.frame = CGRectMake(50, 0, screen_width-100, 40);
-    completeBtn.center = CGPointMake(screen_width/2, circleView.current_y_h+(self.view.current_h-circleView.current_y_h-tabbarHeight)/2);
+    completeBtn.center = CGPointMake(screen_width/2, circleView.current_y_h+(self.view.current_h-circleView.current_y_h-kTabbarHeight)/2);
     [completeBtn setTitle:@"Complete the Training" forState:UIControlStateNormal];
     [completeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     completeBtn.titleLabel.font = [UIFont systemFontOfSize:15];
