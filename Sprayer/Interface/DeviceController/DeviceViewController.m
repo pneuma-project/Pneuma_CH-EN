@@ -136,7 +136,7 @@
     [UserDefaultsUtils saveBoolValue:NO withKey:IsDisplayMedInfo];
 }
 
-//停止定时器发送上电信息
+//开始训练，停止定时器
 -(void)stopNSTimerAction
 {
     [self.timer setFireDate:[NSDate distantFuture]];

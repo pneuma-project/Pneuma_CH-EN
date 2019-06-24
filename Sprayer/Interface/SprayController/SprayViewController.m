@@ -77,6 +77,7 @@
     [self setNavTitle:[DisplayUtils getTimestampData:@"MMMM dd,YYYY"]];
     indexItem = 0;
     [self setUpInterface];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(writeDataAction) userInfo:nil repeats:YES];
 }
 
 -(void)setNavTitle:(NSString *)title
@@ -294,6 +295,9 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"UICollectionViewCell" forIndexPath:indexPath];
+    for (UIView *view in cell.contentView.subviews) {
+        [view removeFromSuperview];
+    }
     UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
     view.backgroundColor = RGBColor(10, 77, 170, 1);
     UILabel *numL = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -331,8 +335,7 @@
 -(void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    [self.timer invalidate];
-    self.timer = nil;
+    [self.timer setFireDate:[NSDate distantFuture]];
 }
 
 -(void)refreshViewAction
@@ -342,14 +345,12 @@
 
 -(void)disconnectAction
 {
-//    if (self.timer.isValid == YES) {
-//        [self.timer invalidate];
-//    }
+    [self.timer setFireDate:[NSDate distantFuture]];
 }
 
 -(void)stopNSTimerAction
 {
-    [self.timer invalidate];
+    [self.timer setFireDate:[NSDate distantFuture]];
 }
 
 -(void)writeDataAction
@@ -373,7 +374,7 @@
             [self presentViewController:alertController animated:YES completion:nil];
         }else {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"sparyModel" object:nil userInfo:nil];
-            self.timer = [NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(writeDataAction) userInfo:nil repeats:YES];
+            [self.timer setFireDate:[NSDate distantPast]];
         }
         allTrainTotalNum = model.dataSum;
         if (model.medicineId == 1 || model.medicineId == 3) {
@@ -388,7 +389,7 @@
         for (NSString * str in trainArr) {
             [self.sprayDataArr addObject:str];
         }
-        [self createLineChart:0];
+        [self createLineChart:indexItem];
         NSString *dateTime = [[DisplayUtils getTimestampData:@"YYYY-MM-dd"] substringToIndex:10];
         NSString * startStr = [NSString stringWithFormat:@"%@ 00:00:00",dateTime];
         NSString * endStr = [NSString stringWithFormat:@"%@ 23:59:59",dateTime];

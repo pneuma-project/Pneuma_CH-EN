@@ -217,7 +217,6 @@ typedef enum _TTGState{
     [_per discoverServices:nil];
     [UserDefaultsUtils saveBoolValue:YES withKey:@"isConnect"];
     [self.timer invalidate];
-    [self showResult];
 }
 
 
@@ -312,16 +311,16 @@ typedef enum _TTGState{
 //展示蓝牙返回的信息
 -(void)showResult
 {
-    if (!_responseData) {
+    if (_responseData) {
         NSLog(@"读取到特征值：%@",_responseData);
-//        NSData *data = _responseData;
-//        Byte *bytes = (Byte *)[data bytes];
-//        Byte newByte[data.length];
-//        for (NSInteger i = 0; i < data.length; i++) {
-//            newByte[i] = bytes[i];
-//        }
-        Byte newByte[] = {0xFD,0x01,0x38,0x00,0x01,0x5C,0x6E,0x56,0xEF,0x00,0x05,0x09,0x1B,0x1C,0x1C,0x1D,0x1E,0x2A,0x2D,0x30,0x31,0x3A,0x3C,0x3A,0x30,0x2D,0x2A,0x1F,0x1A,0x10,0x08,0x05,0x04,0x03,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xAB};
-        NSData *data = [NSData dataWithBytes:newByte length:60];
+        NSData *data = _responseData;
+        Byte *bytes = (Byte *)[data bytes];
+        Byte newByte[data.length];
+        for (NSInteger i = 0; i < data.length; i++) {
+            newByte[i] = bytes[i];
+        }
+//        Byte newByte[] = {0xFD,0x01,0x38,0x00,0x01,0x5C,0x6E,0x56,0xEF,0x00,0x05,0x09,0x1B,0x1C,0x1C,0x1D,0x1E,0x2A,0x2D,0x30,0x31,0x3A,0x3C,0x3A,0x30,0x2D,0x2A,0x1F,0x1A,0x10,0x08,0x05,0x04,0x03,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xAB};
+//        NSData *data = [NSData dataWithBytes:newByte length:60];
         if (newByte[0] == 0xfd) {
             _state = pkt_h;
         }
@@ -417,7 +416,6 @@ typedef enum _TTGState{
                         [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
                         NSDate *sprayTime = [NSDate dateWithTimeIntervalSince1970:[timeStamp doubleValue]];
                         NSString * sprayTimeStr = [formatter stringFromDate:sprayTime];
-                       
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshSprayView" object:nil userInfo:nil];
                         [DeviceRequestObject.shared requestSaveSuckFogDataWithMedicineId:[NSString stringWithFormat:@"%ld",(long)medicineId] suckFogData:sprayData dataSum:[sumData floatValue] addDate:sprayTimeStr sucBlock:^(NSString * _Nonnull code) {
                             if ([code isEqualToString:@"200"]) {
