@@ -123,6 +123,7 @@ typedef enum _TTGState{
                     if ([macAddress isEqualToString:[UserInfoData MR_findFirst].macAddress]) {
                         if (data == nil) {
                             model.macAddress = @"";
+                            return;
                         }else {
                             model.macAddress = macAddress;
                         }
@@ -141,6 +142,7 @@ typedef enum _TTGState{
                 }else {
                     if (data == nil) {
                         model.macAddress = @"";
+                        return;
                     }else {
                         model.macAddress = macAddress;
                     }
@@ -180,6 +182,9 @@ typedef enum _TTGState{
 //连接设备失败
 -(void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
+    if (_peripheralList.count > 0) {
+        [_peripheralList removeObject:totalModel];
+    }
     totalModel = nil;
     [LCProgressHUD showFailureText:NSLocalizedString(@"Connection failed", nil)];
     isLinked = NO;
@@ -191,6 +196,9 @@ typedef enum _TTGState{
 //设备断开连接
 -(void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
+    if (_peripheralList.count > 0) {
+        [_peripheralList removeObject:totalModel];
+    }
     totalModel = nil;
     isLinked = NO;
     [LCProgressHUD showFailureText:NSLocalizedString(@"Peripheral disconnect", nil)];
@@ -348,11 +356,11 @@ typedef enum _TTGState{
             case pkt_h:
             {
                 if (newByte[data.length - 1] == 0xab) {
-                    [self.putData appendData:data];
+//                    [self.putData appendData:data];
 //                    NSLog(@"~~~~~%@",self.putData);
-                    Byte *putDataByte = (Byte *)[self.putData bytes];
-                    Byte newbt[self.putData.length-2];
-                    for (NSInteger j = 0; j<self.putData.length - 2; j++) {
+                    Byte *putDataByte = (Byte *)[data bytes];
+                    Byte newbt[data.length-2];
+                    for (NSInteger j = 0; j<data.length - 2; j++) {
                         newbt[j] = putDataByte[j+1];
                     }
                     NSData *newData = [NSData dataWithBytes:newbt
@@ -426,7 +434,7 @@ typedef enum _TTGState{
                         NSString *medicineInfo = [FLWrapJson getMedicineInfo:[newData subdataWithRange:NSMakeRange(2, 2)] AndDrugInjectionTime:[newData subdataWithRange:NSMakeRange(4, 4)] AndDrugExpirationTime:[newData subdataWithRange:NSMakeRange(8, 4)] AndDrugOpeningTime:[newData subdataWithRange:NSMakeRange(12, 4)] AndVolatilizationTime:[newData subdataWithRange:NSMakeRange(16, 4)]];
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"displayMedicineInfo" object:@{@"medicineInfo":medicineInfo} userInfo:nil];
                     }
-                    _state = etx_e;
+//                    _state = etx_e;
                     self.putData = nil;
                 }else if (newByte[data.length - 1] != 0xab){
                     [self.putData appendData:data];

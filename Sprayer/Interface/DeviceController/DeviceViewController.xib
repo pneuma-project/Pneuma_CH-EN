@@ -11,9 +11,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DeviceViewController">
             <connections>
-                <outlet property="deviceBtnBottom" destination="Sep-mc-J5T" id="uh7-ro-07u"/>
+                <outlet property="deviceBtnBottom" destination="Sep-mc-J5T" id="pX2-KD-khg"/>
                 <outlet property="deviceConnectBtn" destination="PHm-bB-SKg" id="SnR-tA-RhB"/>
-                <outlet property="deviceImgBottom" destination="bBN-49-B7Y" id="YTF-SG-1eR"/>
+                <outlet property="deviceImgBottom" destination="bBN-49-B7Y" id="mww-ay-CcZ"/>
                 <outlet property="isOnlineBtn" destination="db8-ly-25h" id="HG2-uV-WJk"/>
                 <outlet property="serialLabel" destination="wkq-UR-57u" id="dnX-n5-M8T"/>
                 <outlet property="topViewTop" destination="fLc-Bl-zij" id="u0j-UD-QPW"/>
