@@ -235,34 +235,34 @@ static NSString *THREE_Cell = @"THREECELL";
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-     NSArray *titleArr = @[@"Name",@"Phone",@"Sex",@"Age",@"Race",@"Height",@"Weight",@"Phone"];
-    if (indexPath.section == 0) {
-        if (indexPath.row == 2) {
-            EditDetailPatSexInfoViewController * sexVC = [[EditDetailPatSexInfoViewController alloc]init];
-            sexVC.sexDelegate = self;
-            UILabel * label = (UILabel *)[self.view viewWithTag:102];
-            if (label.text.length!=0) {
-                sexVC.sexStr = label.text;
-            }
-            [self.navigationController pushViewController:sexVC animated:YES];
-        }else if(indexPath.row == 3||indexPath.row == 4||indexPath.row == 5||indexPath.row ==6){
-            [self createPickerView:indexPath.row :titleArr[indexPath.row]];
-        }else{
-            EditDetailPatientInfoViewController * editDetailVC = [[EditDetailPatientInfoViewController alloc]init];
-            editDetailVC.nameStr = titleArr[indexPath.row];
-            UILabel * label = (UILabel *)[self.view viewWithTag:100+indexPath.row];
-            if (label.text.length!=0) {
-                editDetailVC.infoStr = label.text;
-            }
-            editDetailVC.index = indexPath.row;
-            editDetailVC.infoDelegate = self;
-            [self.navigationController pushViewController:editDetailVC animated:YES];
-        }
-    }else{
-        return;
-    }
-
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//     NSArray *titleArr = @[@"Name",@"Phone",@"Sex",@"Age",@"Race",@"Height",@"Weight",@"Phone"];
+//    if (indexPath.section == 0) {
+//        if (indexPath.row == 2) {
+//            EditDetailPatSexInfoViewController * sexVC = [[EditDetailPatSexInfoViewController alloc]init];
+//            sexVC.sexDelegate = self;
+//            UILabel * label = (UILabel *)[self.view viewWithTag:102];
+//            if (label.text.length!=0) {
+//                sexVC.sexStr = label.text;
+//            }
+//            [self.navigationController pushViewController:sexVC animated:YES];
+//        }else if(indexPath.row == 3||indexPath.row == 4||indexPath.row == 5||indexPath.row ==6){
+//            [self createPickerView:indexPath.row :titleArr[indexPath.row]];
+//        }else{
+//            EditDetailPatientInfoViewController * editDetailVC = [[EditDetailPatientInfoViewController alloc]init];
+//            editDetailVC.nameStr = titleArr[indexPath.row];
+//            UILabel * label = (UILabel *)[self.view viewWithTag:100+indexPath.row];
+//            if (label.text.length!=0) {
+//                editDetailVC.infoStr = label.text;
+//            }
+//            editDetailVC.index = indexPath.row;
+//            editDetailVC.infoDelegate = self;
+//            [self.navigationController pushViewController:editDetailVC animated:YES];
+//        }
+//    }else{
+//        return;
+//    }
+//
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
