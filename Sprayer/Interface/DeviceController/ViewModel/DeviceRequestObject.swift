@@ -55,7 +55,7 @@ class DeviceRequestObject: NSObject {
     }
     
     //添加训练数据
-    @objc func requestSaveTrainData(medicineId:String,trainData:String,dataSum:Float,addDate:String,sucBlock:((_ code:String)->())?) {
+    @objc func requestSaveTrainData(medicineId:String,trainData:String,dataSum:Double,addDate:String,sucBlock:((_ code:String)->())?) {
         if let loginKey = UserInfoData.mr_findFirst()?.loginKey {
             SURLRequest.sharedInstance.requestPostWithHeader(URL_SaveTrainData, param: ["loginKey":loginKey,"medicineId":medicineId,"trainData":trainData,"dataSum":dataSum,"addDate":addDate], checkSum: [loginKey,medicineId,trainData,"\(dataSum)",addDate], suc: { (data) in
                 Dprint("URL_SaveTrainData:\(data)")
@@ -153,6 +153,73 @@ class DeviceRequestObject: NSObject {
                 }
             }) { (error) in
                 Dprint("URL_GetHistorySuckFogDataError:\(error)")
+            }
+        }
+    }
+    
+    //MARK: - 呼气数据相关
+    //添加呼气数据
+    @objc func requestSaveExhaleData(medicineId:String,exhaleData:String,exhaleDataSum:Double,addDate:String,sucBlock:((_ code:String)->())?) {
+        if let loginKey = UserInfoData.mr_findFirst()?.loginKey {
+            SURLRequest.sharedInstance.requestPostWithHeader(URL_SaveExhaleData, param: ["loginKey":loginKey,"medicineId":medicineId,"exhaleData":exhaleData,"exhaleDataSum":exhaleDataSum,"addDate":addDate], checkSum: [loginKey,medicineId,exhaleData,"\(exhaleDataSum)",addDate], suc: { (data) in
+                Dprint("URL_SaveExhaleData:\(data)")
+                let dataJson = JSON(data)
+                let code = dataJson["code"].stringValue
+                if let block = sucBlock {
+                    block(code)
+                }
+            }) { (error) in
+                Dprint("URL_SaveExhaleDataError:\(error)")
+            }
+        }
+    }
+    
+    //获取历史呼气数据
+    @objc var requestGetHistoryExhaleDataSuc:((_ dataList:[ExhaleDataModel])->())?
+    @objc func requestGetHistoryExhaleData() {
+        if let loginKey = UserInfoData.mr_findFirst()?.loginKey {
+            SURLRequest.sharedInstance.requestPostWithHeader(URL_GetHistoryExhaleData, param: ["loginKey":loginKey], checkSum: [loginKey], suc: { (data) in
+                Dprint("URL_GetHistoryExhaleData:\(data)")
+                let dataJson = JSON(data)
+                let code = dataJson["code"].stringValue
+                if code == "200" {
+                    var dataArr:[ExhaleDataModel] = []
+                    let resultJsonArr = dataJson["result"].arrayValue
+                    for resultJson:JSON in resultJsonArr {
+                        let model = ExhaleDataModel.getFromModel(json: resultJson)
+                        dataArr.append(model)
+                    }
+                    if let block = DeviceRequestObject.shared.requestGetHistoryExhaleDataSuc {
+                        block(dataArr)
+                    }
+                }
+            }) { (error) in
+                Dprint("URL_GetHistoryExhaleDataError:\(error)")
+            }
+        }
+    }
+    
+    //获取某天呼气数据
+    @objc var requestGetNowExhaleDataSuc:((_ dataList:[ExhaleDataModel])->())?
+    @objc func requestGetNowExhaleData(addDate:String,endDate:String) {
+        if let loginKey = UserInfoData.mr_findFirst()?.loginKey {
+            SURLRequest.sharedInstance.requestPostWithHeader(URL_GetNowDateExhaleData, param: ["loginKey":loginKey,"addDate":addDate,"endDate":endDate], checkSum: [loginKey,addDate,endDate], suc: { (data) in
+                Dprint("URL_GetNowDateExhaleData:\(data)")
+                let dataJson = JSON(data)
+                let code = dataJson["code"].stringValue
+                if code == "200" {
+                    var dataArr:[ExhaleDataModel] = []
+                    let resultJsonArr = dataJson["result"].arrayValue
+                    for resultJson:JSON in resultJsonArr {
+                        let model = ExhaleDataModel.getFromModel(json: resultJson)
+                        dataArr.append(model)
+                    }
+                    if let block = DeviceRequestObject.shared.requestGetNowExhaleDataSuc {
+                        block(dataArr)
+                    }
+                }
+            }) { (error) in
+                Dprint("URL_GetNowDateExhaleDataError:\(error)")
             }
         }
     }

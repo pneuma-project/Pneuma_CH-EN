@@ -25,7 +25,6 @@
 		642580301E6D3E5C0019AD06 /* UserListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6425802F1E6D3E5C0019AD06 /* UserListViewController.m */; };
 		642580331E6D4AC80019AD06 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 642580321E6D4AC80019AD06 /* HistoryViewController.m */; };
 		642580371E6D4EA60019AD06 /* HistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 642580351E6D4EA60019AD06 /* HistoryTableViewCell.m */; };
-		642580381E6D4EA60019AD06 /* HistoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 642580361E6D4EA60019AD06 /* HistoryTableViewCell.xib */; };
 		6425803C1E6D515A0019AD06 /* HistoryValueTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6425803A1E6D515A0019AD06 /* HistoryValueTableViewCell.m */; };
 		6425803D1E6D515A0019AD06 /* HistoryValueTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6425803B1E6D515A0019AD06 /* HistoryValueTableViewCell.xib */; };
 		642580411E6D5F3D0019AD06 /* HistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 642580401E6D5F3D0019AD06 /* HistoryModel.m */; };
@@ -69,7 +68,6 @@
 		644C9C7D1E6918080030C3B9 /* scanLine@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 644C9C761E6918080030C3B9 /* scanLine@3x.png */; };
 		644C9C7E1E6918080030C3B9 /* scanscanBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 644C9C771E6918080030C3B9 /* scanscanBg.png */; };
 		644C9CAB1E697DDA0030C3B9 /* DeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 644C9C8F1E697DDA0030C3B9 /* DeviceViewController.m */; };
-		644C9CAC1E697DDA0030C3B9 /* DeviceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 644C9C901E697DDA0030C3B9 /* DeviceViewController.xib */; };
 		644C9CAD1E697DDA0030C3B9 /* lhScanQCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 644C9C921E697DDA0030C3B9 /* lhScanQCodeViewController.m */; };
 		644C9CAE1E697DDA0030C3B9 /* ScanResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 644C9C941E697DDA0030C3B9 /* ScanResultViewController.m */; };
 		644C9CAF1E697DDA0030C3B9 /* ScanResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 644C9C951E697DDA0030C3B9 /* ScanResultViewController.xib */; };
@@ -84,7 +82,6 @@
 		644C9CB81E697DDA0030C3B9 /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 644C9CAA1E697DDA0030C3B9 /* UserViewController.m */; };
 		644C9CBD1E697E980030C3B9 /* MedicalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 644C9CBB1E697E980030C3B9 /* MedicalTableViewCell.m */; };
 		644C9CBE1E697E980030C3B9 /* MedicalTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 644C9CBC1E697E980030C3B9 /* MedicalTableViewCell.xib */; };
-		648A72CC228D4F7B00B8B430 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 648A72CA228D4F7B00B8B430 /* LoginViewController.xib */; };
 		648A72CD228D4F7B00B8B430 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648A72CB228D4F7B00B8B430 /* LoginViewController.swift */; };
 		648A72CF228D567500B8B430 /* FLUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648A72CE228D567500B8B430 /* FLUserDefaults.swift */; };
 		648A72D1228D569C00B8B430 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648A72D0228D569C00B8B430 /* Tools.swift */; };
@@ -145,6 +142,17 @@
 		BFF420981EA76B630093BE8D /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF4208F1EA76B630093BE8D /* FMDatabasePool.m */; };
 		BFF420991EA76B630093BE8D /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF420911EA76B630093BE8D /* FMDatabaseQueue.m */; };
 		BFF4209A1EA76B630093BE8D /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF420941EA76B630093BE8D /* FMResultSet.m */; };
+		D173D46624173568003697E4 /* SURLExhale.swift in Sources */ = {isa = PBXBuildFile; fileRef = D173D46524173568003697E4 /* SURLExhale.swift */; };
+		D173D468241736CC003697E4 /* ExhaleDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D173D467241736CC003697E4 /* ExhaleDataModel.swift */; };
+		D173D46D24179FF7003697E4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D173D46F24179FF7003697E4 /* Localizable.strings */; };
+		D173D4782417A1BA003697E4 /* DeviceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D173D47A2417A1BA003697E4 /* DeviceViewController.xib */; };
+		D173DFA42418B6BB00E8DBCA /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D173DFA62418B6BB00E8DBCA /* LoginViewController.xib */; };
+		D173DFAB2418BC3400E8DBCA /* HistoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D173DFAD2418BC3400E8DBCA /* HistoryTableViewCell.xib */; };
+		D17688B0240CF1C8002D4433 /* HeadSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17688AF240CF1C8002D4433 /* HeadSelectView.swift */; };
+		D17F3ED52419DE5000C9E8AF /* SLungTestTipController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17F3ED42419DE5000C9E8AF /* SLungTestTipController.swift */; };
+		D17F3ED72419EB2800C9E8AF /* SLungTestDateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17F3ED62419EB2800C9E8AF /* SLungTestDateController.swift */; };
+		D17F3ED9241A417600C9E8AF /* UIAlertControllerEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17F3ED8241A417600C9E8AF /* UIAlertControllerEx.swift */; };
+		D188B7952421C8630087F342 /* FLCustomChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = D188B7942421C8630087F342 /* FLCustomChartView.m */; };
 		D1B8DACD2276E6DE00643EC6 /* BlueDeviceListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B8DACA2276E6DE00643EC6 /* BlueDeviceListCell.swift */; };
 		D1B8DACE2276E6DE00643EC6 /* BlueDeviceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B8DACB2276E6DE00643EC6 /* BlueDeviceListView.swift */; };
 		D1B8DACF2276E6DE00643EC6 /* BlueDeviceListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1B8DACC2276E6DE00643EC6 /* BlueDeviceListCell.xib */; };
@@ -207,7 +215,6 @@
 		642580321E6D4AC80019AD06 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
 		642580341E6D4EA60019AD06 /* HistoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryTableViewCell.h; sourceTree = "<group>"; };
 		642580351E6D4EA60019AD06 /* HistoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryTableViewCell.m; sourceTree = "<group>"; };
-		642580361E6D4EA60019AD06 /* HistoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryTableViewCell.xib; sourceTree = "<group>"; };
 		642580391E6D515A0019AD06 /* HistoryValueTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryValueTableViewCell.h; sourceTree = "<group>"; };
 		6425803A1E6D515A0019AD06 /* HistoryValueTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryValueTableViewCell.m; sourceTree = "<group>"; };
 		6425803B1E6D515A0019AD06 /* HistoryValueTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryValueTableViewCell.xib; sourceTree = "<group>"; };
@@ -280,7 +287,6 @@
 		644C9C771E6918080030C3B9 /* scanscanBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scanscanBg.png; sourceTree = "<group>"; };
 		644C9C8E1E697DDA0030C3B9 /* DeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceViewController.h; sourceTree = "<group>"; };
 		644C9C8F1E697DDA0030C3B9 /* DeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceViewController.m; sourceTree = "<group>"; };
-		644C9C901E697DDA0030C3B9 /* DeviceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeviceViewController.xib; sourceTree = "<group>"; };
 		644C9C911E697DDA0030C3B9 /* lhScanQCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lhScanQCodeViewController.h; sourceTree = "<group>"; };
 		644C9C921E697DDA0030C3B9 /* lhScanQCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = lhScanQCodeViewController.m; sourceTree = "<group>"; };
 		644C9C931E697DDA0030C3B9 /* ScanResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanResultViewController.h; sourceTree = "<group>"; };
@@ -307,7 +313,6 @@
 		644C9CBA1E697E980030C3B9 /* MedicalTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MedicalTableViewCell.h; sourceTree = "<group>"; };
 		644C9CBB1E697E980030C3B9 /* MedicalTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MedicalTableViewCell.m; sourceTree = "<group>"; };
 		644C9CBC1E697E980030C3B9 /* MedicalTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MedicalTableViewCell.xib; sourceTree = "<group>"; };
-		648A72CA228D4F7B00B8B430 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		648A72CB228D4F7B00B8B430 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		648A72CE228D567500B8B430 /* FLUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FLUserDefaults.swift; sourceTree = "<group>"; };
 		648A72D0228D569C00B8B430 /* Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
@@ -329,7 +334,7 @@
 		64F43CBF1E71585D009BF6F9 /* SqliteUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SqliteUtils.h; sourceTree = "<group>"; };
 		64F43CC01E71585D009BF6F9 /* SqliteUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SqliteUtils.m; sourceTree = "<group>"; };
 		64F43CC31E715A3B009BF6F9 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
-		64F663BD1E63C8A900F4C9E7 /* Sprayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sprayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		64F663BD1E63C8A900F4C9E7 /* Pneuma.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pneuma.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64F663C11E63C8A900F4C9E7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		64F663C31E63C8A900F4C9E7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		64F663C41E63C8A900F4C9E7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -422,6 +427,27 @@
 		BFF420931EA76B630093BE8D /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		BFF420941EA76B630093BE8D /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		BFF420951EA76B630093BE8D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D173D46524173568003697E4 /* SURLExhale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SURLExhale.swift; sourceTree = "<group>"; };
+		D173D467241736CC003697E4 /* ExhaleDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhaleDataModel.swift; sourceTree = "<group>"; };
+		D173D46B24179F6F003697E4 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		D173D46C24179F6F003697E4 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		D173D46E24179FF7003697E4 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		D173D47024179FFE003697E4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D173D4792417A1BA003697E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/DeviceViewController.xib; sourceTree = "<group>"; };
+		D173D47C2417A1C1003697E4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DeviceViewController.strings; sourceTree = "<group>"; };
+		D173D47E2417A1D1003697E4 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/DeviceViewController.strings"; sourceTree = "<group>"; };
+		D173DFA52418B6BB00E8DBCA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LoginViewController.xib; sourceTree = "<group>"; };
+		D173DFA82418B6C100E8DBCA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LoginViewController.strings"; sourceTree = "<group>"; };
+		D173DFAA2418B6C500E8DBCA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LoginViewController.strings; sourceTree = "<group>"; };
+		D173DFAC2418BC3400E8DBCA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/HistoryTableViewCell.xib; sourceTree = "<group>"; };
+		D173DFAF2418BC3900E8DBCA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/HistoryTableViewCell.strings"; sourceTree = "<group>"; };
+		D173DFB12418BC3B00E8DBCA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HistoryTableViewCell.strings; sourceTree = "<group>"; };
+		D17688AF240CF1C8002D4433 /* HeadSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadSelectView.swift; sourceTree = "<group>"; };
+		D17F3ED42419DE5000C9E8AF /* SLungTestTipController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLungTestTipController.swift; sourceTree = "<group>"; };
+		D17F3ED62419EB2800C9E8AF /* SLungTestDateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLungTestDateController.swift; sourceTree = "<group>"; };
+		D17F3ED8241A417600C9E8AF /* UIAlertControllerEx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertControllerEx.swift; sourceTree = "<group>"; };
+		D188B7932421C8630087F342 /* FLCustomChartView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLCustomChartView.h; sourceTree = "<group>"; };
+		D188B7942421C8630087F342 /* FLCustomChartView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLCustomChartView.m; sourceTree = "<group>"; };
 		D1B8DACA2276E6DE00643EC6 /* BlueDeviceListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueDeviceListCell.swift; sourceTree = "<group>"; };
 		D1B8DACB2276E6DE00643EC6 /* BlueDeviceListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueDeviceListView.swift; sourceTree = "<group>"; };
 		D1B8DACC2276E6DE00643EC6 /* BlueDeviceListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BlueDeviceListCell.xib; sourceTree = "<group>"; };
@@ -478,6 +504,7 @@
 				BFDAC7011E723E7300E17D7B /* HistoricalModel.h */,
 				BFDAC7021E723E7300E17D7B /* HistoricalModel.m */,
 				D1D141852292487300922483 /* SprayerDataModel.swift */,
+				D173D467241736CC003697E4 /* ExhaleDataModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -568,14 +595,15 @@
 		6426201C1E80B56200263124 /* BlueTooth */ = {
 			isa = PBXGroup;
 			children = (
-				6426201D1E80B56200263124 /* LCProgressHUD */,
+				6426202D1E80B56200263124 /* Tools */,
+				6426201E1E80B56200263124 /* BlueToothManager.h */,
+				6426201F1E80B56200263124 /* BlueToothManager.m */,
 				642620291E80B56200263124 /* Model.h */,
 				6426202A1E80B56200263124 /* Model.m */,
 				6426202B1E80B56200263124 /* SyTableViewCell.h */,
 				6426202C1E80B56200263124 /* SyTableViewCell.m */,
 				64BBBAA21E82AD58008A40E5 /* BlueWriteData.h */,
 				64BBBAA31E82AD58008A40E5 /* BlueWriteData.m */,
-				6426202D1E80B56200263124 /* Tools */,
 			);
 			path = BlueTooth;
 			sourceTree = "<group>";
@@ -583,8 +611,6 @@
 		6426201D1E80B56200263124 /* LCProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
-				6426201E1E80B56200263124 /* BlueToothManager.h */,
-				6426201F1E80B56200263124 /* BlueToothManager.m */,
 				642620201E80B56200263124 /* HUDImage */,
 				642620271E80B56200263124 /* LCProgressHUD.h */,
 				642620281E80B56200263124 /* LCProgressHUD.m */,
@@ -610,12 +636,12 @@
 			children = (
 				6426202E1E80B56200263124 /* FLByteUtil.h */,
 				6426202F1E80B56200263124 /* FLByteUtil.m */,
-				642620301E80B56200263124 /* FLDrawDataTool.h */,
-				642620311E80B56200263124 /* FLDrawDataTool.m */,
 				642620321E80B56200263124 /* FLWrapBobyTool.h */,
 				642620331E80B56200263124 /* FLWrapBobyTool.m */,
 				642620341E80B56200263124 /* FLWrapHeaderTool.h */,
 				642620351E80B56200263124 /* FLWrapHeaderTool.m */,
+				642620301E80B56200263124 /* FLDrawDataTool.h */,
+				642620311E80B56200263124 /* FLDrawDataTool.m */,
 				642620361E80B56200263124 /* FLWrapJson.h */,
 				642620371E80B56200263124 /* FLWrapJson.m */,
 			);
@@ -631,6 +657,7 @@
 				644C9C351E6575F80030C3B9 /* MBProgressHUD+Add.m */,
 				644C9C1B1E655E660030C3B9 /* UIView+Category.h */,
 				644C9C1C1E655E660030C3B9 /* UIView+Category.m */,
+				D17F3ED8241A417600C9E8AF /* UIAlertControllerEx.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -653,6 +680,7 @@
 		644C9C2C1E6575E10030C3B9 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				6426201D1E80B56200263124 /* LCProgressHUD */,
 				BFF420891EA76B320093BE8D /* FMDB */,
 				6426201C1E80B56200263124 /* BlueTooth */,
 				BFDAC76C1E7274FA00E17D7B /* JHChart */,
@@ -681,6 +709,7 @@
 				644C9C4D1E66B5BF0030C3B9 /* FL_ChatView */,
 				644C9C381E666A6D0030C3B9 /* FL_ScaleCircle.h */,
 				644C9C391E666A6D0030C3B9 /* FL_ScaleCircle.m */,
+				D17688AF240CF1C8002D4433 /* HeadSelectView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -698,6 +727,8 @@
 				644C9C551E66B5BF0030C3B9 /* UIImage+Common.m */,
 				644C9C561E66B5BF0030C3B9 /* UIView+Common.h */,
 				644C9C571E66B5BF0030C3B9 /* UIView+Common.m */,
+				D188B7932421C8630087F342 /* FLCustomChartView.h */,
+				D188B7942421C8630087F342 /* FLCustomChartView.m */,
 			);
 			path = FL_ChatView;
 			sourceTree = "<group>";
@@ -725,7 +756,7 @@
 				D1B8DAC92276E6C900643EC6 /* View */,
 				644C9C8E1E697DDA0030C3B9 /* DeviceViewController.h */,
 				644C9C8F1E697DDA0030C3B9 /* DeviceViewController.m */,
-				644C9C901E697DDA0030C3B9 /* DeviceViewController.xib */,
+				D173D47A2417A1BA003697E4 /* DeviceViewController.xib */,
 				64257FFE1E6CFF740019AD06 /* DeviceStatusViewController.h */,
 				64257FFF1E6CFF740019AD06 /* DeviceStatusViewController.m */,
 				644C9C911E697DDA0030C3B9 /* lhScanQCodeViewController.h */,
@@ -754,18 +785,8 @@
 		644C9C991E697DDA0030C3B9 /* TrainingController */ = {
 			isa = PBXGroup;
 			children = (
-				644C9C9A1E697DDA0030C3B9 /* RetrainingViewController.h */,
-				644C9C9B1E697DDA0030C3B9 /* RetrainingViewController.m */,
-				644C9CA01E697DDA0030C3B9 /* TrainingStartViewController.h */,
-				644C9CA11E697DDA0030C3B9 /* TrainingStartViewController.m */,
-				644C9C9C1E697DDA0030C3B9 /* TrainingFirstViewController.h */,
-				644C9C9D1E697DDA0030C3B9 /* TrainingFirstViewController.m */,
-				644C9C9E1E697DDA0030C3B9 /* TrainingSecondViewController.h */,
-				644C9C9F1E697DDA0030C3B9 /* TrainingSecondViewController.m */,
-				644C9CA21E697DDA0030C3B9 /* TrainingThirdViewController.h */,
-				644C9CA31E697DDA0030C3B9 /* TrainingThirdViewController.m */,
-				644C9CA41E697DDA0030C3B9 /* TrainingViewController.h */,
-				644C9CA51E697DDA0030C3B9 /* TrainingViewController.m */,
+				D173DFB22418D09800E8DBCA /* Controller */,
+				D17688AB240CF147002D4433 /* View */,
 			);
 			path = TrainingController;
 			sourceTree = "<group>";
@@ -812,7 +833,7 @@
 				644C9CBC1E697E980030C3B9 /* MedicalTableViewCell.xib */,
 				642580341E6D4EA60019AD06 /* HistoryTableViewCell.h */,
 				642580351E6D4EA60019AD06 /* HistoryTableViewCell.m */,
-				642580361E6D4EA60019AD06 /* HistoryTableViewCell.xib */,
+				D173DFAD2418BC3400E8DBCA /* HistoryTableViewCell.xib */,
 				642580391E6D515A0019AD06 /* HistoryValueTableViewCell.h */,
 				6425803A1E6D515A0019AD06 /* HistoryValueTableViewCell.m */,
 				6425803B1E6D515A0019AD06 /* HistoryValueTableViewCell.xib */,
@@ -862,7 +883,7 @@
 			isa = PBXGroup;
 			children = (
 				648A72CB228D4F7B00B8B430 /* LoginViewController.swift */,
-				648A72CA228D4F7B00B8B430 /* LoginViewController.xib */,
+				D173DFA62418B6BB00E8DBCA /* LoginViewController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -882,6 +903,7 @@
 			children = (
 				64CF5F43228E8DD300595018 /* SURLLogin.swift */,
 				64CF5F45228E90AE00595018 /* SURLSuckFog.swift */,
+				D173D46524173568003697E4 /* SURLExhale.swift */,
 			);
 			path = URL;
 			sourceTree = "<group>";
@@ -921,7 +943,7 @@
 		64F663BE1E63C8A900F4C9E7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				64F663BD1E63C8A900F4C9E7 /* Sprayer.app */,
+				64F663BD1E63C8A900F4C9E7 /* Pneuma.app */,
 				64F663D61E63C8A900F4C9E7 /* SprayerTests.xctest */,
 				64F663E11E63C8A900F4C9E7 /* SprayerUITests.xctest */,
 			);
@@ -1069,6 +1091,50 @@
 			path = FMDB;
 			sourceTree = "<group>";
 		};
+		D173DFB22418D09800E8DBCA /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				644C9CA41E697DDA0030C3B9 /* TrainingViewController.h */,
+				644C9CA51E697DDA0030C3B9 /* TrainingViewController.m */,
+				D173DFB32418D0A500E8DBCA /* TrainingController */,
+				D173DFB42418D0D200E8DBCA /* LungTestController */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		D173DFB32418D0A500E8DBCA /* TrainingController */ = {
+			isa = PBXGroup;
+			children = (
+				644C9CA01E697DDA0030C3B9 /* TrainingStartViewController.h */,
+				644C9CA11E697DDA0030C3B9 /* TrainingStartViewController.m */,
+				644C9C9C1E697DDA0030C3B9 /* TrainingFirstViewController.h */,
+				644C9C9D1E697DDA0030C3B9 /* TrainingFirstViewController.m */,
+				644C9C9E1E697DDA0030C3B9 /* TrainingSecondViewController.h */,
+				644C9C9F1E697DDA0030C3B9 /* TrainingSecondViewController.m */,
+				644C9CA21E697DDA0030C3B9 /* TrainingThirdViewController.h */,
+				644C9CA31E697DDA0030C3B9 /* TrainingThirdViewController.m */,
+				644C9C9A1E697DDA0030C3B9 /* RetrainingViewController.h */,
+				644C9C9B1E697DDA0030C3B9 /* RetrainingViewController.m */,
+			);
+			path = TrainingController;
+			sourceTree = "<group>";
+		};
+		D173DFB42418D0D200E8DBCA /* LungTestController */ = {
+			isa = PBXGroup;
+			children = (
+				D17F3ED42419DE5000C9E8AF /* SLungTestTipController.swift */,
+				D17F3ED62419EB2800C9E8AF /* SLungTestDateController.swift */,
+			);
+			path = LungTestController;
+			sourceTree = "<group>";
+		};
+		D17688AB240CF147002D4433 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		D1B8DAC92276E6C900643EC6 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1124,6 +1190,7 @@
 				64F663FF1E63CBAC00F4C9E7 /* PrefixHeader.pch */,
 				64F663C11E63C8A900F4C9E7 /* main.m */,
 				64E8EF7E228AAD3300B357D1 /* Sprayer.xcdatamodeld */,
+				D173D46F24179FF7003697E4 /* Localizable.strings */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -1160,7 +1227,7 @@
 			);
 			name = Sprayer;
 			productName = Sprayer;
-			productReference = 64F663BD1E63C8A900F4C9E7 /* Sprayer.app */;
+			productReference = 64F663BD1E63C8A900F4C9E7 /* Pneuma.app */;
 			productType = "com.apple.product-type.application";
 		};
 		64F663D51E63C8A900F4C9E7 /* SprayerTests */ = {
@@ -1234,6 +1301,7 @@
 				English,
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 64F663B41E63C8A900F4C9E7;
 			productRefGroup = 64F663BE1E63C8A900F4C9E7 /* Products */;
@@ -1256,9 +1324,10 @@
 				644C9C7C1E6918080030C3B9 /* scanLine@2x.png in Resources */,
 				6425804F1E6E991E0019AD06 /* PatientInfoTableViewCell.xib in Resources */,
 				6426203A1E80B56200263124 /* hud_error@2x.png in Resources */,
+				D173D4782417A1BA003697E4 /* DeviceViewController.xib in Resources */,
+				D173D46D24179FF7003697E4 /* Localizable.strings in Resources */,
 				644C9C7E1E6918080030C3B9 /* scanscanBg.png in Resources */,
 				644C9CAF1E697DDA0030C3B9 /* ScanResultViewController.xib in Resources */,
-				644C9CAC1E697DDA0030C3B9 /* DeviceViewController.xib in Resources */,
 				BF79D1011E7232CE00EE468B /* HistoricalDrugTableViewCell.xib in Resources */,
 				6425803D1E6D515A0019AD06 /* HistoryValueTableViewCell.xib in Resources */,
 				64F663D01E63C8A900F4C9E7 /* LaunchScreen.storyboard in Resources */,
@@ -1273,8 +1342,8 @@
 				644C9C7D1E6918080030C3B9 /* scanLine@3x.png in Resources */,
 				644C9CBE1E697E980030C3B9 /* MedicalTableViewCell.xib in Resources */,
 				6426203D1E80B56200263124 /* hud_success.png in Resources */,
-				642580381E6D4EA60019AD06 /* HistoryTableViewCell.xib in Resources */,
-				648A72CC228D4F7B00B8B430 /* LoginViewController.xib in Resources */,
+				D173DFAB2418BC3400E8DBCA /* HistoryTableViewCell.xib in Resources */,
+				D173DFA42418B6BB00E8DBCA /* LoginViewController.xib in Resources */,
 				642580291E6D0CB90019AD06 /* LICENSE_jsonmodel.txt in Resources */,
 				6426203E1E80B56200263124 /* hud_success@2x.png in Resources */,
 				7906CA4D1FBD733E00200B66 /* Assets.xcassets in Resources */,
@@ -1397,18 +1466,21 @@
 				BFDAC7911E7274FA00E17D7B /* JHShowInfoView.m in Sources */,
 				D1D141862292487300922483 /* SprayerDataModel.swift in Sources */,
 				BF0327BB1ED5847400D86F94 /* HistoryDetailViewController.m in Sources */,
+				D17F3ED52419DE5000C9E8AF /* SLungTestTipController.swift in Sources */,
 				64F663FE1E63CB8400F4C9E7 /* BaseViewController.m in Sources */,
 				644C9CB61E697DDA0030C3B9 /* TrainingViewController.m in Sources */,
 				64CF5F46228E90AE00595018 /* SURLSuckFog.swift in Sources */,
 				D1D14397226F0B7B00BA5302 /* UIViewEx.swift in Sources */,
 				BF2B3C641EA0B2BD009E639F /* MedicalInfoViewController.m in Sources */,
 				BF79D0EE1E6FE15200EE468B /* EditDetailPatSexInfoViewController.m in Sources */,
+				D17F3ED72419EB2800C9E8AF /* SLungTestDateController.swift in Sources */,
 				D1D143A6226F167F00BA5302 /* AniShowCloseView.swift in Sources */,
 				64CF5F44228E8DD300595018 /* SURLLogin.swift in Sources */,
 				648A72CF228D567500B8B430 /* FLUserDefaults.swift in Sources */,
 				644C9C1D1E655E660030C3B9 /* UIView+Category.m in Sources */,
 				644C9CB41E697DDA0030C3B9 /* TrainingStartViewController.m in Sources */,
 				BF79D0EB1E6FD24900EE468B /* EditDetailPatientInfoViewController.m in Sources */,
+				D173D468241736CC003697E4 /* ExhaleDataModel.swift in Sources */,
 				642620451E80B56200263124 /* FLWrapHeaderTool.m in Sources */,
 				BFDAC7A51E769D3A00E17D7B /* AddPatientInfoModel.m in Sources */,
 				644C9C621E67F8590030C3B9 /* CustemNavItem.m in Sources */,
@@ -1437,6 +1509,7 @@
 				644C9C581E66B5BF0030C3B9 /* FLChartView.m in Sources */,
 				642580251E6D0CB90019AD06 /* JSONHTTPClient.m in Sources */,
 				BFE0CF621E825F9D00613473 /* BlueToothDataModel.m in Sources */,
+				D17688B0240CF1C8002D4433 /* HeadSelectView.swift in Sources */,
 				BF79D0F21E6FF69A00EE468B /* ValuePickerView.m in Sources */,
 				BFDAC78D1E7274FA00E17D7B /* JHPieItemsView.m in Sources */,
 				644C9CB11E697DDA0030C3B9 /* RetrainingViewController.m in Sources */,
@@ -1455,6 +1528,7 @@
 				6425803C1E6D515A0019AD06 /* HistoryValueTableViewCell.m in Sources */,
 				642580331E6D4AC80019AD06 /* HistoryViewController.m in Sources */,
 				642580001E6CFF740019AD06 /* DeviceStatusViewController.m in Sources */,
+				D188B7952421C8630087F342 /* FLCustomChartView.m in Sources */,
 				644C9C3A1E666A6D0030C3B9 /* FL_ScaleCircle.m in Sources */,
 				BF79D0F51E7101FF00EE468B /* AddPatientInfoTableViewController.m in Sources */,
 				BFF420981EA76B630093BE8D /* FMDatabasePool.m in Sources */,
@@ -1468,6 +1542,7 @@
 				644C9CB21E697DDA0030C3B9 /* TrainingFirstViewController.m in Sources */,
 				642580281E6D0CB90019AD06 /* JSONValueTransformer.m in Sources */,
 				64F663C21E63C8A900F4C9E7 /* main.m in Sources */,
+				D17F3ED9241A417600C9E8AF /* UIAlertControllerEx.swift in Sources */,
 				642620401E80B56200263124 /* Model.m in Sources */,
 				BF79D0E81E6FAA7C00EE468B /* EditPatientInfoViewController.m in Sources */,
 				644C9CAE1E697DDA0030C3B9 /* ScanResultViewController.m in Sources */,
@@ -1476,6 +1551,7 @@
 				644C9CAB1E697DDA0030C3B9 /* DeviceViewController.m in Sources */,
 				644C9C5C1E66B5BF0030C3B9 /* UIView+Common.m in Sources */,
 				64BBBAA41E82AD58008A40E5 /* BlueWriteData.m in Sources */,
+				D173D46624173568003697E4 /* SURLExhale.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1515,6 +1591,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				64F663CA1E63C8A900F4C9E7 /* Base */,
+				D173D46B24179F6F003697E4 /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1523,8 +1600,48 @@
 			isa = PBXVariantGroup;
 			children = (
 				64F663CF1E63C8A900F4C9E7 /* Base */,
+				D173D46C24179F6F003697E4 /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		D173D46F24179FF7003697E4 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D173D46E24179FF7003697E4 /* zh-Hans */,
+				D173D47024179FFE003697E4 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		D173D47A2417A1BA003697E4 /* DeviceViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D173D4792417A1BA003697E4 /* Base */,
+				D173D47C2417A1C1003697E4 /* en */,
+				D173D47E2417A1D1003697E4 /* zh-Hans */,
+			);
+			name = DeviceViewController.xib;
+			sourceTree = "<group>";
+		};
+		D173DFA62418B6BB00E8DBCA /* LoginViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D173DFA52418B6BB00E8DBCA /* Base */,
+				D173DFA82418B6C100E8DBCA /* zh-Hans */,
+				D173DFAA2418B6C500E8DBCA /* en */,
+			);
+			name = LoginViewController.xib;
+			sourceTree = "<group>";
+		};
+		D173DFAD2418BC3400E8DBCA /* HistoryTableViewCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D173DFAC2418BC3400E8DBCA /* Base */,
+				D173DFAF2418BC3900E8DBCA /* zh-Hans */,
+				D173DFB12418BC3B00E8DBCA /* en */,
+			);
+			name = HistoryTableViewCell.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1630,8 +1747,9 @@
 				INFOPLIST_FILE = Sprayer/Config/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				"OTHER_SWIFT_FLAGS[arch=*]" = "$(inherited) \"-D\" \"COCOAPODS\" -D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.FL.Pneuma.dev;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Pneuma;
 				SWIFT_OBJC_BRIDGING_HEADER = "Sprayer/Config/Sprayer-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -1651,7 +1769,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.FL.Pneuma.dev;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Pneuma;
 				SWIFT_OBJC_BRIDGING_HEADER = "Sprayer/Config/Sprayer-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};

@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.title = @"Flow value setting";
+    self.navigationItem.title = NSLocalizedString(@"Flow value setting", nil);
     self.navigationItem.leftBarButtonItem = [CustemNavItem initWithImage:[UIImage imageNamed:@"icon-back"] andTarget:self andinfoStr:@"left"];
     self.k1ValueTF.delegate = self;
     self.k2ValueTF.delegate = self;
@@ -33,7 +33,7 @@
         self.k1ValueTF.text = [UserDefaultsUtils valueWithKey:@"k1flowValue"];
     }
     if ([UserDefaultsUtils valueWithKey:@"k2flowValue"] == nil) {
-        self.k2ValueTF.text = @"8.67";
+        self.k2ValueTF.text = @"6.71";
     }else {
         self.k2ValueTF.text = [UserDefaultsUtils valueWithKey:@"k2flowValue"];
     }
@@ -66,7 +66,7 @@
 
 - (IBAction)restoreDefaultSettingAction:(UIButton *)sender {
     [UserDefaultsUtils saveValue:@"0" forKey:@"k1flowValue"];
-    [UserDefaultsUtils saveValue:@"8.67" forKey:@"k2flowValue"];
+    [UserDefaultsUtils saveValue:@"6.71" forKey:@"k2flowValue"];
     self.k1ValueTF.text = [UserDefaultsUtils valueWithKey:@"k1flowValue"];
     self.k2ValueTF.text = [UserDefaultsUtils valueWithKey:@"k2flowValue"];
 }

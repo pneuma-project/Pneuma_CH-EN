@@ -184,7 +184,7 @@
                 max = max;
             }else
                 max = (max/5+1)*5;
-        max = 200;
+        max = 160;
         NSMutableArray *arr = [NSMutableArray array];
         NSMutableArray *minArr = [NSMutableArray array];
         if (max<=5) {
@@ -259,7 +259,7 @@
                 max = max;
             }else
                 max = (max/5+1)*5;
-            max = 200;
+            max = 160;
             NSMutableArray *arr = [NSMutableArray array];
             NSMutableArray *minArr = [NSMutableArray array];
             if (max<=5) {
@@ -324,7 +324,7 @@
                     max = max;
                 }else
                     max = (max/5+1)*5;
-                max = 200;
+                max = 160;
                 _yLineDataArr = nil;
                 NSMutableArray *arr = [NSMutableArray array];
                 if (max<=5) {
@@ -362,9 +362,9 @@
                     
                 }else if(max > 100){
                     
-                    NSInteger count = max / 10;
+                    NSInteger count = max / 8;
                     
-                    for (NSInteger i = 0; i<10; i++) {
+                    for (NSInteger i = 0; i<8; i++) {
                         [arr addObject:[NSString stringWithFormat:@"%ld",(i+1)*count]];
                         
                     }
@@ -701,18 +701,20 @@
             _perValue = _perYlen/[[_yLineDataArr firstObject] floatValue];
             
             for (NSArray *valueArr in _valueArr) {
+                NSMutableArray *mutValueArr = [NSMutableArray array];
+                mutValueArr = [valueArr mutableCopy];
+                [mutValueArr removeLastObject];
+                [mutValueArr insertObject:@(0) atIndex:0];
                 NSMutableArray *dataMArr = [NSMutableArray array];
-                for (NSInteger i = 0; i<valueArr.count; i++) {
+                for (NSInteger i = 0; i<mutValueArr.count; i++) {
                     
-                    CGPoint p = P_M(i*_perXLen+self.chartOrigin.x,self.contentInsets.top + _yLength - [valueArr[i] floatValue]*_perValue);
+                    CGPoint p = P_M(i*_perXLen+self.chartOrigin.x,self.contentInsets.top + _yLength - [mutValueArr[i] floatValue]*_perValue);
                     NSValue *value = [NSValue valueWithCGPoint:p];
                     [dataMArr addObject:value];
                 }
                 [_drawDataArr addObject:[dataMArr copy]];
-                
             }
 
-            
         }break;
         case JHLineChartQuadrantTypeFirstAndSecondQuardrant:{
             

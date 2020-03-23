@@ -83,24 +83,8 @@
 }
 
 #pragma mark - 喷雾器蓝牙数据
-//时间戳处理
-+(NSString *)dataToNSStringTime:(NSData *)data
-{
-    NSString *timeStr = [FLDrawDataTool hexStringFromData:[data subdataWithRange:NSMakeRange(0, 6)]];
-    NSMutableArray *arr = [[NSMutableArray alloc] init];
-    for (NSInteger i = timeStr.length; i > 0; i -= 2) {
-        [arr addObject:[timeStr substringWithRange:NSMakeRange(i-2, 2)]];
-    }
-    NSString *time = [arr componentsJoinedByString:@"-"];
-    
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"YY-MM-dd-HH-mm-ss"];
-    NSDate *date = [formatter dateFromString:time];
-    NSString *timeStamp = [[NSString alloc] initWithFormat:@"%ld",(long)date.timeIntervalSince1970];
-    return timeStamp;
-}
-
-//喷雾器蓝牙数据入口
+//-----------------吸雾数据相关-----------------//
+//喷雾蓝牙数据入口
 +(NSString *)dataToNSString:(NSData *)data
 {
     NSMutableArray *dataArr = [[NSMutableArray alloc] init];
@@ -127,9 +111,9 @@
             NSString *value = [UserDefaultsUtils valueWithKey:@"k1flowValue"];
             k1 = [value floatValue];
         }
-        float k2 = 8.67;
+        float k2 = 6.71;
         if (![[NSUserDefaults standardUserDefaults] objectForKey:@"k2flowValue"]) {
-            k2 = 8.67;
+            k2 = 6.71;
         }else {
             NSString *value = [UserDefaultsUtils valueWithKey:@"k2flowValue"];
             k2 = [value floatValue];
@@ -144,10 +128,10 @@
 {
     float sum = 0;
     for (int i = 0; i<data.length; i++) {
-        NSInteger yaliData = [FLDrawDataTool NSDataToNSInteger:[data subdataWithRange:NSMakeRange(0+i, 1)]];
+        NSInteger yaliData = [FLDrawDataTool NSDataToNSInteger:[data subdataWithRange:NSMakeRange(i, 1)]];
         float yaliNum = (yaliData * 130)/60;
-        yaliNum = [self yaliDataCalculate:yaliData];
-        sum += yaliData;
+        yaliNum = [self yaliDataCalculate:yaliNum];
+        sum += yaliNum;
     }
     return [NSString stringWithFormat:@"%.3f",sum/600.0];
 }
@@ -176,6 +160,165 @@
     return de;
 }
 
+//时间戳处理
++(NSString *)dataToNSStringTime:(NSData *)data
+{
+    NSString *timeStr = [FLDrawDataTool hexStringFromData:[data subdataWithRange:NSMakeRange(0, 6)]];
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    for (NSInteger i = timeStr.length; i > 0; i -= 2) {
+        [arr addObject:[timeStr substringWithRange:NSMakeRange(i-2, 2)]];
+    }
+    NSString *time = [arr componentsJoinedByString:@"-"];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"YY-MM-dd-HH-mm-ss"];
+    NSDate *date = [formatter dateFromString:time];
+    NSString *timeStamp = [[NSString alloc] initWithFormat:@"%ld",(long)date.timeIntervalSince1970];
+    return timeStamp;
+}
+
+//-----------------呼气数据相关-----------------//
++(NSString *)exhaleDataToNSString:(NSData *)data{
+    NSMutableArray *dataArr = [[NSMutableArray alloc] init];
+    for (int i = 0; i<data.length; i+=2) {
+        NSInteger yaliData = abs([self signedDataTointWithData:[data subdataWithRange:NSMakeRange(i, 2)] Location:0 Offset:2]);//[self input0x16String:[FLDrawDataTool hexStringFromData:[data subdataWithRange:NSMakeRange(i, 2)]]]
+        float yaliNum = yaliData/60.0;
+        yaliNum = [self yaliDataCalculate:yaliNum];
+        [dataArr addObject:[NSString stringWithFormat:@"%.3f",yaliNum]];
+    }
+    NSString *yaliStr=[dataArr componentsJoinedByString:@","];
+    return yaliStr;
+}
+
+//数据总和
++(NSString *)exhaleDataSumToNSString:(NSData *)data{
+    float sum = 0;
+    for (int i = 0; i<data.length; i+=2) {
+        NSInteger yaliData = abs([self signedDataTointWithData:[data subdataWithRange:NSMakeRange(i, 2)] Location:0 Offset:2]);
+        float yaliNum = yaliData/60;
+        yaliNum = [self yaliDataCalculate:yaliNum];
+        sum += yaliNum;
+    }
+    return [NSString stringWithFormat:@"%.3f",sum/600.0];
+}
+
+//有符号16进制转10进制
++ (int)input0x16String:(NSString *)string{
+    char *_0x16String = (char *)string.UTF8String;
+    NSMutableString *binaryString = [[NSMutableString alloc] init];
+    for (int i = 0; i < string.length; i++) {
+        char c = _0x16String[i];
+        NSString *binary = [self binaryWithHexadecimal:[NSString stringWithFormat:@"%c",c]];
+        [binaryString appendString:binary];
+    }
+    
+    if ([binaryString characterAtIndex:0] == '1') {
+        //反码
+        for (int i = (int)binaryString.length - 1; i > 0; i--) {
+            char c = [binaryString characterAtIndex:i];
+            c = c^0x1;
+            [binaryString replaceCharactersInRange:NSMakeRange(i, 1) withString:[NSString stringWithFormat:@"%c",c]];
+        }
+        
+        //补码
+        BOOL flag = NO; //进位
+        NSInteger lastIndex = binaryString.length - 1;
+        char lastChar = [binaryString characterAtIndex:lastIndex];
+        if (lastChar == '0') {
+            lastChar = '1';
+        } else {
+            lastChar = '0';
+            flag = YES;
+        }
+        
+        [binaryString replaceCharactersInRange:NSMakeRange(lastIndex, 1) withString:[NSString stringWithFormat:@"%c",lastChar]];
+        
+        if (flag) {
+            for (int i = (int)binaryString.length - 2; i > 0; i--) {
+                char c = [binaryString characterAtIndex:i];
+                if (flag) {//进位
+                    if (c == '0') {
+                        c = '1';
+                        flag = NO;
+                        [binaryString replaceCharactersInRange:NSMakeRange(i, 1) withString:[NSString stringWithFormat:@"%c",c]];
+                        break;
+                    } else if (c == '1'){
+                        c = '0';
+                        flag = YES;
+                        [binaryString replaceCharactersInRange:NSMakeRange(i, 1) withString:[NSString stringWithFormat:@"%c",c]];
+                    }
+                }
+            }
+        }
+    }
+    
+    int result = 0;
+    int bit = 0;
+    //计算
+    for (int i = (int)binaryString.length - 1; i > 0; i--) {
+        char c = [binaryString characterAtIndex:i];
+        if (c == '1') {
+            result += pow(2, bit);
+        }
+        ++bit;
+    }
+    if ([binaryString characterAtIndex:0] == '1') {
+        result = result *-1;
+    }
+    return result;
+}
++ (NSString *)binaryWithHexadecimal:(NSString *)string{
+    // 现将16进制转换车无符号的10进制
+    long a = strtoul(string.UTF8String, NULL, 16);
+    NSMutableString *binary = [[NSMutableString alloc] init];
+    while (a/2 !=0) {
+        [binary insertString:[NSString stringWithFormat:@"%ld",a%2] atIndex:0];
+        a = a/2;
+    }
+    
+    [binary insertString:[NSString stringWithFormat:@"%ld",a%2] atIndex:0];
+    
+    //不够4位的高位补0
+    while (binary.length%4 !=0) {
+        [binary insertString:@"0" atIndex:0];
+    }
+    return binary;
+}
+
+// 转为本地大小端模式 返回Signed类型的数据
++(signed short)signedDataTointWithData:(NSData *)data Location:(NSInteger)location Offset:(NSInteger)offset {
+    signed short value=0;
+    NSData *intdata= [data subdataWithRange:NSMakeRange(location, offset)];
+    if (offset==2) {
+        value=CFSwapInt16BigToHost(*(short*)([intdata bytes]));
+    }
+    else if (offset==4) {
+        value = CFSwapInt32BigToHost(*(int*)([intdata bytes]));
+    }
+    else if (offset==1) {
+        signed char *bs = (signed char *)[[data subdataWithRange:NSMakeRange(location, 1) ] bytes];
+        value = *bs;
+    }
+    return value;
+}
+
+// 转为本地大小端模式 返回Unsigned类型的数据
++(unsigned int)unsignedDataTointWithData:(NSData *)data Location:(NSInteger)location Offset:(NSInteger)offset {
+    unsigned int value=0;
+    NSData *intdata= [data subdataWithRange:NSMakeRange(location, offset)];
+    
+    if (offset==2) {
+        value=CFSwapInt16BigToHost(*(int*)([intdata bytes]));
+    }
+    else if (offset==4) {
+        value = CFSwapInt32BigToHost(*(int*)([intdata bytes]));
+    }
+    else if (offset==1) {
+        unsigned char *bs = (unsigned char *)[[data subdataWithRange:NSMakeRange(location, 1) ] bytes];
+        value = *bs;
+    }
+    return value;
+}
 
 #pragma mark ---- 获取用户ID和名称
 +(NSArray *)requireUserIdFromDb

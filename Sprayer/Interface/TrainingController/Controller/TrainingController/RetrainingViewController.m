@@ -13,7 +13,7 @@
 #import "AddPatientInfoModel.h"
 #import "FLWrapJson.h"
 #import "FLDrawDataTool.h"
-#import "Sprayer-Swift.h"
+#import "Pneuma-Swift.h"
 #import "MagicalRecord.h"
 
 @interface RetrainingViewController ()<CustemBBI>
@@ -25,7 +25,6 @@
     NSInteger index;
     NSData *timeData;
 }
-@property (nonatomic,strong)NSTimer *timer;
 
 @end
 
@@ -36,7 +35,7 @@
     index = 100;
     // Do any additional setup after loading the view.
     self.view.backgroundColor = RGBColor(242, 250, 254, 1.0);
-    [self setNavTitle:[DisplayUtils getTimestampData:@"MMMM dd,YYYY"]];
+    [self setNavTitle:[DisplayUtils getTimestampData:NSLocalizedString(@"TrainingNavHeadTimeFormat", nil)]];
     [self createView];
 }
 -(void)viewDidDisappear:(BOOL)animated
@@ -47,38 +46,21 @@
     [UserDefaultsUtils saveValue:@[] forKey:@"ThreeTrainDataArr"];
     
     [UserDefaultsUtils saveValue:@[] forKey:@"trainTimeArr"];
-    [UserDefaultsUtils saveValue:@[] forKey:@"OneTrainTimeArr"];
-    [UserDefaultsUtils saveValue:@[] forKey:@"TwoTrainTimeArr"];
-    [UserDefaultsUtils saveValue:@[] forKey:@"ThreeTrainTimeArr"];
+    [UserDefaultsUtils saveValue:@"" forKey:@"OneTrainTimeArr"];
+    [UserDefaultsUtils saveValue:@"" forKey:@"TwoTrainTimeArr"];
+    [UserDefaultsUtils saveValue:@"" forKey:@"ThreeTrainTimeArr"];
     
     [UserDefaultsUtils saveValue:@[] forKey:@"medicineIdArr"];
-    [UserDefaultsUtils saveValue:@[] forKey:@"OneMedicineIdArr"];
-    [UserDefaultsUtils saveValue:@[] forKey:@"TwoMedicineIdArr"];
-    [UserDefaultsUtils saveValue:@[] forKey:@"ThreeMedicineIdArr"];
+    [UserDefaultsUtils saveValue:@"" forKey:@"OneMedicineIdArr"];
+    [UserDefaultsUtils saveValue:@"" forKey:@"TwoMedicineIdArr"];
+    [UserDefaultsUtils saveValue:@"" forKey:@"ThreeMedicineIdArr"];
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
 //    [self.navigationItem setHidesBackButton:YES];
-    self.navigationItem.rightBarButtonItem = [CustemNavItem initWithString:@"Save" andTarget:self andinfoStr:@"first"];
+    self.navigationItem.rightBarButtonItem = [CustemNavItem initWithString:NSLocalizedString(@"Save", nil) andTarget:self andinfoStr:@"first"];
     self.navigationItem.leftBarButtonItem = [CustemNavItem initWithImage:[UIImage imageNamed:@"icon-back"] andTarget:self andinfoStr:@"two"];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopNSTimerAction) name:@"sparyModel" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disconnectAction) name:PeripheralDidConnect object:nil];
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(startTraingAction) name:@"startTrain" object:nil];
-}
--(void)startTraingAction
-{
-    [self.timer invalidate];
-}
-
--(void)stopNSTimerAction
-{
-    [self.timer invalidate];
-}
-
--(void)disconnectAction
-{
-//    [self.timer invalidate];
 }
 
 #pragma mark - CustemBBI代理方法
@@ -86,10 +68,10 @@
 {
     if ([infoStr isEqualToString:@"first"]) {
         
-        NSMutableArray * trainData;
+        NSMutableArray * trainData = [NSMutableArray array];
         NSString *trainTime;
         NSString *medicineId;
-        float trainSum = 0;
+        double trainSum = 0;
         if (index == 100) {
             trainData = [UserDefaultsUtils valueWithKey:@"OneTrainDataArr"];
             trainTime = [UserDefaultsUtils valueWithKey:@"OneTrainTimeArr"];
@@ -104,21 +86,26 @@
             medicineId = [UserDefaultsUtils valueWithKey:@"ThreeMedicineIdArr"];
         }
         for (NSString * str in trainData) {
-            trainSum += [str floatValue];
+            trainSum += [str doubleValue];
         }
         NSString *trainDataStr = [trainData componentsJoinedByString:@","];
-        [DeviceRequestObject.shared requestSaveTrainDataWithMedicineId:medicineId trainData:trainDataStr dataSum:trainSum/600.0 addDate:trainTime sucBlock:^(NSString * _Nonnull code) {
+        NSString *dataSumValue = [NSString stringWithFormat:@"%.3lf",trainSum/600.0];
+        [LCProgressHUD showLoadingText:NSLocalizedString(@"Uploading", nil)];
+        [DeviceRequestObject.shared requestSaveTrainDataWithMedicineId:medicineId trainData:trainDataStr dataSum:[dataSumValue doubleValue] addDate:trainTime sucBlock:^(NSString * _Nonnull code) {
             if ([code isEqualToString:@"200"]) {
+                [LCProgressHUD hide];
                 [LCProgressHUD showSuccessText:NSLocalizedString(@"Upload success", nil)];
                 [self.navigationController popToRootViewControllerAnimated:YES];
             }else {
+                [LCProgressHUD hide];
                 [LCProgressHUD showSuccessText:NSLocalizedString(@"Upload failed", nil)];
             }
         }];
-        [self writeDataAction];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"stopTrain" object:nil userInfo:nil];
+        [self writeDataAction];
     }else if ([infoStr isEqualToString:@"two"]){
-        [self.navigationController popViewControllerAnimated:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"stopTrain" object:nil userInfo:nil];
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
 
@@ -204,7 +191,7 @@
     downView.backgroundColor = [UIColor clearColor];
    
     
-    NSArray * volumeArr = @[@"The first inspiratory volume",@"The second inspiratory volume",@"The third inspiratory volume"];
+    NSArray * volumeArr = @[@"第一次训练",@"第二次训练",@"第三次训练"];
     NSArray * volumeInfoArr = @[[NSString stringWithFormat:@"%.1fL",sum1/600.0],[NSString stringWithFormat:@"%.1fL",sum2/600.0],[NSString stringWithFormat:@"%.1fL",sum3/600.0]];
     NSArray * colorArr = @[ RGBColor(0, 83, 181, 1.0), RGBColor(238, 146, 1, 1.0),RGBColor(1, 238, 191, 1.0)];
     for (int i =0; i<3; i++) {
@@ -227,12 +214,12 @@
         volumeLabel.center = volumePoint;
         volumeLabel.font = [UIFont systemFontOfSize:12];
         volumeLabel.textAlignment = NSTextAlignmentLeft;
-        volumeLabel.text = volumeArr[i];
+        volumeLabel.text = NSLocalizedString(volumeArr[i], nil);
         
         UILabel * volumeInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(volumeLabel.current_x, volumeLabel.current_y_h, 180, 40)];
         volumeInfoLabel.font = [UIFont systemFontOfSize:16];
         volumeInfoLabel.textAlignment = NSTextAlignmentLeft;
-        volumeInfoLabel.text = [NSString stringWithFormat:@"Total volume: %@",volumeInfoArr[i]];
+        volumeInfoLabel.text = [NSString stringWithFormat:@"%@ %@",NSLocalizedString(@"Total volume", nil),volumeInfoArr[i]];
         thirdVolumeH = volumeInfoLabel.current_y_h;
         [downView addSubview:bgView];
         [downView addSubview:colorView];
@@ -245,7 +232,7 @@
     CGPoint btnCenter = RetrainBtn.center;
     btnCenter.y = thirdVolumeH+(downView.current_h-thirdVolumeH)/2;
     RetrainBtn.center = btnCenter;
-    [RetrainBtn setTitle:@"Retraining" forState:UIControlStateNormal];
+    [RetrainBtn setTitle:NSLocalizedString(@"Retraining", nil) forState:UIControlStateNormal];
     [RetrainBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     RetrainBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     [RetrainBtn setBackgroundColor:RGBColor(16, 101, 182, 1.0)];
@@ -265,7 +252,6 @@
     }
     UIView * view = [self.view viewWithTag:tap.view.tag];
     view.backgroundColor = RGBColor(210, 238, 238, 1.0);
-    index = 0;
     index = tap.view.tag - 100;
 }
 

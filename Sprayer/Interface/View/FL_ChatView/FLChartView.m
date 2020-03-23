@@ -183,11 +183,11 @@
             CGPoint prePoint = [[self.leftPointArr objectAtIndex:i-1] CGPointValue];
             CGPoint nowPoint = [[self.leftPointArr objectAtIndex:i] CGPointValue];
             //            [beizer addLineToPoint:point];
-            [beizer addCurveToPoint:nowPoint controlPoint1:CGPointMake((nowPoint.x+prePoint.x)/2, prePoint.y) controlPoint2:CGPointMake((nowPoint.x+prePoint.x)/2, nowPoint.y)];
+            [beizer addCurveToPoint:nowPoint controlPoint1:CGPointMake((nowPoint.x+prePoint.x)/2, (nowPoint.y+prePoint.y)/2) controlPoint2:CGPointMake((nowPoint.x+prePoint.x)/2, (nowPoint.y+prePoint.y)/2)];
             
             
             //            [bezier1 addLineToPoint:nowPoint];
-            [bezier1 addCurveToPoint:nowPoint controlPoint1:CGPointMake((nowPoint.x+prePoint.x)/2, prePoint.y) controlPoint2:CGPointMake((nowPoint.x+prePoint.x)/2, nowPoint.y)];
+            [bezier1 addCurveToPoint:nowPoint controlPoint1:CGPointMake((nowPoint.x+prePoint.x)/2, (nowPoint.y+prePoint.y)/2) controlPoint2:CGPointMake((nowPoint.x+prePoint.x)/2, (nowPoint.y+prePoint.y)/2)];
             
             if (i == self.leftPointArr.count-1) {
                 [beizer moveToPoint:nowPoint];//添加连线
@@ -244,7 +244,7 @@
     anmi1.autoreverses = NO;
     anmi1.removedOnCompletion = NO;
     
-    [gradientLayer addAnimation:anmi1 forKey:@"bounds"];
+//    [gradientLayer addAnimation:anmi1 forKey:@"bounds"];
     
     
     //*****************添加动画连线******************//
@@ -264,7 +264,7 @@
     anmi.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     anmi.autoreverses = NO;
     
-    [shapeLayer addAnimation:anmi forKey:@"stroke"];
+//    [shapeLayer addAnimation:anmi forKey:@"stroke"];
     
     for (UIButton *btn in self.leftBtnArr) {
         [self.scrollBgView1 addSubview:btn];
@@ -356,8 +356,8 @@
 #pragma mark - y坐标数值
 -(void)addLeftViews{
     
-//    NSArray *leftArr = _dataArrOfY;
-    NSArray * leftArr = @[@"200",@"180",@"160",@"140",@"120",@"100",@"80",@"60",@"40",@"20",@"0"];
+    NSArray *leftArr = _dataArrOfY;
+//    NSArray * leftArr = @[@"160",@"140",@"120",@"100",@"80",@"60",@"40",@"20",@"0"];
     for (int i = 0;i< leftArr.count ;i++ ) {
         
         UILabel *leftLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, i*(Ymargin)+40-Ymargin/2, titleWOfY, Ymargin)];
@@ -390,17 +390,17 @@
     
     for (int i = 0;i<= bottomArr.count;i++) {
         if(i%10 == 0){
-        UILabel *leftLabel = [[UILabel alloc]initWithFrame:CGRectMake(i*Xmargin, (self.dataArrOfY.count-1)*Ymargin, Xmargin*2+5, 20)];
-        leftLabel.font = [UIFont systemFontOfSize:10.0f];
-        leftLabel.textColor = RGBColor(57, 106, 195, 1.0);
-        if (i==bottomArr.count) {
-           leftLabel.text = bottomArr[i-1];
-        }else
-        {
-           leftLabel.text = bottomArr[i];
-        }
-        leftLabel.textAlignment = NSTextAlignmentCenter;
-        [UIView addSubview:leftLabel];
+            UILabel *leftLabel = [[UILabel alloc]initWithFrame:CGRectMake(i*Xmargin, (self.dataArrOfY.count-1)*Ymargin, 25, 20)];
+            leftLabel.font = [UIFont systemFontOfSize:10.0f];
+            leftLabel.textColor = RGBColor(57, 106, 195, 1.0);
+            if (i==bottomArr.count) {
+               leftLabel.text = bottomArr[i-1];
+            }else
+            {
+               leftLabel.text = bottomArr[i];
+            }
+            leftLabel.textAlignment = NSTextAlignmentCenter;
+            [UIView addSubview:leftLabel];
         }
         
     }

@@ -107,3 +107,9 @@ func Dprint<T>(_ message: T, filePath: String = #file, rowCount: Int = #line) {
     #endif
 }
 
+// MARK:获取设备当前地区
+let currentLocale = Locale.current.identifier
+
+//MARK:关键字
+let PeripheralDidConnect = "peripheralDidConnect"//断开连接
+

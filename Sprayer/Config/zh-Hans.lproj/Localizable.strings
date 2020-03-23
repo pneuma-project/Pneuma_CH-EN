@@ -1,0 +1,121 @@
+/* 
+  Localizable.strings
+  Sprayer
+
+  Created by fanglin on 2020/3/10.
+  Copyright © 2020 FangLin. All rights reserved.
+*/
+
+"Device" = "设备";
+"Training" = "训练";
+"Spray" = "实时";
+"User" = "用户";
+
+"Phone number cannot be empty" = "手机号不能为空";
+"Password cannot be empty" = "密码不能为空";
+"This account does not exist" = "此账号不存在";
+"Wrong password" = "密码错误";
+"Your device or account has been blocked" = "您的设备或账号已被禁封";
+"Login Error" = "登录出错";
+"Unknown Error" = "未知错误";
+"Request timed out" = "请求超时";
+
+"MY DEVICE" = "设备";
+"Inspiratory Training" = "吸雾训练";
+"The last best inspiration" = "训练参考曲线";
+"Best Analog Inspiratory Volume" = "当前训练参考值";
+"Total" = "总量:";
+"Start Training" = "开始训练";
+"Restart Training" = "重新训练";
+"Pulmonary Function Test" = "肺功能测试";
+"Inspiratory Flow Throughout" = "吸雾流量统计";
+"Training Description" = "训练描述:";
+"Training Description Detail" = "1.在医生指导下，用户通过训练获得正确的使用方式.\n\n2.打开设备盖，单颗绿灯亮起可以开始训练.\n\n3.再次吸雾，需要等三颗绿灯变回单颗绿灯才可以.\n\n4.先深呼一口气，含住吸雾嘴缓慢深吸一口气.\n\n5.吸雾总量和吸雾曲线会被记录和保存.\n\n6.当用户完成三次吸雾采样后，选择一条最佳的吸雾曲线作为参考曲线.";
+"The First Training" = "第一次训练";
+"Are you ready" = "你准备好了吗?";
+"Now you're ready to get your first inspiration" = "现在准备开始你的第一次吸雾训练.";
+"Reminder" = "温馨提示";
+"The device is not connected" = "设备未连接！";
+
+"TrainingNavHeadTimeFormat" = "YYYY年MM月dd日";
+"First Inspiratory Cycle Results" = "第一次吸雾结果！";
+"Inspiratory Flow Throughout" = "吸雾流量统计";
+"The Second Training" = "第二次训练";
+"Now you're ready to start your second inspiration" = "现在准备开始你的第二次吸雾训练.";
+
+"Second Inspiratory Cycle Results" = "第二次吸雾结果！";
+"The Third Training" = "第三次训练";
+"Now you're ready to start your third inspiration" = "现在准备开始你的第三次吸雾训练.";
+"Third Inspiratory Cycle Results" = "第三次吸雾结果！";
+"Complete the Training" = "结束训练";
+"After training,please select the best inspiratory cycle curve for display during spray dose application" = "训练后，请选择最佳吸雾曲线作为参考曲线显示.";
+"Save" = "保存";
+"Uploading" = "上传中...";
+"Upload success" = "上传成功";
+"Upload failed" = "上传失败";
+
+"The first inspiratory volume" = "第一次训练";
+"The second inspiratory volume" = "第二次训练";
+"The third inspiratory volume" = "第三次训练";
+"Total volume" = "总吸雾量:";
+"Retraining" = "重新训练";
+
+"Reference Total Volume" = "参考吸雾量:";
+"Current Total Volume" = "当前吸雾量:";
+"Inspiration Volume Distribution" = "当天吸雾量分布图";
+"Unit:L" = "单位:L";
+"Date" = "次数";
+"Please go to training" = "请前往训练";
+"SprayTimeFormat" = "YYYY年MM月dd日 HH时mm分ss秒";
+
+"My Profile" = "我的资料";
+"Basic Information" = "基本信息";
+"History" = "历史数据";
+"Pressure VS Flow Rate Equation" = "流量公式";
+"Basic Information" = "基本信息";
+"Medical History" = "历史用药";
+"Device Information" = "设备信息";
+"Name" = "姓名:";
+"Phone" = "电话:";
+"Sex" = "性别:";
+"Age" = "年龄:";
+"Race" = "地区:";
+"Height" = "身高:";
+"Weight" = "体重:";
+"male" = "男";
+"female" = "女";
+"Device serial number" = "设备序列号:";
+"Flow value setting" = "参数设置";
+"History" = "历史数据";
+
+"Bluetooth is not open!" = "蓝牙未打开!";
+"Start connecting peripherals" = "开始连接设备";
+"Connection failed" = "连接失败";
+"Peripheral disconnect" = "设备断开连接";
+"Connection succeeded" = "连接成功";
+
+"YES" = "是的";
+"Wait a minute" = "稍等";
+"OK" = "好的";
+"Test Again" = "再测一次";
+"Return" = "返回";
+
+"First Test Results" = "第一次测试结果";
+"Second Test Results" = "第二次测试结果";
+"Third Test Result" = "第三次测试结果";
+
+"Start The Second Test" = "开始第二次测试";
+"Start The Third Test" = "开始第三次测试";
+"End Test" = "结束测试";
+"Start Testing" = "开始测试";
+
+"Are you ready for your first test" = "您已经准备好进行第1次测试了?";
+"Are you ready for the second test" = "您已经准备好进行第2次测试了?";
+"Are you ready for the third test" = "您已经准备好进行第3次测试了?";
+
+"This test will be saved as your first test today" = "此次测试将保存为您今天的第1次测试";
+"This test will be saved as your second test today" = "此次测试将保存为您今天的第2次测试";
+"This test will be saved as your third test today" = "此次测试将保存为您今天的第3次测试";
+"Save or not" = "是否保存?";
+"Do you want to save test results" = "是否保存测试结果？";
+

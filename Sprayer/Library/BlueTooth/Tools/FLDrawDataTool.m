@@ -28,7 +28,7 @@
 +(NSInteger)NSDataToNSInteger:(NSData *)data
 {
     //Byte *bytes = (Byte *)[data bytes];
-    NSString *dataStr = [NSString stringWithFormat:@"%@",[self hexStringFromData:data]];
+    NSString *dataStr = [self hexStringFromData:data];
     NSString *temp = [NSString stringWithFormat:@"%lu",strtoul([dataStr UTF8String], 0, 16)];
     NSInteger tmp_sData = [temp integerValue];
     return tmp_sData;
@@ -111,13 +111,31 @@
     return binaryStr;
 }
 
-//将NSData中的<>去掉
+//将NSData转换成16进制的string类型
 +(NSString *)hexStringFromData:(NSData*)data
 {
-    return [[[[NSString stringWithFormat:@"%@",data]
-              stringByReplacingOccurrencesOfString: @"<" withString: @""]
-             stringByReplacingOccurrencesOfString: @">" withString: @""]
-            stringByReplacingOccurrencesOfString: @" " withString: @""];
+    if (!data || [data length] == 0) {
+        return @"";
+    }
+    NSMutableString *string = [[NSMutableString alloc] initWithCapacity:[data length]];
+    
+    [data enumerateByteRangesUsingBlock:^(const void *bytes, NSRange byteRange, BOOL *stop) {
+        unsigned char *dataBytes = (unsigned char*)bytes;
+        for (NSInteger i = 0; i < byteRange.length; i++) {
+            NSString *hexStr = [NSString stringWithFormat:@"%x", (dataBytes[i]) & 0xff];
+            if ([hexStr length] == 2) {
+                [string appendString:hexStr];
+            } else {
+                [string appendFormat:@"0%@", hexStr];
+            }
+        }
+    }];
+    
+    return string;
+//    return [[[[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]
+//              stringByReplacingOccurrencesOfString: @"<" withString: @""]
+//             stringByReplacingOccurrencesOfString: @">" withString: @""]
+//            stringByReplacingOccurrencesOfString: @" " withString: @""];
 }
 
 //将十进制转化为十六进制

@@ -1,0 +1,9 @@
+
+/* Class = "UIButton"; normalTitle = "连接设备"; ObjectID = "PHm-bB-SKg"; */
+"PHm-bB-SKg.normalTitle" = "DEVICE CONNECTION";
+
+/* Class = "UILabel"; text = "#ZAE500120"; ObjectID = "wkq-UR-57u"; */
+"wkq-UR-57u.text" = "#ZAE500120";
+
+/* Class = "UILabel"; text = "设备状态"; ObjectID = "zew-FP-FyN"; */
+"zew-FP-FyN.text" = "Device Status";

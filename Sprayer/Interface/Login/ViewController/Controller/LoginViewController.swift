@@ -229,11 +229,11 @@ class LoginViewController: UIViewController,UIGestureRecognizerDelegate {
             passwordTF.resignFirstResponder()
         }
         if (iphoneTF.text?.isEmpty)! {
-            self.view.makeToast("Phone number cannot be empty", duration: 1.0, position: .center)
+            self.view.makeToast(NSLocalizedString("Phone number cannot be empty", comment: ""), duration: 1.0, position: .center)
             Dprint("手机号为空")
             return
         }else if (passwordTF.text?.isEmpty)! {
-            self.view.makeToast("Password cannot be empty", duration: 1.0, position: .center)
+            self.view.makeToast(NSLocalizedString("Password cannot be empty", comment: ""), duration: 1.0, position: .center)
             Dprint("密码为空")
             return
         }
@@ -268,17 +268,17 @@ class LoginViewController: UIViewController,UIGestureRecognizerDelegate {
                     }else if code == "4000001" {
                         weekself.view.makeToast("密码为空", duration: 1.0, position: .center)
                     }else if code == "4000002" {
-                        weekself.view.makeToast("此账号不存在", duration: 1.0, position: .center)
+                        weekself.view.makeToast(NSLocalizedString("This account does not exist", comment: ""), duration: 1.0, position: .center)
                     }else if code == "4000003" {
-                        weekself.view.makeToast("密码错误", duration: 1.0, position: .center)
+                        weekself.view.makeToast(NSLocalizedString("Wrong password", comment: ""), duration: 1.0, position: .center)
                     }else if code == "4000004" {
-                        weekself.view.makeToast("您的设备或账号已被禁封", duration: 2.0, position: .center)
+                        weekself.view.makeToast(NSLocalizedString("Your device or account has been blocked", comment: ""), duration: 2.0, position: .center)
                     }else if code == "5000000" {
-                        weekself.view.makeToast("异常错误", duration: 2.0, position: .center)
+                        weekself.view.makeToast(NSLocalizedString("Login Error", comment: ""), duration: 2.0, position: .center)
                     }else if code == "7000000" {
                         weekself.view.makeToast("机器码为空", duration: 2.0, position: .center)
                     }else{
-                        weekself.view.makeToast("未知错误", duration: 2.0, position: .center)
+                        weekself.view.makeToast(NSLocalizedString("Unknown Error", comment: ""), duration: 2.0, position: .center)
                     }
                 }
             }
@@ -286,7 +286,7 @@ class LoginViewController: UIViewController,UIGestureRecognizerDelegate {
             if let weakSelf = self{
                 //隐藏加载动画
                 weakSelf.view.hideToastActivity()
-                weakSelf.view.makeToast("请求出错", duration: 1.5, position: .center)
+                weakSelf.view.makeToast(NSLocalizedString("Request timed out", comment: ""), duration: 1.5, position: .center)
                 Dprint("LOGIN_URLError:\(error)")
             }
         }

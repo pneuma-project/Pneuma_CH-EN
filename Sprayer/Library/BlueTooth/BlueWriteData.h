@@ -24,4 +24,8 @@
 
 +(void)confirmCodePresentData;
 
++(void)startLungFunctionTrainData:(NSData *)data;
+
++(void)stopLungFunctionTrainData:(NSData *)data;
+
 @end

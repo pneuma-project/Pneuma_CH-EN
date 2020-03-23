@@ -81,7 +81,7 @@
             UIImage *image=[[UIImage imageNamed:imageNameArr1[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
             UIImage *image_current=[[UIImage imageNamed:imageNameArr2[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
             nav.tabBarItem.image=image;
-            nav.tabBarItem.title=nameArr[i];
+            nav.tabBarItem.title=NSLocalizedString(nameArr[i], nil);
             nav.tabBarItem.selectedImage=image_current;
             [nav.tabBarItem setTitlePositionAdjustment:UIOffsetMake(0, -5)];
             [nav.tabBarItem setImageInsets:UIEdgeInsetsMake(-4, 0, 4, 0)];

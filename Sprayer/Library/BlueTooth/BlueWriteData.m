@@ -153,6 +153,41 @@
     [[BlueToothManager getInstance] sendDataWithString:newData];
 }
 
+//开始肺功能检测
++(void)startLungFunctionTrainData:(NSData *)data
+{
+    Byte dataByte[8];
+    dataByte[0] = 0xff;//头部
+    dataByte[1] = 0x06;//类型
+    dataByte[2] = 0x04;//长度
+    Byte *timeByte = (Byte *)[data bytes];
+    for (int i = 0; i<[data length]; i++) {
+        dataByte[3+i] = timeByte[i];
+    }
+    dataByte[7] = 0xAB;//结束
+    NSData *newData = [NSData dataWithBytes:&dataByte length:sizeof(dataByte)];
+    NSLog(@"newdata == %@",newData);
+    //写数据到蓝牙
+    [[BlueToothManager getInstance] sendDataWithString:newData];
+}
+//结束肺功能检测
++(void)stopLungFunctionTrainData:(NSData *)data
+{
+    Byte dataByte[8];
+    dataByte[0] = 0xff;//头部
+    dataByte[1] = 0x07;//类型
+    dataByte[2] = 0x04;//长度
+    Byte *timeByte = (Byte *)[data bytes];
+    for (int i = 0; i<[data length]; i++) {
+        dataByte[3+i] = timeByte[i];
+    }
+    dataByte[7] = 0xAB;//结束
+    NSData *newData = [NSData dataWithBytes:&dataByte length:sizeof(dataByte)];
+    NSLog(@"newdata == %@",newData);
+    //写数据到蓝牙
+    [[BlueToothManager getInstance] sendDataWithString:newData];
+}
+
 +(Byte)intHexByte:(int)userId
 {
     Byte newByte[1];

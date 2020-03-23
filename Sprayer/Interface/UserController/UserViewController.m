@@ -15,7 +15,7 @@
 #import "FlowValueSettingController.h"
 #import "UserDefaultsUtils.h"
 #import "MagicalRecord.h"
-#import "Sprayer-Swift.h"
+#import "Pneuma-Swift.h"
 #import "HistoryViewController.h"
 
 @interface UserViewController ()
@@ -37,11 +37,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-    [self setNavTitle:@"My Profile"];
+    [self setNavTitle:NSLocalizedString(@"My Profile", nil)];
     [self createHeadView];
     
-    imageArr = @[@"my-profile-icon-basic-information",@"my-profile-icon-history",@"my-profile-icon-FlowValue",@"my-profile-icon-basic-information"];   //@"my-profile-icon-patient-information",
-    titleArr = @[@"Basic Information",@"History",@"Pressure VS Flow Rate Equation",@"Drug Information"];//@"Patient Information",
+    imageArr = @[@"my-profile-icon-basic-information",@"my-profile-icon-history",@"my-profile-icon-FlowValue"];   //@"my-profile-icon-patient-information",,@"my-profile-icon-basic-information"
+    titleArr = @[NSLocalizedString(@"Basic Information", nil),NSLocalizedString(@"History", nil),NSLocalizedString(@"Pressure VS Flow Rate Equation", nil)];//@"Patient Information",,@"Drug Information"
     
 }
 -(void)viewWillAppear:(BOOL)animated

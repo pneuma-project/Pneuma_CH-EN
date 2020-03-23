@@ -44,7 +44,7 @@
     self.centerLable = [[UILabel alloc] initWithFrame:CGRectMake(20, center/3, center*2-40, center)];
     self.centerLable.textAlignment = NSTextAlignmentCenter;
     self.centerLable.numberOfLines = 2;
-    self.centerLable.text = @"Best Analog Inspiratory Volume";
+    self.centerLable.text = NSLocalizedString(@"Best Analog Inspiratory Volume", nil);
     self.centerLable.backgroundColor = [UIColor clearColor];
     self.centerLable.textColor = RGBColor(8, 153, 239, 1.0);
     self.centerLable.font = [UIFont systemFontOfSize:14];

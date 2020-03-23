@@ -15,7 +15,7 @@
 #import "UserDefaultsUtils.h"
 #import "PatientInfoViewController.h"
 #import "FLDrawDataTool.h"
-#import "Sprayer-Swift.h"
+#import "Pneuma-Swift.h"
 
 @interface DeviceViewController ()
 {
@@ -42,12 +42,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.view.backgroundColor = [UIColor whiteColor];
-    [self setNavTitle:@"MY DEVICE"];
+    [self setNavTitle:NSLocalizedString(@"MY DEVICE", nil)];
     [self setLayoutConstraint];
-    self.medicineInfoTimer = [NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(writeInquireMedicineInfo) userInfo:nil repeats:YES];
+//    self.medicineInfoTimer = [NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(writeInquireMedicineInfo) userInfo:nil repeats:YES];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(writePowerInfoDataAction) userInfo:nil repeats:YES];
     
-    _blueView = [[BlueDeviceListView alloc] init];
+//    _blueView = [[BlueDeviceListView alloc] init];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -56,19 +56,19 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchDeviceAction:) name:@"scanDevice" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bleConnectSucceedAction) name:ConnectSucceed object:nil]; //设备连接成功扫描到特征值
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disconnectAction) name:PeripheralDidConnect object:nil];//设备断开连接
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(displayMedicineInfoAction:) name:@"displayMedicineInfo" object:nil]; //展示药品信息
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(displayMedicineInfoAction:) name:@"displayMedicineInfo" object:nil]; //展示药品信息
 
     if ([UserDefaultsUtils boolValueWithKey:@"isConnect"] == YES) {
-        if ([UserDefaultsUtils boolValueWithKey:IsDisplayMedInfo] == NO){
-            [self.timer setFireDate:[NSDate distantFuture]];
-            [self.medicineInfoTimer setFireDate:[NSDate distantPast]];
-        }else {
+//        if ([UserDefaultsUtils boolValueWithKey:IsDisplayMedInfo] == NO){
+//            [self.timer setFireDate:[NSDate distantFuture]];
+//            [self.medicineInfoTimer setFireDate:[NSDate distantPast]];
+//        }else {
             [self.timer setFireDate:[NSDate distantPast]];
-            [self.medicineInfoTimer setFireDate:[NSDate distantFuture]];
-        }
+//            [self.medicineInfoTimer setFireDate:[NSDate distantFuture]];
+//        }
     }else {
         [self.timer setFireDate:[NSDate distantFuture]];
-        [self.medicineInfoTimer setFireDate:[NSDate distantFuture]];
+//        [self.medicineInfoTimer setFireDate:[NSDate distantFuture]];
     }
 }
 
@@ -80,7 +80,6 @@
     
     //接收通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopNSTimerAction) name:@"startTrain" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopNSTimerAction) name:@"sparyModel" object:nil];
 }
 
 -(void)viewDidDisappear:(BOOL)animated
@@ -88,7 +87,7 @@
     [super viewDidDisappear:animated];
     NSLog(@"self = %@",self.timer);
     [self.timer setFireDate:[NSDate distantFuture]];
-    [self.medicineInfoTimer setFireDate:[NSDate distantFuture]];
+//    [self.medicineInfoTimer setFireDate:[NSDate distantFuture]];
 }
 
 -(void)setLayoutConstraint {
@@ -131,25 +130,25 @@
 -(void)bleConnectSucceedAction
 {
     [self.isOnlineBtn setImage:[UIImage imageNamed:@"device-butn-on"] forState:UIControlStateNormal];
-    [self.medicineInfoTimer setFireDate:[NSDate distantPast]];
-    [self.timer setFireDate:[NSDate distantFuture]];
-    [UserDefaultsUtils saveBoolValue:NO withKey:IsDisplayMedInfo];
+//    [self.medicineInfoTimer setFireDate:[NSDate distantPast]];
+    [self.timer setFireDate:[NSDate distantPast]];
+//    [UserDefaultsUtils saveBoolValue:NO withKey:IsDisplayMedInfo];
 }
 
 //开始训练，停止定时器
 -(void)stopNSTimerAction
 {
     [self.timer setFireDate:[NSDate distantFuture]];
-    [self.medicineInfoTimer setFireDate:[NSDate distantFuture]];
+//    [self.medicineInfoTimer setFireDate:[NSDate distantFuture]];
 }
 
 //蓝牙失去连接
 -(void)disconnectAction
 {
-    [UserDefaultsUtils saveBoolValue:NO withKey:IsDisplayMedInfo];
+//    [UserDefaultsUtils saveBoolValue:NO withKey:IsDisplayMedInfo];
     [self.isOnlineBtn setImage:[UIImage imageNamed:@"device-butn-off"] forState:UIControlStateNormal];
     [self.timer setFireDate:[NSDate distantFuture]];
-    [self.medicineInfoTimer setFireDate:[NSDate distantFuture]];
+//    [self.medicineInfoTimer setFireDate:[NSDate distantFuture]];
 }
 
 //展示药品名称
@@ -157,21 +156,22 @@
 {
     [UserDefaultsUtils saveBoolValue:YES withKey:IsDisplayMedInfo];
     [self.medicineInfoTimer setFireDate:[NSDate distantFuture]];
-    NSDictionary *infoDict = notification.object;
-    NSString *medicineInfo = infoDict[@"medicineInfo"];
-    [UserDefaultsUtils saveValue:medicineInfo forKey:@"MedicineInfo"];
-    UIAlertController *alerVC = [UIAlertController alertControllerWithTitle:nil message:medicineInfo preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self.timer setFireDate:[NSDate distantPast]];
-    }];
-    [alerVC addAction:action1];
-    NSMutableAttributedString *alertControllerMessageStr = [[NSMutableAttributedString alloc] initWithString:medicineInfo];
-    NSMutableParagraphStyle *ps = [[NSMutableParagraphStyle alloc] init];
-    [ps setAlignment:NSTextAlignmentLeft];
-    [alertControllerMessageStr addAttribute:NSParagraphStyleAttributeName value:ps range:NSMakeRange(0, medicineInfo.length)];
-    [alertControllerMessageStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, medicineInfo.length)];
-    [alerVC setValue:alertControllerMessageStr forKey:@"attributedMessage"];
-    [self presentViewController:alerVC animated:YES completion:nil];
+    [self.timer setFireDate:[NSDate distantPast]];
+//    NSDictionary *infoDict = notification.object;
+//    NSString *medicineInfo = infoDict[@"medicineInfo"];
+//    [UserDefaultsUtils saveValue:medicineInfo forKey:@"MedicineInfo"];
+//    UIAlertController *alerVC = [UIAlertController alertControllerWithTitle:nil message:medicineInfo preferredStyle:UIAlertControllerStyleAlert];
+//    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        [self.timer setFireDate:[NSDate distantPast]];
+//    }];
+//    [alerVC addAction:action1];
+//    NSMutableAttributedString *alertControllerMessageStr = [[NSMutableAttributedString alloc] initWithString:medicineInfo];
+//    NSMutableParagraphStyle *ps = [[NSMutableParagraphStyle alloc] init];
+//    [ps setAlignment:NSTextAlignmentLeft];
+//    [alertControllerMessageStr addAttribute:NSParagraphStyleAttributeName value:ps range:NSMakeRange(0, medicineInfo.length)];
+//    [alertControllerMessageStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, medicineInfo.length)];
+//    [alerVC setValue:alertControllerMessageStr forKey:@"attributedMessage"];
+//    [self presentViewController:alerVC animated:YES completion:nil];
 }
 
 #pragma mark - 写入数据
@@ -191,11 +191,6 @@
 //查询药品信息
 -(void)writeInquireMedicineInfo
 {
-//    NSString *time = [DisplayUtils getTimeStampWeek];
-//    NSString *weakDate = [DisplayUtils getTimestampDataWeek];
-//    NSMutableString *allStr = [[NSMutableString alloc] initWithString:time];
-//    [allStr insertString:weakDate atIndex:10];
-//    timeData = [FLWrapJson bcdCodeString:allStr];
     long long time = [DisplayUtils getNowTimestamp];
     timeData = [FLDrawDataTool longToNSData:time];
     [BlueWriteData inquireCurrentDrugInfo:timeData];
@@ -216,7 +211,7 @@
 //    }
     blueManager = [BlueToothManager getInstance];
     [blueManager startScan];
-    [_blueView animationshowWithIsCenter:false];
+//    [_blueView animationshowWithIsCenter:false];
 }
 
 

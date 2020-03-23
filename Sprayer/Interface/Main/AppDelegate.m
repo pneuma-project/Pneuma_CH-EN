@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "RootViewController.h"
 #import "UserDefaultsUtils.h"
-#import "Sprayer-Swift.h"
+#import "Pneuma-Swift.h"
 #import "MagicalRecord.h"
 
 @interface AppDelegate ()
@@ -29,19 +29,16 @@
     //初始化 MagicalRecord
     [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"Sprayer.sqlite"];
     
-    [UserDefaultsUtils saveBoolValue:NO withKey:@"AutoConnect"];
     [UserDefaultsUtils saveBoolValue:NO withKey:IsDisplayMedInfo];
     
-    
     //接收蓝牙断开通知
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(BleDisconnect) name:@"autoConnect" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(BleDisconnect) name:AutoConnect object:nil];
     return YES;
 }
 //接收到蓝牙断开通知后自动连接
 -(void)BleDisconnect
 {
     [[BlueToothManager getInstance]startScan];
-    [UserDefaultsUtils saveBoolValue:YES withKey:@"AutoConnect"];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

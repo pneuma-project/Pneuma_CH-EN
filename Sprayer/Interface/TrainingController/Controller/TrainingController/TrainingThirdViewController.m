@@ -14,7 +14,6 @@
 {
     UIView *circleView;
     int allNum;
-    BOOL isFirst;//判断是否第一次进页面
     BOOL isLeave;//是否离开界面(因为即使离开页面通知仍会收到)
 
 }
@@ -27,7 +26,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = RGBColor(242, 250, 254, 1.0);
-    [self setNavTitle:[DisplayUtils getTimestampData:@"MMMM dd,YYYY"]];
+    [self setNavTitle:[DisplayUtils getTimestampData:NSLocalizedString(@"TrainingNavHeadTimeFormat", nil)]];
     [self createView];
 }
 
@@ -36,13 +35,13 @@
      isLeave = NO;//防止返回用
     [super viewWillAppear:animated];
     self.navigationItem.leftBarButtonItem = [CustemNavItem initWithImage:[UIImage imageNamed:@"icon-back"] andTarget:self andinfoStr:@"first"];
-    NSArray *mutArr = [UserDefaultsUtils valueWithKey:@"trainDataArr"];
-    NSMutableArray *newArr = [[NSMutableArray alloc] init];
-    if (mutArr.count!=0) {
-        [newArr addObject:[mutArr firstObject]];
-        [newArr addObject:[mutArr lastObject]];
-    }
-    [UserDefaultsUtils saveValue:newArr forKey:@"trainDataArr"];
+//    NSArray *mutArr = [UserDefaultsUtils valueWithKey:@"trainDataArr"];
+//    NSMutableArray *newArr = [[NSMutableArray alloc] init];
+//    if (mutArr.count!=0) {
+//        [newArr addObject:[mutArr firstObject]];
+//        [newArr addObject:[mutArr lastObject]];
+//    }
+//    [UserDefaultsUtils saveValue:newArr forKey:@"trainDataArr"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshViewAction) name:@"refreshView" object:nil];
 }
 -(void)viewDidDisappear:(BOOL)animated
@@ -52,20 +51,31 @@
 }
 -(void)refreshViewAction
 {
-    [self createView];
+    if (isLeave == NO) {
+        [self createView];
+    }
 }
 
 #pragma mark - CustemBBI代理方法
 -(void)BBIdidClickWithName:(NSString *)infoStr
 {
+    [UserDefaultsUtils saveValue:@[] forKey:@"trainDataArr"];
+    [UserDefaultsUtils saveValue:@[] forKey:@"trainTimeArr"];
+    [UserDefaultsUtils saveValue:@[] forKey:@"medicineIdArr"];
+    [UserDefaultsUtils saveValue:@[] forKey:@"ThreeTrainDataArr"];
+    [UserDefaultsUtils saveValue:@"" forKey:@"ThreeTrainTimeArr"];
+    [UserDefaultsUtils saveValue:@"" forKey:@"ThreeMedicineIdArr"];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - 创建UI
 -(void)createView
 {
+    for (UIView *view in self.view.subviews) {
+        [view removeFromSuperview];
+    }
     UILabel *thirdResultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, kSafeAreaTopHeight+6, screen_width, 60)];
-    thirdResultLabel.text = @"Third Inspiratory Cycle Results";
+    thirdResultLabel.text = NSLocalizedString(@"Third Inspiratory Cycle Results", nil);
     thirdResultLabel.textColor = RGBColor(8, 86, 184, 1.0);
     thirdResultLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:thirdResultLabel];
@@ -82,7 +92,7 @@
     pointImageView.layer.mask = [DisplayUtils cornerRadiusGraph:pointImageView withSize:CGSizeMake(pointImageView.current_w/2, pointImageView.current_h/2)];
     [circleView addSubview:pointImageView];
     
-    NSString *titleStr = @"Inspiratory Flow Throughout";
+    NSString *titleStr = NSLocalizedString(@"Inspiratory Flow Throughout", nil);
     CGSize size = [DisplayUtils stringWithWidth:titleStr withFont:17];
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(pointImageView.current_x_w+10, 5, size.width, 40)];
     titleLabel.text = titleStr;
@@ -90,22 +100,24 @@
     [circleView addSubview:titleLabel];
     
     //曲线图
+    NSArray * arr = [UserDefaultsUtils valueWithKey:@"trainDataArr"];
     NSArray * mutArr;
     NSString *trainTime;
     NSString *medicineId;
     //判断是否第一次进入设备
-    if (isFirst == NO) {
-        isFirst = YES;
-        mutArr = @[];
-        trainTime = @"";
-        medicineId = @"";
-    }else if(isLeave == NO) {
-        mutArr = [[[UserDefaultsUtils valueWithKey:@"trainDataArr"]lastObject] componentsSeparatedByString:@","];
-        [UserDefaultsUtils saveValue:mutArr forKey:@"ThreeTrainDataArr"];
-        trainTime = [[UserDefaultsUtils valueWithKey:@"trainTimeArr"] lastObject];
-        [UserDefaultsUtils saveValue:trainTime forKey:@"ThreeTrainTimeArr"];
-        medicineId = [[UserDefaultsUtils valueWithKey:@"medicineIdArr"] lastObject];
-        [UserDefaultsUtils saveValue:trainTime forKey:@"ThreeMedicineIdArr"];
+    if (arr.count != 0) {
+        if (isLeave == NO) {
+            mutArr = [[[UserDefaultsUtils valueWithKey:@"trainDataArr"] lastObject] componentsSeparatedByString:@","];
+            [UserDefaultsUtils saveValue:mutArr forKey:@"ThreeTrainDataArr"];
+            trainTime = [[UserDefaultsUtils valueWithKey:@"trainTimeArr"] lastObject];
+            [UserDefaultsUtils saveValue:trainTime forKey:@"ThreeTrainTimeArr"];
+            medicineId = [[UserDefaultsUtils valueWithKey:@"medicineIdArr"] lastObject];
+            [UserDefaultsUtils saveValue:medicineId forKey:@"ThreeMedicineIdArr"];
+        }
+    }else{
+        mutArr =[UserDefaultsUtils valueWithKey:@"ThreeTrainDataArr"];
+        trainTime = [UserDefaultsUtils valueWithKey:@"ThreeTrainTimeArr"];
+        medicineId = [UserDefaultsUtils valueWithKey:@"ThreeMedicineIdArr"];
     }
     
     allNum = 0;
@@ -117,29 +129,10 @@
     self.chartView.titleOfYStr = @"SLM";
     self.chartView.titleOfXStr = @"Sec";
     self.chartView.leftDataArr = mutArr;
-    //求出数组的最大值
-    int max = 0;
-    for (NSString * str in mutArr) {
-        if (max<[str intValue]) {
-            max = [str intValue];
-        }
-    }
-    if (max>100) {
-        max = max/100+1;
-        max*=100;
-    }else if (max>10)
-    {
-        max = max/10+1;
-        max*=10;
-    }else
-    {
-        max = 10;
-    }
-    max = 180;
     //得出y轴的坐标轴
     NSMutableArray * yNumArr = [NSMutableArray array];
-    for (int i =10; i>=0;i--) {
-        [yNumArr addObject:[NSString stringWithFormat:@"%d",i*(max/10)]];
+    for (int i =8; i>=0;i--) {
+        [yNumArr addObject:[NSString stringWithFormat:@"%d",i*20]];
     }
     
     self.chartView.dataArrOfY = yNumArr;//拿到Y轴坐标
@@ -151,22 +144,15 @@
     UILabel *totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(titleLabel.current_x_w, 15, circleView.current_w-titleLabel.current_x_w-10, 35)];
     totalLabel.textAlignment = NSTextAlignmentRight;
     totalLabel.textColor = RGBColor(8, 86, 184, 1.0);
-    NSInteger strlength = [NSString stringWithFormat:@"%.1fL",allNum/600.0].length;
-    NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"Total:%.1fL",allNum/600.0]];
-    [AttributedStr addAttribute:NSFontAttributeName
-                          value:[UIFont systemFontOfSize:13]
-                          range:NSMakeRange(0, 6)];
-    [AttributedStr addAttribute:NSFontAttributeName
-                          value:[UIFont systemFontOfSize:20]
-                          range:NSMakeRange(6, strlength)];
-    totalLabel.attributedText = AttributedStr;
+    totalLabel.font = [UIFont systemFontOfSize:18];
+    totalLabel.text = [NSString stringWithFormat:@"%@%.1fL",NSLocalizedString(@"Total", nil),allNum/600.0];
     [circleView addSubview:totalLabel];
     
     //训练完成按钮
     UIButton *completeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     completeBtn.frame = CGRectMake(50, 0, screen_width-100, 40);
     completeBtn.center = CGPointMake(screen_width/2, circleView.current_y_h+(self.view.current_h-circleView.current_y_h-kTabbarHeight)/2);
-    [completeBtn setTitle:@"Complete the Training" forState:UIControlStateNormal];
+    [completeBtn setTitle:NSLocalizedString(@"Complete the Training", nil) forState:UIControlStateNormal];
     [completeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     completeBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     [completeBtn setBackgroundColor:RGBColor(16, 101, 182, 1.0)];
@@ -178,8 +164,11 @@
 #pragma mark - 点击事件
 -(void)thirdBtnAction
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"After training,please select the best inspiratory cycle curve for display during spray dose application." preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:NSLocalizedString(@"After training,please select the best inspiratory cycle curve for display during spray dose application", nil) preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *alertAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [UserDefaultsUtils saveValue:@[] forKey:@"trainDataArr"];
+        [UserDefaultsUtils saveValue:@[] forKey:@"trainTimeArr"];
+        [UserDefaultsUtils saveValue:@[] forKey:@"medicineIdArr"];
         RetrainingViewController *retrainVC = [[RetrainingViewController alloc] init];
         [self.navigationController pushViewController:retrainVC animated:YES];
     }];

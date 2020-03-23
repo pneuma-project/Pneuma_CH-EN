@@ -14,7 +14,7 @@
 #import "DisplayUtils.h"
 #import "UserDefaultsUtils.h"
 #import "FLWrapJson.h"
-#import "Sprayer-Swift.h"
+#import "Pneuma-Swift.h"
 #define k_MainBoundsWidth [UIScreen mainScreen].bounds.size.width
 #define k_MainBoundsHeight [UIScreen mainScreen].bounds.size.height
 
@@ -28,6 +28,7 @@
     
     UILabel * yLineLabel;
     UILabel * xLineLabel;
+    UILabel * downDateLabel;
     UIView * downBgView;
     
     UILabel * referenceInfoLabel;
@@ -116,6 +117,8 @@
     //每个分区的四边间距UIEdgeInsetsMake
     layout.sectionInset = UIEdgeInsetsMake(0, 20, 0, 20);
     _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(yLineLabel.current_x_w, yLineLabel.current_y, xLineLabel.current_w, yLineLabel.current_h) collectionViewLayout:layout];
+    _collectionView.showsHorizontalScrollIndicator = NO;
+    _collectionView.showsVerticalScrollIndicator = NO;
     /** mainCollectionView 的布局(必须实现的) */
     _collectionView.collectionViewLayout = layout;
     //mainCollectionView 的背景色
@@ -135,15 +138,22 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"UICollectionViewCell" forIndexPath:indexPath];
+    for (UIView *view in cell.contentView.subviews) {
+        [view removeFromSuperview];
+    }
     UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
-    view.backgroundColor = RGBColor(10, 77, 170, 1);
+    if (indexPath.row == indexItem) {
+        view.backgroundColor = RGBColor(25, 25, 112, 1.0);
+    }else {
+        view.backgroundColor = RGBColor(10, 77, 170, 1);
+    }
     UILabel *numL = [[UILabel alloc] initWithFrame:CGRectZero];
     numL.font = [UIFont systemFontOfSize:14];
     numL.textColor = [UIColor grayColor];
     numL.textAlignment = NSTextAlignmentCenter;
     [cell.contentView addSubview:view];
     [cell.contentView addSubview:numL];
-    int viewH = (self.totalDayDataList[indexPath.item].dataSum)/2 * yLineLabel.current_h/6;
+    int viewH = (self.totalDayDataList[indexPath.item].dataSum) * (yLineLabel.current_h-10)/6;
     view.frame = CGRectMake(0, yLineLabel.current_h-viewH, 40, viewH);
     numL.frame = CGRectMake(0, view.current_y-20, 40, 14);
     numL.text = [NSString stringWithFormat:@"%ld(%.1f)",indexPath.item+1,self.totalDayDataList[indexPath.item].dataSum];
@@ -152,6 +162,7 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     indexItem = indexPath.item;
+    [self.collectionView reloadData];
     [self createLineChart:indexPath.item];
 }
 
@@ -161,7 +172,7 @@
     //    __weak typeof(self) weakSelf = self;
     [DeviceRequestObject.shared setRequestGetNewTrainDataSuc:^(SprayerDataModel * _Nonnull model) {
         if ([model.suckFogData isEqualToString:@""]) {
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Please go to training" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:NSLocalizedString(@"Please go to training", nil) preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"gotoTrain" object:nil userInfo:nil];
             }];
@@ -181,7 +192,7 @@
         for (NSString * str in trainArr) {
             [self.sprayDataArr addObject:str];
         }
-        
+        [self createLineChart:self.totalDayDataList.count-1];
         NSString *dateTime = [[DisplayUtils getTimeStampToString:@"YYYY-MM-dd" AndTime:self.selectDate] substringToIndex:10];
         NSString * startStr = [NSString stringWithFormat:@"%@ 00:00:00",dateTime];
         NSString * endStr = [NSString stringWithFormat:@"%@ 23:59:59",dateTime];
@@ -190,15 +201,17 @@
     
     [DeviceRequestObject.shared setRequestGetNowDataSuckFogDataSuc:^(NSArray<SprayerDataModel *> * _Nonnull dataList) {
         if (dataList.count != 0) {
-            lastTrainNum = dataList[indexItem].dataSum;
+            lastTrainNum = dataList[dataList.count-1].dataSum;
             currentInfoLabel.text = [NSString stringWithFormat:@"%.1fL",lastTrainNum];
             totalInfoLabel.text = [NSString stringWithFormat:@"%.1fL",lastTrainNum];
+            downDateLabel.text = [DisplayUtils getTimeStampToString:NSLocalizedString(@"SprayTimeFormat", nil) AndTime:[NSString stringWithFormat:@"%lld",dataList[dataList.count-1].addDate/1000]];
             [self.totalDayDataList removeAllObjects];
             for (SprayerDataModel *model in dataList) {
                 [self.totalDayDataList addObject:model];
             }
+            indexItem = dataList.count - 1;
             [self.collectionView reloadData];
-            [self createLineChart:indexItem];
+            [self createLineChart:dataList.count-1];
         }
     }];
 }
@@ -212,11 +225,12 @@
 }
 
 - (void)showFirstQuardrant{
-    _upBgView = [[UIView alloc]initWithFrame:CGRectMake(10, 74, screen_width-20, (screen_height-64-tabbarHeight)/2-20)];
+    
+    _upBgView = [[UIView alloc]initWithFrame:CGRectMake(10, kSafeAreaTopHeight+10, screen_width-20, (screen_height-kSafeAreaTopHeight)/2-20)];
     _upBgView.layer.cornerRadius = 3.0;
     _upBgView.backgroundColor = [UIColor whiteColor];
     
-    NSString * str = @"Reference Total Volume:";
+    NSString * str = NSLocalizedString(@"Reference Total Volume", nil);
     CGSize strSize = [DisplayUtils stringWithWidth:str withFont:12];
     UILabel * referenceLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 10,strSize.width, strSize.height)];
     referenceLabel.font = [UIFont systemFontOfSize:12];
@@ -228,7 +242,7 @@
     referenceInfoLabel.font = [UIFont systemFontOfSize:15];
     referenceInfoLabel.text = [NSString stringWithFormat:@"%.1fL",allTrainTotalNum];
     
-    NSString * str1 = @"Current Total Volume:";
+    NSString * str1 = NSLocalizedString(@"Current Total Volume", nil);
     strSize = [DisplayUtils stringWithWidth:str1 withFont:12];
     UILabel * currentLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, referenceLabel.current_y_h, strSize.width, strSize.height)];
     currentLabel.font = [UIFont systemFontOfSize:12];
@@ -243,9 +257,10 @@
     medicineNameL = [[UILabel alloc] initWithFrame:CGRectMake(currentLabel.current_x, currentLabel.current_y_h, 100, 12)];
     medicineNameL.font = [UIFont systemFontOfSize:12];
     medicineNameL.textColor = RGBColor(0, 64, 181, 1.0);
+    [medicineNameL setHidden:true];
     
     UILabel * trainLabel = [[UILabel alloc]initWithFrame:CGRectMake(_upBgView.current_w-55, 10, 55, strSize.height)];
-    trainLabel.text = @"Training";
+    trainLabel.text = NSLocalizedString(@"Training", nil);
     trainLabel.textColor = RGBColor(238, 146, 1, 1.0);
     trainLabel.font = [UIFont systemFontOfSize:12];
     
@@ -256,7 +271,7 @@
     trainView.backgroundColor = RGBColor(238, 146, 1, 1.0);
     
     UILabel * sprayLabel = [[UILabel alloc]initWithFrame:CGRectMake(trainLabel.current_x, trainLabel.current_y_h, 55, strSize.height)];
-    sprayLabel.text = @"Spray";
+    sprayLabel.text = NSLocalizedString(@"Spray", nil);
     sprayLabel.textColor = RGBColor(0, 83, 181, 1.0);
     sprayLabel.font = [UIFont systemFontOfSize:12];
     
@@ -288,15 +303,16 @@
     [_upBgView addSubview:sprayView];
     [_upBgView addSubview:sprayLabel];
     [self.view addSubview:_upBgView];
+    
     /*创建第二个柱状图 */
-    downBgView = [[UIView alloc]initWithFrame:CGRectMake(10, _upBgView.current_y_h+10, screen_width-20,(screen_height-64-tabbarHeight)/2-20)];
+    downBgView = [[UIView alloc]initWithFrame:CGRectMake(10, _upBgView.current_y_h+10, screen_width-20,(screen_height-kSafeAreaTopHeight)/2-20)];
     downBgView.backgroundColor = [UIColor whiteColor];
     UIView * pointView = [[UIView alloc]initWithFrame:CGRectMake(10, 10, 8, 8)];
     pointView.backgroundColor = RGBColor(0, 83, 181, 1.0);
     pointView.layer.cornerRadius = 4.0;
     pointView.layer.masksToBounds = 4.0;
     UILabel *inspirationLabel = [[UILabel alloc]initWithFrame:CGRectMake(pointView.current_x_w+5, 10, screen_width-pointView.current_x_w, 15)];
-    inspirationLabel.text = @"Inspiration Volume Distribution";
+    inspirationLabel.text = NSLocalizedString(@"Inspiration Volume Distribution", nil);
     inspirationLabel.textColor = RGBColor(0, 83, 181, 1.0);
     CGPoint insPoint = pointView.center;
     insPoint.y = inspirationLabel.center.y;
@@ -309,40 +325,40 @@
     totalInfoLabel.textColor = RGBColor(0, 83, 181, 1.0);
     totalInfoLabel.font = [UIFont systemFontOfSize:16];
     UILabel * totalLabel = [[UILabel alloc]initWithFrame:CGRectMake(totalInfoLabel.current_x-40, inspirationLabel.current_y_h+8,40,15)];
-    totalLabel.text = @"Total:";
+    totalLabel.text = NSLocalizedString(@"Total", nil);
     totalLabel.textAlignment = NSTextAlignmentRight;
     totalLabel.font = [UIFont systemFontOfSize:12];
     totalLabel.textColor = RGBColor(0, 83, 181, 1.0);
     UILabel * unitLabel = [[UILabel alloc]initWithFrame:CGRectMake(pointView.current_x, totalLabel.current_y_h+5, 35, 15)];
-    unitLabel.text = @"Unit:L";
+    unitLabel.text = NSLocalizedString(@"Unit:L", nil);
     unitLabel.font = [UIFont systemFontOfSize:12];
     unitLabel.textColor = RGBColor(203, 204, 205, 1.0);
     
     yLineLabel = [[UILabel alloc]initWithFrame:CGRectMake(unitLabel.current_x_w, unitLabel.current_y_h+10, 1, downBgView.current_h-unitLabel.current_y_h-40)];
     yLineLabel.backgroundColor = RGBColor(204, 205, 206, 1.0);
     
-    //获取总和
-    float sum = 10;
-    for (int i =0; i<6; i++) {
-        UILabel * yNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(yLineLabel.current_x-35,unitLabel.current_y_h+i*(yLineLabel.current_h/6)+15, 30, yLineLabel.current_h/6)];
+    //绘制y坐标轴的数值
+    int sum = 6;
+    for (int i=0; i<=6; i++) {
+        UILabel * yNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(yLineLabel.current_x-35,yLineLabel.current_y+i*(10+(yLineLabel.current_h-10-70)/6)+10, 30, 10)];
         yNumLabel.textColor = RGBColor(204, 205, 206, 1.0);
         yNumLabel.textAlignment = NSTextAlignmentRight;
-        yNumLabel.text = [NSString stringWithFormat:@"%.f",sum-i*(sum/5)];
+        yNumLabel.text = [NSString stringWithFormat:@"%d",sum-i];
         yNumLabel.font = [UIFont systemFontOfSize:10];
         [downBgView addSubview:yNumLabel];
-        
     }
+    
     xLineLabel = [[UILabel alloc]initWithFrame:CGRectMake(yLineLabel.current_x_w, yLineLabel.current_y_h, downBgView.current_w-yLineLabel.current_x_w-30, 1)];
     xLineLabel.backgroundColor = RGBColor(204, 205, 206, 1.0);
-    UILabel * downDateLabel = [[UILabel alloc]initWithFrame:CGRectMake(yLineLabel.current_x_w+xLineLabel.current_w/2-35, xLineLabel.current_y_h, 80, 30)];
-    downDateLabel.text = [DisplayUtils getTimeStampToString:@"MMMM dd,YYYY" AndTime:self.selectDate];
+    downDateLabel = [[UILabel alloc]initWithFrame:CGRectMake(yLineLabel.current_x_w+xLineLabel.current_w/2-70, xLineLabel.current_y_h, 180, 30)];
+//    downDateLabel.text = [DisplayUtils getTimeStampToString:@"MMMM dd,YYYY" AndTime:self.selectDate];
     downDateLabel.textColor = RGBColor(0, 83, 181, 1.0);
     downDateLabel.font = [UIFont systemFontOfSize:10];
     
     [self setInterface];
     
     UILabel * dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(xLineLabel.current_x_w, xLineLabel.current_y_h-10, downBgView.current_w-xLineLabel.current_x_w, 20)];
-    dateLabel.text = @"Date";
+    dateLabel.text = NSLocalizedString(@"Date", nil);
     dateLabel.textColor = RGBColor(204, 205, 206, 1.0);
     dateLabel.font = [UIFont systemFontOfSize:12];
     
@@ -369,6 +385,11 @@
 #pragma mark ---创建第一个曲线图
 -(void)createLineChart:(NSInteger)index
 {
+    for (UIView *view in _upBgView.subviews) {
+        if ([view isKindOfClass:[JHLineChart class]]) {
+            [view removeFromSuperview];
+        }
+    }
     //展示药品信息
     if (self.totalDayDataList.count != 0) {
         SprayerDataModel *model = self.totalDayDataList[index];
@@ -380,6 +401,7 @@
         medicineNameL.text = medicineName;
         currentInfoLabel.text = [NSString stringWithFormat:@"%.1fL",model.dataSum];
         totalInfoLabel.text = [NSString stringWithFormat:@"%.1fL",model.dataSum];
+        downDateLabel.text = [DisplayUtils getTimeStampToString:NSLocalizedString(@"SprayTimeFormat", nil) AndTime:[NSString stringWithFormat:@"%lld",model.addDate/1000]];
     }
     
     self.lineChart = [[JHLineChart alloc] initWithFrame:CGRectMake(5, _slmLabel.current_y_h, _upBgView.current_w-25, _upBgView.current_h-_slmLabel.current_y_h) andLineChartType:JHChartLineValueNotForEveryX];

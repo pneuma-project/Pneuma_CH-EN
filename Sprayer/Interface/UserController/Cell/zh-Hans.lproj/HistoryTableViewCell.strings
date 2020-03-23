@@ -1,0 +1,9 @@
+
+/* Class = "UILabel"; text = "平均吸雾量(L)"; ObjectID = "9o9-mR-IhI"; */
+"9o9-mR-IhI.text" = "平均吸雾量(L)";
+
+/* Class = "UILabel"; text = "时间"; ObjectID = "dEn-7d-eXW"; */
+"dEn-7d-eXW.text" = "时间";
+
+/* Class = "UILabel"; text = "总吸雾次数/良好次数"; ObjectID = "i38-Vo-1RT"; */
+"i38-Vo-1RT.text" = "总吸雾次数/良好次数";

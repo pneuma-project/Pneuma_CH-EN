@@ -1,0 +1,120 @@
+/* 
+  Localizable.strings
+  Sprayer
+
+  Created by fanglin on 2020/3/10.
+  Copyright © 2020 FangLin. All rights reserved.
+*/
+
+"Device" = "Device";
+"Training" = "Training";
+"Spray" = "Spray";
+"User" = "User";
+
+"Phone number cannot be empty" = "Phone number cannot be empty";
+"Password cannot be empty" = "Password cannot be empty";
+"This account does not exist" = "This account does not exist";
+"Wrong password" = "Wrong password";
+"Your device or account has been blocked" = "Your device or account has been blocked";
+"Login Error" = "Login Error";
+"Unknown Error" = "Unknown Error";
+"Request timed out" = "Request timed out";
+
+"MY DEVICE" = "MY DEVICE";
+"Inspiratory Training" = "Inspiratory Training";
+"The last best inspiration" = "The last best inspiration";
+"Best Analog Inspiratory Volume" = "Best Analog Inspiratory Volume";
+"Total" = "Total:";
+"Start Training" = "Start Training";
+"Restart Training" = "Restart Training";
+"Pulmonary Function Test" = "Pulmonary Function Test";
+"Inspiratory Flow Throughout" = "Inspiratory Flow Throughout";
+"Training Description" = "Training Description:";
+"Training Description Detail" = "1.The training process Provides instruction and training on proper use of the Device.\n\n2.To activate device for use Press the ON button until The RED LED light turns on.\n\n3.Inhale slowly and continue to inhale completely.\n\n4.The inspiratory flow is recorded and stored.\n\n5.After the patient records three inspiratory curves  the best inspiratory results are chosen and displayed during dosing for comparison.";
+"The First Training" = "The First Training";
+"Are you ready" = "Are you ready?";
+"Now you're ready to get your first inspiration" = "Now you're ready to get your first inspiration.";
+"Reminder" = "Reminder";
+"The device is not connected" = "The device is not connected！";
+
+"TrainingNavHeadTimeFormat" = "MMMM dd,YYYY";
+"First Inspiratory Cycle Results" = "First Inspiratory Cycle Results";
+"Inspiratory Flow Throughout" = "Inspiratory Flow Throughout";
+"The Second Training" = "The Second Training";
+"Now you're ready to start your second inspiration" = "Now you're ready to start your second inspiration.";
+
+"Second Inspiratory Cycle Results" = "Second Inspiratory Cycle Results";
+"The Third Training" = "The Third Training";
+"Now you're ready to start your third inspiration" = "Now you're ready to start your third inspiration.";
+"Third Inspiratory Cycle Results" = "Third Inspiratory Cycle Results";
+"Complete the Training" = "Complete the Training";
+"After training,please select the best inspiratory cycle curve for display during spray dose application" = "After training,please select the best inspiratory cycle curve for display during spray dose application.";
+"Save" = "Save";
+"Uploading" = "Uploading...";
+"Upload success" = "Upload success";
+"Upload failed" = "Upload failed";
+
+"The first inspiratory volume" = "The first inspiratory volume";
+"The second inspiratory volume" = "The second inspiratory volume";
+"The third inspiratory volume" = "The third inspiratory volume";
+"Total volume" = "Total volume:";
+"Retraining" = "Retraining";
+
+"Reference Total Volume" = "Reference Total Volume:";
+"Current Total Volume" = "Current Total Volume:";
+"Inspiration Volume Distribution" = "Inspiration Volume Distribution";
+"Unit:L" = "Unit:L";
+"Date" = "Date";
+"Please go to training" = "Please go to training";
+"SprayTimeFormat" = "YYYY-MMMM-dd HH:mm:ss";
+
+"My Profile" = "My Profile";
+"Basic Information" = "Basic Information";
+"History" = "History";
+"Pressure VS Flow Rate Equation" = "Pressure VS Flow Rate Equation";
+"Basic Information" = "Basic Information";
+"Medical History" = "Medical History";
+"Device Information" = "Device Information";
+"Name" = "Name:";
+"Phone" = "Phone:";
+"Sex" = "Sex:";
+"Age" = "Age:";
+"Race" = "Race:";
+"Height" = "Height:";
+"Weight" = "Weight:";
+"male" = "male";
+"female" = "female";
+"Device serial number" = "Device serial number:";
+"Flow value setting" = "Flow value setting";
+"History" = "History";
+
+"Bluetooth is not open!" = "Bluetooth is not open!";
+"Start connecting peripherals" = "Start connecting peripherals";
+"Connection failed" = "Connection failed";
+"Peripheral disconnect" = "Peripheral disconnect";
+"Connection succeeded" = "Connection succeeded";
+
+"YES" = "YES";
+"Wait a minute" = "Wait a minute";
+"OK" = "OK";
+"Test Again" = "Test Again";
+"Return" = "Return";
+
+"First Test Results" = "First Test Results";
+"Second Test Results" = "Second Test Results";
+"Third Test Result" = "Third Test Result";
+
+"Start The Second Test" = "Start The Second Test";
+"Start The Third Test" = "Start The Third Test";
+"End Test" = "End Test";
+"Start Testing" = "Start Testing";
+
+"Are you ready for your first test" = "Are you ready for your first test?";
+"Are you ready for the second test" = "Are you ready for the second test?";
+"Are you ready for the third test" = "Are you ready for the third test?";
+
+"This test will be saved as your first test today" = "This test will be saved as your first test today";
+"This test will be saved as your second test today" = "This test will be saved as your second test today";
+"This test will be saved as your third test today" = "This test will be saved as your third test today";
+"Save or not" = "Save or not?";
+"Do you want to save test results" = "Do you want to save test results?";

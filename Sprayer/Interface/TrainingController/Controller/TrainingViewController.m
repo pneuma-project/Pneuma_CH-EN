@@ -14,7 +14,7 @@
 #import "SqliteUtils.h"
 #import "AddPatientInfoModel.h"
 #import "UserDefaultsUtils.h"
-#import "Sprayer-Swift.h"
+#import "Pneuma-Swift.h"
 
 @interface TrainingViewController ()
 {
@@ -30,12 +30,17 @@
     NSArray *dataArr;
     
     BOOL isTrain;
+    
+    UIButton *startBtn;
+    UIButton *lungTestBtn;
 }
 
 @property (nonatomic,strong)FL_ScaleCircle *circleView;
 @property (nonatomic,strong)FLChartView *chartView;
 
 @property(nonatomic,strong)NSMutableArray * yNumArr;
+
+@property(nonatomic,strong)HeadSelectView *headView;
 
 @end
 
@@ -45,7 +50,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-    [self setNavTitle:@"Inspiratory Training"];
+    [self setNavTitle:NSLocalizedString(@"Inspiratory Training", nil)];
     self.yNumArr = [NSMutableArray array];
     [self setInterface];
 }
@@ -94,7 +99,7 @@
     pointImageView.layer.mask = [DisplayUtils cornerRadiusGraph:pointImageView withSize:CGSizeMake(pointImageView.current_w/2, pointImageView.current_h/2)];
     [chatBgView addSubview:pointImageView];
     
-    NSString *titleStr = @"The last best inspiration";
+    NSString *titleStr = NSLocalizedString(@"The last best inspiration", nil);
     CGSize size = [DisplayUtils stringWithWidth:titleStr withFont:17];
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(pointImageView.current_x_w+10, 5, size.width, 40)];
     titleLabel.text = titleStr;
@@ -105,31 +110,46 @@
     totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(titleLabel.current_x_w, 15, chatBgView.current_w-titleLabel.current_x_w-10, 35)];
     totalLabel.textAlignment = NSTextAlignmentRight;
     totalLabel.textColor = RGBColor(8, 86, 184, 1.0);
-    NSInteger strlength = [NSString stringWithFormat:@"%.1fL",allTrain].length;
-    NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"Total:%.1fL",allTrain]];
-    [AttributedStr addAttribute:NSFontAttributeName
-                          value:[UIFont systemFontOfSize:13]
-                          range:NSMakeRange(0, 6)];
-    [AttributedStr addAttribute:NSFontAttributeName
-                          value:[UIFont systemFontOfSize:20]
-                          range:NSMakeRange(6, strlength)];
-    totalLabel.attributedText = AttributedStr;
+    totalLabel.font = [UIFont systemFontOfSize:18];
+//    NSInteger strlength = [NSString stringWithFormat:@"%.1fL",allTrain].length;
+//    NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@%.1fL",NSLocalizedString(@"Total", nil),allTrain]];
+//    [AttributedStr addAttribute:NSFontAttributeName
+//                          value:[UIFont systemFontOfSize:13]
+//                          range:NSMakeRange(0, 2)];
+//    [AttributedStr addAttribute:NSFontAttributeName
+//                          value:[UIFont systemFontOfSize:20]
+//                          range:NSMakeRange(2, strlength)];
+//    totalLabel.attributedText = AttributedStr;
+    totalLabel.text = [NSString stringWithFormat:@"%@%.1fL",NSLocalizedString(@"Total", nil),allTrain];
     [chatBgView addSubview:totalLabel];
     
-    //按钮
-    UIButton *startBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    startBtn.frame = CGRectMake(50, 0, screen_width-100, 40);
-    startBtn.center = CGPointMake(screen_width/2, chatBgView.current_y_h+(footView.current_h-chatBgView.current_y_h-kTabbarHeight)/2);
+    //吸雾训练按钮
+    startBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    startBtn.frame = CGRectMake(25, 0, (screen_width/2)-50, 40);
+    startBtn.center = CGPointMake(screen_width/4, chatBgView.current_y_h+(footView.current_h-chatBgView.current_y_h-kTabbarHeight)/2);
     if (isTrain == NO) {
-        [startBtn setTitle:@"Start Training" forState:UIControlStateNormal];
+        [startBtn setTitle:NSLocalizedString(@"Start Training", nil) forState:UIControlStateNormal];
     }else{
-        [startBtn setTitle:@"Restart Training" forState:UIControlStateNormal];
+        [startBtn setTitle:NSLocalizedString(@"Restart Training", nil) forState:UIControlStateNormal];
     }
+    startBtn.titleLabel.font = [UIFont systemFontOfSize:16];
     [startBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [startBtn setBackgroundColor:RGBColor(16, 101, 182, 1.0)];
     startBtn.layer.mask = [DisplayUtils cornerRadiusGraph:startBtn withSize:CGSizeMake(startBtn.current_h/2, startBtn.current_h/2)];
     [startBtn addTarget:self action:@selector(startBtnAction) forControlEvents:UIControlEventTouchUpInside];
     [footView addSubview:startBtn];
+    
+    //肺功能测试按钮
+    lungTestBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    lungTestBtn.frame = CGRectMake(startBtn.current_x_w+50, 0, (screen_width/2)-50, 40);
+    lungTestBtn.center = CGPointMake((screen_width/4)*3, chatBgView.current_y_h+(footView.current_h-chatBgView.current_y_h-kTabbarHeight)/2);
+    [lungTestBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    lungTestBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+    [lungTestBtn setTitle:NSLocalizedString(@"Pulmonary Function Test", nil) forState:UIControlStateNormal];
+    [lungTestBtn setBackgroundColor:RGBColor(16, 101, 182, 1.0)];
+    lungTestBtn.layer.mask = [DisplayUtils cornerRadiusGraph:lungTestBtn withSize:CGSizeMake(lungTestBtn.current_h/2, lungTestBtn.current_h/2)];
+    [lungTestBtn addTarget:self action:@selector(lungTestBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    [footView addSubview:lungTestBtn];
 }
 
 
@@ -141,45 +161,20 @@
         [self.yNumArr removeAllObjects];
         if ([model.suckFogData isEqualToString:@""]) {
             isTrain = NO;
+            [startBtn setTitle:NSLocalizedString(@"Start Training", nil) forState:UIControlStateNormal];
         }else{
             isTrain = YES;
+            [startBtn setTitle:NSLocalizedString(@"Restart Training", nil) forState:UIControlStateNormal];
         }
         NSArray *mutArr = [model.suckFogData componentsSeparatedByString:@","];
         allTrain = model.dataSum;
         dataArr = mutArr;
-        //求出数组的最大值
-        int max = 0;
-        for (NSString * str in mutArr) {
-            if (max<[str intValue]) {
-                max = [str intValue];
-            }
-        }
-        if (max>100) {
-            max = max/100+1;
-            max*=100;
-        }else if (max>10)
-        {
-            max = max/10+1;
-            max*=10;
-        }else
-        {
-            max = 10;
-        }
-        max = 180;
         //得出y轴的坐标轴
-        for (int i =10; i>=0;i--) {
-            [self.yNumArr addObject:[NSString stringWithFormat:@"%d",i*(max/10)]];
+        for (int i =8; i>=0;i--) {
+            [self.yNumArr addObject:[NSString stringWithFormat:@"%d",i*20]];
         }
         //total值
-        NSInteger strlength = [NSString stringWithFormat:@"%.1fL",allTrain].length;
-        NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"Total:%.1fL",allTrain]];
-        [AttributedStr addAttribute:NSFontAttributeName
-                              value:[UIFont systemFontOfSize:13]
-                              range:NSMakeRange(0, 6)];
-        [AttributedStr addAttribute:NSFontAttributeName
-                              value:[UIFont systemFontOfSize:20]
-                              range:NSMakeRange(6, strlength)];
-        totalLabel.attributedText = AttributedStr;
+        totalLabel.text = [NSString stringWithFormat:@"%@%.1fL",NSLocalizedString(@"Total", nil),allTrain];
         
         for (UIView *subview in bgImageView.subviews) {
             [subview removeFromSuperview];
@@ -218,9 +213,14 @@
 #pragma mark - 点击事件
 -(void)startBtnAction
 {
-    [UserDefaultsUtils saveValue:@[] forKey:@"trainDataArr"];
     TrainingStartViewController *trainingStartVC = [[TrainingStartViewController alloc] init];
     [self.navigationController pushViewController:trainingStartVC animated:YES];
+}
+
+-(void)lungTestBtnAction
+{
+    SLungTestTipController *slungTipVC = [[SLungTestTipController alloc] init];
+    [self.navigationController pushViewController:slungTipVC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

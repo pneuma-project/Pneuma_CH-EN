@@ -16,7 +16,7 @@
 #import "ValuePickerView.h"
 #import "MedicalInfoViewController.h"
 #import "MagicalRecord.h"
-#import "Sprayer-Swift.h"
+#import "Pneuma-Swift.h"
 
 static NSString *ONE_Cell = @"ONECELL";
 static NSString *TWO_Cell = @"TWOCELL";
@@ -40,7 +40,7 @@ static NSString *THREE_Cell = @"THREECELL";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = RGBColor(242, 250, 254, 1.0);
-    [self setNavTitle:@"Basic Information"];
+    [self setNavTitle:NSLocalizedString(@"Basic Information", nil)];
     [self registerCell];
     [self createHeadView];
    
@@ -104,11 +104,11 @@ static NSString *THREE_Cell = @"THREECELL";
     headLabel.textColor = RGBColor(8, 86, 184, 1.0);
     headLabel.font = [UIFont systemFontOfSize:13];
     if (section == 0) {
-        headLabel.text = @"Basic Information";
+        headLabel.text = NSLocalizedString(@"Basic Information", nil);
     }else if (section == 1){
-        headLabel.text = @"Medical History";
+        headLabel.text = NSLocalizedString(@"Medical History", nil);
     }else if (section == 2){
-        headLabel.text = @"Device Information";
+        headLabel.text = NSLocalizedString(@"Device Information", nil);
     }else {
         headLabel.text = nil;
     }
@@ -136,7 +136,7 @@ static NSString *THREE_Cell = @"THREECELL";
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *titleArr = @[@"Name:",@"Phone:",@"Sex:",@"Age:",@"Race:",@"Height:",@"Weight:"];
+    NSArray *titleArr = @[@"Name",@"Phone",@"Sex",@"Age",@"Race",@"Height",@"Weight"];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ONE_Cell];
     cell.backgroundColor = [UIColor whiteColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -147,7 +147,7 @@ static NSString *THREE_Cell = @"THREECELL";
     }
     if (indexPath.section == 0) {
         UILabel *keyLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, screen_width/2, 40)];
-        keyLabel.text = titleArr[indexPath.row];
+        keyLabel.text = NSLocalizedString(titleArr[indexPath.row], nil);
         keyLabel.textColor = RGBColor(50, 51, 52, 1.0);
         UILabel * valueLabel = [[UILabel alloc]initWithFrame:CGRectMake(keyLabel.current_x_w, 2, screen_width/2-40, 40)];
         valueLabel.textAlignment = NSTextAlignmentRight;
@@ -162,7 +162,7 @@ static NSString *THREE_Cell = @"THREECELL";
                     break;
                 case 2:
                     ////性别 1:male   2:female
-                    valueLabel.text = [NSString stringWithFormat:@"%@",[UserInfoData MR_findFirst].sex == 1 ? @"male":@"female"];
+                    valueLabel.text = [NSString stringWithFormat:@"%@",[UserInfoData MR_findFirst].sex == 1 ? NSLocalizedString(@"male", nil):NSLocalizedString(@"female", nil)];
                     break;
                 case 3:
                     valueLabel.text = [NSString stringWithFormat:@"%d",[UserInfoData MR_findFirst].age];
@@ -207,7 +207,7 @@ static NSString *THREE_Cell = @"THREECELL";
         return cell;
     }else if (indexPath.section == 2){
         UILabel *keyLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 2, screen_width/2, 40)];
-        keyLabel.text = @"Device serial number:";
+        keyLabel.text = NSLocalizedString(@"Device serial number", nil);
         keyLabel.textColor = RGBColor(50, 51, 52, 1.0);
         keyLabel.font = [UIFont systemFontOfSize:14];
         UILabel * valueLabel = [[UILabel alloc]initWithFrame:CGRectMake(screen_width-150, 0, 150, cell.current_h)];
@@ -222,7 +222,7 @@ static NSString *THREE_Cell = @"THREECELL";
     }else{
         UIButton *saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         saveBtn.frame = CGRectMake(50, 5, screen_width-100, 40);
-        [saveBtn setTitle:@"Save" forState:UIControlStateNormal];
+        [saveBtn setTitle:NSLocalizedString(@"Save", nil) forState:UIControlStateNormal];
         [saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [saveBtn addTarget:self action:@selector(saveClick) forControlEvents:UIControlEventTouchUpInside];
         [saveBtn setBackgroundColor:RGBColor(16, 101, 182, 1.0)];
