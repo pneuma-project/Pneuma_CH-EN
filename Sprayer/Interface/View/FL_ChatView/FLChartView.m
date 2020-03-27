@@ -292,18 +292,34 @@
     }
     
     float yMax = [self.dataArrOfY[0] floatValue];
-    
     for (int i = 1; i< self.dataArrOfY.count; ++i) {
         if ([self.dataArrOfY[i] floatValue] > yMax) {
             yMax = [self.dataArrOfY[i] floatValue];
         }
     }
-    //    NSLog(@"\n-------tempMax-------\n%f",tempMax);
+    
+    float yMin = [self.dataArrOfY[0] floatValue];
+    for (int i = 1; i< self.dataArrOfY.count; ++i) {
+        if ([self.dataArrOfY[i] floatValue] < yMin) {
+            yMin = [self.dataArrOfY[i] floatValue];
+        }
+    }
     
     for (int i = 0; i<arr.count; i++) {
-        
-        float tempHeight = [arr[i] floatValue] / yMax ;
-        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake((Xmargin)*i, height *(1 - tempHeight)-btnW/2, btnW, btnW)];
+        float tempScale = 0.5;
+        if (yMin < 0) {
+            if ([arr[i] floatValue] < 0) {
+                float tempHeight = [arr[i] floatValue] / yMin;
+                tempScale = 0.5+0.5*tempHeight;
+            }else {
+                float tempHeight = [arr[i] floatValue] / yMax;
+                tempScale = 0.5-0.5*tempHeight;
+            }
+        }else {
+            float tempHeight = [arr[i] floatValue] / yMax;
+            tempScale = 1-tempHeight;
+        }
+        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake((Xmargin)*i, height *(tempScale)-btnW/2, btnW, btnW)];
         
         btn.layer.borderColor = [UIColor clearColor].CGColor;
         btn.layer.borderWidth = 1;
@@ -338,7 +354,7 @@
         detailLabel.font = [UIFont systemFontOfSize:12.0f];
         NSString *str = arr[i];
         CGSize textSize = [str boundingRectWithSize:CGSizeMake(200, 100) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16.0]} context:nil].size;;
-        [detailLabel setFrame:CGRectMake((Xmargin)*i-textSize.width/2+btnW/2, height *(1 - tempHeight)-30, textSize.width, textSize.height)];
+        [detailLabel setFrame:CGRectMake((Xmargin)*i-textSize.width/2+btnW/2, height *(tempScale)-30, textSize.width, textSize.height)];
         detailLabel.text = str;
         detailLabel.textAlignment = NSTextAlignmentCenter;
         [detailLabel setBackgroundColor:[UIColor colorWithRed:254/255.0 green:247/255.0 blue:237/255.0 alpha:1.0]];

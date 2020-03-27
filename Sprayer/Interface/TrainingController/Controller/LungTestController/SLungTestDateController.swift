@@ -124,14 +124,19 @@ class SLungTestDateController: BaseViewController,CustemBBI {
             secondSum += dataNum
             secondDataArr.append(String.init(format: "%.3f", secondSum/600))
         }
-        //计算secondchatview 的y轴坐标数值
-        guard let lastDataStr = secondDataArr.last else {
+        //计算secondchatview 的x轴坐标数值
+        guard var secondXMax = Double(secondDataArr[0]) else {
             return
         }
-        guard let lastData = Double(lastDataStr) else {
-            return
+        for value in secondDataArr {
+            guard let doubleValue = Double(value) else {
+                return
+            }
+            if secondXMax < doubleValue {
+                secondXMax = doubleValue
+            }
         }
-        let maxNum = ceil(lastData)
+        let maxNum = ceil(secondXMax)
         for i in 0...(Int(maxNum)*10) {
             secondXNumArr.append(String.init(format: "%.1f", Double(i)*0.1))
         }
@@ -194,11 +199,11 @@ extension SLungTestDateController {
             make.height.equalTo(18)
         }
         
-        var yNumArr:[String] = []
-        for i in (0...6).reversed() {
-            yNumArr.append(String.init(format: "%d", i*80))
-        }
-        firstChatView = FLChartView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH-CGFloat(20*IPONE_SCALE), height: CGFloat(200*IPONE_SCALE)))
+        let yNumArr:[String] = ["400","300","200","100","0","-100","-200","-300","-400"]
+//        for i in (0...6).reversed() {
+//            yNumArr.append(String.init(format: "%d", i*80))
+//        }
+        firstChatView = FLChartView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH-CGFloat(20*IPONE_SCALE), height: CGFloat(220*IPONE_SCALE)))
         firstChatView.backgroundColor = .clear
         firstChatView.titleOfXStr = "Sec"
         firstChatView.titleOfYStr = "SLM(L/min)"
@@ -214,10 +219,10 @@ extension SLungTestDateController {
             make.top.equalTo(numResultLabel.snp.bottom)
             make.left.equalTo(10*IPONE_SCALE)
             make.right.equalTo(-10*IPONE_SCALE)
-            make.height.equalTo(200*IPONE_SCALE)
+            make.height.equalTo(220*IPONE_SCALE)
         }
         
-        secondChatView = FLCustomChartView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH-CGFloat(20*IPONE_SCALE), height: CGFloat(200*IPONE_SCALE)))
+        secondChatView = FLCustomChartView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH-CGFloat(20*IPONE_SCALE), height: CGFloat(220*IPONE_SCALE)))
         secondChatView.backgroundColor = .clear
         secondChatView.titleOfXStr = "L"
         secondChatView.titleOfYStr = "SLM(L/min)"
@@ -234,7 +239,7 @@ extension SLungTestDateController {
             make.top.equalTo(firstChatView.snp.bottom)
             make.left.equalTo(10*IPONE_SCALE)
             make.right.equalTo(-10*IPONE_SCALE)
-            make.height.equalTo(200*IPONE_SCALE)
+            make.height.equalTo(220*IPONE_SCALE)
         }
         
         countOneLabel = UILabel.init()

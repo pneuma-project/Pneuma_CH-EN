@@ -719,6 +719,8 @@
 			children = (
 				644C9C4E1E66B5BF0030C3B9 /* FLChartView.h */,
 				644C9C4F1E66B5BF0030C3B9 /* FLChartView.m */,
+				D188B7932421C8630087F342 /* FLCustomChartView.h */,
+				D188B7942421C8630087F342 /* FLCustomChartView.m */,
 				644C9C501E66B5BF0030C3B9 /* UIButton+EnlargeTouchArea.h */,
 				644C9C511E66B5BF0030C3B9 /* UIButton+EnlargeTouchArea.m */,
 				644C9C521E66B5BF0030C3B9 /* UIColor+expanded.h */,
@@ -727,8 +729,6 @@
 				644C9C551E66B5BF0030C3B9 /* UIImage+Common.m */,
 				644C9C561E66B5BF0030C3B9 /* UIView+Common.h */,
 				644C9C571E66B5BF0030C3B9 /* UIView+Common.m */,
-				D188B7932421C8630087F342 /* FLCustomChartView.h */,
-				D188B7942421C8630087F342 /* FLCustomChartView.m */,
 			);
 			path = FL_ChatView;
 			sourceTree = "<group>";

@@ -181,9 +181,14 @@
 +(NSString *)exhaleDataToNSString:(NSData *)data{
     NSMutableArray *dataArr = [[NSMutableArray alloc] init];
     for (int i = 0; i<data.length; i+=2) {
-        NSInteger yaliData = abs([self signedDataTointWithData:[data subdataWithRange:NSMakeRange(i, 2)] Location:0 Offset:2]);//[self input0x16String:[FLDrawDataTool hexStringFromData:[data subdataWithRange:NSMakeRange(i, 2)]]]
+        NSInteger yaliData = -([self signedDataTointWithData:[data subdataWithRange:NSMakeRange(i, 2)] Location:0 Offset:2]);//abs[self input0x16String:[FLDrawDataTool hexStringFromData:[data subdataWithRange:NSMakeRange(i, 2)]]]
         float yaliNum = yaliData/60.0;
-        yaliNum = [self yaliDataCalculate:yaliNum];
+        if (yaliNum < 0) {
+            yaliNum = -[self yaliDataCalculate:fabsf(yaliNum)];
+        }else {
+            yaliNum = [self yaliDataCalculate:yaliNum];
+        }
+        
         [dataArr addObject:[NSString stringWithFormat:@"%.3f",yaliNum]];
     }
     NSString *yaliStr=[dataArr componentsJoinedByString:@","];

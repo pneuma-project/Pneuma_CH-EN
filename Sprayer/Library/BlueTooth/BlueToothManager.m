@@ -390,11 +390,11 @@ typedef enum _TTGState{
             case pkt_h:
             {
                 if (newByte[data.length - 1] == 0xab) {
-//                    [self.putData appendData:data];
+                    [self.putData appendData:data];
 //                    NSLog(@"~~~~~%@",self.putData);
-                    Byte *putDataByte = (Byte *)[data bytes];
-                    Byte newbt[data.length-2];
-                    for (NSInteger j = 0; j<data.length - 2; j++) {
+                    Byte *putDataByte = (Byte *)[self.putData bytes];
+                    Byte newbt[self.putData.length-2];
+                    for (NSInteger j = 0; j<self.putData.length - 2; j++) {
                         newbt[j] = putDataByte[j+1];
                     }
                     NSData *newData = [NSData dataWithBytes:newbt
