@@ -11,9 +11,12 @@ import Toast_Swift
 
 class SLungTestDateController: BaseViewController,CustemBBI {
 
+    var scrollView:UIScrollView!
+    
     var numResultLabel:UILabel!
     var firstChatView:FLChartView!
-    var secondChatView:FLCustomChartView!
+    var secondChatView:FLChartView!
+    var thirdChatView:FLCustomChartView!
     
     var countOneLabel:UILabel!
     var countTwoLabel:UILabel = UILabel.init()
@@ -24,7 +27,7 @@ class SLungTestDateController: BaseViewController,CustemBBI {
     //数据数组
     var dataList:[String] = []
     var xNumArr:[String] = []
-    var secondXNumArr:[String] = []
+    var thirdXNumArr:[String] = []
     var secondDataArr:[String] = []
     
     //数据
@@ -99,7 +102,7 @@ class SLungTestDateController: BaseViewController,CustemBBI {
     func XNumSetting(dataArr:[String]) {
         dataList = []
         xNumArr = []
-        secondXNumArr = []
+        thirdXNumArr = []
         secondDataArr = []
         
         //计算x轴的数值
@@ -115,7 +118,7 @@ class SLungTestDateController: BaseViewController,CustemBBI {
         }
         dataList = dataArr
         
-        //计算secondchatview 的数据
+        //计算thirdChatView 的数据
         var secondSum = 0.0
         for i in 0..<dataArr.count {
             guard let dataNum = Double(dataArr[i]) else {
@@ -124,7 +127,7 @@ class SLungTestDateController: BaseViewController,CustemBBI {
             secondSum += dataNum
             secondDataArr.append(String.init(format: "%.3f", secondSum/600))
         }
-        //计算secondchatview 的y轴坐标数值
+        //计算thirdChatView 的y轴坐标数值
         guard let lastDataStr = secondDataArr.last else {
             return
         }
@@ -133,7 +136,7 @@ class SLungTestDateController: BaseViewController,CustemBBI {
         }
         let maxNum = ceil(lastData)
         for i in 0...(Int(maxNum)*10) {
-            secondXNumArr.append(String.init(format: "%.1f", Double(i)*0.1))
+            thirdXNumArr.append(String.init(format: "%.1f", Double(i)*0.1))
         }
         self.setInterface()
     }
@@ -194,11 +197,23 @@ extension SLungTestDateController {
             make.height.equalTo(18)
         }
         
+        scrollView = UIScrollView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: CGFloat(200*IPONE_SCALE)))
+        scrollView.backgroundColor = .white
+        self.view.addSubview(scrollView)
+        scrollView.isPagingEnabled = true
+        scrollView.bounces = false
+        scrollView.contentSize = CGSize.init(width: 2*SCREEN_WIDTH, height: CGFloat(200*IPONE_SCALE))
+        scrollView.snp.makeConstraints { (make) in
+            make.left.right.equalToSuperview()
+            make.top.equalTo(numResultLabel.snp.bottom)
+            make.height.equalTo(200*IPONE_SCALE)
+        }
+        
         var yNumArr:[String] = []
         for i in (0...6).reversed() {
-            yNumArr.append(String.init(format: "%d", i*80))
+            yNumArr.append(String.init(format: "%d", i*100))
         }
-        firstChatView = FLChartView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH-CGFloat(20*IPONE_SCALE), height: CGFloat(200*IPONE_SCALE)))
+        firstChatView = FLChartView.init(frame: CGRect.init(x: CGFloat(10*IPONE_SCALE), y: 0, width: SCREEN_WIDTH-CGFloat(20*IPONE_SCALE), height: CGFloat(200*IPONE_SCALE)))
         firstChatView.backgroundColor = .clear
         firstChatView.titleOfXStr = "Sec"
         firstChatView.titleOfYStr = "SLM(L/min)"
@@ -209,47 +224,91 @@ extension SLungTestDateController {
         }else {
             firstChatView.dataArrOfX = xNumArr
         }
-        self.view.addSubview(firstChatView)
-        firstChatView.snp.makeConstraints { (make) in
-            make.top.equalTo(numResultLabel.snp.bottom)
-            make.left.equalTo(10*IPONE_SCALE)
-            make.right.equalTo(-10*IPONE_SCALE)
-            make.height.equalTo(200*IPONE_SCALE)
-        }
+        scrollView.addSubview(firstChatView)
+//        firstChatView.snp.makeConstraints { (make) in
+//            make.top.equalTo(numResultLabel.snp.bottom)
+//            make.left.equalTo(10*IPONE_SCALE)
+//            make.right.equalTo(-10*IPONE_SCALE)
+//            make.height.equalTo(200*IPONE_SCALE)
+//        }
         
-        secondChatView = FLCustomChartView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH-CGFloat(20*IPONE_SCALE), height: CGFloat(200*IPONE_SCALE)))
+        var secondYNumArr:[String] = []
+        for i in (0...6).reversed() {
+            secondYNumArr.append(String.init(format: "%d", i))
+        }
+        secondChatView = FLChartView.init(frame: CGRect.init(x: SCREEN_WIDTH+CGFloat(10*IPONE_SCALE), y: 0, width: SCREEN_WIDTH-CGFloat(20*IPONE_SCALE), height: CGFloat(200*IPONE_SCALE)))
         secondChatView.backgroundColor = .clear
-        secondChatView.titleOfXStr = "L"
-        secondChatView.titleOfYStr = "SLM(L/min)"
-        secondChatView.yDataArr = dataList
-        secondChatView.xDataArr = secondDataArr
-        secondChatView.dataArrOfY = yNumArr
-        if secondXNumArr.count == 0 {
+        secondChatView.titleOfXStr = "Sec"
+        secondChatView.titleOfYStr = "L"
+        secondChatView.leftDataArr = secondDataArr
+        secondChatView.dataArrOfY = secondYNumArr
+        if xNumArr.count == 0 {
             secondChatView.dataArrOfX = ["0","0.1","0.2","0.3","0.4","0.5","0.6","0.7","0.8","0.9","1.0","1.1","1.2","1.3","1.4","1.5","1.6","1.7","1.8","1.9","2.0","2.1","2.2","2.3","2.4","2.5","2.6","2.7","2.8","2.9","3.0","3.1","3.2","3.3","3.4","3.5","3.6","3.7","3.8","3.9","4.0","4.1","4.2","4.3","4.4","4.5","4.6","4.7","4.8","4.9","5.0"]//拿到X轴坐标
         }else {
-            secondChatView.dataArrOfX = secondXNumArr
+            secondChatView.dataArrOfX = xNumArr
         }
-        self.view.addSubview(secondChatView)
-        secondChatView.snp.makeConstraints { (make) in
-            make.top.equalTo(firstChatView.snp.bottom)
+        scrollView.addSubview(secondChatView)
+//        secondChatView.snp.makeConstraints { (make) in
+//            make.top.equalTo(numResultLabel.snp.bottom)
+//            make.left.equalTo(10*IPONE_SCALE)
+//            make.right.equalTo(-10*IPONE_SCALE)
+//            make.height.equalTo(200*IPONE_SCALE)
+//        }
+        
+        thirdChatView = FLCustomChartView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH-CGFloat(20*IPONE_SCALE), height: CGFloat(200*IPONE_SCALE)))
+        thirdChatView.backgroundColor = .clear
+        thirdChatView.titleOfXStr = "L"
+        thirdChatView.titleOfYStr = "SLM(L/min)"
+        thirdChatView.yDataArr = dataList
+        thirdChatView.xDataArr = secondDataArr
+        thirdChatView.dataArrOfY = yNumArr
+        if thirdXNumArr.count == 0 {
+            thirdChatView.dataArrOfX = ["0","0.1","0.2","0.3","0.4","0.5","0.6","0.7","0.8","0.9","1.0","1.1","1.2","1.3","1.4","1.5","1.6","1.7","1.8","1.9","2.0","2.1","2.2","2.3","2.4","2.5","2.6","2.7","2.8","2.9","3.0","3.1","3.2","3.3","3.4","3.5","3.6","3.7","3.8","3.9","4.0","4.1","4.2","4.3","4.4","4.5","4.6","4.7","4.8","4.9","5.0"]//拿到X轴坐标
+        }else {
+            thirdChatView.dataArrOfX = thirdXNumArr
+        }
+        self.view.addSubview(thirdChatView)
+        thirdChatView.snp.makeConstraints { (make) in
+            make.top.equalTo(scrollView.snp.bottom)
             make.left.equalTo(10*IPONE_SCALE)
             make.right.equalTo(-10*IPONE_SCALE)
             make.height.equalTo(200*IPONE_SCALE)
         }
         
+        var FEVStr = 0.0
+        if secondDataArr.count>0 {
+            guard let maxNum = Double(secondDataArr[secondDataArr.count-1]) else {
+                return
+            }
+            FEVStr = maxNum
+        }else {
+            FEVStr = 0.0
+        }
         countOneLabel = UILabel.init()
-        countOneLabel.text = "1、最大用力肺活量(FEV)："
+        countOneLabel.text = "1、最大用力肺活量(FEV)：\(FEVStr)L"
         countOneLabel.textColor = HEXCOLOR(h: 0x333333, alpha: 1)
         countOneLabel.font = UIFont.systemFont(ofSize: 14)
         self.view.addSubview(countOneLabel)
         countOneLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(secondChatView.snp.bottom).offset(20*IPONE_SCALE)
+            make.top.equalTo(thirdChatView.snp.bottom).offset(20*IPONE_SCALE)
             make.left.equalTo(40*IPONE_SCALE)
             make.height.equalTo(15*IPONE_SCALE)
         }
         
+        var FEV1Str = 0.0
+        if secondDataArr.count > 10 {
+            guard let maxNum = Double(secondDataArr[9]) else {
+                return
+            }
+            FEV1Str = maxNum
+        }else {
+            guard let maxNum = Double(secondDataArr[secondDataArr.count-1]) else {
+                return
+            }
+            FEV1Str = maxNum
+        }
         countTwoLabel = UILabel.init()
-        countTwoLabel.text = "2、第一秒最大呼氣量(FEV1)："
+        countTwoLabel.text = "2、第一秒最大呼氣量(FEV1)：\(FEV1Str)L"
         countTwoLabel.textColor = HEXCOLOR(h: 0x333333, alpha: 1)
         countTwoLabel.font = UIFont.systemFont(ofSize: 14)
         self.view.addSubview(countTwoLabel)
@@ -259,8 +318,25 @@ extension SLungTestDateController {
             make.height.equalTo(15*IPONE_SCALE)
         }
         
+        var maxPEF = 0.0
+        if dataList.count > 0 {
+            guard var maxPEFNum = Double(dataList[0]) else {
+                return
+            }
+            for value in dataList {
+                guard let doubleValue = Double(value) else {
+                    return
+                }
+                if maxPEFNum < doubleValue {
+                    maxPEFNum = doubleValue
+                }
+            }
+            maxPEF = maxPEFNum
+        }else {
+            maxPEF = 0.0
+        }
         countThreeLabel = UILabel.init()
-        countThreeLabel.text = "3、尖峰呼氣流速(PEF)："
+        countThreeLabel.text = "3、尖峰呼氣流速(PEF)：\(maxPEF)L/Min"
         countThreeLabel.textColor = HEXCOLOR(h: 0x333333, alpha: 1)
         countThreeLabel.font = UIFont.systemFont(ofSize: 14)
         self.view.addSubview(countThreeLabel)
@@ -317,7 +393,7 @@ extension SLungTestDateController {
                             LCProgressHUD.showSuccessText(NSLocalizedString("Upload success", comment: ""))
                             weakself.dataList = []
                             weakself.xNumArr = []
-                            weakself.secondXNumArr = []
+                            weakself.thirdXNumArr = []
                             weakself.secondDataArr = []
                             weakself.setInterface()
                             weakself.requestData()
@@ -341,7 +417,7 @@ extension SLungTestDateController {
                             LCProgressHUD.showSuccessText(NSLocalizedString("Upload success", comment: ""))
                             weakself.dataList = []
                             weakself.xNumArr = []
-                            weakself.secondXNumArr = []
+                            weakself.thirdXNumArr = []
                             weakself.secondDataArr = []
                             weakself.setInterface()
                             weakself.requestData()
