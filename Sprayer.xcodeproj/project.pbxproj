@@ -89,6 +89,8 @@
 		648A72D7228D574E00B8B430 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 648A72D4228D574E00B8B430 /* SSKeychain.m */; };
 		648A72DD228D60D100B8B430 /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648A72DC228D60D100B8B430 /* UserInfoModel.swift */; };
 		64BBBAA41E82AD58008A40E5 /* BlueWriteData.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BBBAA31E82AD58008A40E5 /* BlueWriteData.m */; };
+		64CD9986242F2FC60019EEEE /* SLungTestNumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CD9984242F2FC60019EEEE /* SLungTestNumCell.swift */; };
+		64CD9987242F2FC60019EEEE /* SLungTestNumCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64CD9985242F2FC60019EEEE /* SLungTestNumCell.xib */; };
 		64CF5F44228E8DD300595018 /* SURLLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CF5F43228E8DD300595018 /* SURLLogin.swift */; };
 		64CF5F46228E90AE00595018 /* SURLSuckFog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CF5F45228E90AE00595018 /* SURLSuckFog.swift */; };
 		64CF5F48228E956E00595018 /* DeviceRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CF5F47228E956E00595018 /* DeviceRequestObject.swift */; };
@@ -322,6 +324,8 @@
 		648A72DC228D60D100B8B430 /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		64BBBAA21E82AD58008A40E5 /* BlueWriteData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlueWriteData.h; sourceTree = "<group>"; };
 		64BBBAA31E82AD58008A40E5 /* BlueWriteData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlueWriteData.m; sourceTree = "<group>"; };
+		64CD9984242F2FC60019EEEE /* SLungTestNumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLungTestNumCell.swift; sourceTree = "<group>"; };
+		64CD9985242F2FC60019EEEE /* SLungTestNumCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLungTestNumCell.xib; sourceTree = "<group>"; };
 		64CF5F3E228D662700595018 /* UserInfoData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserInfoData+CoreDataClass.swift"; sourceTree = "<group>"; };
 		64CF5F3F228D662700595018 /* UserInfoData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserInfoData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		64CF5F43228E8DD300595018 /* SURLLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SURLLogin.swift; sourceTree = "<group>"; };
@@ -898,6 +902,15 @@
 			path = KeyChain;
 			sourceTree = "<group>";
 		};
+		64CD9983242F2F860019EEEE /* LungTestView */ = {
+			isa = PBXGroup;
+			children = (
+				64CD9984242F2FC60019EEEE /* SLungTestNumCell.swift */,
+				64CD9985242F2FC60019EEEE /* SLungTestNumCell.xib */,
+			);
+			path = LungTestView;
+			sourceTree = "<group>";
+		};
 		64CF5F42228E8D8A00595018 /* URL */ = {
 			isa = PBXGroup;
 			children = (
@@ -1131,6 +1144,7 @@
 		D17688AB240CF147002D4433 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				64CD9983242F2F860019EEEE /* LungTestView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1334,6 +1348,7 @@
 				644C9C791E6918080030C3B9 /* lightSelect.png in Resources */,
 				6426203B1E80B56200263124 /* hud_info.png in Resources */,
 				6426203C1E80B56200263124 /* hud_info@2x.png in Resources */,
+				64CD9987242F2FC60019EEEE /* SLungTestNumCell.xib in Resources */,
 				644C9C781E6918080030C3B9 /* lightNormal.png in Resources */,
 				64F663CB1E63C8A900F4C9E7 /* Main.storyboard in Resources */,
 				644C9C7A1E6918080030C3B9 /* noticeMusic.wav in Resources */,
@@ -1469,6 +1484,7 @@
 				D17F3ED52419DE5000C9E8AF /* SLungTestTipController.swift in Sources */,
 				64F663FE1E63CB8400F4C9E7 /* BaseViewController.m in Sources */,
 				644C9CB61E697DDA0030C3B9 /* TrainingViewController.m in Sources */,
+				64CD9986242F2FC60019EEEE /* SLungTestNumCell.swift in Sources */,
 				64CF5F46228E90AE00595018 /* SURLSuckFog.swift in Sources */,
 				D1D14397226F0B7B00BA5302 /* UIViewEx.swift in Sources */,
 				BF2B3C641EA0B2BD009E639F /* MedicalInfoViewController.m in Sources */,

@@ -10,7 +10,15 @@ import UIKit
 
 class SLungTestTipController: BaseViewController,CustemBBI {
     
-    var tipBgView:UIView = UIView.init()
+    lazy var tableView:UITableView = {
+        let tbView = UITableView.init(frame: .zero, style: .plain)
+        tbView.separatorStyle = .none
+        tbView.backgroundColor = .white
+        tbView.delegate = self
+        tbView.dataSource = self
+        return tbView
+    }()
+    
     var testNumLabel:UILabel = UILabel.init()
     var tipLabel:UILabel = UILabel.init()
     var startTestButton:UIButton = UIButton.init(type: .custom)
@@ -90,51 +98,51 @@ extension SLungTestTipController {
 
 extension SLungTestTipController {
     func setInterface() {
-        tipBgView.backgroundColor = .white
-        tipBgView.layer.borderWidth = 1
-        tipBgView.layer.borderColor = UIColor.black.cgColor
-        self.view.addSubview(tipBgView)
-        tipBgView.snp.makeConstraints { (make) in
-            make.top.equalTo(NEWNAVHEIGHT+10)
-            make.left.equalTo(15)
-            make.right.equalTo(-15)
-            make.bottom.equalTo(-120)
-        }
         
         testNumLabel.font = UIFont.boldSystemFont(ofSize: 18)
-        testNumLabel.text = "您今天还差3次测试"
-        tipBgView.addSubview(testNumLabel)
+        testNumLabel.text = "您今天完成了0次测试"
+        self.view.addSubview(testNumLabel)
         testNumLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(20)
-            make.height.equalTo(18)
+            make.top.equalTo(NEWNAVHEIGHT+CGFloat(10*IPONE_SCALE))
+            make.height.equalTo(18*IPONE_SCALE)
             make.centerX.equalToSuperview()
         }
         
-        tipLabel.font = UIFont.systemFont(ofSize: 17)
-        tipLabel.text = "1、建议每天进行三次测试.\n\n2、点击开始训练，跟着提示进行测试."
+        tipLabel.font = UIFont.systemFont(ofSize: CGFloat(14*IPONE_SCALE))
+        tipLabel.text = "1、建议每天进行测试，每次测试完整三组.\n\n2、点击开始训练，跟着提示进行测试."
         tipLabel.textColor = HEXCOLOR(h: 0x333333, alpha: 1)
         tipLabel.numberOfLines = 0
-        tipBgView.addSubview(tipLabel)
+        self.view.addSubview(tipLabel)
         tipLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(testNumLabel.snp.bottom).offset(40)
-            make.left.equalTo(30)
-            make.right.equalTo(30)
+            make.top.equalTo(testNumLabel.snp.bottom).offset(10*IPONE_SCALE)
+            make.left.equalTo(20*IPONE_SCALE)
+            make.right.equalTo(-20*IPONE_SCALE)
         }
         
-        startTestButton.layer.cornerRadius = 7
-        startTestButton.layer.masksToBounds = true
-        startTestButton.setTitle(NSLocalizedString("Start Testing", comment: ""), for: .normal)
-        startTestButton.setTitleColor(HEXCOLOR(h: 0xffffff, alpha: 1), for: .normal)
-        startTestButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-        startTestButton.backgroundColor = RGBCOLOR(r: 16, g: 101, b: 182, alpha: 1)
-        startTestButton.addTarget(self, action: #selector(startTestButtonAction(sender:)), for: .touchUpInside)
-        self.view.addSubview(startTestButton)
-        startTestButton.snp.makeConstraints { (make) in
-            make.top.equalTo(tipBgView.snp.bottom).offset(20)
-            make.width.equalTo(150)
-            make.height.equalTo(40)
-            make.centerX.equalToSuperview()
+        self.view.addSubview(tableView)
+        tableView.snp.makeConstraints { (make) in
+            make.left.equalTo(20*IPONE_SCALE)
+            make.right.equalTo(-20*IPONE_SCALE)
+            make.top.equalTo(tipLabel.snp.bottom).offset(20*IPONE_SCALE)
+            make.bottom.equalTo(-20*IPONE_SCALE)
         }
+        tableView.register(UINib.init(nibName: "SLungTestNumCell", bundle: nil), forCellReuseIdentifier: "SLungTestNumCell")
+    }
+}
+
+extension SLungTestTipController: UITableViewDelegate,UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SLungTestNumCell", for: indexPath) as! SLungTestNumCell
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return CGFloat(55*IPONE_SCALE)
     }
 }
 

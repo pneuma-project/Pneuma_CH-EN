@@ -225,12 +225,6 @@ extension SLungTestDateController {
             firstChatView.dataArrOfX = xNumArr
         }
         scrollView.addSubview(firstChatView)
-//        firstChatView.snp.makeConstraints { (make) in
-//            make.top.equalTo(numResultLabel.snp.bottom)
-//            make.left.equalTo(10*IPONE_SCALE)
-//            make.right.equalTo(-10*IPONE_SCALE)
-//            make.height.equalTo(200*IPONE_SCALE)
-//        }
         
         var secondYNumArr:[String] = []
         for i in (0...6).reversed() {
@@ -248,12 +242,6 @@ extension SLungTestDateController {
             secondChatView.dataArrOfX = xNumArr
         }
         scrollView.addSubview(secondChatView)
-//        secondChatView.snp.makeConstraints { (make) in
-//            make.top.equalTo(numResultLabel.snp.bottom)
-//            make.left.equalTo(10*IPONE_SCALE)
-//            make.right.equalTo(-10*IPONE_SCALE)
-//            make.height.equalTo(200*IPONE_SCALE)
-//        }
         
         thirdChatView = FLCustomChartView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH-CGFloat(20*IPONE_SCALE), height: CGFloat(200*IPONE_SCALE)))
         thirdChatView.backgroundColor = .clear
@@ -285,7 +273,7 @@ extension SLungTestDateController {
             FEVStr = 0.0
         }
         countOneLabel = UILabel.init()
-        countOneLabel.text = "1、最大用力肺活量(FEV)：\(FEVStr)L"
+        countOneLabel.text = "1、最大用力肺活量(FEV)：\(FEVStr) L"
         countOneLabel.textColor = HEXCOLOR(h: 0x333333, alpha: 1)
         countOneLabel.font = UIFont.systemFont(ofSize: 14)
         self.view.addSubview(countOneLabel)
@@ -296,19 +284,21 @@ extension SLungTestDateController {
         }
         
         var FEV1Str = 0.0
-        if secondDataArr.count > 10 {
-            guard let maxNum = Double(secondDataArr[9]) else {
-                return
+        if secondDataArr.count > 0{
+            if secondDataArr.count > 10 {
+                guard let maxNum = Double(secondDataArr[9]) else {
+                    return
+                }
+                FEV1Str = maxNum
+            }else {
+                guard let maxNum = Double(secondDataArr[secondDataArr.count-1]) else {
+                    return
+                }
+                FEV1Str = maxNum
             }
-            FEV1Str = maxNum
-        }else {
-            guard let maxNum = Double(secondDataArr[secondDataArr.count-1]) else {
-                return
-            }
-            FEV1Str = maxNum
         }
         countTwoLabel = UILabel.init()
-        countTwoLabel.text = "2、第一秒最大呼氣量(FEV1)：\(FEV1Str)L"
+        countTwoLabel.text = "2、第一秒最大呼氣量(FEV1)：\(FEV1Str) L"
         countTwoLabel.textColor = HEXCOLOR(h: 0x333333, alpha: 1)
         countTwoLabel.font = UIFont.systemFont(ofSize: 14)
         self.view.addSubview(countTwoLabel)
@@ -336,7 +326,7 @@ extension SLungTestDateController {
             maxPEF = 0.0
         }
         countThreeLabel = UILabel.init()
-        countThreeLabel.text = "3、尖峰呼氣流速(PEF)：\(maxPEF)L/Min"
+        countThreeLabel.text = "3、尖峰呼氣流速(PEF)：\(maxPEF) L/Min"
         countThreeLabel.textColor = HEXCOLOR(h: 0x333333, alpha: 1)
         countThreeLabel.font = UIFont.systemFont(ofSize: 14)
         self.view.addSubview(countThreeLabel)
