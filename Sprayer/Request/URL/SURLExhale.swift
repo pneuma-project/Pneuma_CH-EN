@@ -71,4 +71,23 @@ let URL_GetHistoryExhaleData = Base_Exhale_Url + "get/history/exhale/data/group/
  */
 let URL_GetNowDateExhaleData = Base_Exhale_Url + "get/now/date/exhale/data"
 
+/**
+     * 获取某天呼气数据(第二版)
+     * @param loginKey     用户凭证
+     * @param addDate    （格式: 2019-05-17 00:00:01）
+     * @param endDate     （格式: 2019-05-17 00:00:01）
+     * @param checkSum
+     * @return
+     * @throws ApiException
+    @PostMapping(value = "get/now/date/exhale/data/v2")
+    @ResponseBody
+    public Result<List<PnExhaleDataListModel>> getNowDateExhaleDataV2(@RequestParam("loginKey") String loginKey,
+                                                                      @RequestParam("addDate") String addDate,
+                                                                      @RequestParam("endDate") String endDate,
+                                                                      @RequestHeader("checkSum") String checkSum) throws ApiException {
+地址：http://pneuma-admin.com/pneuma-api/pneuma/exhale/get/now/date/exhale/data/v2
+参数：loginKey=7c0050420ec4dc88&addDate=2020-03-12 00:00:00&endDate=2020-03-12 23:59:59
+ */
+let URL_GetNowDateExhaleV2Data = Base_Exhale_Url + "get/now/date/exhale/data/v2"
+
 

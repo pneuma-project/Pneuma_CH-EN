@@ -35,8 +35,10 @@ class SLungTestDateController: BaseViewController,CustemBBI {
     var exhaleDataStr = ""
     var medicineId = ""
     
-    //当天测试次数
-    var todayTestNum:Int = 0
+    //当次测试的组数
+    var testNum:Int = 0
+    
+    var timer:Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,20 +47,48 @@ class SLungTestDateController: BaseViewController,CustemBBI {
         self.view.backgroundColor = .white
         self.setNavTitle(NSLocalizedString("Pulmonary Function Test", comment: ""))
         self.setInterface()
-        self.requestDataBlock()
-        self.requestData()
+        self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.writeStartDataAction), userInfo: nil, repeats: true)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.leftBarButtonItem = CustemNavItem.initWith(UIImage.init(named: "icon-back"), andTarget: self, andinfoStr: "first")
         NotificationCenter.default.addObserver(self, selector: #selector(refreshExhaleData), name: NSNotification.Name(rawValue: "refreshExhaleData"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(disconnectAction), name: NSNotification.Name(rawValue: PeripheralDidConnect), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(connectSucceedAction), name: NSNotification.Name(rawValue: BlueConnectSucceed), object: nil)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if timer != nil {
+            timer!.invalidate()
+            timer = nil
+        }
+    }
+    
+    @objc func disconnectAction() {
+        if timer != nil {
+            timer?.fireDate = Date.distantFuture
+        }
+    }
+    
+    @objc func connectSucceedAction() {
+        if timer != nil {
+            
+            timer?.fireDate = Date.distantPast
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "refreshExhaleData"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: PeripheralDidConnect), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: BlueConnectSucceed), object: nil)
     }
     
     func bbIdidClick(withName infoStr: String!) {
         if dataList.count == 0 {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopLungTrain"), object: nil, userInfo: nil)
-            self.writeDataAction()
+            self.writeStopDataAction()
             self.navigationController?.popViewController(animated: true)
         }else {
             let alertVC = UIAlertController.alertAlert(title: "", message: NSLocalizedString("Do you want to save test results", comment: ""), okTitle: NSLocalizedString("Save", comment: ""), okComplete: {
@@ -74,7 +104,7 @@ class SLungTestDateController: BaseViewController,CustemBBI {
                         if code == "200" {
                             LCProgressHUD.showSuccessText(NSLocalizedString("Upload success", comment: ""))
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopLungTrain"), object: nil, userInfo: nil)
-                            weakself.writeDataAction()
+                            weakself.writeStopDataAction()
                             weakself.navigationController?.popViewController(animated: true)
                         }else {
                             LCProgressHUD.showSuccessText(NSLocalizedString("Upload failed", comment: ""))
@@ -83,7 +113,7 @@ class SLungTestDateController: BaseViewController,CustemBBI {
                 }
             }, cancelTitle: NSLocalizedString("Return", comment: "")) {
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopLungTrain"), object: nil, userInfo: nil)
-                self.writeDataAction()
+                self.writeStopDataAction()
                 self.navigationController?.popViewController(animated: true)
             }
             self.present(alertVC, animated: true, completion: nil)
@@ -143,38 +173,16 @@ class SLungTestDateController: BaseViewController,CustemBBI {
 }
 
 extension SLungTestDateController {
-    @objc func writeDataAction() {
+    @objc func writeStartDataAction() {
+        let time = DisplayUtils.getNowTimestamp()
+        let timeData = FLDrawDataTool.long(toNSData: time)
+        BlueWriteData.startLungFunctionTrain(timeData)
+    }
+    
+    @objc func writeStopDataAction() {
         let time = DisplayUtils.getNowTimestamp()
         let timeData = FLDrawDataTool.long(toNSData: time)
         BlueWriteData.stopLungFunctionTrain(timeData)
-    }
-    
-    //请求当天的数据
-    func requestData() {
-        guard let dateTime = DisplayUtils.getTimestampData("YYYY-MM-dd") else {
-            return
-        }
-        let startStr = String.init(format: "%@ 00:00:00", dateTime)
-        let endStr = String.init(format: "%@ 23:59:59", dateTime)
-        DeviceRequestObject.shared.requestGetNowExhaleData(addDate: startStr, endDate: endStr)
-    }
-    
-    func requestDataBlock() {
-        DeviceRequestObject.shared.requestGetNowExhaleDataSuc = {[weak self](dataList) in
-            if let weakself = self {
-                weakself.todayTestNum = dataList.count
-                if dataList.count == 0 {
-                    weakself.numResultLabel.text = NSLocalizedString("First Test Results", comment: "")
-                    weakself.startTestBtn.setTitle(NSLocalizedString("Start The Second Test", comment: ""), for: .normal)
-                }else if dataList.count == 1 {
-                    weakself.numResultLabel.text = NSLocalizedString("Second Test Results", comment: "")
-                    weakself.startTestBtn.setTitle(NSLocalizedString("Start The Third Test", comment: ""), for: .normal)
-                }else if dataList.count == 2 {
-                    weakself.numResultLabel.text = NSLocalizedString("Third Test Result", comment: "")
-                    weakself.startTestBtn.setTitle(NSLocalizedString("End Test", comment: ""), for: .normal)
-                }
-            }
-        }
     }
 }
 
@@ -228,7 +236,7 @@ extension SLungTestDateController {
         
         var secondYNumArr:[String] = []
         for i in (0...6).reversed() {
-            secondYNumArr.append(String.init(format: "%d", i))
+            secondYNumArr.append(String.init(format: "%d", i*3))
         }
         secondChatView = FLChartView.init(frame: CGRect.init(x: SCREEN_WIDTH+CGFloat(10*IPONE_SCALE), y: 0, width: SCREEN_WIDTH-CGFloat(20*IPONE_SCALE), height: CGFloat(200*IPONE_SCALE)))
         secondChatView.backgroundColor = .clear
@@ -355,14 +363,14 @@ extension SLungTestDateController {
             make.height.equalTo(40)
             make.centerX.equalToSuperview()
         }
-        if todayTestNum == 0 {
-            numResultLabel.text = NSLocalizedString("First Test Results", comment: "")
+        if testNum == 0 {
+            numResultLabel.text = NSLocalizedString("First Group Test Results", comment: "")
             startTestBtn.setTitle(NSLocalizedString("Start The Second Test", comment: ""), for: .normal)
-        }else if todayTestNum == 1 {
-            numResultLabel.text = NSLocalizedString("Second Test Results", comment: "")
+        }else if testNum == 1 {
+            numResultLabel.text = NSLocalizedString("Second Group Test Results", comment: "")
             startTestBtn.setTitle(NSLocalizedString("Start The Third Test", comment: ""), for: .normal)
-        }else if todayTestNum == 2 {
-            numResultLabel.text = NSLocalizedString("Third Test Result", comment: "")
+        }else if testNum == 2 {
+            numResultLabel.text = NSLocalizedString("Third Group Test Result", comment: "")
             startTestBtn.setTitle(NSLocalizedString("End Test", comment: ""), for: .normal)
         }
     }
@@ -370,7 +378,7 @@ extension SLungTestDateController {
 
 extension SLungTestDateController {
     @objc func startTestBtnAction(sender:UIButton) {
-        if todayTestNum == 0 {
+        if testNum == 0 {
             let alertVC = UIAlertController.alertAlert(title: NSLocalizedString("Save or not", comment: ""), message: NSLocalizedString("This test will be saved as your first test today", comment: ""), okTitle: NSLocalizedString("YES", comment: ""), cancelTitle: NSLocalizedString("Test Again", comment: "")) {
                 guard let exhaleDataSum = Double(self.secondDataArr[self.secondDataArr.count-1]) else {
                     return
@@ -385,8 +393,8 @@ extension SLungTestDateController {
                             weakself.xNumArr = []
                             weakself.thirdXNumArr = []
                             weakself.secondDataArr = []
+                            weakself.testNum += 1
                             weakself.setInterface()
-                            weakself.requestData()
                         }else {
                             LCProgressHUD.showSuccessText(NSLocalizedString("Upload failed", comment: ""))
                         }
@@ -394,7 +402,7 @@ extension SLungTestDateController {
                 }
             }
             self.present(alertVC, animated: true, completion: nil)
-        }else if todayTestNum == 1 {
+        }else if testNum == 1 {
             let alertVC = UIAlertController.alertAlert(title: NSLocalizedString("Save or not", comment: ""), message: NSLocalizedString("This test will be saved as your second test today", comment: ""), okTitle: NSLocalizedString("YES", comment: ""), cancelTitle: NSLocalizedString("Test Again", comment: "")) {
                 guard let exhaleDataSum = Double(self.secondDataArr[self.secondDataArr.count-1]) else {
                     return
@@ -409,8 +417,8 @@ extension SLungTestDateController {
                             weakself.xNumArr = []
                             weakself.thirdXNumArr = []
                             weakself.secondDataArr = []
+                            weakself.testNum += 1
                             weakself.setInterface()
-                            weakself.requestData()
                         }else {
                             LCProgressHUD.showSuccessText(NSLocalizedString("Upload failed", comment: ""))
                         }
@@ -418,7 +426,7 @@ extension SLungTestDateController {
                 }
             }
             self.present(alertVC, animated: true, completion: nil)
-        }else if todayTestNum == 2 {
+        }else if testNum == 2 {
             let alertVC = UIAlertController.alertAlert(title: NSLocalizedString("Save or not", comment: ""), message: NSLocalizedString("This test will be saved as your third test today", comment: ""), okTitle: NSLocalizedString("YES", comment: ""), cancelTitle: NSLocalizedString("Test Again", comment: "")) {
                 guard let exhaleDataSum = Double(self.secondDataArr[self.secondDataArr.count-1]) else {
                     return
@@ -429,8 +437,7 @@ extension SLungTestDateController {
                         weakself.view.hideToastActivity()
                         if code == "200" {
                             LCProgressHUD.showSuccessText(NSLocalizedString("Upload success", comment: ""))
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopLungTrain"), object: nil, userInfo: nil)
-                            weakself.writeDataAction()
+                            weakself.writeStopDataAction()
                             weakself.navigationController?.popViewController(animated: true)
                         }else {
                             LCProgressHUD.showSuccessText(NSLocalizedString("Upload failed", comment: ""))

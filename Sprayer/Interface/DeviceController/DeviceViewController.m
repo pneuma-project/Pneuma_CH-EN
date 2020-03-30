@@ -131,7 +131,9 @@
 {
     [self.isOnlineBtn setImage:[UIImage imageNamed:@"device-butn-on"] forState:UIControlStateNormal];
 //    [self.medicineInfoTimer setFireDate:[NSDate distantPast]];
-    [self.timer setFireDate:[NSDate distantPast]];
+    if ([[UIViewController getCurrentViewCtrl] isKindOfClass:[self class]]) {
+        [self.timer setFireDate:[NSDate distantPast]];
+    }
 //    [UserDefaultsUtils saveBoolValue:NO withKey:IsDisplayMedInfo];
 }
 

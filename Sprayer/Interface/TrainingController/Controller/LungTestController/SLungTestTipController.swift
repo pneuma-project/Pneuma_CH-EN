@@ -23,9 +23,7 @@ class SLungTestTipController: BaseViewController,CustemBBI {
     var tipLabel:UILabel = UILabel.init()
     var startTestButton:UIButton = UIButton.init(type: .custom)
     
-    var timer:Timer?
-    
-    var todayTestNum:Int = 0
+    var todayTestArr:[ExhaleNumberModel] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,8 +38,6 @@ class SLungTestTipController: BaseViewController,CustemBBI {
         super.viewWillAppear(animated)
         self.navigationItem.leftBarButtonItem = CustemNavItem.initWith(UIImage.init(named: "icon-back"), andTarget: self, andinfoStr: "first")
         self.requestData()
-        NotificationCenter.default.addObserver(self, selector: #selector(disconnectAction), name: NSNotification.Name(rawValue: PeripheralDidConnect), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(stopLungTrain), name: NSNotification.Name(rawValue: "stopLungTrain"), object: nil)
     }
     
     func bbIdidClick(withName infoStr: String!) {
@@ -56,26 +52,6 @@ class SLungTestTipController: BaseViewController,CustemBBI {
         let endStr = String.init(format: "%@ 23:59:59", dateTime)
         DeviceRequestObject.shared.requestGetNowExhaleData(addDate: startStr, endDate: endStr)
     }
-    
-    @objc func writeDataAction() {
-        let time = DisplayUtils.getNowTimestamp()
-        let timeData = FLDrawDataTool.long(toNSData: time)
-        BlueWriteData.startLungFunctionTrain(timeData)
-    }
-    
-    @objc func disconnectAction() {
-        if timer != nil {
-            timer!.invalidate()
-            timer = nil
-        }
-    }
-    
-    @objc func stopLungTrain() {
-        if timer != nil {
-            timer!.invalidate()
-            timer = nil
-        }
-    }
 }
 
 //数据回调
@@ -83,14 +59,9 @@ extension SLungTestTipController {
     func requestDataBlock() {
         DeviceRequestObject.shared.requestGetNowExhaleDataSuc = {[weak self](dataList) in
             if let weakself = self {
-                weakself.todayTestNum = dataList.count
-                if dataList.count == 3 {
-                    weakself.testNumLabel.text = "您今天已测试完三次"
-                    weakself.startTestButton.isEnabled = false
-                }else {
-                    weakself.testNumLabel.text = "您今天还差\(3-dataList.count)次测试"
-                    weakself.startTestButton.isEnabled = true
-                }
+                weakself.todayTestArr = dataList
+                weakself.testNumLabel.text = "您今天完成了\(dataList.count)次测试"
+                weakself.tableView.reloadData()
             }
         }
     }
@@ -132,35 +103,84 @@ extension SLungTestTipController {
 
 extension SLungTestTipController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return self.todayTestArr.count+1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SLungTestNumCell", for: indexPath) as! SLungTestNumCell
-        
+        cell.testNumLabel.text = "开始第\(indexPath.row + 1)次测试"
+        if todayTestArr.count == 0 {
+            cell.bgView.backgroundColor = HEXCOLOR(h: 0x29D18D, alpha: 1)
+            cell.testNumLabel.textColor = HEXCOLOR(h: 0x113576, alpha: 1)
+            cell.dataNum = 0
+        }else {
+            if indexPath.row == todayTestArr.count {
+                cell.dataNum = 0
+                let model = todayTestArr[todayTestArr.count-1]
+                if model.isNext {
+                    cell.bgView.backgroundColor = HEXCOLOR(h: 0x29D18D, alpha: 1)
+                    cell.testNumLabel.textColor = HEXCOLOR(h: 0x113576, alpha: 1)
+                }else {
+                    cell.bgView.backgroundColor = HEXCOLOR(h: 0x999999, alpha: 1)
+                    cell.testNumLabel.textColor = HEXCOLOR(h: 0xffffff, alpha: 1)
+                }
+            }else {
+                let model = todayTestArr[indexPath.row]
+                cell.dataNum = model.list.count
+                if indexPath.row == todayTestArr.count-1 {
+                    if model.isNext {
+                        cell.bgView.backgroundColor = HEXCOLOR(h: 0x999999, alpha: 1)
+                        cell.testNumLabel.textColor = HEXCOLOR(h: 0xffffff, alpha: 1)
+                    }else {
+                        cell.bgView.backgroundColor = HEXCOLOR(h: 0x29D18D, alpha: 1)
+                        cell.testNumLabel.textColor = HEXCOLOR(h: 0x113576, alpha: 1)
+                    }
+                }else {
+                    cell.bgView.backgroundColor = HEXCOLOR(h: 0x999999, alpha: 1)
+                    cell.testNumLabel.textColor = HEXCOLOR(h: 0xffffff, alpha: 1)
+                }
+            }
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(55*IPONE_SCALE)
     }
-}
-
-extension SLungTestTipController {
-    @objc func startTestButtonAction(sender:UIButton) {
-        var messageStr = ""
-        if todayTestNum == 0 {
-            messageStr = NSLocalizedString("Are you ready for your first test", comment: "")
-        }else if todayTestNum == 1 {
-            messageStr = NSLocalizedString("Are you ready for the second test", comment: "")
-        }else if todayTestNum == 2 {
-            messageStr = NSLocalizedString("Are you ready for the third test", comment: "")
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
+        if todayTestArr.count == 0 {
+            let alertVC = UIAlertController.alertAlert(title: NSLocalizedString("Are you ready", comment: ""), message: "准备好测试了吗？", okTitle: NSLocalizedString("YES", comment: ""), cancelTitle: NSLocalizedString("Wait a minute", comment: "")) {
+                let slungTestDateVC = SLungTestDateController()
+                slungTestDateVC.testNum = 0
+                self.navigationController?.pushViewController(slungTestDateVC, animated: true)
+            }
+            self.present(alertVC, animated: true, completion: nil)
+        }else {
+            if indexPath.row == todayTestArr.count {
+                let model = todayTestArr[todayTestArr.count-1]
+                if model.isNext {
+                   let alertVC = UIAlertController.alertAlert(title: NSLocalizedString("Are you ready", comment: ""), message: "准备好测试了吗？", okTitle: NSLocalizedString("YES", comment: ""), cancelTitle: NSLocalizedString("Wait a minute", comment: "")) {
+                       let slungTestDateVC = SLungTestDateController()
+                       slungTestDateVC.testNum = 0
+                       self.navigationController?.pushViewController(slungTestDateVC, animated: true)
+                   }
+                   self.present(alertVC, animated: true, completion: nil)
+                }
+            }else {
+                let model = todayTestArr[indexPath.row]
+                if indexPath.row == todayTestArr.count-1 {
+                    if !model.isNext {
+                        let alertVC = UIAlertController.alertAlert(title: NSLocalizedString("Are you ready", comment: ""), message: "准备好测试了吗？", okTitle: NSLocalizedString("YES", comment: ""), cancelTitle: NSLocalizedString("Wait a minute", comment: "")) {
+                            let slungTestDateVC = SLungTestDateController()
+                            slungTestDateVC.testNum = model.list.count
+                            self.navigationController?.pushViewController(slungTestDateVC, animated: true)
+                        }
+                        self.present(alertVC, animated: true, completion: nil)
+                    }
+                }
+            }
         }
-        let alertVC = UIAlertController.alertAlert(title: NSLocalizedString("Are you ready", comment: ""), message: messageStr, okTitle: NSLocalizedString("YES", comment: ""), cancelTitle: NSLocalizedString("Wait a minute", comment: "")) {
-            self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.writeDataAction), userInfo: nil, repeats: true)
-            let slungTestDateVC = SLungTestDateController()
-            self.navigationController?.pushViewController(slungTestDateVC, animated: true)
-        }
-        self.present(alertVC, animated: true, completion: nil)
     }
 }

@@ -399,7 +399,7 @@ typedef enum _TTGState{
                     }
                     NSData *newData = [NSData dataWithBytes:newbt
                                                      length:sizeof(newbt)];
-                    NSLog(@"newdata = %@",newData);
+//                    NSLog(@"newdata = %@",newData);
                     NSInteger type = [FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(0, 1)]];
                     if (type == 2) {//历史数据
                         NSString *timeStamp = [NSString stringWithFormat:@"%ld",(long)[FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(5, 4)]]];

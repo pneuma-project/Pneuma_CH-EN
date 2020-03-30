@@ -112,4 +112,5 @@ let currentLocale = Locale.current.identifier
 
 //MARK:关键字
 let PeripheralDidConnect = "peripheralDidConnect"//断开连接
+let BlueConnectSucceed = "ConnectSucceed"
 

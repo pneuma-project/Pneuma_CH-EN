@@ -93,6 +93,7 @@
     [super viewDidAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disconnectAction) name:PeripheralDidConnect object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshViewAction) name:@"refreshSprayView" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bleConnectSucceedAction) name:ConnectSucceed object:nil]; //设备连接成功
 }
 
 -(void)viewDidDisappear:(BOOL)animated
@@ -109,6 +110,13 @@
 -(void)disconnectAction
 {
     [self.timer setFireDate:[NSDate distantFuture]];
+}
+
+-(void)bleConnectSucceedAction
+{
+    if ([[UIViewController getCurrentViewCtrl] isKindOfClass:[self class]]) {
+        [self.timer setFireDate:[NSDate distantPast]];
+    }
 }
 
 -(void)writeDataAction

@@ -31,7 +31,7 @@ extension UIViewController{
     /// 获取当前视图控制器
     ///
     /// - Returns: 当前视图控制器
-    class func getCurrentViewCtrl()->UIViewController{
+    @objc class func getCurrentViewCtrl()->UIViewController{
         var window = UIApplication.shared.keyWindow
         if window?.windowLevel != UIWindowLevelNormal {
             let windows = UIApplication.shared.windows

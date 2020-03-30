@@ -200,18 +200,18 @@ class DeviceRequestObject: NSObject {
     }
     
     //获取某天呼气数据
-    @objc var requestGetNowExhaleDataSuc:((_ dataList:[ExhaleDataModel])->())?
+    @objc var requestGetNowExhaleDataSuc:((_ dataList:[ExhaleNumberModel])->())?
     @objc func requestGetNowExhaleData(addDate:String,endDate:String) {
         if let loginKey = UserInfoData.mr_findFirst()?.loginKey {
-            SURLRequest.sharedInstance.requestPostWithHeader(URL_GetNowDateExhaleData, param: ["loginKey":loginKey,"addDate":addDate,"endDate":endDate], checkSum: [loginKey,addDate,endDate], suc: { (data) in
-                Dprint("URL_GetNowDateExhaleData:\(data)")
+            SURLRequest.sharedInstance.requestPostWithHeader(URL_GetNowDateExhaleV2Data, param: ["loginKey":loginKey,"addDate":addDate,"endDate":endDate], checkSum: [loginKey,addDate,endDate], suc: { (data) in
+                Dprint("URL_GetNowDateExhaleV2Data:\(data)")
                 let dataJson = JSON(data)
                 let code = dataJson["code"].stringValue
                 if code == "200" {
-                    var dataArr:[ExhaleDataModel] = []
+                    var dataArr:[ExhaleNumberModel] = []
                     let resultJsonArr = dataJson["result"].arrayValue
                     for resultJson:JSON in resultJsonArr {
-                        let model = ExhaleDataModel.getFromModel(json: resultJson)
+                        let model = ExhaleNumberModel.getFromModel(json: resultJson)
                         dataArr.append(model)
                     }
                     if let block = DeviceRequestObject.shared.requestGetNowExhaleDataSuc {
@@ -219,7 +219,7 @@ class DeviceRequestObject: NSObject {
                     }
                 }
             }) { (error) in
-                Dprint("URL_GetNowDateExhaleDataError:\(error)")
+                Dprint("URL_GetNowDateExhaleV2DataError:\(error)")
             }
         }
     }

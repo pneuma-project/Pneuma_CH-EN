@@ -100,9 +100,9 @@
 "Test Again" = "再测一次";
 "Return" = "返回";
 
-"First Test Results" = "第一次测试结果";
-"Second Test Results" = "第二次测试结果";
-"Third Test Result" = "第三次测试结果";
+"First Group Test Results" = "第一组测试结果";
+"Second Group Test Results" = "第二组测试结果";
+"Third Group Test Result" = "第三组测试结果";
 
 "Start The Second Test" = "开始第二次测试";
 "Start The Third Test" = "开始第三次测试";

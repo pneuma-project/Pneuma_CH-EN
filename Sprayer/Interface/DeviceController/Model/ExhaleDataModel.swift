@@ -52,3 +52,30 @@ class ExhaleDataModel: NSObject {
         return model
     }
 }
+
+class ExhaleNumberModel: NSObject {
+    @objc var list:[ExhaleDataModel] = []
+    
+    @objc var isNext:Bool = false
+    
+    class func getFromModel(json:JSON) -> ExhaleNumberModel {
+        let model = ExhaleNumberModel.init()
+        let listJson = json["list"].arrayValue
+        for json in listJson {
+            let jsonModel = ExhaleDataModel.getFromModel(json: json)
+            model.list.append(jsonModel)
+        }
+        let listLastModel = model.list[model.list.count-1]
+        if model.list.count < 3 {
+            let nowtimeStamp = DisplayUtils.getNowTimestamp()
+            if nowtimeStamp - listLastModel.addDate/1000 > 3600 {
+                model.isNext = true
+            }else {
+                model.isNext = false
+            }
+        }else {
+            model.isNext = true
+        }
+        return model
+    }
+}

@@ -183,11 +183,18 @@
     for (int i = 0; i<data.length; i+=2) {
         NSInteger yaliData = abs([self signedDataTointWithData:[data subdataWithRange:NSMakeRange(i, 2)] Location:0 Offset:2]);//[self input0x16String:[FLDrawDataTool hexStringFromData:[data subdataWithRange:NSMakeRange(i, 2)]]]
         float yaliNum = yaliData/60.0;
-        yaliNum = [self yaliDataCalculate:yaliNum];
+        yaliNum = [self exhaleDataCalculate:yaliNum];
         [dataArr addObject:[NSString stringWithFormat:@"%.3f",yaliNum]];
     }
     NSString *yaliStr=[dataArr componentsJoinedByString:@","];
     return yaliStr;
+}
+
+//压力公式计算
++(float)exhaleDataCalculate:(float)exhaleData
+{
+    float rate = 15*sqrtf(exhaleData);
+    return rate;
 }
 
 //数据总和

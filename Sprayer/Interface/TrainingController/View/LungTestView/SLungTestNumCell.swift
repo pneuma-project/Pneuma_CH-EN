@@ -9,6 +9,28 @@
 import UIKit
 
 class SLungTestNumCell: UITableViewCell {
+    
+    var dataNum:Int = 0 {
+        didSet{
+            if dataNum == 0 {
+                firstTipView.backgroundColor = .clear
+                secondTipView.backgroundColor = .clear
+                thirdTipView.backgroundColor = .clear
+            }else if dataNum == 1 {
+                firstTipView.backgroundColor = HEXCOLOR(h: 0x436EEE, alpha: 1)
+                secondTipView.backgroundColor = .clear
+                thirdTipView.backgroundColor = .clear
+            }else if dataNum == 2 {
+                firstTipView.backgroundColor = HEXCOLOR(h: 0x436EEE, alpha: 1)
+                secondTipView.backgroundColor = HEXCOLOR(h: 0x436EEE, alpha: 1)
+                thirdTipView.backgroundColor = .clear
+            }else if dataNum == 3 {
+                firstTipView.backgroundColor = HEXCOLOR(h: 0x436EEE, alpha: 1)
+                secondTipView.backgroundColor = HEXCOLOR(h: 0x436EEE, alpha: 1)
+                thirdTipView.backgroundColor = HEXCOLOR(h: 0x436EEE, alpha: 1)
+            }
+        }
+    }
 
     @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var testNumLabel: UILabel!
@@ -19,7 +41,6 @@ class SLungTestNumCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.selectionStyle = .none
         self.setUp()
     }
     
@@ -27,6 +48,7 @@ class SLungTestNumCell: UITableViewCell {
         bgView.backgroundColor = HEXCOLOR(h: 0x29D18D, alpha: 1)
         bgView.layer.borderWidth = 1
         bgView.layer.borderColor = HEXCOLOR(h: 0x113576, alpha: 1).cgColor
+        bgView.isUserInteractionEnabled = false
         bgView.snp.makeConstraints { (make) in
             make.left.right.equalToSuperview()
             make.top.equalTo(5*IPONE_SCALE)
