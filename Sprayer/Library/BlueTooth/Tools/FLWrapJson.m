@@ -193,7 +193,12 @@
 //压力公式计算
 +(float)exhaleDataCalculate:(float)exhaleData
 {
-    float rate = 15*sqrtf(exhaleData);
+    float rate = 0.0;
+    if (exhaleData > 50) {
+        rate = 0.000004*powf(exhaleData, 3) - 0.0047*powf(exhaleData, 2) + 2.7935*exhaleData;
+    }else {
+        rate = 0.0004*powf(exhaleData, 3) - 0.0588*powf(exhaleData, 2) + 4.4107*exhaleData;
+    }
     return rate;
 }
 
@@ -203,7 +208,7 @@
     for (int i = 0; i<data.length; i+=2) {
         NSInteger yaliData = abs([self signedDataTointWithData:[data subdataWithRange:NSMakeRange(i, 2)] Location:0 Offset:2]);
         float yaliNum = yaliData/60;
-        yaliNum = [self yaliDataCalculate:yaliNum];
+        yaliNum = [self exhaleDataCalculate:yaliNum];
         sum += yaliNum;
     }
     return [NSString stringWithFormat:@"%.3f",sum/600.0];
