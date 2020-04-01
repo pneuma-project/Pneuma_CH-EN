@@ -180,11 +180,24 @@
 //-----------------呼气数据相关-----------------//
 +(NSString *)exhaleDataToNSString:(NSData *)data{
     NSMutableArray *dataArr = [[NSMutableArray alloc] init];
+    NSMutableArray *yaliOneArr = [[NSMutableArray alloc] init];
     for (int i = 0; i<data.length; i+=2) {
         NSInteger yaliData = abs([self signedDataTointWithData:[data subdataWithRange:NSMakeRange(i, 2)] Location:0 Offset:2]);//[self input0x16String:[FLDrawDataTool hexStringFromData:[data subdataWithRange:NSMakeRange(i, 2)]]]
         float yaliNum = yaliData/60.0;
+        [yaliOneArr addObject:@(yaliNum)];
         yaliNum = [self exhaleDataCalculate:yaliNum];
         [dataArr addObject:[NSString stringWithFormat:@"%.3f",yaliNum]];
+    }
+    
+    for (int i = 0; i<yaliOneArr.count; i+=1) {
+        float yaliValue = 0.0;
+        if (i == 0) {
+            yaliValue = [yaliOneArr[i] floatValue]/2;
+        }else {
+            yaliValue = ([yaliOneArr[i-1] floatValue]+[yaliOneArr[i] floatValue])/2;
+        }
+        float yaliData = [self exhaleDataCalculate:yaliValue];
+        [dataArr addObject:[NSString stringWithFormat:@"%.3f",yaliData]];
     }
     NSString *yaliStr=[dataArr componentsJoinedByString:@","];
     return yaliStr;
@@ -194,10 +207,14 @@
 +(float)exhaleDataCalculate:(float)exhaleData
 {
     float rate = 0.0;
-    if (exhaleData > 50) {
-        rate = 0.000004*powf(exhaleData, 3) - 0.0047*powf(exhaleData, 2) + 2.7935*exhaleData;
-    }else {
+    if (exhaleData <= 90) {
         rate = 0.0004*powf(exhaleData, 3) - 0.0588*powf(exhaleData, 2) + 4.4107*exhaleData;
+    }else if (exhaleData > 90 && exhaleData <= 194) {
+        rate = 0.000004*powf(exhaleData, 3) - 0.0047*powf(exhaleData, 2) + 2.7935*exhaleData;
+    }else if (exhaleData > 194 && exhaleData <= 326) {
+        rate = exhaleData + 200;
+    }else {
+        rate = exhaleData + (416/exhaleData)*157;
     }
     return rate;
 }

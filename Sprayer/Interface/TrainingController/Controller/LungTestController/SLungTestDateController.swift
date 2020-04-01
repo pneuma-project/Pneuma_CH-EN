@@ -293,8 +293,8 @@ extension SLungTestDateController {
         
         var FEV1Str = 0.0
         if secondDataArr.count > 0{
-            if secondDataArr.count > 10 {
-                guard let maxNum = Double(secondDataArr[9]) else {
+            if secondDataArr.count > 20 {
+                guard let maxNum = Double(secondDataArr[19]) else {
                     return
                 }
                 FEV1Str = maxNum
