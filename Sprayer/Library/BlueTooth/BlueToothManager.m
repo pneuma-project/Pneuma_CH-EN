@@ -401,6 +401,8 @@ typedef enum _TTGState{
                                                      length:sizeof(newbt)];
 //                    NSLog(@"newdata = %@",newData);
                     NSInteger type = [FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(0, 1)]];
+                    //数据长度
+                    NSInteger dataLength = [FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(1, 2)]];
                     if (type == 2) {//历史数据
                         NSString *timeStamp = [NSString stringWithFormat:@"%ld",(long)[FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(5, 4)]]];
                         NSString *sprayData = [FLWrapJson dataToNSString:[newData subdataWithRange:NSMakeRange(9, 50)]];
@@ -480,8 +482,7 @@ typedef enum _TTGState{
                         [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
                         NSDate *exhaleTime = [NSDate dateWithTimeIntervalSince1970:[timeStamp doubleValue]];
                         NSString * exhaleTimeStr = [formatter stringFromDate:exhaleTime];
-                        //数据长度
-                        NSInteger dataLength = [FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(1, 2)]];
+                        
                         //压力数据
                         NSString *exhaleData = [FLWrapJson exhaleDataToNSString:[newData subdataWithRange:NSMakeRange(9, dataLength-6)]];
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshExhaleData" object:@{@"medicineId":[NSString stringWithFormat:@"%ld",(long)medicineId],@"exhaleTime":exhaleTimeStr,@"exhaleData":exhaleData} userInfo:nil];

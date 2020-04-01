@@ -138,12 +138,12 @@ class SLungTestDateController: BaseViewController,CustemBBI {
         //计算x轴的数值
         if dataArr.count%10 == 0{
             for i in 0...dataArr.count {
-                xNumArr.append(String.init(format: "%.1f", Double(i)*0.1))
+                xNumArr.append(String.init(format: "%.1f", Double(i)*0.05))
             }
         }else {
             let baseNum = (dataArr.count/10)+1
             for i in 0...(baseNum*10) {
-                xNumArr.append(String.init(format: "%.1f", Double(i)*0.1))
+                xNumArr.append(String.init(format: "%.1f", Double(i)*0.05))
             }
         }
         dataList = dataArr
@@ -155,7 +155,7 @@ class SLungTestDateController: BaseViewController,CustemBBI {
                 return
             }
             secondSum += dataNum
-            secondDataArr.append(String.init(format: "%.3f", secondSum/600))
+            secondDataArr.append(String.init(format: "%.3f", secondSum/1200))
         }
         //计算thirdChatView 的y轴坐标数值
         guard let lastDataStr = secondDataArr.last else {
@@ -228,7 +228,7 @@ extension SLungTestDateController {
         firstChatView.leftDataArr = dataList
         firstChatView.dataArrOfY = yNumArr
         if xNumArr.count == 0 {
-            firstChatView.dataArrOfX = ["0","0.1","0.2","0.3","0.4","0.5","0.6","0.7","0.8","0.9","1.0","1.1","1.2","1.3","1.4","1.5","1.6","1.7","1.8","1.9","2.0","2.1","2.2","2.3","2.4","2.5","2.6","2.7","2.8","2.9","3.0","3.1","3.2","3.3","3.4","3.5","3.6","3.7","3.8","3.9","4.0","4.1","4.2","4.3","4.4","4.5","4.6","4.7","4.8","4.9","5.0"]//拿到X轴坐标
+            firstChatView.dataArrOfX = ["0","0.05","0.1","0.15","0.2","0.25","0.3","0.35","0.4","0.45","0.5","0.55","0.6","0.65","0.7","0.75","0.8","0.85","0.9","0.95","1.0","1.05","1.1","1.15","1.2","1.25","1.3","1.35","1.4","1.45","1.5","1.55","1.6","1.65","1.7","1.75","1.8","1.85","1.9","1.95","2.0","2.05","2.1","2.15","2.2","2.25","2.3","2.35","2.4","2.45","2.5","2.55","2.6","2.65","2.7","2.75","2.8","2.85","2.9","2.95","3.0"]//拿到X轴坐标
         }else {
             firstChatView.dataArrOfX = xNumArr
         }
@@ -236,7 +236,7 @@ extension SLungTestDateController {
         
         var secondYNumArr:[String] = []
         for i in (0...6).reversed() {
-            secondYNumArr.append(String.init(format: "%d", i*3))
+            secondYNumArr.append(String.init(format: "%d", i*2))
         }
         secondChatView = FLChartView.init(frame: CGRect.init(x: SCREEN_WIDTH+CGFloat(10*IPONE_SCALE), y: 0, width: SCREEN_WIDTH-CGFloat(20*IPONE_SCALE), height: CGFloat(200*IPONE_SCALE)))
         secondChatView.backgroundColor = .clear
@@ -245,7 +245,7 @@ extension SLungTestDateController {
         secondChatView.leftDataArr = secondDataArr
         secondChatView.dataArrOfY = secondYNumArr
         if xNumArr.count == 0 {
-            secondChatView.dataArrOfX = ["0","0.1","0.2","0.3","0.4","0.5","0.6","0.7","0.8","0.9","1.0","1.1","1.2","1.3","1.4","1.5","1.6","1.7","1.8","1.9","2.0","2.1","2.2","2.3","2.4","2.5","2.6","2.7","2.8","2.9","3.0","3.1","3.2","3.3","3.4","3.5","3.6","3.7","3.8","3.9","4.0","4.1","4.2","4.3","4.4","4.5","4.6","4.7","4.8","4.9","5.0"]//拿到X轴坐标
+            secondChatView.dataArrOfX = ["0","0.05","0.1","0.15","0.2","0.25","0.3","0.35","0.4","0.45","0.5","0.55","0.6","0.65","0.7","0.75","0.8","0.85","0.9","0.95","1.0","1.05","1.1","1.15","1.2","1.25","1.3","1.35","1.4","1.45","1.5","1.55","1.6","1.65","1.7","1.75","1.8","1.85","1.9","1.95","2.0","2.05","2.1","2.15","2.2","2.25","2.3","2.35","2.4","2.45","2.5","2.55","2.6","2.65","2.7","2.75","2.8","2.85","2.9","2.95","3.0"]//拿到X轴坐标
         }else {
             secondChatView.dataArrOfX = xNumArr
         }

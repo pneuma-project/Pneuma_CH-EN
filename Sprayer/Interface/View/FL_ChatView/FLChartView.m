@@ -387,9 +387,19 @@
     }else{
         //        bottomArr = @[@"七月",@"八月",@"九月",@"十月",@"十一月",@"十二月",@"七月"];
     }
+    if (bottomArr.count < 10) {
+        return;
+    }
+    
+    int divisorNum = 10;
+    if ([bottomArr[10] floatValue] == 1.0) {
+        divisorNum = 10;
+    }else {
+        divisorNum = 20;
+    }
     
     for (int i = 0;i<= bottomArr.count;i++) {
-        if(i%10 == 0){
+        if(i%divisorNum == 0){
             UILabel *leftLabel = [[UILabel alloc]initWithFrame:CGRectMake(i*Xmargin, (self.dataArrOfY.count-1)*Ymargin, 25, 20)];
             leftLabel.font = [UIFont systemFontOfSize:10.0f];
             leftLabel.textColor = RGBColor(57, 106, 195, 1.0);
