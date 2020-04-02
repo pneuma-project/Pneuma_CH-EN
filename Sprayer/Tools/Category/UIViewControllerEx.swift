@@ -42,28 +42,14 @@ extension UIViewController{
                 }
             }
         }
-        if let frontView = window?.subviews.first{
-            let nextResponder = frontView.next
-            if nextResponder?.classForCoder == UIViewController.classForCoder(){
-                return nextResponder as! UIViewController
-            }else if nextResponder is UINavigationController {
-                return (nextResponder as! UINavigationController).visibleViewController!
-            }else if nextResponder is UITabBarController {
-                let tabbarCtrl = nextResponder as! UITabBarController
-                var tabbarSelCtrl = tabbarCtrl.selectedViewController
-                if tabbarSelCtrl == nil{
-                    tabbarSelCtrl = tabbarCtrl.viewControllers?.first
-                }
-                return tabbarSelCtrl!
-            }
-        }
         if window?.rootViewController is UINavigationController {
             return (window?.rootViewController as! UINavigationController).visibleViewController!
-        }else if window?.rootViewController is UITabBarController {
-            let tabbarCtrl = window?.rootViewController as! UITabBarController
-            var tabbarSelCtrl = tabbarCtrl.selectedViewController
+        }else if window?.rootViewController is RootViewController {
+            let tabbarCtrl = window?.rootViewController as! RootViewController
+            let tabbarSuperClassCtrl = tabbarCtrl.childViewControllers.first as! UITabBarController
+            var tabbarSelCtrl = tabbarSuperClassCtrl.selectedViewController
             if tabbarSelCtrl == nil{
-                tabbarSelCtrl = tabbarCtrl.viewControllers?.first
+                tabbarSelCtrl = tabbarSuperClassCtrl.viewControllers?.first
             }
             if tabbarSelCtrl is UINavigationController {
                 if let navRootCtrl = (tabbarSelCtrl as! UINavigationController).visibleViewController{
