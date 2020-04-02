@@ -28,9 +28,6 @@
 /// ----------------- 呼气数据入口-------------------
 +(NSString *)exhaleDataToNSString:(NSData *)data;
 
-//数据总和
-+(NSString *)exhaleDataSumToNSString:(NSData *)data;
-
 //有符号16进制转10进制
 + (int)input0x16String:(NSString *)string;
 

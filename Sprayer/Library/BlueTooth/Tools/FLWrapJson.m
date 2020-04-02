@@ -185,8 +185,6 @@
         NSInteger yaliData = abs([self signedDataTointWithData:[data subdataWithRange:NSMakeRange(i, 2)] Location:0 Offset:2]);//[self input0x16String:[FLDrawDataTool hexStringFromData:[data subdataWithRange:NSMakeRange(i, 2)]]]
         float yaliNum = yaliData/60.0;
         [yaliOneArr addObject:@(yaliNum)];
-        yaliNum = [self exhaleDataCalculate:yaliNum];
-        [dataArr addObject:[NSString stringWithFormat:@"%.3f",yaliNum]];
     }
     
     for (int i = 0; i<yaliOneArr.count; i+=1) {
@@ -219,17 +217,6 @@
     return rate;
 }
 
-//数据总和
-+(NSString *)exhaleDataSumToNSString:(NSData *)data{
-    float sum = 0;
-    for (int i = 0; i<data.length; i+=2) {
-        NSInteger yaliData = abs([self signedDataTointWithData:[data subdataWithRange:NSMakeRange(i, 2)] Location:0 Offset:2]);
-        float yaliNum = yaliData/60;
-        yaliNum = [self exhaleDataCalculate:yaliNum];
-        sum += yaliNum;
-    }
-    return [NSString stringWithFormat:@"%.3f",sum/600.0];
-}
 
 //有符号16进制转10进制
 + (int)input0x16String:(NSString *)string{
@@ -317,12 +304,12 @@
 // 转为本地大小端模式 返回Signed类型的数据
 +(signed short)signedDataTointWithData:(NSData *)data Location:(NSInteger)location Offset:(NSInteger)offset {
     signed short value=0;
-    NSData *intdata= [data subdataWithRange:NSMakeRange(location, offset)];
+//    NSData *intdata= [data subdataWithRange:NSMakeRange(location, offset)];
     if (offset==2) {
-        value=CFSwapInt16BigToHost(*(short*)([intdata bytes]));
+        value=CFSwapInt16BigToHost(*(short*)([data bytes]));
     }
     else if (offset==4) {
-        value = CFSwapInt32BigToHost(*(int*)([intdata bytes]));
+        value = CFSwapInt32BigToHost(*(int*)([data bytes]));
     }
     else if (offset==1) {
         signed char *bs = (signed char *)[[data subdataWithRange:NSMakeRange(location, 1) ] bytes];

@@ -399,10 +399,12 @@ typedef enum _TTGState{
                     }
                     NSData *newData = [NSData dataWithBytes:newbt
                                                      length:sizeof(newbt)];
-//                    NSLog(@"newdata = %@",newData);
+                    NSLog(@"newdata = %@",newData);
+                    self.putData = nil;
                     NSInteger type = [FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(0, 1)]];
                     //数据长度
                     NSInteger dataLength = [FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(1, 2)]];
+                    
                     if (type == 2) {//历史数据
                         NSString *timeStamp = [NSString stringWithFormat:@"%ld",(long)[FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(5, 4)]]];
                         NSString *sprayData = [FLWrapJson dataToNSString:[newData subdataWithRange:NSMakeRange(9, 50)]];
@@ -488,7 +490,6 @@ typedef enum _TTGState{
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshExhaleData" object:@{@"medicineId":[NSString stringWithFormat:@"%ld",(long)medicineId],@"exhaleTime":exhaleTimeStr,@"exhaleData":exhaleData} userInfo:nil];
                     }
 //                    _state = etx_e;
-                    self.putData = nil;
                 }else if (newByte[data.length - 1] != 0xab){
                     [self.putData appendData:data];
 //                    NSLog(@"------%@",self.putData);
