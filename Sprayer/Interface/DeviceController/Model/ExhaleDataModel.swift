@@ -41,6 +41,8 @@ class ExhaleDataModel: NSObject {
      */
     @objc var addDate:Int64 = 0
     
+    var list:[Int8] = []
+    
     class func getFromModel(json:JSON) -> ExhaleDataModel {
         let model = ExhaleDataModel()
         model.exhaleData = json["exhaleData"].stringValue
@@ -49,6 +51,20 @@ class ExhaleDataModel: NSObject {
         model.addDate = json["addDate"].int64Value
         model.exhaleNum = json["exhaleNum"].int16Value
         model.exhaleAddDate = json["exhaleAddDate"].stringValue
+        return model
+    }
+    
+    class func getHistoryFromModel(json:JSON) -> ExhaleDataModel {
+        let model = ExhaleDataModel()
+        model.exhaleData = json["exhaleData"].stringValue
+        model.exhaleDataSum = json["exhaleDataSum"].doubleValue
+        model.medicineId = json["medicineId"].int32Value
+        model.addDate = json["addDate"].int64Value
+        model.exhaleNum = json["exhaleNum"].int16Value
+        model.exhaleAddDate = json["exhaleAddDate"].stringValue
+        if let arr = json["list"].arrayObject as? [Int8] {
+            model.list = arr
+        }
         return model
     }
 }

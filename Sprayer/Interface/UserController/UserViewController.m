@@ -40,8 +40,8 @@
     [self setNavTitle:NSLocalizedString(@"My Profile", nil)];
     [self createHeadView];
     
-    imageArr = @[@"my-profile-icon-basic-information",@"my-profile-icon-history",@"my-profile-icon-FlowValue"];   //@"my-profile-icon-patient-information",,@"my-profile-icon-basic-information"
-    titleArr = @[NSLocalizedString(@"Basic Information", nil),NSLocalizedString(@"History", nil),NSLocalizedString(@"Pressure VS Flow Rate Equation", nil)];//@"Patient Information",,@"Drug Information"
+    imageArr = @[@"my-profile-icon-basic-information",@"my-profile-icon-history",@"my-profile-icon-history",@"my-profile-icon-FlowValue"];   //@"my-profile-icon-patient-information",,@"my-profile-icon-basic-information"
+    titleArr = @[NSLocalizedString(@"Basic Information", nil),NSLocalizedString(@"History", nil),NSLocalizedString(@"Pulmonary Function Test History", nil),NSLocalizedString(@"Pressure VS Flow Rate Equation", nil)];//@"Patient Information",,@"Drug Information"
     
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -174,9 +174,12 @@
         HistoryViewController *historyVC = [[HistoryViewController alloc] init];
         [self.navigationController pushViewController:historyVC animated:YES];
     }else if (indexPath.row == 2){
+        LungHistoryCountController * lungHistoryVC = [[LungHistoryCountController alloc] init];
+        [self.navigationController pushViewController:lungHistoryVC animated:true];
+    }else if (indexPath.row == 3){
         FlowValueSettingController *FlowValueVC = [[FlowValueSettingController alloc]init];
         [self.navigationController pushViewController:FlowValueVC animated:YES];
-    }else if (indexPath.row == 3){
+    }else if (indexPath.row == 4){
         NSString *medicineInfo = @"";
         if (![[NSUserDefaults standardUserDefaults] objectForKey:@"MedicineInfo"]) {
             medicineInfo = @"No cartridge";

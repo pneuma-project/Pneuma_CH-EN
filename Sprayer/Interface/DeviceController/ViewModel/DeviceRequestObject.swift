@@ -186,7 +186,7 @@ class DeviceRequestObject: NSObject {
                     var dataArr:[ExhaleDataModel] = []
                     let resultJsonArr = dataJson["result"].arrayValue
                     for resultJson:JSON in resultJsonArr {
-                        let model = ExhaleDataModel.getFromModel(json: resultJson)
+                        let model = ExhaleDataModel.getHistoryFromModel(json: resultJson)
                         dataArr.append(model)
                     }
                     if let block = DeviceRequestObject.shared.requestGetHistoryExhaleDataSuc {

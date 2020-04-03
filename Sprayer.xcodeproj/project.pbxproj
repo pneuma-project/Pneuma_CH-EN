@@ -164,6 +164,9 @@
 		D1D14397226F0B7B00BA5302 /* UIViewEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D14396226F0B7B00BA5302 /* UIViewEx.swift */; };
 		D1D143A5226F167F00BA5302 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D143A3226F167F00BA5302 /* Common.swift */; };
 		D1D143A6226F167F00BA5302 /* AniShowCloseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D143A4226F167F00BA5302 /* AniShowCloseView.swift */; };
+		D1E24E1A2436E8AF00936962 /* LungHistoryCountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E24E192436E8AF00936962 /* LungHistoryCountController.swift */; };
+		D1E24E1C2437257900936962 /* LungHistoryChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E24E1B2437257900936962 /* LungHistoryChatController.swift */; };
+		D1E24E1E24372A2100936962 /* HistoryExhaleHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E24E1D24372A2100936962 /* HistoryExhaleHeadView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -462,6 +465,9 @@
 		D1D14396226F0B7B00BA5302 /* UIViewEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewEx.swift; sourceTree = "<group>"; };
 		D1D143A3226F167F00BA5302 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		D1D143A4226F167F00BA5302 /* AniShowCloseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AniShowCloseView.swift; sourceTree = "<group>"; };
+		D1E24E192436E8AF00936962 /* LungHistoryCountController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LungHistoryCountController.swift; sourceTree = "<group>"; };
+		D1E24E1B2437257900936962 /* LungHistoryChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LungHistoryChatController.swift; sourceTree = "<group>"; };
+		D1E24E1D24372A2100936962 /* HistoryExhaleHeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryExhaleHeadView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -825,6 +831,8 @@
 				BF79D0ED1E6FE15200EE468B /* EditDetailPatSexInfoViewController.m */,
 				BF2B3C621EA0B2BD009E639F /* MedicalInfoViewController.h */,
 				BF2B3C631EA0B2BD009E639F /* MedicalInfoViewController.m */,
+				D1E24E192436E8AF00936962 /* LungHistoryCountController.swift */,
+				D1E24E1B2437257900936962 /* LungHistoryChatController.swift */,
 			);
 			path = UserController;
 			sourceTree = "<group>";
@@ -844,6 +852,7 @@
 				6425804B1E6E991E0019AD06 /* PatientInfoTableViewCell.h */,
 				6425804C1E6E991E0019AD06 /* PatientInfoTableViewCell.m */,
 				6425804D1E6E991E0019AD06 /* PatientInfoTableViewCell.xib */,
+				D1E24E1D24372A2100936962 /* HistoryExhaleHeadView.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1497,10 +1506,12 @@
 				644C9CB41E697DDA0030C3B9 /* TrainingStartViewController.m in Sources */,
 				BF79D0EB1E6FD24900EE468B /* EditDetailPatientInfoViewController.m in Sources */,
 				D173D468241736CC003697E4 /* ExhaleDataModel.swift in Sources */,
+				D1E24E1A2436E8AF00936962 /* LungHistoryCountController.swift in Sources */,
 				642620451E80B56200263124 /* FLWrapHeaderTool.m in Sources */,
 				BFDAC7A51E769D3A00E17D7B /* AddPatientInfoModel.m in Sources */,
 				644C9C621E67F8590030C3B9 /* CustemNavItem.m in Sources */,
 				6426203F1E80B56200263124 /* LCProgressHUD.m in Sources */,
+				D1E24E1C2437257900936962 /* LungHistoryChatController.swift in Sources */,
 				6425801F1E6D0CB90019AD06 /* JSONModel.m in Sources */,
 				D1B8DACE2276E6DE00643EC6 /* BlueDeviceListView.swift in Sources */,
 				642620381E80B56200263124 /* BlueToothManager.m in Sources */,
@@ -1517,6 +1528,7 @@
 				642580231E6D0CB90019AD06 /* NSArray+JSONModel.m in Sources */,
 				642620461E80B56200263124 /* FLWrapJson.m in Sources */,
 				BFDAC78F1E7274FA00E17D7B /* JHRingChart.m in Sources */,
+				D1E24E1E24372A2100936962 /* HistoryExhaleHeadView.swift in Sources */,
 				BFDAC7881E7274FA00E17D7B /* JHChart.m in Sources */,
 				642620431E80B56200263124 /* FLDrawDataTool.m in Sources */,
 				644C9C361E6575F80030C3B9 /* MBProgressHUD+Add.m in Sources */,
