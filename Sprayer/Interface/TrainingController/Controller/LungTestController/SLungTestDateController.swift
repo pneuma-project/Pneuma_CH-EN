@@ -218,7 +218,7 @@ extension SLungTestDateController {
         }
         
         var yNumArr:[String] = []
-        for i in (0...6).reversed() {
+        for i in (0...7).reversed() {
             yNumArr.append(String.init(format: "%d", i*100))
         }
         firstChatView = FLChartView.init(frame: CGRect.init(x: CGFloat(10*IPONE_SCALE), y: 0, width: SCREEN_WIDTH-CGFloat(20*IPONE_SCALE), height: CGFloat(200*IPONE_SCALE)))
@@ -283,7 +283,7 @@ extension SLungTestDateController {
         countOneLabel = UILabel.init()
         countOneLabel.text = "1、最大用力肺活量(FEV)：\(FEVStr) L"
         countOneLabel.textColor = HEXCOLOR(h: 0x333333, alpha: 1)
-        countOneLabel.font = UIFont.systemFont(ofSize: 14)
+        countOneLabel.font = UIFont.systemFont(ofSize: 15)
         self.view.addSubview(countOneLabel)
         countOneLabel.snp.makeConstraints { (make) in
             make.top.equalTo(thirdChatView.snp.bottom).offset(20*IPONE_SCALE)
@@ -308,7 +308,7 @@ extension SLungTestDateController {
         countTwoLabel = UILabel.init()
         countTwoLabel.text = "2、第一秒最大呼氣量(FEV1)：\(FEV1Str) L"
         countTwoLabel.textColor = HEXCOLOR(h: 0x333333, alpha: 1)
-        countTwoLabel.font = UIFont.systemFont(ofSize: 14)
+        countTwoLabel.font = UIFont.systemFont(ofSize: 15)
         self.view.addSubview(countTwoLabel)
         countTwoLabel.snp.makeConstraints { (make) in
             make.top.equalTo(countOneLabel.snp.bottom).offset(10*IPONE_SCALE)
@@ -336,7 +336,7 @@ extension SLungTestDateController {
         countThreeLabel = UILabel.init()
         countThreeLabel.text = "3、尖峰呼氣流速(PEF)：\(maxPEF) L/Min"
         countThreeLabel.textColor = HEXCOLOR(h: 0x333333, alpha: 1)
-        countThreeLabel.font = UIFont.systemFont(ofSize: 14)
+        countThreeLabel.font = UIFont.systemFont(ofSize: 15)
         self.view.addSubview(countThreeLabel)
         countThreeLabel.snp.makeConstraints { (make) in
             make.top.equalTo(countTwoLabel.snp.bottom).offset(10*IPONE_SCALE)

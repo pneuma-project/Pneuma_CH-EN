@@ -47,7 +47,7 @@ class LungHistoryCountController: BaseViewController,CustemBBI {
             make.left.right.equalToSuperview()
             make.bottom.equalToSuperview()
         }
-        tableView.register(UINib.init(nibName: "SLungTestNumCell", bundle: nil), forCellReuseIdentifier: "SLungTestNumCell")
+        tableView.register(UINib.init(nibName: "SLungHistoryNumCell", bundle: nil), forCellReuseIdentifier: "SLungHistoryNumCell")
     }
     
     func requestData() {
@@ -63,14 +63,14 @@ class LungHistoryCountController: BaseViewController,CustemBBI {
 
 extension LungHistoryCountController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headBgView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: CGFloat(50*IPONE_SCALE)))
+        let headBgView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: CGFloat(40*IPONE_SCALE)))
         headBgView.backgroundColor = HEXCOLOR(h: 0xEDEDED, alpha: 1)
         
-        let bgView = UIView.init(frame: CGRect.init(x: 0, y: CGFloat(10*IPONE_SCALE), width: SCREEN_WIDTH, height: CGFloat(40*IPONE_SCALE)))
+        let bgView = UIView.init(frame: CGRect.init(x: 0, y: CGFloat(10*IPONE_SCALE), width: SCREEN_WIDTH, height: CGFloat(30*IPONE_SCALE)))
         bgView.backgroundColor = .white
         headBgView.addSubview(bgView)
         
-        let timeLabel = UILabel.init(frame: CGRect.init(x: CGFloat(15*IPONE_SCALE), y: 0, width: SCREEN_WIDTH-CGFloat(30*IPONE_SCALE), height: CGFloat(40*IPONE_SCALE)))
+        let timeLabel = UILabel.init(frame: CGRect.init(x: CGFloat(15*IPONE_SCALE), y: 0, width: SCREEN_WIDTH-CGFloat(30*IPONE_SCALE), height: CGFloat(30*IPONE_SCALE)))
         timeLabel.backgroundColor = .white
         timeLabel.font = UIFont.systemFont(ofSize: CGFloat(17*IPONE_SCALE))
         timeLabel.textColor = HEXCOLOR(h: 0x333333, alpha: 1)
@@ -88,7 +88,7 @@ extension LungHistoryCountController: UITableViewDelegate,UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SLungTestNumCell", for: indexPath) as! SLungTestNumCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SLungHistoryNumCell", for: indexPath) as! SLungHistoryNumCell
         let model = dataArr[indexPath.section]
         cell.dataNum = Int(model.list[indexPath.row])
         cell.testNumLabel.text = "第\(indexPath.row + 1)次测试"
@@ -96,11 +96,11 @@ extension LungHistoryCountController: UITableViewDelegate,UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return CGFloat(50*IPONE_SCALE)
+        return CGFloat(40*IPONE_SCALE)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return CGFloat(55*IPONE_SCALE)
+        return CGFloat(45*IPONE_SCALE)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

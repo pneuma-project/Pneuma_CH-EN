@@ -108,7 +108,7 @@ extension SLungTestTipController: UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SLungTestNumCell", for: indexPath) as! SLungTestNumCell
-        cell.testNumLabel.text = "开始第\(indexPath.row + 1)次测试"
+        cell.testNumLabel.text = "第\(indexPath.row + 1)次测试"
         if todayTestArr.count == 0 {
             cell.bgView.backgroundColor = HEXCOLOR(h: 0x29D18D, alpha: 1)
             cell.testNumLabel.textColor = HEXCOLOR(h: 0x113576, alpha: 1)
@@ -121,7 +121,7 @@ extension SLungTestTipController: UITableViewDelegate,UITableViewDataSource {
                     cell.bgView.backgroundColor = HEXCOLOR(h: 0x29D18D, alpha: 1)
                     cell.testNumLabel.textColor = HEXCOLOR(h: 0x113576, alpha: 1)
                 }else {
-                    cell.bgView.backgroundColor = HEXCOLOR(h: 0x999999, alpha: 1)
+                    cell.bgView.backgroundColor = HEXCOLOR(h: 0xBABABA, alpha: 1)
                     cell.testNumLabel.textColor = HEXCOLOR(h: 0xffffff, alpha: 1)
                 }
             }else {
@@ -129,14 +129,14 @@ extension SLungTestTipController: UITableViewDelegate,UITableViewDataSource {
                 cell.dataNum = model.list.count
                 if indexPath.row == todayTestArr.count-1 {
                     if model.isNext {
-                        cell.bgView.backgroundColor = HEXCOLOR(h: 0x999999, alpha: 1)
+                        cell.bgView.backgroundColor = HEXCOLOR(h: 0xBABABA, alpha: 1)
                         cell.testNumLabel.textColor = HEXCOLOR(h: 0xffffff, alpha: 1)
                     }else {
                         cell.bgView.backgroundColor = HEXCOLOR(h: 0x29D18D, alpha: 1)
                         cell.testNumLabel.textColor = HEXCOLOR(h: 0x113576, alpha: 1)
                     }
                 }else {
-                    cell.bgView.backgroundColor = HEXCOLOR(h: 0x999999, alpha: 1)
+                    cell.bgView.backgroundColor = HEXCOLOR(h: 0xBABABA, alpha: 1)
                     cell.testNumLabel.textColor = HEXCOLOR(h: 0xffffff, alpha: 1)
                 }
             }
@@ -145,7 +145,7 @@ extension SLungTestTipController: UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return CGFloat(55*IPONE_SCALE)
+        return CGFloat(60*IPONE_SCALE)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -244,7 +244,7 @@
     anmi1.autoreverses = NO;
     anmi1.removedOnCompletion = NO;
     
-//    [gradientLayer addAnimation:anmi1 forKey:@"bounds"];
+    [gradientLayer addAnimation:anmi1 forKey:@"bounds"];
     
     
     //*****************添加动画连线******************//
@@ -264,7 +264,7 @@
     anmi.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     anmi.autoreverses = NO;
     
-//    [shapeLayer addAnimation:anmi forKey:@"stroke"];
+    [shapeLayer addAnimation:anmi forKey:@"stroke"];
     
     for (UIButton *btn in self.leftBtnArr) {
         [self.scrollBgView1 addSubview:btn];

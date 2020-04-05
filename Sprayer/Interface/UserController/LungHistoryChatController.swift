@@ -194,7 +194,7 @@ extension LungHistoryChatController {
         }
         
         var yNumArr:[String] = []
-        for i in (0...6).reversed() {
+        for i in (0...7).reversed() {
             yNumArr.append(String.init(format: "%d", i*100))
         }
         firstChatView = FLChartView.init(frame: CGRect.init(x: CGFloat(10*IPONE_SCALE), y: 0, width: SCREEN_WIDTH-CGFloat(20*IPONE_SCALE), height: CGFloat(200*IPONE_SCALE)))
