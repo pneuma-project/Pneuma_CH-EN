@@ -47,7 +47,7 @@ class SLungTestDateController: BaseViewController,CustemBBI {
 
         // Do any additional setup after loading the view.
         self.view.backgroundColor = .white
-        self.setNavTitle("第\(testNum+1)次第\(testGroupNum+1)组测试")
+        self.setNavTitle(String.init(format: NSLocalizedString("test_time_group", comment: ""), testNum+1,testGroupNum+1))
         self.setInterface()
         self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.writeStartDataAction), userInfo: nil, repeats: true)
     }
@@ -196,7 +196,8 @@ extension SLungTestDateController {
             view.removeFromSuperview()
             view.snp.removeConstraints()
         }
-        self.setNavTitle("第\(testNum+1)次第\(testGroupNum+1)组测试")
+        
+        self.setNavTitle(String.init(format: NSLocalizedString("test_time_group", comment: ""), testNum+1,testGroupNum+1))
 
         numResultLabel = UILabel.init()
         numResultLabel.textColor = UIColor.black
@@ -284,13 +285,13 @@ extension SLungTestDateController {
             FEVStr = 0.0
         }
         countOneLabel = UILabel.init()
-        countOneLabel.text = "1、最大用力肺活量(FEV)：\(FEVStr) L"
-        countOneLabel.textColor = HEXCOLOR(h: 0x333333, alpha: 1)
+        countOneLabel.text = String.init(format: NSLocalizedString("fev", comment: ""), FEVStr)
+        countOneLabel.textColor = RGBCOLOR(r: 16, g: 101, b: 182, alpha: 1)
         countOneLabel.font = UIFont.systemFont(ofSize: 15)
         self.view.addSubview(countOneLabel)
         countOneLabel.snp.makeConstraints { (make) in
             make.top.equalTo(thirdChatView.snp.bottom).offset(20*IPONE_SCALE)
-            make.left.equalTo(40*IPONE_SCALE)
+            make.left.equalTo(20*IPONE_SCALE)
             make.height.equalTo(15*IPONE_SCALE)
         }
         
@@ -309,13 +310,13 @@ extension SLungTestDateController {
             }
         }
         countTwoLabel = UILabel.init()
-        countTwoLabel.text = "2、第一秒最大呼氣量(FEV1)：\(FEV1Str) L"
-        countTwoLabel.textColor = HEXCOLOR(h: 0x333333, alpha: 1)
+        countTwoLabel.text = String.init(format: NSLocalizedString("fev1", comment: ""), FEV1Str)
+        countTwoLabel.textColor = RGBCOLOR(r: 16, g: 101, b: 182, alpha: 1)
         countTwoLabel.font = UIFont.systemFont(ofSize: 15)
         self.view.addSubview(countTwoLabel)
         countTwoLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(countOneLabel.snp.bottom).offset(10*IPONE_SCALE)
-            make.left.equalTo(40*IPONE_SCALE)
+            make.top.equalTo(countOneLabel.snp.bottom).offset(12*IPONE_SCALE)
+            make.left.equalTo(20*IPONE_SCALE)
             make.height.equalTo(15*IPONE_SCALE)
         }
         
@@ -337,13 +338,13 @@ extension SLungTestDateController {
             maxPEF = 0.0
         }
         countThreeLabel = UILabel.init()
-        countThreeLabel.text = "3、尖峰呼氣流速(PEF)：\(maxPEF) L/Min"
-        countThreeLabel.textColor = HEXCOLOR(h: 0x333333, alpha: 1)
+        countThreeLabel.text = String.init(format: NSLocalizedString("pef", comment: ""), maxPEF)
+        countThreeLabel.textColor = RGBCOLOR(r: 16, g: 101, b: 182, alpha: 1)
         countThreeLabel.font = UIFont.systemFont(ofSize: 15)
         self.view.addSubview(countThreeLabel)
         countThreeLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(countTwoLabel.snp.bottom).offset(10*IPONE_SCALE)
-            make.left.equalTo(40*IPONE_SCALE)
+            make.top.equalTo(countTwoLabel.snp.bottom).offset(12*IPONE_SCALE)
+            make.left.equalTo(20*IPONE_SCALE)
             make.height.equalTo(15*IPONE_SCALE)
         }
         
@@ -354,11 +355,6 @@ extension SLungTestDateController {
         startTestBtn.layer.masksToBounds = true
         startTestBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         startTestBtn.addTarget(self, action: #selector(startTestBtnAction(sender:)), for: .touchUpInside)
-        if dataList.count == 0 {
-            startTestBtn.isEnabled = false
-        }else {
-            startTestBtn.isEnabled = true
-        }
         self.view.addSubview(startTestBtn)
         startTestBtn.snp.makeConstraints { (make) in
             make.bottom.equalTo(-(CGFloat(20*IPONE_SCALE)+IPHONEX_BH))
@@ -366,23 +362,24 @@ extension SLungTestDateController {
             make.height.equalTo(40)
             make.centerX.equalToSuperview()
         }
-        if testGroupNum == 0 {
-            numResultLabel.text = NSLocalizedString("First Group Test Results", comment: "")
-            startTestBtn.setTitle(NSLocalizedString("Start The Second Test", comment: ""), for: .normal)
-        }else if testGroupNum == 1 {
-            numResultLabel.text = NSLocalizedString("Second Group Test Results", comment: "")
-            startTestBtn.setTitle(NSLocalizedString("Start The Third Test", comment: ""), for: .normal)
-        }else if testGroupNum == 2 {
-            numResultLabel.text = NSLocalizedString("Third Group Test Result", comment: "")
-            startTestBtn.setTitle(NSLocalizedString("End Test", comment: ""), for: .normal)
+        
+        numResultLabel.text = String.init(format: NSLocalizedString("time_test_result", comment: ""), testGroupNum+1)
+        if testGroupNum == 2 {
+            startTestBtn.setTitle(NSLocalizedString("finish_testing", comment: ""), for: .normal)
+        }else {
+            startTestBtn.setTitle(String.init(format: NSLocalizedString("start_testing_time", comment: ""), testGroupNum+2), for: .normal)
         }
     }
 }
 
 extension SLungTestDateController {
     @objc func startTestBtnAction(sender:UIButton) {
+        if dataList.count == 0 {
+            LCProgressHUD.showSuccessText(NSLocalizedString("finish_first", comment: ""))
+            return
+        }
         if testGroupNum == 0 {
-            let alertVC = UIAlertController.alertAlert(title: NSLocalizedString("Save or not", comment: ""), message: NSLocalizedString("This test will be saved as your first test today", comment: ""), okTitle: NSLocalizedString("YES", comment: ""), cancelTitle: NSLocalizedString("Test Again", comment: "")) {
+            let alertVC = UIAlertController.alertAlert(title: NSLocalizedString("Save or not", comment: ""), message: String.init(format: NSLocalizedString("save_time", comment: ""), testGroupNum+1), okTitle: NSLocalizedString("YES", comment: ""), cancelTitle: NSLocalizedString("Test Again", comment: "")) {
                 guard let exhaleDataSum = Double(self.secondDataArr[self.secondDataArr.count-1]) else {
                     return
                 }
@@ -406,7 +403,7 @@ extension SLungTestDateController {
             }
             self.present(alertVC, animated: true, completion: nil)
         }else if testGroupNum == 1 {
-            let alertVC = UIAlertController.alertAlert(title: NSLocalizedString("Save or not", comment: ""), message: NSLocalizedString("This test will be saved as your second test today", comment: ""), okTitle: NSLocalizedString("YES", comment: ""), cancelTitle: NSLocalizedString("Test Again", comment: "")) {
+            let alertVC = UIAlertController.alertAlert(title: NSLocalizedString("Save or not", comment: ""), message: String.init(format: NSLocalizedString("save_time", comment: ""), testGroupNum+1), okTitle: NSLocalizedString("YES", comment: ""), cancelTitle: NSLocalizedString("Test Again", comment: "")) {
                 guard let exhaleDataSum = Double(self.secondDataArr[self.secondDataArr.count-1]) else {
                     return
                 }
@@ -430,7 +427,7 @@ extension SLungTestDateController {
             }
             self.present(alertVC, animated: true, completion: nil)
         }else if testGroupNum == 2 {
-            let alertVC = UIAlertController.alertAlert(title: NSLocalizedString("Save or not", comment: ""), message: NSLocalizedString("This test will be saved as your third test today", comment: ""), okTitle: NSLocalizedString("YES", comment: ""), cancelTitle: NSLocalizedString("Test Again", comment: "")) {
+            let alertVC = UIAlertController.alertAlert(title: NSLocalizedString("Save or not", comment: ""), message: String.init(format: NSLocalizedString("save_time", comment: ""), testGroupNum+1), okTitle: NSLocalizedString("YES", comment: ""), cancelTitle: NSLocalizedString("Test Again", comment: "")) {
                 guard let exhaleDataSum = Double(self.secondDataArr[self.secondDataArr.count-1]) else {
                     return
                 }

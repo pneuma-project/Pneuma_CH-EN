@@ -125,7 +125,7 @@
     
     //吸雾训练按钮
     startBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    startBtn.frame = CGRectMake(25, 0, (screen_width/2)-50, 40);
+    startBtn.frame = CGRectMake(20, 0, (screen_width/2)-40, 40);
     startBtn.center = CGPointMake(screen_width/4, chatBgView.current_y_h+(footView.current_h-chatBgView.current_y_h-kTabbarHeight)/2);
     if (isTrain == NO) {
         [startBtn setTitle:NSLocalizedString(@"Start Training", nil) forState:UIControlStateNormal];
@@ -141,7 +141,7 @@
     
     //肺功能测试按钮
     lungTestBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    lungTestBtn.frame = CGRectMake(startBtn.current_x_w+50, 0, (screen_width/2)-50, 40);
+    lungTestBtn.frame = CGRectMake(startBtn.current_x_w+40, 0, (screen_width/2)-40, 40);
     lungTestBtn.center = CGPointMake((screen_width/4)*3, chatBgView.current_y_h+(footView.current_h-chatBgView.current_y_h-kTabbarHeight)/2);
     [lungTestBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     lungTestBtn.titleLabel.font = [UIFont systemFontOfSize:16];

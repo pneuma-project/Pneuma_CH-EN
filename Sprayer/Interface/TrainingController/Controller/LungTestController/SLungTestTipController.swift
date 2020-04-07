@@ -60,7 +60,7 @@ extension SLungTestTipController {
         DeviceRequestObject.shared.requestGetNowExhaleDataSuc = {[weak self](dataList) in
             if let weakself = self {
                 weakself.todayTestArr = dataList
-                weakself.testNumLabel.text = "您今天完成了\(dataList.count)次测试"
+                weakself.testNumLabel.text = String.init(format: NSLocalizedString("today_time", comment: ""), dataList.count)
                 weakself.tableView.reloadData()
             }
         }
@@ -71,7 +71,6 @@ extension SLungTestTipController {
     func setInterface() {
         
         testNumLabel.font = UIFont.boldSystemFont(ofSize: 18)
-        testNumLabel.text = "您今天完成了0次测试"
         self.view.addSubview(testNumLabel)
         testNumLabel.snp.makeConstraints { (make) in
             make.top.equalTo(NEWNAVHEIGHT+CGFloat(10*IPONE_SCALE))
@@ -80,7 +79,7 @@ extension SLungTestTipController {
         }
         
         tipLabel.font = UIFont.systemFont(ofSize: CGFloat(14*IPONE_SCALE))
-        tipLabel.text = "肺功能测试指引：\n1: 舒适就座，头部略微抬高，双腿不能交叉，双脚平放在地板上\n2: 用鼻夹夹住鼻子\n3：先自由呼吸两次，然后尽量深深吸气，直到感觉肺部已吸饱气\n4：闭气并紧含吹嘴，尽量快速用力呼气，直到将肺部气体完全吐出\n5：持续吹气时间延续6S，尽量将气吐完，嘴巴离开量测吹气筒完成一组数据量测\n6：建议每天量测三次（早，中，晚各1次），每次量测3组数据并保存"
+        tipLabel.text = NSLocalizedString("test_guide", comment: "")
         let attrStr = NSMutableAttributedString(string: tipLabel.text!)
         //设置行间距
         let style:NSMutableParagraphStyle  = NSMutableParagraphStyle()
@@ -114,7 +113,7 @@ extension SLungTestTipController: UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SLungTestNumCell", for: indexPath) as! SLungTestNumCell
-        cell.testNumLabel.text = "第\(indexPath.row + 1)次测试"
+        cell.testNumLabel.text = String.init(format: NSLocalizedString("testing_time", comment: ""), indexPath.row + 1)
         if todayTestArr.count == 0 { //当天测试次数为0
             cell.bgView.backgroundColor = HEXCOLOR(h: 0x29D18D, alpha: 1)
             cell.testNumLabel.textColor = HEXCOLOR(h: 0x113576, alpha: 1)
@@ -157,7 +156,7 @@ extension SLungTestTipController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         if todayTestArr.count == 0 {
-            let alertVC = UIAlertController.alertAlert(title: NSLocalizedString("Are you ready", comment: ""), message: "准备好测试了吗？", okTitle: NSLocalizedString("YES", comment: ""), cancelTitle: NSLocalizedString("Wait a minute", comment: "")) {
+            let alertVC = UIAlertController.alertAlert(title: NSLocalizedString("Are you ready", comment: ""), message: String.init(format: NSLocalizedString("test_ready", comment: ""), indexPath.row + 1), okTitle: NSLocalizedString("YES", comment: ""), cancelTitle: NSLocalizedString("Wait a minute", comment: "")) {
                 let slungTestDateVC = SLungTestDateController()
                 slungTestDateVC.testGroupNum = 0
                 slungTestDateVC.testNum = indexPath.row
@@ -168,7 +167,7 @@ extension SLungTestTipController: UITableViewDelegate,UITableViewDataSource {
             if indexPath.row == todayTestArr.count {
                 let model = todayTestArr[todayTestArr.count-1]
                 if model.isNext {
-                   let alertVC = UIAlertController.alertAlert(title: NSLocalizedString("Are you ready", comment: ""), message: "准备好测试了吗？", okTitle: NSLocalizedString("YES", comment: ""), cancelTitle: NSLocalizedString("Wait a minute", comment: "")) {
+                   let alertVC = UIAlertController.alertAlert(title: NSLocalizedString("Are you ready", comment: ""), message: String.init(format: NSLocalizedString("test_ready", comment: ""), indexPath.row + 1), okTitle: NSLocalizedString("YES", comment: ""), cancelTitle: NSLocalizedString("Wait a minute", comment: "")) {
                        let slungTestDateVC = SLungTestDateController()
                        slungTestDateVC.testGroupNum = 0
                        slungTestDateVC.testNum = indexPath.row
@@ -180,7 +179,7 @@ extension SLungTestTipController: UITableViewDelegate,UITableViewDataSource {
                 let model = todayTestArr[indexPath.row]
                 if indexPath.row == todayTestArr.count-1 {
                     if !model.isNext {
-                        let alertVC = UIAlertController.alertAlert(title: NSLocalizedString("Are you ready", comment: ""), message: "准备好测试了吗？", okTitle: NSLocalizedString("YES", comment: ""), cancelTitle: NSLocalizedString("Wait a minute", comment: "")) {
+                        let alertVC = UIAlertController.alertAlert(title: NSLocalizedString("Are you ready", comment: ""), message: String.init(format: NSLocalizedString("test_ready", comment: ""), indexPath.row + 1), okTitle: NSLocalizedString("YES", comment: ""), cancelTitle: NSLocalizedString("Wait a minute", comment: "")) {
                             let slungTestDateVC = SLungTestDateController()
                             slungTestDateVC.testGroupNum = model.list.count
                             slungTestDateVC.testNum = indexPath.row

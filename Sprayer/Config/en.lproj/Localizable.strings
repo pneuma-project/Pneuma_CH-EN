@@ -101,21 +101,28 @@
 "Test Again" = "Test Again";
 "Return" = "Return";
 
-"First Group Test Results" = "First Group Test Results";
-"Second Group Test Results" = "Second Group Test Results";
-"Third Group Test Result" = "Third Group Test Result";
-
 "Start The Second Test" = "Start The Second Test";
 "Start The Third Test" = "Start The Third Test";
 "End Test" = "End Test";
 "Start Testing" = "Start Testing";
 
-"Are you ready for your first test" = "Are you ready for your first test?";
-"Are you ready for the second test" = "Are you ready for the second test?";
-"Are you ready for the third test" = "Are you ready for the third test?";
-
 "This test will be saved as your first test today" = "This test will be saved as your first test today";
 "This test will be saved as your second test today" = "This test will be saved as your second test today";
 "This test will be saved as your third test today" = "This test will be saved as your third test today";
-"Save or not" = "Save or not?";
+"Save or not" = "Whether to save?";
 "Do you want to save test results" = "Do you want to save test results?";
+
+"today_time" = "You finished the %d test";
+"testing_time" = "The %d test";
+"test_guide" = "Test guide：\n1: Comfortable seat, head slightly raised, legs not crossed, feet flat on the floor\n2: Nip the nose in\n3：Take two free breaths first, then inhale as deep as you can until you feel your lungs are full\n4：Close your breath and hold your mouth tightly. Exhale as fast and forcefully as possible until the air in your lungs is completely exhaled\n5：The duration of continuous blowing lasts for 6S. Try to spit out the air as much as possible, and leave the mouth from the measuring air cylinder to complete a set of data measurement\n6：It is recommended to measure three times a day (one time in the morning, afternoon and evening), measure three groups of data each time and save them";
+"test_ready" = "You are ready for the %d test.";
+"test_time_group" = "The %d Group %d test";
+"time_test_result" = "Group %d test result";
+"finish_first" = "Finish the current test first";
+"fev" = "1. Maximum forced vital capacity (FVC)：%.1f L";
+"fev1" = "2. Maximum expiratory volume in the first second(FEV1): %.1f L";
+"pef" = "3. Peak expiratory flow (PEF)：%.1f L/min";
+"save_time" = "This test will be saved as %d group test";
+"finish_testing" = "Finish this test";
+"start_testing_time" = "Start the %d test";
+"number_group" = "Group %d data";

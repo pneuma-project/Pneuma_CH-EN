@@ -72,37 +72,40 @@ class HistoryExhaleHeadView: UIView {
     func setInterface() {
         oneButton.layer.borderColor = HEXCOLOR(h: 0x333333, alpha: 1).cgColor
         oneButton.layer.borderWidth = 1
-        oneButton.setTitle("第一组", for: .normal)
+        oneButton.setTitle(String.init(format: NSLocalizedString("number_group", comment: ""), 1), for: .normal)
         oneButton.setTitleColor(HEXCOLOR(h: 0x113576, alpha: 1), for: .normal)
         oneButton.backgroundColor = HEXCOLOR(h: 0x29D18D, alpha: 1)
+        oneButton.titleLabel?.font = UIFont.systemFont(ofSize: CGFloat(15*IPONE_SCALE))
         oneButton.tag = 401
         oneButton.addTarget(self, action: #selector(titleClickAction(sender:)), for: .touchUpInside)
         self.addSubview(oneButton)
         oneButton.snp.makeConstraints { (make) in
             make.left.equalToSuperview()
             make.top.bottom.equalToSuperview()
-            make.width.equalTo((SCREEN_WIDTH-CGFloat(80*IPONE_SCALE))/3)
+            make.width.equalTo((SCREEN_WIDTH-CGFloat(40*IPONE_SCALE))/3)
         }
         
         twoButton.layer.borderColor = HEXCOLOR(h: 0x333333, alpha: 1).cgColor
         twoButton.layer.borderWidth = 1
-        twoButton.setTitle("第二组", for: .normal)
+        twoButton.setTitle(String.init(format: NSLocalizedString("number_group", comment: ""), 2), for: .normal)
         twoButton.setTitleColor(HEXCOLOR(h: 0x333333, alpha: 1), for: .normal)
         twoButton.backgroundColor = HEXCOLOR(h: 0xffffff, alpha: 1)
+        twoButton.titleLabel?.font = UIFont.systemFont(ofSize: CGFloat(15*IPONE_SCALE))
         twoButton.tag = 402
         twoButton.addTarget(self, action: #selector(titleClickAction(sender:)), for: .touchUpInside)
         self.addSubview(twoButton)
         twoButton.snp.makeConstraints { (make) in
             make.left.equalTo(oneButton.snp.right)
             make.top.bottom.equalToSuperview()
-            make.width.equalTo((SCREEN_WIDTH-CGFloat(80*IPONE_SCALE))/3)
+            make.width.equalTo((SCREEN_WIDTH-CGFloat(40*IPONE_SCALE))/3)
         }
         
         threeButton.layer.borderColor = HEXCOLOR(h: 0x333333, alpha: 1).cgColor
         threeButton.layer.borderWidth = 1
-        threeButton.setTitle("第二组", for: .normal)
+        threeButton.setTitle(String.init(format: NSLocalizedString("number_group", comment: ""), 3), for: .normal)
         threeButton.setTitleColor(HEXCOLOR(h: 0x333333, alpha: 1), for: .normal)
         threeButton.backgroundColor = HEXCOLOR(h: 0xffffff, alpha: 1)
+        threeButton.titleLabel?.font = UIFont.systemFont(ofSize: CGFloat(15*IPONE_SCALE))
         threeButton.tag = 403
         threeButton.addTarget(self, action: #selector(titleClickAction(sender:)), for: .touchUpInside)
         self.addSubview(threeButton)
@@ -110,7 +113,7 @@ class HistoryExhaleHeadView: UIView {
             make.left.equalTo(twoButton.snp.right)
             make.right.equalToSuperview()
             make.top.bottom.equalToSuperview()
-            make.width.equalTo((SCREEN_WIDTH-CGFloat(80*IPONE_SCALE))/3)
+            make.width.equalTo((SCREEN_WIDTH-CGFloat(40*IPONE_SCALE))/3)
         }
     }
     

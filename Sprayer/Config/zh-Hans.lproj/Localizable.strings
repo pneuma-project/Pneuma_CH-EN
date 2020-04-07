@@ -71,7 +71,7 @@
 "My Profile" = "我的资料";
 "Basic Information" = "基本信息";
 "History" = "历史数据";
-"Pulmonary Function Test History" = "肺功能测试历史数据";
+"Pulmonary Function Test History" = "肺功能历史数据";
 "Pressure VS Flow Rate Equation" = "流量公式";
 "Basic Information" = "基本信息";
 "Medical History" = "历史用药";
@@ -101,18 +101,10 @@
 "Test Again" = "再测一次";
 "Return" = "返回";
 
-"First Group Test Results" = "第一组测试结果";
-"Second Group Test Results" = "第二组测试结果";
-"Third Group Test Result" = "第三组测试结果";
-
 "Start The Second Test" = "开始第二次测试";
 "Start The Third Test" = "开始第三次测试";
 "End Test" = "结束测试";
 "Start Testing" = "开始测试";
-
-"Are you ready for your first test" = "您已经准备好进行第1次测试了?";
-"Are you ready for the second test" = "您已经准备好进行第2次测试了?";
-"Are you ready for the third test" = "您已经准备好进行第3次测试了?";
 
 "This test will be saved as your first test today" = "此次测试将保存为您今天的第1次测试";
 "This test will be saved as your second test today" = "此次测试将保存为您今天的第2次测试";
@@ -120,3 +112,17 @@
 "Save or not" = "是否保存?";
 "Do you want to save test results" = "是否保存测试结果？";
 
+"today_time" = "您今天完成了%d次测试";
+"testing_time" = "第%d次测试";
+"test_guide" = "肺功能测试指引：\n1: 舒适就座，头部略微抬高，双腿不能交叉，双脚平放在地板上\n2: 用鼻夹夹住鼻子\n3：先自由呼吸两次，然后尽量深深吸气，直到感觉肺部已吸饱气\n4：闭气并紧含吹嘴，尽量快速用力呼气，直到将肺部气体完全吐出\n5：持续吹气时间延续6S，尽量将气吐完，嘴巴离开量测吹气筒完成一组数据量测\n6：建议每天量测三次（早，中，晚各1次），每次量测3组数据并保存";
+"test_ready" = "你现在已经准备好进行第%d次测试.";
+"test_time_group" = "第%d次第%d组测试";
+"time_test_result" = "第%d组测试结果";
+"finish_first" = "请先完成当前测试";
+"fev" = "1、最大用力肺活量(FVC)：%.1f L";
+"fev1" = "2、第一秒最大呼气量(FEV1)：%.1f L";
+"pef" = "3、尖峰呼气流速(PEF)：%.1f L/min";
+"save_time" = "此次测试将保存为第%d组测试";
+"finish_testing" = "完成本次测试";
+"start_testing_time" = "开始第%d次测试";
+"number_group" = "第%d组数据";

@@ -91,7 +91,7 @@ extension LungHistoryCountController: UITableViewDelegate,UITableViewDataSource 
         let cell = tableView.dequeueReusableCell(withIdentifier: "SLungHistoryNumCell", for: indexPath) as! SLungHistoryNumCell
         let model = dataArr[indexPath.section]
         cell.dataNum = Int(model.list[indexPath.row])
-        cell.testNumLabel.text = "第\(indexPath.row + 1)次测试"
+        cell.testNumLabel.text = String.init(format: NSLocalizedString("testing_time", comment: ""), indexPath.row + 1)
         return cell
     }
     

@@ -14,7 +14,7 @@ class LungHistoryChatController: BaseViewController,CustemBBI {
     var dateStr = ""  //点击时间是哪一天
     var indexPath = 0 //点击了是当天的第几次肺功能测试
     
-    let headView:HistoryExhaleHeadView = HistoryExhaleHeadView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH-CGFloat(80*IPONE_SCALE), height: CGFloat(35*IPONE_SCALE)))
+    let headView:HistoryExhaleHeadView = HistoryExhaleHeadView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH-CGFloat(40*IPONE_SCALE), height: CGFloat(35*IPONE_SCALE)))
     
     var scrollView:UIScrollView!
     
@@ -170,7 +170,7 @@ extension LungHistoryChatController {
         guard let time = timeStr else {
             return
         }
-        timeResultLabel.text = "第\(indexPath+1)次测试    " + time
+        timeResultLabel.text = String.init(format: NSLocalizedString("testing_time", comment: ""), indexPath+1) + "    " + time
     }
 }
 
@@ -181,7 +181,7 @@ extension LungHistoryChatController {
         headView.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.top.equalTo(NEWNAVHEIGHT + CGFloat(20*IPONE_SCALE))
-            make.width.equalTo(SCREEN_WIDTH-CGFloat(80*IPONE_SCALE))
+            make.width.equalTo(SCREEN_WIDTH-CGFloat(40*IPONE_SCALE))
             make.height.equalTo(35*IPONE_SCALE)
         }
         
@@ -280,13 +280,13 @@ extension LungHistoryChatController {
             FEVStr = 0.0
         }
         countOneLabel = UILabel.init()
-        countOneLabel.text = "1、最大用力肺活量(FEV)：\(FEVStr) L"
+        countOneLabel.text = String.init(format: NSLocalizedString("fev", comment: ""), FEVStr)
         countOneLabel.textColor = HEXCOLOR(h: 0x333333, alpha: 1)
         countOneLabel.font = UIFont.systemFont(ofSize: 14)
         self.view.addSubview(countOneLabel)
         countOneLabel.snp.makeConstraints { (make) in
             make.top.equalTo(thirdChatView.snp.bottom).offset(20*IPONE_SCALE)
-            make.left.equalTo(40*IPONE_SCALE)
+            make.left.equalTo(20*IPONE_SCALE)
             make.height.equalTo(15*IPONE_SCALE)
         }
         
@@ -305,13 +305,13 @@ extension LungHistoryChatController {
             }
         }
         countTwoLabel = UILabel.init()
-        countTwoLabel.text = "2、第一秒最大呼氣量(FEV1)：\(FEV1Str) L"
+        countTwoLabel.text = String.init(format: NSLocalizedString("fev1", comment: ""), FEV1Str)
         countTwoLabel.textColor = HEXCOLOR(h: 0x333333, alpha: 1)
         countTwoLabel.font = UIFont.systemFont(ofSize: 14)
         self.view.addSubview(countTwoLabel)
         countTwoLabel.snp.makeConstraints { (make) in
             make.top.equalTo(countOneLabel.snp.bottom).offset(10*IPONE_SCALE)
-            make.left.equalTo(40*IPONE_SCALE)
+            make.left.equalTo(20*IPONE_SCALE)
             make.height.equalTo(15*IPONE_SCALE)
         }
         
@@ -333,13 +333,13 @@ extension LungHistoryChatController {
             maxPEF = 0.0
         }
         countThreeLabel = UILabel.init()
-        countThreeLabel.text = "3、尖峰呼氣流速(PEF)：\(maxPEF) L/Min"
+        countThreeLabel.text = String.init(format: NSLocalizedString("pef", comment: ""), maxPEF)
         countThreeLabel.textColor = HEXCOLOR(h: 0x333333, alpha: 1)
         countThreeLabel.font = UIFont.systemFont(ofSize: 14)
         self.view.addSubview(countThreeLabel)
         countThreeLabel.snp.makeConstraints { (make) in
             make.top.equalTo(countTwoLabel.snp.bottom).offset(10*IPONE_SCALE)
-            make.left.equalTo(40*IPONE_SCALE)
+            make.left.equalTo(20*IPONE_SCALE)
             make.height.equalTo(15*IPONE_SCALE)
         }
     }
