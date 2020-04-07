@@ -12,14 +12,13 @@ import Toast_Swift
 class LungHistoryChatController: BaseViewController,CustemBBI {
 
     var dateStr = ""  //点击时间是哪一天
-    var indexNum = 1  //当次肺功能测试有多少组
     var indexPath = 0 //点击了是当天的第几次肺功能测试
     
-    let headView:HistoryExhaleHeadView = HistoryExhaleHeadView.init(frame: CGRect.init(x: 0, y: 0, width: CGFloat(180*IPONE_SCALE), height: CGFloat(40*IPONE_SCALE)))
+    let headView:HistoryExhaleHeadView = HistoryExhaleHeadView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH-CGFloat(80*IPONE_SCALE), height: CGFloat(35*IPONE_SCALE)))
     
     var scrollView:UIScrollView!
     
-    var numResultLabel:UILabel!
+    var timeResultLabel:UILabel!
     var firstChatView:FLChartView!
     var secondChatView:FLChartView!
     var thirdChatView:FLCustomChartView!
@@ -34,11 +33,6 @@ class LungHistoryChatController: BaseViewController,CustemBBI {
     var thirdXNumArr:[String] = []
     var secondDataArr:[String] = []
     
-    //数据
-    var exhaleTime = ""
-    var exhaleDataStr = ""
-    var medicineId = ""
-    
     var listArr:[ExhaleDataModel] = []
    
     override func viewDidLoad() {
@@ -46,7 +40,7 @@ class LungHistoryChatController: BaseViewController,CustemBBI {
 
         // Do any additional setup after loading the view.
         self.view.backgroundColor = .white
-        self.setNavTitle(NSLocalizedString("Pulmonary Function Test", comment: ""))
+        self.setNavTitle(dateStr)
         self.setHeadView()
         self.setInterface()
         self.requestDataBlock()
@@ -121,6 +115,7 @@ extension LungHistoryChatController {
                 if weakself.listArr.count > 0 {
                     let exhaleDataArr = weakself.listArr[0].exhaleData.components(separatedBy: ",")
                     weakself.XNumSetting(dataArr: exhaleDataArr)
+                    weakself.settingTime(date: weakself.listArr[0].addDate)
                 }
             }
         }
@@ -133,52 +128,80 @@ extension LungHistoryChatController {
                     if weakself.listArr.count >= 1 {
                         let exhaleDataArr = weakself.listArr[0].exhaleData.components(separatedBy: ",")
                         weakself.XNumSetting(dataArr: exhaleDataArr)
+                        weakself.settingTime(date: weakself.listArr[0].addDate)
+                    }else {
+                        weakself.dataList = []
+                        weakself.xNumArr = []
+                        weakself.thirdXNumArr = []
+                        weakself.secondDataArr = []
+                        weakself.setInterface()
                     }
                 }else if index == 2 {
                     if weakself.listArr.count >= 2 {
                         let exhaleDataArr = weakself.listArr[1].exhaleData.components(separatedBy: ",")
                         weakself.XNumSetting(dataArr: exhaleDataArr)
+                        weakself.settingTime(date: weakself.listArr[1].addDate)
+                    }else {
+                        weakself.dataList = []
+                        weakself.xNumArr = []
+                        weakself.thirdXNumArr = []
+                        weakself.secondDataArr = []
+                        weakself.setInterface()
                     }
                 }else if index == 3 {
                     if weakself.listArr.count >= 3 {
                         let exhaleDataArr = weakself.listArr[2].exhaleData.components(separatedBy: ",")
                         weakself.XNumSetting(dataArr: exhaleDataArr)
+                        weakself.settingTime(date: weakself.listArr[2].addDate)
+                    }else {
+                        weakself.dataList = []
+                        weakself.xNumArr = []
+                        weakself.thirdXNumArr = []
+                        weakself.secondDataArr = []
+                        weakself.setInterface()
                     }
                 }
             }
         }
+    }
+    
+    func settingTime(date:Int64) {
+        let timeStr = DisplayUtils.getTimeStamp(to: "HH:mm:ss", andTime: String.init(format: "%lld", date/1000))
+        guard let time = timeStr else {
+            return
+        }
+        timeResultLabel.text = "第\(indexPath+1)次测试    " + time
     }
 }
 
 /// 初始化界面
 extension LungHistoryChatController {
     fileprivate func setHeadView() {
-        headView.number = indexNum
         self.view.addSubview(headView)
         headView.snp.makeConstraints { (make) in
-            make.left.equalTo(30*IPONE_SCALE)
+            make.centerX.equalToSuperview()
             make.top.equalTo(NEWNAVHEIGHT + CGFloat(20*IPONE_SCALE))
-            make.width.equalTo(240*IPONE_SCALE)
+            make.width.equalTo(SCREEN_WIDTH-CGFloat(80*IPONE_SCALE))
             make.height.equalTo(35*IPONE_SCALE)
+        }
+        
+        timeResultLabel = UILabel.init()
+        timeResultLabel.textColor = UIColor.black
+        timeResultLabel.font = UIFont.systemFont(ofSize: CGFloat(16*IPONE_SCALE))
+        self.view.addSubview(timeResultLabel)
+        timeResultLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(NEWNAVHEIGHT+CGFloat(70*IPONE_SCALE))
+            make.left.equalTo(20*IPONE_SCALE)
+            make.height.equalTo(16*IPONE_SCALE)
         }
     }
     
     fileprivate func setInterface() {
         for view in self.view.subviews {
-            if !view.isKind(of: HistoryExhaleHeadView.classForCoder()) {
+            if !view.isKind(of: HistoryExhaleHeadView.classForCoder()) && !view.isKind(of: timeResultLabel.classForCoder) {
                view.removeFromSuperview()
                view.snp.removeConstraints()
             }
-        }
-
-        numResultLabel = UILabel.init()
-        numResultLabel.textColor = UIColor.black
-        numResultLabel.font = UIFont.boldSystemFont(ofSize: 18)
-        self.view.addSubview(numResultLabel)
-        numResultLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(NEWNAVHEIGHT+CGFloat(70*IPONE_SCALE))
-            make.centerX.equalToSuperview()
-            make.height.equalTo(18)
         }
         
         scrollView = UIScrollView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: CGFloat(200*IPONE_SCALE)))
@@ -189,7 +212,7 @@ extension LungHistoryChatController {
         scrollView.contentSize = CGSize.init(width: 2*SCREEN_WIDTH, height: CGFloat(200*IPONE_SCALE))
         scrollView.snp.makeConstraints { (make) in
             make.left.right.equalToSuperview()
-            make.top.equalTo(numResultLabel.snp.bottom)
+            make.top.equalTo(NEWNAVHEIGHT+CGFloat(86*IPONE_SCALE))
             make.height.equalTo(200*IPONE_SCALE)
         }
         

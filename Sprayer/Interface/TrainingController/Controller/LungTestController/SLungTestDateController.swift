@@ -36,6 +36,8 @@ class SLungTestDateController: BaseViewController,CustemBBI {
     var medicineId = ""
     
     //当次测试的组数
+    var testGroupNum:Int = 0
+    //当前是测试第几次
     var testNum:Int = 0
     
     var timer:Timer?
@@ -45,7 +47,7 @@ class SLungTestDateController: BaseViewController,CustemBBI {
 
         // Do any additional setup after loading the view.
         self.view.backgroundColor = .white
-        self.setNavTitle(NSLocalizedString("Pulmonary Function Test", comment: ""))
+        self.setNavTitle("第\(testNum+1)次第\(testGroupNum+1)组测试")
         self.setInterface()
         self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.writeStartDataAction), userInfo: nil, repeats: true)
     }
@@ -194,6 +196,7 @@ extension SLungTestDateController {
             view.removeFromSuperview()
             view.snp.removeConstraints()
         }
+        self.setNavTitle("第\(testNum+1)次第\(testGroupNum+1)组测试")
 
         numResultLabel = UILabel.init()
         numResultLabel.textColor = UIColor.black
@@ -363,13 +366,13 @@ extension SLungTestDateController {
             make.height.equalTo(40)
             make.centerX.equalToSuperview()
         }
-        if testNum == 0 {
+        if testGroupNum == 0 {
             numResultLabel.text = NSLocalizedString("First Group Test Results", comment: "")
             startTestBtn.setTitle(NSLocalizedString("Start The Second Test", comment: ""), for: .normal)
-        }else if testNum == 1 {
+        }else if testGroupNum == 1 {
             numResultLabel.text = NSLocalizedString("Second Group Test Results", comment: "")
             startTestBtn.setTitle(NSLocalizedString("Start The Third Test", comment: ""), for: .normal)
-        }else if testNum == 2 {
+        }else if testGroupNum == 2 {
             numResultLabel.text = NSLocalizedString("Third Group Test Result", comment: "")
             startTestBtn.setTitle(NSLocalizedString("End Test", comment: ""), for: .normal)
         }
@@ -378,7 +381,7 @@ extension SLungTestDateController {
 
 extension SLungTestDateController {
     @objc func startTestBtnAction(sender:UIButton) {
-        if testNum == 0 {
+        if testGroupNum == 0 {
             let alertVC = UIAlertController.alertAlert(title: NSLocalizedString("Save or not", comment: ""), message: NSLocalizedString("This test will be saved as your first test today", comment: ""), okTitle: NSLocalizedString("YES", comment: ""), cancelTitle: NSLocalizedString("Test Again", comment: "")) {
                 guard let exhaleDataSum = Double(self.secondDataArr[self.secondDataArr.count-1]) else {
                     return
@@ -393,7 +396,7 @@ extension SLungTestDateController {
                             weakself.xNumArr = []
                             weakself.thirdXNumArr = []
                             weakself.secondDataArr = []
-                            weakself.testNum += 1
+                            weakself.testGroupNum += 1
                             weakself.setInterface()
                         }else {
                             LCProgressHUD.showSuccessText(NSLocalizedString("Upload failed", comment: ""))
@@ -402,7 +405,7 @@ extension SLungTestDateController {
                 }
             }
             self.present(alertVC, animated: true, completion: nil)
-        }else if testNum == 1 {
+        }else if testGroupNum == 1 {
             let alertVC = UIAlertController.alertAlert(title: NSLocalizedString("Save or not", comment: ""), message: NSLocalizedString("This test will be saved as your second test today", comment: ""), okTitle: NSLocalizedString("YES", comment: ""), cancelTitle: NSLocalizedString("Test Again", comment: "")) {
                 guard let exhaleDataSum = Double(self.secondDataArr[self.secondDataArr.count-1]) else {
                     return
@@ -417,7 +420,7 @@ extension SLungTestDateController {
                             weakself.xNumArr = []
                             weakself.thirdXNumArr = []
                             weakself.secondDataArr = []
-                            weakself.testNum += 1
+                            weakself.testGroupNum += 1
                             weakself.setInterface()
                         }else {
                             LCProgressHUD.showSuccessText(NSLocalizedString("Upload failed", comment: ""))
@@ -426,7 +429,7 @@ extension SLungTestDateController {
                 }
             }
             self.present(alertVC, animated: true, completion: nil)
-        }else if testNum == 2 {
+        }else if testGroupNum == 2 {
             let alertVC = UIAlertController.alertAlert(title: NSLocalizedString("Save or not", comment: ""), message: NSLocalizedString("This test will be saved as your third test today", comment: ""), okTitle: NSLocalizedString("YES", comment: ""), cancelTitle: NSLocalizedString("Test Again", comment: "")) {
                 guard let exhaleDataSum = Double(self.secondDataArr[self.secondDataArr.count-1]) else {
                     return

@@ -81,7 +81,7 @@ class HistoryExhaleHeadView: UIView {
         oneButton.snp.makeConstraints { (make) in
             make.left.equalToSuperview()
             make.top.bottom.equalToSuperview()
-            make.width.equalTo(80*IPONE_SCALE)
+            make.width.equalTo((SCREEN_WIDTH-CGFloat(80*IPONE_SCALE))/3)
         }
         
         twoButton.layer.borderColor = HEXCOLOR(h: 0x333333, alpha: 1).cgColor
@@ -95,7 +95,7 @@ class HistoryExhaleHeadView: UIView {
         twoButton.snp.makeConstraints { (make) in
             make.left.equalTo(oneButton.snp.right)
             make.top.bottom.equalToSuperview()
-            make.width.equalTo(80*IPONE_SCALE)
+            make.width.equalTo((SCREEN_WIDTH-CGFloat(80*IPONE_SCALE))/3)
         }
         
         threeButton.layer.borderColor = HEXCOLOR(h: 0x333333, alpha: 1).cgColor
@@ -110,7 +110,7 @@ class HistoryExhaleHeadView: UIView {
             make.left.equalTo(twoButton.snp.right)
             make.right.equalToSuperview()
             make.top.bottom.equalToSuperview()
-            make.width.equalTo(80*IPONE_SCALE)
+            make.width.equalTo((SCREEN_WIDTH-CGFloat(80*IPONE_SCALE))/3)
         }
     }
     

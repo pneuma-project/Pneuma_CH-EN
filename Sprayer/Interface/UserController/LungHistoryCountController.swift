@@ -107,7 +107,6 @@ extension LungHistoryCountController: UITableViewDelegate,UITableViewDataSource 
         let vc = LungHistoryChatController()
         let model = dataArr[indexPath.section]
         vc.dateStr = model.exhaleAddDate
-        vc.indexNum = Int(model.list[indexPath.row])
         vc.indexPath = indexPath.row
         self.navigationController?.pushViewController(vc, animated: true)
     }
