@@ -26,6 +26,12 @@
     self.window.rootViewController = loginVC;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    //初始化NIMSDK
+    NSString *appKey        = @"883ba07828988bf912ff75717de3b7a2";
+    NIMSDKOption *option    = [NIMSDKOption optionWithAppKey:appKey];
+    option.apnsCername      = @"your APNs cer name";
+    option.pkCername        = @"your pushkit cer name";
+    [[NIMSDK sharedSDK] registerWithOption:option];
     //初始化 MagicalRecord
     [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"Sprayer.sqlite"];
     

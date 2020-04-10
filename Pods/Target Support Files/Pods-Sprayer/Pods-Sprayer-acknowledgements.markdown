@@ -68,6 +68,10 @@ Permission is granted to anyone to use this software for any purpose,including c
  OTHER DEALINGS IN THE SOFTWARE.
 
 
+## NIMSDK
+
+Copyright 2020 Netease 
+
 ## SnapKit
 
 Copyright (c) 2011-Present SnapKit Team - https://github.com/SnapKit

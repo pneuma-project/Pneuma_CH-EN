@@ -24,6 +24,7 @@
 #import "CustemNavItem.h"
 #import "BlueToothManager.h"
 #import "BlueWriteData.h"
+#import <NIMSDK/NIMSDK.h>
 #endif
 
 //debug

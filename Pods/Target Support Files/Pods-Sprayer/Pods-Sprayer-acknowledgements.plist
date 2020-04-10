@@ -99,6 +99,16 @@ Permission is granted to anyone to use this software for any purpose,including c
 		</dict>
 		<dict>
 			<key>FooterText</key>
+			<string>Copyright 2020 Netease </string>
+			<key>License</key>
+			<string>Copyright</string>
+			<key>Title</key>
+			<string>NIMSDK</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
 			<string>Copyright (c) 2011-Present SnapKit Team - https://github.com/SnapKit
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
