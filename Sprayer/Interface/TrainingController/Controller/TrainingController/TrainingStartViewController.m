@@ -15,7 +15,6 @@
 
 @interface TrainingStartViewController ()<CustemBBI>
 {
-    UIView *headView;
     NSData *timeData;
 }
 
@@ -40,20 +39,39 @@
     self.navigationItem.leftBarButtonItem = [CustemNavItem initWithImage:[UIImage imageNamed:@"icon-back"] andTarget:self andinfoStr:@"first"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopNSTimerAction) name:@"stopTrain" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disconnectAction) name:PeripheralDidConnect object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bleConnectSucceedAction) name:ConnectSucceed object:nil]; //设备连接成功扫描到特征值
+}
+
+-(void)dealloc{
+    if (self.timer != nil) {
+        [self.timer setFireDate:[NSDate distantFuture]];
+        [self.timer invalidate];
+        self.timer = nil;
+    }
 }
 
 -(void)stopNSTimerAction
 {
-    [self.timer setFireDate:[NSDate distantFuture]];
-    [self.timer invalidate];
-    self.timer = nil;
+    if (self.timer != nil) {
+           [self.timer setFireDate:[NSDate distantFuture]];
+           [self.timer invalidate];
+           self.timer = nil;
+    }
 }
 
 -(void)disconnectAction
 {
-    [self.timer setFireDate:[NSDate distantFuture]];
-    [self.timer invalidate];
-    self.timer = nil;
+    if (self.timer != nil) {
+        [self.timer setFireDate:[NSDate distantFuture]];
+    }
+}
+
+//蓝牙连接成功
+-(void)bleConnectSucceedAction
+{
+    if (self.timer != nil) {
+        [self.timer setFireDate:[NSDate distantPast]];
+    }
 }
 
 #pragma mark - CustemBBI代理方法
@@ -65,58 +83,20 @@
 #pragma mark - 创建UI
 -(void)createView
 {
-    headView = [[UIView alloc] initWithFrame:CGRectMake(15, kSafeAreaTopHeight+16, screen_width-30, (screen_height-kSafeAreaTopHeight-kTabbarHeight-100)/2)];
-    headView.backgroundColor = [UIColor whiteColor];
-    headView.layer.mask = [DisplayUtils cornerRadiusGraph:headView withSize:CGSizeMake(5, 5)];
-    [self.view addSubview:headView];
-    
-    //图标题
-    UIImageView *pointImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 5, 5, 5)];
-    pointImageView.center = CGPointMake(10, 15);
-    pointImageView.backgroundColor = RGBColor(0, 83, 181, 1.0);
-    pointImageView.layer.mask = [DisplayUtils cornerRadiusGraph:pointImageView withSize:CGSizeMake(pointImageView.current_w/2, pointImageView.current_h/2)];
-    [headView addSubview:pointImageView];
-    
-    NSString *titleStr = NSLocalizedString(@"Inspiratory Flow Throughout", nil);
-    CGSize size = [DisplayUtils stringWithWidth:titleStr withFont:15];
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(pointImageView.current_x_w+10, 0, size.width, 30)];
-    titleLabel.text = titleStr;
-    titleLabel.textColor = RGBColor(8, 86, 184, 1.0);
-    titleLabel.font = [UIFont systemFontOfSize:15];
-    [headView addSubview:titleLabel];
-    
-    //曲线图
-    self.chartView = [[FLChartView alloc]initWithFrame:CGRectMake(0, 20, headView.current_w, headView.current_h-20)];
-    self.chartView.backgroundColor = [UIColor clearColor];
-    self.chartView.titleOfYStr = @"SLM";
-    self.chartView.titleOfXStr = @"Sec";
-   
-    NSMutableArray * mutArr = [NSMutableArray array];
-    self.chartView.leftDataArr = mutArr;
-    //得出y轴的坐标轴
-    NSMutableArray * yNumArr = [NSMutableArray array];
-    for (int i =8; i>=0;i--) {
-        [yNumArr addObject:[NSString stringWithFormat:@"%d",i*20]];
-    }
-
-    self.chartView.dataArrOfY = yNumArr;//拿到Y轴坐标
-    self.chartView.dataArrOfX = @[@"0",@"0.1",@"0.2",@"0.3",@"0.4",@"0.5",@"0.6",@"0.7",@"0.8",@"0.9",@"1.0",@"1.1",@"1.2",@"1.3",@"1.4",@"1.5",@"1.6",@"1.7",@"1.8",@"1.9",@"2.0",@"2.1",@"2.2",@"2.3",@"2.4",@"2.5",@"2.6",@"2.7",@"2.8",@"2.9",@"3.0",@"3.1",@"3.2",@"3.3",@"3.4",@"3.5",@"3.6",@"3.7",@"3.8",@"3.9",@"4.0",@"4.1",@"4.2",@"4.3",@"4.4",@"4.5",@"4.6",@"4.7",@"4.8",@"4.9",@"5.0"];//拿到X轴坐标
-    [headView addSubview:self.chartView];
-    
     //详细说明
-    UILabel *desLabel = [[UILabel alloc] initWithFrame:CGRectMake(headView.current_x, headView.current_y_h+10, headView.current_w, 30)];
+    UILabel *desLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, kSafeAreaTopHeight + 15, screen_width-40, 30)];
     desLabel.text = NSLocalizedString(@"Training Description", nil);
     desLabel.textColor = RGBColor(8, 86, 184, 1.0);
     desLabel.font = [UIFont systemFontOfSize:12];
     [self.view addSubview:desLabel];
     
     NSString *detailStr = NSLocalizedString(@"Training Description Detail", nil);
-    CGSize detailSize = [DisplayUtils stringWithWidth:detailStr withFont:10];
-    UILabel *detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(headView.current_x, desLabel.current_y_h, headView.current_w, detailSize.height+60)];
+    CGSize detailSize = [DisplayUtils stringWithWidth:detailStr withFont:12];
+    UILabel *detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, desLabel.current_y_h, screen_width-40, detailSize.height+60)];
     detailLabel.text = detailStr;
-    detailLabel.textColor = RGBColor(155, 160, 160, 1.0);
+    detailLabel.textColor = RGBColor(8, 86, 184, 1.0);
     detailLabel.numberOfLines = 0;
-    detailLabel.font = [UIFont systemFontOfSize:10];
+    detailLabel.font = [UIFont systemFontOfSize:12];
     [self.view addSubview:detailLabel];
     
     //第一次训练按钮

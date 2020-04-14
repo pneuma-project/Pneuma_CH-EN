@@ -92,7 +92,7 @@ class LungHistoryChatController: BaseViewController,CustemBBI {
         guard let lastData = Double(lastDataStr) else {
             return
         }
-        let maxNum = ceil(lastData)
+        let maxNum = ceil(lastData) + 2
         for i in 0...(Int(maxNum)*10) {
             thirdXNumArr.append(String.init(format: "%.1f", Double(i)*0.1))
         }

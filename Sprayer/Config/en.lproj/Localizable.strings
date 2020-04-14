@@ -22,12 +22,12 @@
 
 "MY DEVICE" = "MY DEVICE";
 "Inspiratory Training" = "Inspiratory Training";
-"The last best inspiration" = "The last best inspiration";
-"Best Analog Inspiratory Volume" = "Best Analog Inspiratory Volume";
+"The last best inspiration" = "Training Reference Curve";
+"Best Analog Inspiratory Volume" = "Current training reference";
 "Total" = "Total:";
 "Start Training" = "Start Training";
-"Restart Training" = "Restart Training";
-"Pulmonary Function Test" = "Pulmonary Function Test";
+"Restart Training" = "Retraining";
+"Pulmonary Function Test" = "Lung Testing";
 "Inspiratory Flow Throughout" = "Inspiratory Flow Throughout";
 "Training Description" = "Training Description:";
 "Training Description Detail" = "1.The training process Provides instruction and training on proper use of the Device.\n\n2.To activate device for use Press the ON button until The RED LED light turns on.\n\n3.Inhale slowly and continue to inhale completely.\n\n4.The inspiratory flow is recorded and stored.\n\n5.After the patient records three inspiratory curves  the best inspiratory results are chosen and displayed during dosing for comparison.";
@@ -70,8 +70,8 @@
 
 "My Profile" = "My Profile";
 "Basic Information" = "Basic Information";
-"History" = "History";
-"Pulmonary Function Test History" = "Pulmonary Function Test History";
+"History" = "Spray History";
+"Pulmonary Function Test History" = "Pulmonary Function History";
 "Pressure VS Flow Rate Equation" = "Pressure VS Flow Rate Equation";
 "Basic Information" = "Basic Information";
 "Medical History" = "Medical History";
@@ -87,7 +87,6 @@
 "female" = "female";
 "Device serial number" = "Device serial number:";
 "Flow value setting" = "Flow value setting";
-"History" = "History";
 
 "Bluetooth is not open!" = "Bluetooth is not open!";
 "Start connecting peripherals" = "Start connecting peripherals";
@@ -112,7 +111,7 @@
 "Save or not" = "Whether to save?";
 "Do you want to save test results" = "Do you want to save test results?";
 
-"today_time" = "You finished the %d test";
+"today_time" = "You have finished %d test";
 "testing_time" = "The %d test";
 "test_guide" = "Test guide：\n1: Comfortable seat, head slightly raised, legs not crossed, feet flat on the floor\n2: Nip the nose in\n3：Take two free breaths first, then inhale as deep as you can until you feel your lungs are full\n4：Close your breath and hold your mouth tightly. Exhale as fast and forcefully as possible until the air in your lungs is completely exhaled\n5：The duration of continuous blowing lasts for 6S. Try to spit out the air as much as possible, and leave the mouth from the measuring air cylinder to complete a set of data measurement\n6：It is recommended to measure three times a day (one time in the morning, afternoon and evening), measure three groups of data each time and save them";
 "test_ready" = "You are ready for the %d test.";

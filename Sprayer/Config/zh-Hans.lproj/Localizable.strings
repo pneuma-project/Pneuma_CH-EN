@@ -70,7 +70,7 @@
 
 "My Profile" = "我的资料";
 "Basic Information" = "基本信息";
-"History" = "历史数据";
+"History" = "吸雾历史数据";
 "Pulmonary Function Test History" = "肺功能历史数据";
 "Pressure VS Flow Rate Equation" = "流量公式";
 "Basic Information" = "基本信息";
@@ -87,7 +87,6 @@
 "female" = "女";
 "Device serial number" = "设备序列号:";
 "Flow value setting" = "参数设置";
-"History" = "历史数据";
 
 "Bluetooth is not open!" = "蓝牙未打开!";
 "Start connecting peripherals" = "开始连接设备";

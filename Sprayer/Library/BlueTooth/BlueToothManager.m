@@ -363,8 +363,13 @@ typedef enum _TTGState{
         }
 //        Byte newByte[] = {0xFD,0x01,0x38,0x00,0x01,0x5C,0x6E,0x56,0xEF,0x00,0x05,0x09,0x1B,0x1C,0x1C,0x1D,0x1E,0x2A,0x2D,0x30,0x31,0x3A,0x3C,0x3A,0x30,0x2D,0x2A,0x1F,0x1A,0x10,0x08,0x05,0x04,0x03,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xAB};
 //        NSData *data = [NSData dataWithBytes:newByte length:60];
-        if (newByte[0] == 0xfd) {
+        
+        if (newByte[0] == 0xfd && newByte[data.length-1] == 0xab && newByte[1] == 0x0a) {
+            return;
+        }
+        if (newByte[0] == 0xfd && (newByte[1] == 0x01 || newByte[1] == 0x02 || newByte[1] == 0x03 || newByte[1] == 0x04 || newByte[1] == 0x05)) {
             _state = pkt_h;
+            self.putData = nil;
         }
         switch (_state) {
             case stx_h:
@@ -391,103 +396,108 @@ typedef enum _TTGState{
             {
                 if (newByte[data.length - 1] == 0xab) {
                     [self.putData appendData:data];
-//                    NSLog(@"~~~~~%@",self.putData);
-                    Byte *putDataByte = (Byte *)[self.putData bytes];
-                    Byte newbt[self.putData.length-2];
-                    for (NSInteger j = 0; j<self.putData.length - 2; j++) {
-                        newbt[j] = putDataByte[j+1];
-                    }
-                    NSData *newData = [NSData dataWithBytes:newbt
-                                                     length:sizeof(newbt)];
-                    NSLog(@"newdata = %@",newData);
-                    self.putData = nil;
-                    NSInteger type = [FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(0, 1)]];
-                    //数据长度
-                    NSInteger dataLength = [FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(1, 2)]];
-                    
-                    if (type == 2) {//历史数据
-                        NSString *timeStamp = [NSString stringWithFormat:@"%ld",(long)[FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(5, 4)]]];
-                        NSString *sprayData = [FLWrapJson dataToNSString:[newData subdataWithRange:NSMakeRange(9, 50)]];
-                        NSString *sumData = [FLWrapJson dataSumToNSString:[newData subdataWithRange:NSMakeRange(9, 50)]];
-                        //药品id
-                        NSInteger medicineId = [FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(3, 2)]];
-                        //时间戳转时间
-                        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                        [formatter setDateStyle:NSDateFormatterMediumStyle];
-                        [formatter setTimeStyle:NSDateFormatterShortStyle];
-                        [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
-                        NSDate *historyTime = [NSDate dateWithTimeIntervalSince1970:[timeStamp doubleValue]];
-                        NSString *historyTimeStr = [formatter stringFromDate:historyTime];
-                        [DeviceRequestObject.shared requestSaveSuckFogDataWithMedicineId:[NSString stringWithFormat:@"%ld",(long)medicineId] suckFogData:sprayData dataSum:[sumData floatValue] addDate:historyTimeStr sucBlock:^(NSString * _Nonnull code) {
-                            if ([code isEqualToString:@"200"]) {
-                                [BlueWriteData confirmCodeHistoryData];
-                            }
-                        }];
-                    }else if (type == 3){//训练数据
-                        [BlueWriteData confirmCodePresentData];
-                        NSString *sprayData = [FLWrapJson dataToNSString:[newData subdataWithRange:NSMakeRange(9, 50)]];
-                        NSArray *mutArr = [UserDefaultsUtils valueWithKey:@"trainDataArr"];
-                        NSMutableArray *newArr = [NSMutableArray arrayWithArray:mutArr];
-                        [newArr addObject:sprayData];
-                        [UserDefaultsUtils saveValue:newArr forKey:@"trainDataArr"];
+                    //数据总长度
+                    NSInteger putDataLength = [FLDrawDataTool NSDataToNSInteger:[self.putData subdataWithRange:NSMakeRange(2, 2)]];
+                    if (self.putData.length == putDataLength+5) {
+                        Byte *putDataByte = (Byte *)[self.putData bytes];
+                        Byte newbt[self.putData.length-2];
+                        for (NSInteger j = 0; j<self.putData.length - 2; j++) {
+                            newbt[j] = putDataByte[j+1];
+                        }
+                        NSData *newData = [NSData dataWithBytes:newbt
+                                                         length:sizeof(newbt)];
+                        NSLog(@"newdata = %@",newData);
+                        self.putData = nil;
+                        NSInteger type = [FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(0, 1)]];
+                        //压力值数据长度
+                        NSInteger dataLength = [FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(1, 2)]];
                         
-                        NSString *timeStamp = [NSString stringWithFormat:@"%ld",(long)[FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(5, 4)]]];
-                        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                        [formatter setDateStyle:NSDateFormatterMediumStyle];
-                        [formatter setTimeStyle:NSDateFormatterShortStyle];
-                        [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
-                        NSDate *trainTime = [NSDate dateWithTimeIntervalSince1970:[timeStamp doubleValue]];
-                        NSString *trainTimeStr = [formatter stringFromDate:trainTime];
-                        NSArray *trainTimeArr = [UserDefaultsUtils valueWithKey:@"trainTimeArr"];
-                        NSMutableArray *newTrainTimeArr = [NSMutableArray arrayWithArray:trainTimeArr];
-                        [newTrainTimeArr addObject:trainTimeStr];
-                        [UserDefaultsUtils saveValue:newTrainTimeArr forKey:@"trainTimeArr"];
-                        
-                        NSInteger medicineId = [FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(3, 2)]];
-                        NSArray *medicineIdArr = [UserDefaultsUtils valueWithKey:@"medicineIdArr"];
-                        NSMutableArray *newMedicineIdArr = [NSMutableArray arrayWithArray:medicineIdArr];
-                        [newMedicineIdArr addObject:[NSString stringWithFormat:@"%ld",(long)medicineId]];
-                        [UserDefaultsUtils saveValue:newMedicineIdArr forKey:@"medicineIdArr"];
-                        
-                        [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshView" object:nil userInfo:nil];
-                    }else if (type == 1){//当前实时喷雾
-//                        NSLog(@"newData = %lu",(unsigned long)newData.length);
-                        //当前50个喷雾数据
-                        NSString *sprayData = [FLWrapJson dataToNSString:[newData subdataWithRange:NSMakeRange(9, 50)]];
-                        //50个喷雾的总和
-                        NSString *sumData = [FLWrapJson dataSumToNSString:[newData subdataWithRange:NSMakeRange(9, 50)]];
-                        //药品id
-                        NSInteger medicineId = [FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(3, 2)]];
-                        //当前读取数据的时间
-                        NSString *timeStamp = [NSString stringWithFormat:@"%ld",(long)[FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(5, 4)]]];
-                        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                        [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
-                        NSDate *sprayTime = [NSDate dateWithTimeIntervalSince1970:[timeStamp doubleValue]];
-                        NSString * sprayTimeStr = [formatter stringFromDate:sprayTime];
-                        
-                        [DeviceRequestObject.shared requestSaveSuckFogDataWithMedicineId:[NSString stringWithFormat:@"%ld",(long)medicineId] suckFogData:sprayData dataSum:[sumData floatValue] addDate:sprayTimeStr sucBlock:^(NSString * _Nonnull code) {
-                            if ([code isEqualToString:@"200"]) {
-                                [BlueWriteData confirmCodePresentData];
-                                [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshSprayView" object:nil userInfo:nil];
-                            }
-                        }];
-                    }else if (type == 5) { //药瓶信息
-                        NSString *medicineInfo = [FLWrapJson getMedicineInfo:[newData subdataWithRange:NSMakeRange(2, 2)] AndDrugInjectionTime:[newData subdataWithRange:NSMakeRange(4, 4)] AndDrugExpirationTime:[newData subdataWithRange:NSMakeRange(8, 4)] AndDrugOpeningTime:[newData subdataWithRange:NSMakeRange(12, 4)] AndVolatilizationTime:[newData subdataWithRange:NSMakeRange(16, 4)]];
-                        [[NSNotificationCenter defaultCenter] postNotificationName:@"displayMedicineInfo" object:@{@"medicineInfo":medicineInfo} userInfo:nil];
-                    }else if (type == 4) { //肺功能检测
-                        [BlueWriteData confirmCodePresentData];
-                        //药品id
-                        NSInteger medicineId = [FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(3, 2)]];
-                        //当前读取数据的时间
-                        NSString *timeStamp = [NSString stringWithFormat:@"%ld",(long)[FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(5, 4)]]];
-                        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                        [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
-                        NSDate *exhaleTime = [NSDate dateWithTimeIntervalSince1970:[timeStamp doubleValue]];
-                        NSString * exhaleTimeStr = [formatter stringFromDate:exhaleTime];
-                        
-                        //压力数据
-                        NSString *exhaleData = [FLWrapJson exhaleDataToNSString:[newData subdataWithRange:NSMakeRange(9, dataLength-6)]];
-                        [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshExhaleData" object:@{@"medicineId":[NSString stringWithFormat:@"%ld",(long)medicineId],@"exhaleTime":exhaleTimeStr,@"exhaleData":exhaleData} userInfo:nil];
+                        if (type == 2) {//历史数据
+                            NSString *timeStamp = [NSString stringWithFormat:@"%ld",(long)[FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(5, 4)]]];
+                            NSString *sprayData = [FLWrapJson dataToNSString:[newData subdataWithRange:NSMakeRange(9, 50)]];
+                            NSString *sumData = [FLWrapJson dataSumToNSString:[newData subdataWithRange:NSMakeRange(9, 50)]];
+                            //药品id
+                            NSInteger medicineId = [FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(3, 2)]];
+                            //时间戳转时间
+                            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                            [formatter setDateStyle:NSDateFormatterMediumStyle];
+                            [formatter setTimeStyle:NSDateFormatterShortStyle];
+                            [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+                            NSDate *historyTime = [NSDate dateWithTimeIntervalSince1970:[timeStamp doubleValue]];
+                            NSString *historyTimeStr = [formatter stringFromDate:historyTime];
+                            [DeviceRequestObject.shared requestSaveSuckFogDataWithMedicineId:[NSString stringWithFormat:@"%ld",(long)medicineId] suckFogData:sprayData dataSum:[sumData floatValue] addDate:historyTimeStr sucBlock:^(NSString * _Nonnull code) {
+                                if ([code isEqualToString:@"200"]) {
+                                    [BlueWriteData confirmCodeHistoryData];
+                                }
+                            }];
+                        }else if (type == 3){//训练数据
+                            [BlueWriteData confirmCodePresentData];
+                            NSString *sprayData = [FLWrapJson dataToNSString:[newData subdataWithRange:NSMakeRange(9, 50)]];
+                            NSArray *mutArr = [UserDefaultsUtils valueWithKey:@"trainDataArr"];
+                            NSMutableArray *newArr = [NSMutableArray arrayWithArray:mutArr];
+                            [newArr addObject:sprayData];
+                            [UserDefaultsUtils saveValue:newArr forKey:@"trainDataArr"];
+                            
+                            NSString *timeStamp = [NSString stringWithFormat:@"%ld",(long)[FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(5, 4)]]];
+                            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                            [formatter setDateStyle:NSDateFormatterMediumStyle];
+                            [formatter setTimeStyle:NSDateFormatterShortStyle];
+                            [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+                            NSDate *trainTime = [NSDate dateWithTimeIntervalSince1970:[timeStamp doubleValue]];
+                            NSString *trainTimeStr = [formatter stringFromDate:trainTime];
+                            NSArray *trainTimeArr = [UserDefaultsUtils valueWithKey:@"trainTimeArr"];
+                            NSMutableArray *newTrainTimeArr = [NSMutableArray arrayWithArray:trainTimeArr];
+                            [newTrainTimeArr addObject:trainTimeStr];
+                            [UserDefaultsUtils saveValue:newTrainTimeArr forKey:@"trainTimeArr"];
+                            
+                            NSInteger medicineId = [FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(3, 2)]];
+                            NSArray *medicineIdArr = [UserDefaultsUtils valueWithKey:@"medicineIdArr"];
+                            NSMutableArray *newMedicineIdArr = [NSMutableArray arrayWithArray:medicineIdArr];
+                            [newMedicineIdArr addObject:[NSString stringWithFormat:@"%ld",(long)medicineId]];
+                            [UserDefaultsUtils saveValue:newMedicineIdArr forKey:@"medicineIdArr"];
+                            
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshView" object:nil userInfo:nil];
+                        }else if (type == 1){//当前实时喷雾
+    //                        NSLog(@"newData = %lu",(unsigned long)newData.length);
+                            //当前50个喷雾数据
+                            NSString *sprayData = [FLWrapJson dataToNSString:[newData subdataWithRange:NSMakeRange(9, 50)]];
+                            //50个喷雾的总和
+                            NSString *sumData = [FLWrapJson dataSumToNSString:[newData subdataWithRange:NSMakeRange(9, 50)]];
+                            //药品id
+                            NSInteger medicineId = [FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(3, 2)]];
+                            //当前读取数据的时间
+                            NSString *timeStamp = [NSString stringWithFormat:@"%ld",(long)[FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(5, 4)]]];
+                            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                            [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+                            NSDate *sprayTime = [NSDate dateWithTimeIntervalSince1970:[timeStamp doubleValue]];
+                            NSString * sprayTimeStr = [formatter stringFromDate:sprayTime];
+                            
+                            [DeviceRequestObject.shared requestSaveSuckFogDataWithMedicineId:[NSString stringWithFormat:@"%ld",(long)medicineId] suckFogData:sprayData dataSum:[sumData floatValue] addDate:sprayTimeStr sucBlock:^(NSString * _Nonnull code) {
+                                if ([code isEqualToString:@"200"]) {
+                                    [BlueWriteData confirmCodePresentData];
+                                    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshSprayView" object:nil userInfo:nil];
+                                }
+                            }];
+                        }else if (type == 5) { //药瓶信息
+                            NSString *medicineInfo = [FLWrapJson getMedicineInfo:[newData subdataWithRange:NSMakeRange(2, 2)] AndDrugInjectionTime:[newData subdataWithRange:NSMakeRange(4, 4)] AndDrugExpirationTime:[newData subdataWithRange:NSMakeRange(8, 4)] AndDrugOpeningTime:[newData subdataWithRange:NSMakeRange(12, 4)] AndVolatilizationTime:[newData subdataWithRange:NSMakeRange(16, 4)]];
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"displayMedicineInfo" object:@{@"medicineInfo":medicineInfo} userInfo:nil];
+                        }else if (type == 4) { //肺功能检测
+                            [BlueWriteData confirmCodePresentData];
+                            //药品id
+                            NSInteger medicineId = [FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(3, 2)]];
+                            //当前读取数据的时间
+                            NSString *timeStamp = [NSString stringWithFormat:@"%ld",(long)[FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(5, 4)]]];
+                            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                            [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+                            NSDate *exhaleTime = [NSDate dateWithTimeIntervalSince1970:[timeStamp doubleValue]];
+                            NSString * exhaleTimeStr = [formatter stringFromDate:exhaleTime];
+                            
+                            //压力数据
+                            NSString *exhaleData = [FLWrapJson exhaleDataToNSString:[newData subdataWithRange:NSMakeRange(9, dataLength-6)]];
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshExhaleData" object:@{@"medicineId":[NSString stringWithFormat:@"%ld",(long)medicineId],@"exhaleTime":exhaleTimeStr,@"exhaleData":exhaleData} userInfo:nil];
+                        }
+                    }else {
+                        _state = pkt_h;
                     }
 //                    _state = etx_e;
                 }else if (newByte[data.length - 1] != 0xab){

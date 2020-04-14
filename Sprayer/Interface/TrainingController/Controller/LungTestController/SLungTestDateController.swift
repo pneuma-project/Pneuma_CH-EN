@@ -166,7 +166,7 @@ class SLungTestDateController: BaseViewController,CustemBBI {
         guard let lastData = Double(lastDataStr) else {
             return
         }
-        let maxNum = ceil(lastData)
+        let maxNum = ceil(lastData) + 2
         for i in 0...(Int(maxNum)*10) {
             thirdXNumArr.append(String.init(format: "%.1f", Double(i)*0.1))
         }
@@ -287,12 +287,13 @@ extension SLungTestDateController {
         countOneLabel = UILabel.init()
         countOneLabel.text = String.init(format: NSLocalizedString("fev", comment: ""), FEVStr)
         countOneLabel.textColor = RGBCOLOR(r: 16, g: 101, b: 182, alpha: 1)
-        countOneLabel.font = UIFont.systemFont(ofSize: 15)
+        countOneLabel.font = UIFont.systemFont(ofSize: 14)
         self.view.addSubview(countOneLabel)
         countOneLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(thirdChatView.snp.bottom).offset(20*IPONE_SCALE)
+            make.top.equalTo(thirdChatView.snp.bottom).offset(10*IPONE_SCALE)
             make.left.equalTo(20*IPONE_SCALE)
-            make.height.equalTo(15*IPONE_SCALE)
+            make.right.equalTo(-20*IPONE_SCALE)
+            make.height.equalTo(14*IPONE_SCALE)
         }
         
         var FEV1Str = 0.0
@@ -312,12 +313,14 @@ extension SLungTestDateController {
         countTwoLabel = UILabel.init()
         countTwoLabel.text = String.init(format: NSLocalizedString("fev1", comment: ""), FEV1Str)
         countTwoLabel.textColor = RGBCOLOR(r: 16, g: 101, b: 182, alpha: 1)
-        countTwoLabel.font = UIFont.systemFont(ofSize: 15)
+        countTwoLabel.font = UIFont.systemFont(ofSize: 14)
+        countTwoLabel.numberOfLines = 0
         self.view.addSubview(countTwoLabel)
         countTwoLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(countOneLabel.snp.bottom).offset(12*IPONE_SCALE)
+            make.top.equalTo(countOneLabel.snp.bottom).offset(10*IPONE_SCALE)
             make.left.equalTo(20*IPONE_SCALE)
-            make.height.equalTo(15*IPONE_SCALE)
+            make.right.equalTo(-20*IPONE_SCALE)
+//            make.height.equalTo(14*IPONE_SCALE)
         }
         
         var maxPEF = 0.0
@@ -340,12 +343,13 @@ extension SLungTestDateController {
         countThreeLabel = UILabel.init()
         countThreeLabel.text = String.init(format: NSLocalizedString("pef", comment: ""), maxPEF)
         countThreeLabel.textColor = RGBCOLOR(r: 16, g: 101, b: 182, alpha: 1)
-        countThreeLabel.font = UIFont.systemFont(ofSize: 15)
+        countThreeLabel.font = UIFont.systemFont(ofSize: 14)
         self.view.addSubview(countThreeLabel)
         countThreeLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(countTwoLabel.snp.bottom).offset(12*IPONE_SCALE)
+            make.top.equalTo(countTwoLabel.snp.bottom).offset(10*IPONE_SCALE)
             make.left.equalTo(20*IPONE_SCALE)
-            make.height.equalTo(15*IPONE_SCALE)
+            make.right.equalTo(-20*IPONE_SCALE)
+            make.height.equalTo(14*IPONE_SCALE)
         }
         
         startTestBtn = UIButton.init(type: .custom)

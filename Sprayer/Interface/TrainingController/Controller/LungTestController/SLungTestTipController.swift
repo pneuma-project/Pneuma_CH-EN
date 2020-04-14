@@ -71,6 +71,7 @@ extension SLungTestTipController {
     func setInterface() {
         
         testNumLabel.font = UIFont.boldSystemFont(ofSize: 18)
+        testNumLabel.textColor = RGBCOLOR(r: 8, g: 153, b: 239, alpha: 1)
         self.view.addSubview(testNumLabel)
         testNumLabel.snp.makeConstraints { (make) in
             make.top.equalTo(NEWNAVHEIGHT+CGFloat(10*IPONE_SCALE))
@@ -86,7 +87,7 @@ extension SLungTestTipController {
         style.lineSpacing = 5              //行间距（垂直上的间距）
         attrStr.addAttribute(NSAttributedStringKey.paragraphStyle, value: style, range: NSRange(location: 0, length: (tipLabel.text?.count)!))
         tipLabel.attributedText = attrStr
-        tipLabel.textColor = HEXCOLOR(h: 0x333333, alpha: 1)
+        tipLabel.textColor = RGBCOLOR(r: 8, g: 153, b: 239, alpha: 1)
         tipLabel.numberOfLines = 0
         self.view.addSubview(tipLabel)
         tipLabel.snp.makeConstraints { (make) in

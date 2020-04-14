@@ -64,6 +64,11 @@ class DeviceRequestObject: NSObject {
                 if let block = sucBlock {
                     block(code)
                 }
+                let message = dataJson["message"].stringValue
+                if message == "4000006" {
+                    let loginVC = LoginViewController()
+                    UIApplication.shared.keyWindow?.rootViewController = loginVC
+                }
             }) { (error) in
                 Dprint("URL_SaveTrainDataError:\(error)")
             }
@@ -84,6 +89,12 @@ class DeviceRequestObject: NSObject {
                     if let block = DeviceRequestObject.shared.requestGetNewTrainDataSuc {
                         block(model)
                     }
+                }else {
+                    let message = dataJson["message"].stringValue
+                    if message == "4000006" {
+                        let loginVC = LoginViewController()
+                        UIApplication.shared.keyWindow?.rootViewController = loginVC
+                    }
                 }
             }) { (error) in
                 Dprint("URL_GetNewTrainDataError:\(error)")
@@ -100,6 +111,11 @@ class DeviceRequestObject: NSObject {
                 let code = dataJson["code"].stringValue
                 if let block = sucBlock {
                     block(code)
+                }
+                let message = dataJson["message"].stringValue
+                if message == "4000006" {
+                    let loginVC = LoginViewController()
+                    UIApplication.shared.keyWindow?.rootViewController = loginVC
                 }
             }) { (error) in
                 Dprint("URL_SaveSuckFogDataError:\(error)")
@@ -124,6 +140,12 @@ class DeviceRequestObject: NSObject {
                     }
                     if let block = DeviceRequestObject.shared.requestGetNowDataSuckFogDataSuc {
                         block(dataArr)
+                    }
+                }else {
+                    let message = dataJson["message"].stringValue
+                    if message == "4000006" {
+                        let loginVC = LoginViewController()
+                        UIApplication.shared.keyWindow?.rootViewController = loginVC
                     }
                 }
             }) { (error) in
@@ -150,6 +172,12 @@ class DeviceRequestObject: NSObject {
                     if let block = DeviceRequestObject.shared.requestGetHistorySuckFogDataSuc {
                         block(dataArr)
                     }
+                }else {
+                    let message = dataJson["message"].stringValue
+                    if message == "4000006" {
+                        let loginVC = LoginViewController()
+                        UIApplication.shared.keyWindow?.rootViewController = loginVC
+                    }
                 }
             }) { (error) in
                 Dprint("URL_GetHistorySuckFogDataError:\(error)")
@@ -167,6 +195,11 @@ class DeviceRequestObject: NSObject {
                 let code = dataJson["code"].stringValue
                 if let block = sucBlock {
                     block(code)
+                }
+                let message = dataJson["message"].stringValue
+                if message == "4000006" {
+                    let loginVC = LoginViewController()
+                    UIApplication.shared.keyWindow?.rootViewController = loginVC
                 }
             }) { (error) in
                 Dprint("URL_SaveExhaleDataError:\(error)")
@@ -192,6 +225,12 @@ class DeviceRequestObject: NSObject {
                     if let block = DeviceRequestObject.shared.requestGetHistoryExhaleDataSuc {
                         block(dataArr)
                     }
+                }else {
+                    let message = dataJson["message"].stringValue
+                    if message == "4000006" {
+                        let loginVC = LoginViewController()
+                        UIApplication.shared.keyWindow?.rootViewController = loginVC
+                    }
                 }
             }) { (error) in
                 Dprint("URL_GetHistoryExhaleDataError:\(error)")
@@ -216,6 +255,12 @@ class DeviceRequestObject: NSObject {
                     }
                     if let block = DeviceRequestObject.shared.requestGetNowExhaleDataSuc {
                         block(dataArr)
+                    }
+                }else {
+                    let message = dataJson["message"].stringValue
+                    if message == "4000006" {
+                        let loginVC = LoginViewController()
+                        UIApplication.shared.keyWindow?.rootViewController = loginVC
                     }
                 }
             }) { (error) in
