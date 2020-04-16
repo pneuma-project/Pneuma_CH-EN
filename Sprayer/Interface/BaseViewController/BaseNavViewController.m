@@ -7,6 +7,7 @@
 //
 
 #import "BaseNavViewController.h"
+#import "Pneuma-Swift.h"
 
 @interface BaseNavViewController ()
 
@@ -35,7 +36,7 @@
 {
     UIViewController *viewControll=[super popViewControllerAnimated:animated];
     if (self.viewControllers.count == 1 ) {
-        viewControll.tabBarController.tabBar.hidden=NO;
+        [UIViewController getCurrentViewCtrl].tabBarController.tabBar.hidden=NO;
     }
     
     return viewControll;

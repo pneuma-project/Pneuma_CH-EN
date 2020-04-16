@@ -35,8 +35,16 @@
 	<string>是否允许此App使用蓝牙？</string>
 	<key>NSCameraUsageDescription</key>
 	<string>是否允许此App使用你的相机？</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Pneuma想使用您的麦克风</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>是否允许此App访问你的媒体资料库？</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+		<string>remote-notification</string>
+		<string>voip</string>
+	</array>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

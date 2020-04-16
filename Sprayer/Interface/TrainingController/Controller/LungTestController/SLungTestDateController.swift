@@ -55,6 +55,7 @@ class SLungTestDateController: BaseViewController,CustemBBI {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.leftBarButtonItem = CustemNavItem.initWith(UIImage.init(named: "icon-back"), andTarget: self, andinfoStr: "first")
+        self.navigationItem.rightBarButtonItem = CustemNavItem.initWith(UIImage.init(named: "multiTalkTipsBannerIcon"), andTarget: self, andinfoStr: "call")
         NotificationCenter.default.addObserver(self, selector: #selector(refreshExhaleData), name: NSNotification.Name(rawValue: "refreshExhaleData"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(disconnectAction), name: NSNotification.Name(rawValue: PeripheralDidConnect), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(connectSucceedAction), name: NSNotification.Name(rawValue: BlueConnectSucceed), object: nil)
@@ -88,37 +89,53 @@ class SLungTestDateController: BaseViewController,CustemBBI {
     }
     
     func bbIdidClick(withName infoStr: String!) {
-        if dataList.count == 0 {
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopLungTrain"), object: nil, userInfo: nil)
-            self.writeStopDataAction()
-            self.navigationController?.popViewController(animated: true)
-        }else {
-            let alertVC = UIAlertController.alertAlert(title: "", message: NSLocalizedString("Do you want to save test results", comment: ""), okTitle: NSLocalizedString("Save", comment: ""), okComplete: {
-                //加载动画
-                self.view.makeToastActivity(.center)
-                guard let exhaleDataSum = Double(self.secondDataArr[self.secondDataArr.count-1]) else {
-                    return
-                }
-                DeviceRequestObject.shared.requestSaveExhaleData(medicineId: self.medicineId, exhaleData: self.exhaleDataStr, exhaleDataSum: exhaleDataSum, addDate: self.exhaleTime) { [weak self](code) in
-                    if let weakself = self {
-                        //隐藏加载动画
-                        weakself.view.hideToastActivity()
-                        if code == "200" {
-                            LCProgressHUD.showSuccessText(NSLocalizedString("Upload success", comment: ""))
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopLungTrain"), object: nil, userInfo: nil)
-                            weakself.writeStopDataAction()
-                            weakself.navigationController?.popViewController(animated: true)
-                        }else {
-                            LCProgressHUD.showSuccessText(NSLocalizedString("Upload failed", comment: ""))
-                        }
-                    }
-                }
-            }, cancelTitle: NSLocalizedString("Return", comment: "")) {
+        if infoStr == "first" {
+            if dataList.count == 0 {
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopLungTrain"), object: nil, userInfo: nil)
                 self.writeStopDataAction()
                 self.navigationController?.popViewController(animated: true)
+            }else {
+                let alertVC = UIAlertController.alertAlert(title: "", message: NSLocalizedString("Do you want to save test results", comment: ""), okTitle: NSLocalizedString("Save", comment: ""), okComplete: {
+                    //加载动画
+                    self.view.makeToastActivity(.center)
+                    guard let exhaleDataSum = Double(self.secondDataArr[self.secondDataArr.count-1]) else {
+                        return
+                    }
+                    DeviceRequestObject.shared.requestSaveExhaleData(medicineId: self.medicineId, exhaleData: self.exhaleDataStr, exhaleDataSum: exhaleDataSum, addDate: self.exhaleTime) { [weak self](code) in
+                        if let weakself = self {
+                            //隐藏加载动画
+                            weakself.view.hideToastActivity()
+                            if code == "200" {
+                                LCProgressHUD.showSuccessText(NSLocalizedString("Upload success", comment: ""))
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopLungTrain"), object: nil, userInfo: nil)
+                                weakself.writeStopDataAction()
+                                weakself.navigationController?.popViewController(animated: true)
+                            }else {
+                                LCProgressHUD.showSuccessText(NSLocalizedString("Upload failed", comment: ""))
+                            }
+                        }
+                    }
+                }, cancelTitle: NSLocalizedString("Return", comment: "")) {
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopLungTrain"), object: nil, userInfo: nil)
+                    self.writeStopDataAction()
+                    self.navigationController?.popViewController(animated: true)
+                }
+                self.present(alertVC, animated: true, completion: nil)
             }
-            self.present(alertVC, animated: true, completion: nil)
+        }else if infoStr == "call" {
+            //由于音视频聊天里头有音频和视频聊天界面的切换，直接用present的话页面过渡会不太自然，这里还是用push，然后做出present的效果
+            let vc = NTESVideoChatViewController.init(callee: "pn"+"\(DoctorBoardObject.shared().doctorSsId)")
+            let transition = CATransition.init()
+            transition.duration = 0.25
+            transition.timingFunction = CAMediaTimingFunction.init(name: "default")
+            transition.type = kCATransitionPush
+            transition.subtype = kCATransitionFromTop
+            self.navigationController?.view.layer.add(transition, forKey: nil)
+            self.navigationController?.isNavigationBarHidden = true
+//            self.navigationController?.pushViewController(vc!, animated: false)
+            vc!.view.frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
+            UIViewController.getCurrentViewCtrl().view.addSubview(vc!.view)
+            UIViewController.getCurrentViewCtrl().addChildViewController(vc!)
         }
     }
     

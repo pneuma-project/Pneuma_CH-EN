@@ -2,15 +2,15 @@
 //  UserInfoData+CoreDataClass.swift
 //  Sprayer
 //
-//  Created by FangLin on 2019/5/16.
-//  Copyright © 2019 FangLin. All rights reserved.
+//  Created by fanglin on 2020/4/15.
+//  Copyright © 2020 FangLin. All rights reserved.
 //
 //
 
 import Foundation
 import CoreData
 
-@objc(UserInfoData)
+
 public class UserInfoData: NSManagedObject {
 
 }

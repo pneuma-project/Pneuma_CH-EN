@@ -65,6 +65,26 @@ class UserInfoModel: NSObject {
     
     var age:Int16 = 0
     
+    /**
+     * 用户云信token
+     */
+    var token:String = ""
+
+    /**
+     * 角色  0：普通用户   1：医生   2:超级管理员
+     */
+    var role:Int16 = 0
+
+    /**
+     * 角色id：普通用户为null、 医生为 医生id
+     */
+    var roleId:Int32 = 0
+
+    /**
+     * 病人绑定医生id
+     */
+    var doctorId:Int32 = 0
+    
     class func userData(content: JSON) {
         guard let arr = UserInfoData.mr_findAll() as? [UserInfoData] else {
             return
@@ -99,6 +119,44 @@ class UserInfoModel: NSObject {
         userInfo.editDate = content["editDate"].int64Value
         userInfo.loginKey = content["loginKey"].stringValue
         userInfo.age = content["age"].int16Value
+        
+        userInfo.token = content["token"].stringValue
+        userInfo.role = content["role"].int16Value
+        userInfo.roleId = content["roleId"].int32Value
+        userInfo.doctorId = content["doctorId"].int32Value
         NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
     }  //存储个人信息数据
+    
+    class func getFromModel(json: JSON) -> UserInfoModel {
+        let model = UserInfoModel()
+        model.ssId = json["ssId"].int32Value
+        model.userId = json["userId"].int32Value
+        model.username = json["username"].stringValue
+        model.password = json["password"].stringValue
+        model.name = json["name"].stringValue
+        model.headImg = json["headImg"].stringValue
+        
+        model.relationship = json["relationship"].stringValue
+        model.sex = json["sex"].int16Value
+        model.race = json["race"].stringValue
+        model.height = json["height"].int16Value
+        
+        model.weight = json["weight"].int16Value
+        model.phone = json["phone"].stringValue
+        model.macAddress = json["macAddress"].stringValue
+        model.isFrozen = json["isFrozen"].int16Value
+        model.machineCode = json["machineCode"].stringValue
+        
+        model.addDate = json["addDate"].int64Value
+        model.editDate = json["editDate"].int64Value
+        model.loginKey = json["loginKey"].stringValue
+        model.age = json["age"].int16Value
+        
+        model.token = json["token"].stringValue
+        model.role = json["role"].int16Value
+        model.roleId = json["roleId"].int32Value
+        model.doctorId = json["doctorId"].int32Value
+       
+        return model
+    }
 }

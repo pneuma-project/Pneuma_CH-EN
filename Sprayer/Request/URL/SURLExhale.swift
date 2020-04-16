@@ -90,4 +90,19 @@ let URL_GetNowDateExhaleData = Base_Exhale_Url + "get/now/date/exhale/data"
  */
 let URL_GetNowDateExhaleV2Data = Base_Exhale_Url + "get/now/date/exhale/data/v2"
 
-
+/**
+     * 获取呼气数据 （视频时使用）
+     * @param loginKey 医生登录凭证
+     * @param ssId     病人ssId
+     * @param checkSum
+     * @return
+     * @throws ApiException
+     
+    @PostMapping(value = "get/tmp/exhale/data")
+    @ResponseBody
+    public Result<PnExhaleDataModel> getTmpExhaleData(@RequestParam("loginKey") String loginKey,
+                                                      @RequestParam("ssId") Long ssId,
+                                                      @RequestHeader("checkSum") String checkSum) throws ApiException {
+接口地址：http://localhost:7001/pneuma-api/pneuma/exhale/get/tmp/exhale/data
+*/
+let URL_GetTmpExhaleData = Base_Exhale_Url + "get/tmp/exhale/data"

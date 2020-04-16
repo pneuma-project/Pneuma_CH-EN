@@ -32,8 +32,6 @@
     [self addChildViewController:self.tabbarController];
     [self.view addSubview:self.tabbarController.view];
     [self.tabbarController didMoveToParentViewController:self];
-    
-    
 }
 -(void)viewWillAppear:(BOOL)animated
 {

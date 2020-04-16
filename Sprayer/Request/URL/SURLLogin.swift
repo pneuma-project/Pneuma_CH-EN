@@ -72,3 +72,35 @@ public Result getMacAddressBindState(@RequestParam("macAddress") String macAddre
 @RequestHeader("checkSum") String checkSum) throws ApiException {
   */
 let URL_GetMacAddressBindState = BASE_Url + "/pneuma/account/get/mac/address/bind/state"
+
+/**
+ * 获取某个医生绑定的病人信息
+ * @param doctorId 医生id
+ * @param checkSum
+ * @return
+ * @throws ApiException
+ 
+@PostMapping(value = "get/patients/info")
+@ResponseBody
+public Result<List<PnPatientsModel>> getPatientsInfo(@RequestParam("doctorId") Long doctorId,
+                                                     @RequestParam("offset") int offset,
+                                                     @RequestParam("count") int count,
+                                                     @RequestHeader("checkSum") String checkSum) throws ApiException {
+接口地址：http://localhost:7001/pneuma-api/pneuma/account/get/patients/info
+ */
+let URL_GetPatientsInfo = BASE_Url + "/pneuma/account/get/patients/info"
+
+/**
+     * 获取医生信息
+     * @param doctorId 医生id
+     * @param checkSum
+     * @return
+     * @throws ApiException
+     
+    @PostMapping(value = "get/doctor/info")
+    @ResponseBody
+    public Result<PnDoctorModel> getDoctorInfo(@RequestParam("doctorId") Long doctorId,
+                                               @RequestHeader("checkSum") String checkSum) throws ApiException {
+接口地址：http://localhost:7001/pneuma-api/pneuma/account/get/doctor/info
+*/
+let URL_GetDoctorInfo = BASE_Url + "/pneuma/account/get/doctor/info"

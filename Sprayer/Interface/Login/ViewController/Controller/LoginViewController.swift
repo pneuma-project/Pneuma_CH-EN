@@ -252,15 +252,24 @@ class LoginViewController: UIViewController,UIGestureRecognizerDelegate {
                 let jsonDict = JSON(responseObject)
                 if jsonDict["code"].stringValue == "200" {  //后台登录成功
                     let content = jsonDict["result"]
-                    UserInfoModel.userData(content: content)
-//                    FLUserDefaultsStringSet(key: "pwd", obj: weekself.passwordTF.text!)
-                    FLUserDefaultsStringSet(key: "userName", obj: weekself.iphoneTF.text!)
-                    if weekself.isRememberSelect {
-                        FLUserDefaultsStringSet(key: "password", obj: weekself.passwordTF.text!)
-                    }else {
-                        FLUserDefaultsStringSet(key: "password", obj: "")
+                    let model = UserInfoModel.getFromModel(json: content)
+                    NIMSDK.shared().loginManager.login("pn"+"\(model.ssId)", token: model.token) { (error) in
+                        if error == nil {
+                            UserInfoModel.userData(content: content)
+                            FLUserDefaultsStringSet(key: "userName", obj: weekself.iphoneTF.text!)
+                            if weekself.isRememberSelect {
+                                FLUserDefaultsStringSet(key: "password", obj: weekself.passwordTF.text!)
+                            }else {
+                                FLUserDefaultsStringSet(key: "password", obj: "")
+                            }
+                            if model.role == 0  {
+                                DoctorRequestObject.shared.requestGetDoctorInfo(doctorId: model.doctorId)
+                            }
+                            weekself.loginSucceeAction(role: model.role)
+                        }else {
+                            weekself.view.makeToast("云信登录失败", duration: 1.0, position: .center)
+                        }
                     }
-                    weekself.loginSucceeAction()
                 }else {
                     let code = jsonDict["code"].stringValue
                     if code == "4000000" {
@@ -303,9 +312,16 @@ class LoginViewController: UIViewController,UIGestureRecognizerDelegate {
     }
     
     //MARK: - 登录成功后的跳转
-    func loginSucceeAction() {
-        let rootVC = RootViewController()
-        UIApplication.shared.keyWindow?.rootViewController = rootVC
+    func loginSucceeAction(role:Int16) {
+        if role == 0 {
+            let rootVC = RootViewController()
+            UIApplication.shared.keyWindow?.rootViewController = rootVC
+        }else if role == 1 {
+            let memberVC = MembersController()
+            let navVC = BaseNavViewController.init(rootViewController: memberVC)
+            navVC.navigationBar.barTintColor = RGBCOLOR(r: 0, g: 83, b: 181, alpha: 1)
+            UIApplication.shared.keyWindow?.rootViewController = navVC
+        }
     }
 }
 

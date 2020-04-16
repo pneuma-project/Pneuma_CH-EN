@@ -152,11 +152,54 @@
 		D173D4782417A1BA003697E4 /* DeviceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D173D47A2417A1BA003697E4 /* DeviceViewController.xib */; };
 		D173DFA42418B6BB00E8DBCA /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D173DFA62418B6BB00E8DBCA /* LoginViewController.xib */; };
 		D173DFAB2418BC3400E8DBCA /* HistoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D173DFAD2418BC3400E8DBCA /* HistoryTableViewCell.xib */; };
-		D17688B0240CF1C8002D4433 /* HeadSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17688AF240CF1C8002D4433 /* HeadSelectView.swift */; };
+		D1746D5D244854B900D6C088 /* DoctorBoardObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1746D5C244854B900D6C088 /* DoctorBoardObject.swift */; };
+		D174AB4C2445BA3400ADD3C7 /* MembersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D174AB4B2445BA3400ADD3C7 /* MembersController.swift */; };
+		D1755D5A2446B24C008A5808 /* UserInfoData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1755D582446B24C008A5808 /* UserInfoData+CoreDataClass.swift */; };
+		D1755D5B2446B24C008A5808 /* UserInfoData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1755D592446B24C008A5808 /* UserInfoData+CoreDataProperties.swift */; };
+		D1755D5E2446B85A008A5808 /* MembersListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1755D5C2446B85A008A5808 /* MembersListCell.swift */; };
+		D1755D5F2446B85A008A5808 /* MembersListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1755D5D2446B85A008A5808 /* MembersListCell.xib */; };
+		D1755D612446BBD5008A5808 /* DoctorRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1755D602446BBD5008A5808 /* DoctorRequestObject.swift */; };
+		D1755D632446BC4A008A5808 /* SURLDoctor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1755D622446BC4A008A5808 /* SURLDoctor.swift */; };
+		D1755D652446F11C008A5808 /* MembersLungTestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1755D642446F11C008A5808 /* MembersLungTestController.swift */; };
+		D1755D6C24470E70008A5808 /* NTESVideoChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1755D6A24470E70008A5808 /* NTESVideoChatViewController.xib */; };
+		D1755D6D24470E70008A5808 /* NTESVideoChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1755D6B24470E70008A5808 /* NTESVideoChatViewController.m */; };
+		D1755D7024470EEC008A5808 /* NTESNetChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1755D6F24470EEC008A5808 /* NTESNetChatViewController.m */; };
+		D1755D7324470F77008A5808 /* NTESTimerHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = D1755D7124470F77008A5808 /* NTESTimerHolder.m */; };
+		D1755D7624471154008A5808 /* NTESNetCallChatInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D1755D7424471153008A5808 /* NTESNetCallChatInfo.m */; };
+		D1755D792447119D008A5808 /* UIAlertView+NTESBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = D1755D772447119D008A5808 /* UIAlertView+NTESBlock.m */; };
+		D1755D7F24471415008A5808 /* NTESGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = D1755D7E24471415008A5808 /* NTESGLView.m */; };
+		D1755D822447145A008A5808 /* UIView+NTES.m in Sources */ = {isa = PBXBuildFile; fileRef = D1755D812447145A008A5808 /* UIView+NTES.m */; };
+		D1755DAA244714DF008A5808 /* renderer_yuv444p10le.c in Sources */ = {isa = PBXBuildFile; fileRef = D1755D88244714DF008A5808 /* renderer_yuv444p10le.c */; };
+		D1755DAB244714DF008A5808 /* common.c in Sources */ = {isa = PBXBuildFile; fileRef = D1755D89244714DF008A5808 /* common.c */; };
+		D1755DAC244714DF008A5808 /* mvp.vsh.c in Sources */ = {isa = PBXBuildFile; fileRef = D1755D8C244714DF008A5808 /* mvp.vsh.c */; };
+		D1755DAD244714DF008A5808 /* renderer_rgb.c in Sources */ = {isa = PBXBuildFile; fileRef = D1755D8D244714DF008A5808 /* renderer_rgb.c */; };
+		D1755DAE244714DF008A5808 /* renderer_yuv420p.c in Sources */ = {isa = PBXBuildFile; fileRef = D1755D8E244714DF008A5808 /* renderer_yuv420p.c */; };
+		D1755DAF244714DF008A5808 /* renderer_yuv420sp.c in Sources */ = {isa = PBXBuildFile; fileRef = D1755D8F244714DF008A5808 /* renderer_yuv420sp.c */; };
+		D1755DB0244714DF008A5808 /* shader.c in Sources */ = {isa = PBXBuildFile; fileRef = D1755D90244714DF008A5808 /* shader.c */; };
+		D1755DB1244714DF008A5808 /* renderer.c in Sources */ = {isa = PBXBuildFile; fileRef = D1755D91244714DF008A5808 /* renderer.c */; };
+		D1755DB2244714DF008A5808 /* yuv444p10le.fsh.c in Sources */ = {isa = PBXBuildFile; fileRef = D1755D93244714DF008A5808 /* yuv444p10le.fsh.c */; };
+		D1755DB3244714DF008A5808 /* yuv420p.fsh.c in Sources */ = {isa = PBXBuildFile; fileRef = D1755D94244714DF008A5808 /* yuv420p.fsh.c */; };
+		D1755DB4244714DF008A5808 /* yuv420sp.fsh.c in Sources */ = {isa = PBXBuildFile; fileRef = D1755D95244714DF008A5808 /* yuv420sp.fsh.c */; };
+		D1755DB5244714DF008A5808 /* rgb.fsh.c in Sources */ = {isa = PBXBuildFile; fileRef = D1755D96244714DF008A5808 /* rgb.fsh.c */; };
+		D1755DB6244714DF008A5808 /* color.c in Sources */ = {isa = PBXBuildFile; fileRef = D1755D97244714DF008A5808 /* color.c */; };
+		D1755DB7244714DF008A5808 /* IJKSDLGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = D1755DA1244714DF008A5808 /* IJKSDLGLView.m */; };
+		D1755DB8244714DF008A5808 /* ijksdl_timer.c in Sources */ = {isa = PBXBuildFile; fileRef = D1755DA9244714DF008A5808 /* ijksdl_timer.c */; };
 		D17F3ED52419DE5000C9E8AF /* SLungTestTipController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17F3ED42419DE5000C9E8AF /* SLungTestTipController.swift */; };
 		D17F3ED72419EB2800C9E8AF /* SLungTestDateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17F3ED62419EB2800C9E8AF /* SLungTestDateController.swift */; };
 		D17F3ED9241A417600C9E8AF /* UIAlertControllerEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17F3ED8241A417600C9E8AF /* UIAlertControllerEx.swift */; };
 		D188B7952421C8630087F342 /* FLCustomChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = D188B7942421C8630087F342 /* FLCustomChartView.m */; };
+		D196C75A2448001B009AB731 /* video_connect_chat_tip_sender.aac in Resources */ = {isa = PBXBuildFile; fileRef = D196C7522448001B009AB731 /* video_connect_chat_tip_sender.aac */; };
+		D196C75B2448001B009AB731 /* video_chat_tip_OnCall.aac in Resources */ = {isa = PBXBuildFile; fileRef = D196C7532448001B009AB731 /* video_chat_tip_OnCall.aac */; };
+		D196C75C2448001B009AB731 /* video_chat_tip_sender.aac in Resources */ = {isa = PBXBuildFile; fileRef = D196C7542448001B009AB731 /* video_chat_tip_sender.aac */; };
+		D196C75D2448001B009AB731 /* video_chat_tip_HangUp.aac in Resources */ = {isa = PBXBuildFile; fileRef = D196C7552448001B009AB731 /* video_chat_tip_HangUp.aac */; };
+		D196C75E2448001B009AB731 /* message.wav in Resources */ = {isa = PBXBuildFile; fileRef = D196C7562448001B009AB731 /* message.wav */; };
+		D196C75F2448001B009AB731 /* video_chat_tip_receiver.aac in Resources */ = {isa = PBXBuildFile; fileRef = D196C7572448001B009AB731 /* video_chat_tip_receiver.aac */; };
+		D196C7602448001B009AB731 /* video_chat_tip_onTimer.aac in Resources */ = {isa = PBXBuildFile; fileRef = D196C7582448001B009AB731 /* video_chat_tip_onTimer.aac */; };
+		D196C7612448001B009AB731 /* video_chat_push.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D196C7592448001B009AB731 /* video_chat_push.mp3 */; };
+		D196C766244832E7009AB731 /* SVideoChatTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196C765244832E7009AB731 /* SVideoChatTool.swift */; };
+		D196C7692448453C009AB731 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D196C7682448453C009AB731 /* UserNotifications.framework */; };
+		D196C76B24484542009AB731 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D196C76A24484542009AB731 /* UserNotificationsUI.framework */; };
+		D196C76D24484550009AB731 /* CallKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D196C76C24484550009AB731 /* CallKit.framework */; };
 		D1B8DACD2276E6DE00643EC6 /* BlueDeviceListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B8DACA2276E6DE00643EC6 /* BlueDeviceListCell.swift */; };
 		D1B8DACE2276E6DE00643EC6 /* BlueDeviceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B8DACB2276E6DE00643EC6 /* BlueDeviceListView.swift */; };
 		D1B8DACF2276E6DE00643EC6 /* BlueDeviceListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1B8DACC2276E6DE00643EC6 /* BlueDeviceListCell.xib */; };
@@ -333,8 +376,6 @@
 		64CD9985242F2FC60019EEEE /* SLungTestNumCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLungTestNumCell.xib; sourceTree = "<group>"; };
 		64CE06CE2439BF5D00C8B131 /* SLungHistoryNumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLungHistoryNumCell.swift; sourceTree = "<group>"; };
 		64CE06CF2439BF5D00C8B131 /* SLungHistoryNumCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLungHistoryNumCell.xib; sourceTree = "<group>"; };
-		64CF5F3E228D662700595018 /* UserInfoData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserInfoData+CoreDataClass.swift"; sourceTree = "<group>"; };
-		64CF5F3F228D662700595018 /* UserInfoData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserInfoData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		64CF5F43228E8DD300595018 /* SURLLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SURLLogin.swift; sourceTree = "<group>"; };
 		64CF5F45228E90AE00595018 /* SURLSuckFog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SURLSuckFog.swift; sourceTree = "<group>"; };
 		64CF5F47228E956E00595018 /* DeviceRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRequestObject.swift; sourceTree = "<group>"; };
@@ -453,12 +494,83 @@
 		D173DFAC2418BC3400E8DBCA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/HistoryTableViewCell.xib; sourceTree = "<group>"; };
 		D173DFAF2418BC3900E8DBCA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/HistoryTableViewCell.strings"; sourceTree = "<group>"; };
 		D173DFB12418BC3B00E8DBCA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HistoryTableViewCell.strings; sourceTree = "<group>"; };
-		D17688AF240CF1C8002D4433 /* HeadSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadSelectView.swift; sourceTree = "<group>"; };
+		D1746D5C244854B900D6C088 /* DoctorBoardObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorBoardObject.swift; sourceTree = "<group>"; };
+		D174AB4B2445BA3400ADD3C7 /* MembersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembersController.swift; sourceTree = "<group>"; };
+		D1755D532446AAAE008A5808 /* Sprayer1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Sprayer1.xcdatamodel; sourceTree = "<group>"; };
+		D1755D582446B24C008A5808 /* UserInfoData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserInfoData+CoreDataClass.swift"; sourceTree = "<group>"; };
+		D1755D592446B24C008A5808 /* UserInfoData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserInfoData+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		D1755D5C2446B85A008A5808 /* MembersListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembersListCell.swift; sourceTree = "<group>"; };
+		D1755D5D2446B85A008A5808 /* MembersListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MembersListCell.xib; sourceTree = "<group>"; };
+		D1755D602446BBD5008A5808 /* DoctorRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorRequestObject.swift; sourceTree = "<group>"; };
+		D1755D622446BC4A008A5808 /* SURLDoctor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SURLDoctor.swift; sourceTree = "<group>"; };
+		D1755D642446F11C008A5808 /* MembersLungTestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembersLungTestController.swift; sourceTree = "<group>"; };
+		D1755D6924470E70008A5808 /* NTESVideoChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESVideoChatViewController.h; sourceTree = "<group>"; };
+		D1755D6A24470E70008A5808 /* NTESVideoChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NTESVideoChatViewController.xib; sourceTree = "<group>"; };
+		D1755D6B24470E70008A5808 /* NTESVideoChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESVideoChatViewController.m; sourceTree = "<group>"; };
+		D1755D6E24470EEC008A5808 /* NTESNetChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESNetChatViewController.h; sourceTree = "<group>"; };
+		D1755D6F24470EEC008A5808 /* NTESNetChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESNetChatViewController.m; sourceTree = "<group>"; };
+		D1755D7124470F77008A5808 /* NTESTimerHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESTimerHolder.m; sourceTree = "<group>"; };
+		D1755D7224470F77008A5808 /* NTESTimerHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESTimerHolder.h; sourceTree = "<group>"; };
+		D1755D7424471153008A5808 /* NTESNetCallChatInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESNetCallChatInfo.m; sourceTree = "<group>"; };
+		D1755D7524471154008A5808 /* NTESNetCallChatInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESNetCallChatInfo.h; sourceTree = "<group>"; };
+		D1755D772447119D008A5808 /* UIAlertView+NTESBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+NTESBlock.m"; sourceTree = "<group>"; };
+		D1755D782447119D008A5808 /* UIAlertView+NTESBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+NTESBlock.h"; sourceTree = "<group>"; };
+		D1755D7D24471415008A5808 /* NTESGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESGLView.h; sourceTree = "<group>"; };
+		D1755D7E24471415008A5808 /* NTESGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESGLView.m; sourceTree = "<group>"; };
+		D1755D802447145A008A5808 /* UIView+NTES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+NTES.h"; sourceTree = "<group>"; };
+		D1755D812447145A008A5808 /* UIView+NTES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+NTES.m"; sourceTree = "<group>"; };
+		D1755D84244714DF008A5808 /* ijksdl_gles2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_gles2.h; sourceTree = "<group>"; };
+		D1755D85244714DF008A5808 /* ijksdl_stdinc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_stdinc.h; sourceTree = "<group>"; };
+		D1755D86244714DF008A5808 /* ijksdl_vout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_vout.h; sourceTree = "<group>"; };
+		D1755D88244714DF008A5808 /* renderer_yuv444p10le.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = renderer_yuv444p10le.c; sourceTree = "<group>"; };
+		D1755D89244714DF008A5808 /* common.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = common.c; sourceTree = "<group>"; };
+		D1755D8A244714DF008A5808 /* internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = internal.h; sourceTree = "<group>"; };
+		D1755D8C244714DF008A5808 /* mvp.vsh.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mvp.vsh.c; sourceTree = "<group>"; };
+		D1755D8D244714DF008A5808 /* renderer_rgb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = renderer_rgb.c; sourceTree = "<group>"; };
+		D1755D8E244714DF008A5808 /* renderer_yuv420p.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = renderer_yuv420p.c; sourceTree = "<group>"; };
+		D1755D8F244714DF008A5808 /* renderer_yuv420sp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = renderer_yuv420sp.c; sourceTree = "<group>"; };
+		D1755D90244714DF008A5808 /* shader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = shader.c; sourceTree = "<group>"; };
+		D1755D91244714DF008A5808 /* renderer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = renderer.c; sourceTree = "<group>"; };
+		D1755D93244714DF008A5808 /* yuv444p10le.fsh.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = yuv444p10le.fsh.c; sourceTree = "<group>"; };
+		D1755D94244714DF008A5808 /* yuv420p.fsh.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = yuv420p.fsh.c; sourceTree = "<group>"; };
+		D1755D95244714DF008A5808 /* yuv420sp.fsh.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = yuv420sp.fsh.c; sourceTree = "<group>"; };
+		D1755D96244714DF008A5808 /* rgb.fsh.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rgb.fsh.c; sourceTree = "<group>"; };
+		D1755D97244714DF008A5808 /* color.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = color.c; sourceTree = "<group>"; };
+		D1755D98244714DF008A5808 /* ijksdl_mutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_mutex.h; sourceTree = "<group>"; };
+		D1755D99244714DF008A5808 /* ijksdl_fourcc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_fourcc.h; sourceTree = "<group>"; };
+		D1755D9A244714DF008A5808 /* ijksdl_video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_video.h; sourceTree = "<group>"; };
+		D1755D9B244714DF008A5808 /* ijksdl_endian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_endian.h; sourceTree = "<group>"; };
+		D1755D9C244714DF008A5808 /* ijksdl_class.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_class.h; sourceTree = "<group>"; };
+		D1755D9D244714DF008A5808 /* ijksdl_timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_timer.h; sourceTree = "<group>"; };
+		D1755D9E244714DF008A5808 /* ijksdl_inc_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_inc_internal.h; sourceTree = "<group>"; };
+		D1755DA0244714DF008A5808 /* ijksdl_ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_ios.h; sourceTree = "<group>"; };
+		D1755DA1244714DF008A5808 /* IJKSDLGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IJKSDLGLView.m; sourceTree = "<group>"; };
+		D1755DA2244714DF008A5808 /* ijksdl_vout_overlay_videotoolbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_vout_overlay_videotoolbox.h; sourceTree = "<group>"; };
+		D1755DA3244714DF008A5808 /* IJKSDLGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IJKSDLGLView.h; sourceTree = "<group>"; };
+		D1755DA4244714DF008A5808 /* ijksdl_thread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_thread.h; sourceTree = "<group>"; };
+		D1755DA5244714DF008A5808 /* ijksdl_log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_log.h; sourceTree = "<group>"; };
+		D1755DA6244714DF008A5808 /* ijksdl_misc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_misc.h; sourceTree = "<group>"; };
+		D1755DA7244714DF008A5808 /* ijksdl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl.h; sourceTree = "<group>"; };
+		D1755DA8244714DF008A5808 /* ijksdl_error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_error.h; sourceTree = "<group>"; };
+		D1755DA9244714DF008A5808 /* ijksdl_timer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ijksdl_timer.c; sourceTree = "<group>"; };
 		D17F3ED42419DE5000C9E8AF /* SLungTestTipController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLungTestTipController.swift; sourceTree = "<group>"; };
 		D17F3ED62419EB2800C9E8AF /* SLungTestDateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLungTestDateController.swift; sourceTree = "<group>"; };
 		D17F3ED8241A417600C9E8AF /* UIAlertControllerEx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertControllerEx.swift; sourceTree = "<group>"; };
 		D188B7932421C8630087F342 /* FLCustomChartView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLCustomChartView.h; sourceTree = "<group>"; };
 		D188B7942421C8630087F342 /* FLCustomChartView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLCustomChartView.m; sourceTree = "<group>"; };
+		D196C7522448001B009AB731 /* video_connect_chat_tip_sender.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_connect_chat_tip_sender.aac; sourceTree = "<group>"; };
+		D196C7532448001B009AB731 /* video_chat_tip_OnCall.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_chat_tip_OnCall.aac; sourceTree = "<group>"; };
+		D196C7542448001B009AB731 /* video_chat_tip_sender.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_chat_tip_sender.aac; sourceTree = "<group>"; };
+		D196C7552448001B009AB731 /* video_chat_tip_HangUp.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_chat_tip_HangUp.aac; sourceTree = "<group>"; };
+		D196C7562448001B009AB731 /* message.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = message.wav; sourceTree = "<group>"; };
+		D196C7572448001B009AB731 /* video_chat_tip_receiver.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_chat_tip_receiver.aac; sourceTree = "<group>"; };
+		D196C7582448001B009AB731 /* video_chat_tip_onTimer.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_chat_tip_onTimer.aac; sourceTree = "<group>"; };
+		D196C7592448001B009AB731 /* video_chat_push.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = video_chat_push.mp3; sourceTree = "<group>"; };
+		D196C765244832E7009AB731 /* SVideoChatTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVideoChatTool.swift; sourceTree = "<group>"; };
+		D196C7682448453C009AB731 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		D196C76A24484542009AB731 /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
+		D196C76C24484550009AB731 /* CallKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CallKit.framework; path = System/Library/Frameworks/CallKit.framework; sourceTree = SDKROOT; };
+		D196C76E24484A6F009AB731 /* Pneuma.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Pneuma.entitlements; sourceTree = "<group>"; };
 		D1B8DACA2276E6DE00643EC6 /* BlueDeviceListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueDeviceListCell.swift; sourceTree = "<group>"; };
 		D1B8DACB2276E6DE00643EC6 /* BlueDeviceListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueDeviceListView.swift; sourceTree = "<group>"; };
 		D1B8DACC2276E6DE00643EC6 /* BlueDeviceListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BlueDeviceListCell.xib; sourceTree = "<group>"; };
@@ -479,8 +591,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D196C76B24484542009AB731 /* UserNotificationsUI.framework in Frameworks */,
 				64F43CC41E715A3B009BF6F9 /* libsqlite3.0.tbd in Frameworks */,
 				425D17051250175BD9BB56B0 /* Pods_Sprayer.framework in Frameworks */,
+				D196C7692448453C009AB731 /* UserNotifications.framework in Frameworks */,
+				D196C76D24484550009AB731 /* CallKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -665,6 +780,10 @@
 		644C9C1A1E655E560030C3B9 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				D1755D802447145A008A5808 /* UIView+NTES.h */,
+				D1755D812447145A008A5808 /* UIView+NTES.m */,
+				D1755D782447119D008A5808 /* UIAlertView+NTESBlock.h */,
+				D1755D772447119D008A5808 /* UIAlertView+NTESBlock.m */,
 				D1D14396226F0B7B00BA5302 /* UIViewEx.swift */,
 				D1D14394226F0B7000BA5302 /* UIViewControllerEx.swift */,
 				644C9C341E6575F80030C3B9 /* MBProgressHUD+Add.h */,
@@ -723,7 +842,6 @@
 				644C9C4D1E66B5BF0030C3B9 /* FL_ChatView */,
 				644C9C381E666A6D0030C3B9 /* FL_ScaleCircle.h */,
 				644C9C391E666A6D0030C3B9 /* FL_ScaleCircle.m */,
-				D17688AF240CF1C8002D4433 /* HeadSelectView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -876,8 +994,8 @@
 		648A72C6228D4F4500B8B430 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				64CF5F3E228D662700595018 /* UserInfoData+CoreDataClass.swift */,
-				64CF5F3F228D662700595018 /* UserInfoData+CoreDataProperties.swift */,
+				D1755D582446B24C008A5808 /* UserInfoData+CoreDataClass.swift */,
+				D1755D592446B24C008A5808 /* UserInfoData+CoreDataProperties.swift */,
 				648A72DC228D60D100B8B430 /* UserInfoModel.swift */,
 			);
 			path = Model;
@@ -932,6 +1050,7 @@
 				64CF5F43228E8DD300595018 /* SURLLogin.swift */,
 				64CF5F45228E90AE00595018 /* SURLSuckFog.swift */,
 				D173D46524173568003697E4 /* SURLExhale.swift */,
+				D1755D622446BC4A008A5808 /* SURLDoctor.swift */,
 			);
 			path = URL;
 			sourceTree = "<group>";
@@ -950,6 +1069,9 @@
 		64F43CC21E715A3A009BF6F9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D196C76C24484550009AB731 /* CallKit.framework */,
+				D196C76A24484542009AB731 /* UserNotificationsUI.framework */,
+				D196C7682448453C009AB731 /* UserNotifications.framework */,
 				64F43CC31E715A3B009BF6F9 /* libsqlite3.0.tbd */,
 				6F1056E38D5B2B9DFB9B7F8B /* Pods_Sprayer.framework */,
 			);
@@ -981,6 +1103,7 @@
 		64F663BF1E63C8A900F4C9E7 /* Sprayer */ = {
 			isa = PBXGroup;
 			children = (
+				D196C76E24484A6F009AB731 /* Pneuma.entitlements */,
 				64E8EF36228A912A00B357D1 /* Request */,
 				D1D1439E226F162000BA5302 /* Tools */,
 				D1D14387226F09A500BA5302 /* Interface */,
@@ -1027,15 +1150,6 @@
 				64F663FC1E63CB8400F4C9E7 /* BaseViewController.m */,
 			);
 			path = BaseViewController;
-			sourceTree = "<group>";
-		};
-		64F663F41E63C95800F4C9E7 /* RootViewController */ = {
-			isa = PBXGroup;
-			children = (
-				64F664001E63CC6D00F4C9E7 /* RootViewController.h */,
-				64F664011E63CC6D00F4C9E7 /* RootViewController.m */,
-			);
-			path = RootViewController;
 			sourceTree = "<group>";
 		};
 		BF79D0EF1E6FF69A00EE468B /* PickerView */ = {
@@ -1156,12 +1270,173 @@
 			path = LungTestController;
 			sourceTree = "<group>";
 		};
+		D174AB452445B44000ADD3C7 /* Doctor */ = {
+			isa = PBXGroup;
+			children = (
+				D174AB482445B47900ADD3C7 /* Model */,
+				D174AB472445B46D00ADD3C7 /* ViewModel */,
+				D174AB462445B45200ADD3C7 /* ViewController */,
+			);
+			path = Doctor;
+			sourceTree = "<group>";
+		};
+		D174AB462445B45200ADD3C7 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D174AB4A2445B48700ADD3C7 /* View */,
+				D174AB492445B48100ADD3C7 /* Controller */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		D174AB472445B46D00ADD3C7 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D1755D602446BBD5008A5808 /* DoctorRequestObject.swift */,
+				D1746D5C244854B900D6C088 /* DoctorBoardObject.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		D174AB482445B47900ADD3C7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D1755D7524471154008A5808 /* NTESNetCallChatInfo.h */,
+				D1755D7424471153008A5808 /* NTESNetCallChatInfo.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D174AB492445B48100ADD3C7 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				D174AB4B2445BA3400ADD3C7 /* MembersController.swift */,
+				D1755D642446F11C008A5808 /* MembersLungTestController.swift */,
+				D1755D6E24470EEC008A5808 /* NTESNetChatViewController.h */,
+				D1755D6F24470EEC008A5808 /* NTESNetChatViewController.m */,
+				D1755D6924470E70008A5808 /* NTESVideoChatViewController.h */,
+				D1755D6B24470E70008A5808 /* NTESVideoChatViewController.m */,
+				D1755D6A24470E70008A5808 /* NTESVideoChatViewController.xib */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		D174AB4A2445B48700ADD3C7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D1755D83244714DF008A5808 /* ijksdl */,
+				D1755D7D24471415008A5808 /* NTESGLView.h */,
+				D1755D7E24471415008A5808 /* NTESGLView.m */,
+				D1755D5C2446B85A008A5808 /* MembersListCell.swift */,
+				D1755D5D2446B85A008A5808 /* MembersListCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D1755D662446FDE2008A5808 /* VideoChat */ = {
+			isa = PBXGroup;
+			children = (
+				D1755D7224470F77008A5808 /* NTESTimerHolder.h */,
+				D1755D7124470F77008A5808 /* NTESTimerHolder.m */,
+				D196C765244832E7009AB731 /* SVideoChatTool.swift */,
+			);
+			path = VideoChat;
+			sourceTree = "<group>";
+		};
+		D1755D83244714DF008A5808 /* ijksdl */ = {
+			isa = PBXGroup;
+			children = (
+				D1755D84244714DF008A5808 /* ijksdl_gles2.h */,
+				D1755D85244714DF008A5808 /* ijksdl_stdinc.h */,
+				D1755D86244714DF008A5808 /* ijksdl_vout.h */,
+				D1755D87244714DF008A5808 /* gles2 */,
+				D1755D98244714DF008A5808 /* ijksdl_mutex.h */,
+				D1755D99244714DF008A5808 /* ijksdl_fourcc.h */,
+				D1755D9A244714DF008A5808 /* ijksdl_video.h */,
+				D1755D9B244714DF008A5808 /* ijksdl_endian.h */,
+				D1755D9C244714DF008A5808 /* ijksdl_class.h */,
+				D1755D9D244714DF008A5808 /* ijksdl_timer.h */,
+				D1755D9E244714DF008A5808 /* ijksdl_inc_internal.h */,
+				D1755D9F244714DF008A5808 /* ios */,
+				D1755DA4244714DF008A5808 /* ijksdl_thread.h */,
+				D1755DA5244714DF008A5808 /* ijksdl_log.h */,
+				D1755DA6244714DF008A5808 /* ijksdl_misc.h */,
+				D1755DA7244714DF008A5808 /* ijksdl.h */,
+				D1755DA8244714DF008A5808 /* ijksdl_error.h */,
+				D1755DA9244714DF008A5808 /* ijksdl_timer.c */,
+			);
+			path = ijksdl;
+			sourceTree = "<group>";
+		};
+		D1755D87244714DF008A5808 /* gles2 */ = {
+			isa = PBXGroup;
+			children = (
+				D1755D88244714DF008A5808 /* renderer_yuv444p10le.c */,
+				D1755D89244714DF008A5808 /* common.c */,
+				D1755D8A244714DF008A5808 /* internal.h */,
+				D1755D8B244714DF008A5808 /* vsh */,
+				D1755D8D244714DF008A5808 /* renderer_rgb.c */,
+				D1755D8E244714DF008A5808 /* renderer_yuv420p.c */,
+				D1755D8F244714DF008A5808 /* renderer_yuv420sp.c */,
+				D1755D90244714DF008A5808 /* shader.c */,
+				D1755D91244714DF008A5808 /* renderer.c */,
+				D1755D92244714DF008A5808 /* fsh */,
+				D1755D97244714DF008A5808 /* color.c */,
+			);
+			path = gles2;
+			sourceTree = "<group>";
+		};
+		D1755D8B244714DF008A5808 /* vsh */ = {
+			isa = PBXGroup;
+			children = (
+				D1755D8C244714DF008A5808 /* mvp.vsh.c */,
+			);
+			path = vsh;
+			sourceTree = "<group>";
+		};
+		D1755D92244714DF008A5808 /* fsh */ = {
+			isa = PBXGroup;
+			children = (
+				D1755D93244714DF008A5808 /* yuv444p10le.fsh.c */,
+				D1755D94244714DF008A5808 /* yuv420p.fsh.c */,
+				D1755D95244714DF008A5808 /* yuv420sp.fsh.c */,
+				D1755D96244714DF008A5808 /* rgb.fsh.c */,
+			);
+			path = fsh;
+			sourceTree = "<group>";
+		};
+		D1755D9F244714DF008A5808 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				D1755DA0244714DF008A5808 /* ijksdl_ios.h */,
+				D1755DA1244714DF008A5808 /* IJKSDLGLView.m */,
+				D1755DA2244714DF008A5808 /* ijksdl_vout_overlay_videotoolbox.h */,
+				D1755DA3244714DF008A5808 /* IJKSDLGLView.h */,
+			);
+			path = ios;
+			sourceTree = "<group>";
+		};
 		D17688AB240CF147002D4433 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				64CD9983242F2F860019EEEE /* LungTestView */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		D196C7512448001B009AB731 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				D196C7522448001B009AB731 /* video_connect_chat_tip_sender.aac */,
+				D196C7532448001B009AB731 /* video_chat_tip_OnCall.aac */,
+				D196C7542448001B009AB731 /* video_chat_tip_sender.aac */,
+				D196C7552448001B009AB731 /* video_chat_tip_HangUp.aac */,
+				D196C7562448001B009AB731 /* message.wav */,
+				D196C7572448001B009AB731 /* video_chat_tip_receiver.aac */,
+				D196C7582448001B009AB731 /* video_chat_tip_onTimer.aac */,
+				D196C7592448001B009AB731 /* video_chat_push.mp3 */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 		D1B8DAC92276E6C900643EC6 /* View */ = {
@@ -1187,15 +1462,15 @@
 		D1D14387226F09A500BA5302 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
-				648A72C5228D4F2800B8B430 /* Login */,
 				644C9C371E666A440030C3B9 /* View */,
 				D1D14388226F09D700BA5302 /* Main */,
+				648A72C5228D4F2800B8B430 /* Login */,
+				D174AB452445B44000ADD3C7 /* Doctor */,
 				644C9C8D1E697DDA0030C3B9 /* DeviceController */,
 				644C9C991E697DDA0030C3B9 /* TrainingController */,
 				644C9C961E697DDA0030C3B9 /* SprayController */,
 				644C9CA61E697DDA0030C3B9 /* UserController */,
 				64F663F31E63C95800F4C9E7 /* BaseViewController */,
-				64F663F41E63C95800F4C9E7 /* RootViewController */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -1205,6 +1480,8 @@
 			children = (
 				64F663C31E63C8A900F4C9E7 /* AppDelegate.h */,
 				64F663C41E63C8A900F4C9E7 /* AppDelegate.m */,
+				64F664001E63CC6D00F4C9E7 /* RootViewController.h */,
+				64F664011E63CC6D00F4C9E7 /* RootViewController.m */,
 				64F663C91E63C8A900F4C9E7 /* Main.storyboard */,
 				64F663CE1E63C8A900F4C9E7 /* LaunchScreen.storyboard */,
 			);
@@ -1214,6 +1491,7 @@
 		D1D14389226F0A4100BA5302 /* Config */ = {
 			isa = PBXGroup;
 			children = (
+				D196C7512448001B009AB731 /* Sounds */,
 				64F663D11E63C8A900F4C9E7 /* Info.plist */,
 				D1D14393226F0B6F00BA5302 /* Sprayer-Bridging-Header.h */,
 				64F663FF1E63CBAC00F4C9E7 /* PrefixHeader.pch */,
@@ -1227,6 +1505,7 @@
 		D1D1439E226F162000BA5302 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				D1755D662446FDE2008A5808 /* VideoChat */,
 				648A72D2228D573200B8B430 /* KeyChain */,
 				644C9C1A1E655E560030C3B9 /* Category */,
 				D1D143A4226F167F00BA5302 /* AniShowCloseView.swift */,
@@ -1351,13 +1630,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				642620391E80B56200263124 /* hud_error.png in Resources */,
+				D196C75D2448001B009AB731 /* video_chat_tip_HangUp.aac in Resources */,
 				644C9C7C1E6918080030C3B9 /* scanLine@2x.png in Resources */,
 				6425804F1E6E991E0019AD06 /* PatientInfoTableViewCell.xib in Resources */,
 				6426203A1E80B56200263124 /* hud_error@2x.png in Resources */,
 				D173D4782417A1BA003697E4 /* DeviceViewController.xib in Resources */,
+				D196C75B2448001B009AB731 /* video_chat_tip_OnCall.aac in Resources */,
 				D173D46D24179FF7003697E4 /* Localizable.strings in Resources */,
 				644C9C7E1E6918080030C3B9 /* scanscanBg.png in Resources */,
 				644C9CAF1E697DDA0030C3B9 /* ScanResultViewController.xib in Resources */,
+				D196C75F2448001B009AB731 /* video_chat_tip_receiver.aac in Resources */,
 				64CE06D12439BF5D00C8B131 /* SLungHistoryNumCell.xib in Resources */,
 				BF79D1011E7232CE00EE468B /* HistoricalDrugTableViewCell.xib in Resources */,
 				6425803D1E6D515A0019AD06 /* HistoryValueTableViewCell.xib in Resources */,
@@ -1365,11 +1647,14 @@
 				644C9C791E6918080030C3B9 /* lightSelect.png in Resources */,
 				6426203B1E80B56200263124 /* hud_info.png in Resources */,
 				6426203C1E80B56200263124 /* hud_info@2x.png in Resources */,
+				D196C75C2448001B009AB731 /* video_chat_tip_sender.aac in Resources */,
 				64CD9987242F2FC60019EEEE /* SLungTestNumCell.xib in Resources */,
 				644C9C781E6918080030C3B9 /* lightNormal.png in Resources */,
+				D196C75E2448001B009AB731 /* message.wav in Resources */,
 				64F663CB1E63C8A900F4C9E7 /* Main.storyboard in Resources */,
 				644C9C7A1E6918080030C3B9 /* noticeMusic.wav in Resources */,
 				7906CA4B1FBD399B00200B66 /* FlowValueSettingController.xib in Resources */,
+				D1755D6C24470E70008A5808 /* NTESVideoChatViewController.xib in Resources */,
 				D1B8DACF2276E6DE00643EC6 /* BlueDeviceListCell.xib in Resources */,
 				644C9C7D1E6918080030C3B9 /* scanLine@3x.png in Resources */,
 				644C9CBE1E697E980030C3B9 /* MedicalTableViewCell.xib in Resources */,
@@ -1378,7 +1663,11 @@
 				D173DFA42418B6BB00E8DBCA /* LoginViewController.xib in Resources */,
 				642580291E6D0CB90019AD06 /* LICENSE_jsonmodel.txt in Resources */,
 				6426203E1E80B56200263124 /* hud_success@2x.png in Resources */,
+				D196C7612448001B009AB731 /* video_chat_push.mp3 in Resources */,
+				D196C7602448001B009AB731 /* video_chat_tip_onTimer.aac in Resources */,
+				D196C75A2448001B009AB731 /* video_connect_chat_tip_sender.aac in Resources */,
 				7906CA4D1FBD733E00200B66 /* Assets.xcassets in Resources */,
+				D1755D5F2446B85A008A5808 /* MembersListCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1455,6 +1744,7 @@
 				"${PODS_ROOT}/NIMSDK/NIMAVChat/NMCBasicModuleFramework.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/Toast/Toast.framework",
 				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -1468,6 +1758,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NMCBasicModuleFramework.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1487,6 +1778,7 @@
 				64E8EF3B228A918700B357D1 /* SURLHelper.swift in Sources */,
 				BFDAC78C1E7274FA00E17D7B /* JHPieForeBGView.m in Sources */,
 				BF79D1001E7232CE00EE468B /* HistoricalDrugTableViewCell.m in Sources */,
+				D1755D792447119D008A5808 /* UIAlertView+NTESBlock.m in Sources */,
 				BFDAC7891E7274FA00E17D7B /* JHColumnChart.m in Sources */,
 				D1D143A5226F167F00BA5302 /* Common.swift in Sources */,
 				BF79D0FB1E71425B00EE468B /* HistoricalDrugViewController.m in Sources */,
@@ -1495,10 +1787,16 @@
 				64F43CC11E71585D009BF6F9 /* SqliteUtils.m in Sources */,
 				D1B8DAD22276F34200643EC6 /* DeviceBoardObject.swift in Sources */,
 				642620441E80B56200263124 /* FLWrapBobyTool.m in Sources */,
+				D1755D7324470F77008A5808 /* NTESTimerHolder.m in Sources */,
+				D1755D7F24471415008A5808 /* NTESGLView.m in Sources */,
 				64E8EF80228AAD3300B357D1 /* Sprayer.xcdatamodeld in Sources */,
+				D1755DB7244714DF008A5808 /* IJKSDLGLView.m in Sources */,
 				7906CA4A1FBD399B00200B66 /* FlowValueSettingController.m in Sources */,
 				BFDAC78A1E7274FA00E17D7B /* JHLineChart.m in Sources */,
+				D196C766244832E7009AB731 /* SVideoChatTool.swift in Sources */,
+				D1755DB2244714DF008A5808 /* yuv444p10le.fsh.c in Sources */,
 				642580211E6D0CB90019AD06 /* JSONModelClassProperty.m in Sources */,
+				D1755D822447145A008A5808 /* UIView+NTES.m in Sources */,
 				BFDAC7931E7274FA00E17D7B /* JHTableDataRowModel.m in Sources */,
 				BFF420991EA76B630093BE8D /* FMDatabaseQueue.m in Sources */,
 				644C9CB71E697DDA0030C3B9 /* BasicInformationViewController.m in Sources */,
@@ -1510,6 +1808,7 @@
 				644C9C591E66B5BF0030C3B9 /* UIButton+EnlargeTouchArea.m in Sources */,
 				BFDAC78E1E7274FA00E17D7B /* JHRadarChart.m in Sources */,
 				642580241E6D0CB90019AD06 /* JSONAPI.m in Sources */,
+				D1755DB1244714DF008A5808 /* renderer.c in Sources */,
 				644C9CBD1E697E980030C3B9 /* MedicalTableViewCell.m in Sources */,
 				648A72D6228D574E00B8B430 /* KeychainUtils.swift in Sources */,
 				BFDAC78B1E7274FA00E17D7B /* JHPieChart.m in Sources */,
@@ -1523,32 +1822,43 @@
 				D17F3ED52419DE5000C9E8AF /* SLungTestTipController.swift in Sources */,
 				64F663FE1E63CB8400F4C9E7 /* BaseViewController.m in Sources */,
 				644C9CB61E697DDA0030C3B9 /* TrainingViewController.m in Sources */,
+				D1755D612446BBD5008A5808 /* DoctorRequestObject.swift in Sources */,
 				64CD9986242F2FC60019EEEE /* SLungTestNumCell.swift in Sources */,
+				D1755D6D24470E70008A5808 /* NTESVideoChatViewController.m in Sources */,
+				D1746D5D244854B900D6C088 /* DoctorBoardObject.swift in Sources */,
 				64CF5F46228E90AE00595018 /* SURLSuckFog.swift in Sources */,
 				D1D14397226F0B7B00BA5302 /* UIViewEx.swift in Sources */,
 				BF2B3C641EA0B2BD009E639F /* MedicalInfoViewController.m in Sources */,
 				BF79D0EE1E6FE15200EE468B /* EditDetailPatSexInfoViewController.m in Sources */,
+				D1755D652446F11C008A5808 /* MembersLungTestController.swift in Sources */,
+				D1755D7624471154008A5808 /* NTESNetCallChatInfo.m in Sources */,
 				D17F3ED72419EB2800C9E8AF /* SLungTestDateController.swift in Sources */,
 				D1D143A6226F167F00BA5302 /* AniShowCloseView.swift in Sources */,
+				D1755DB5244714DF008A5808 /* rgb.fsh.c in Sources */,
 				64CF5F44228E8DD300595018 /* SURLLogin.swift in Sources */,
 				648A72CF228D567500B8B430 /* FLUserDefaults.swift in Sources */,
 				644C9C1D1E655E660030C3B9 /* UIView+Category.m in Sources */,
 				644C9CB41E697DDA0030C3B9 /* TrainingStartViewController.m in Sources */,
 				BF79D0EB1E6FD24900EE468B /* EditDetailPatientInfoViewController.m in Sources */,
+				D1755D5A2446B24C008A5808 /* UserInfoData+CoreDataClass.swift in Sources */,
 				D173D468241736CC003697E4 /* ExhaleDataModel.swift in Sources */,
+				D1755DAF244714DF008A5808 /* renderer_yuv420sp.c in Sources */,
 				D1E24E1A2436E8AF00936962 /* LungHistoryCountController.swift in Sources */,
 				642620451E80B56200263124 /* FLWrapHeaderTool.m in Sources */,
 				BFDAC7A51E769D3A00E17D7B /* AddPatientInfoModel.m in Sources */,
+				D1755DAA244714DF008A5808 /* renderer_yuv444p10le.c in Sources */,
 				644C9C621E67F8590030C3B9 /* CustemNavItem.m in Sources */,
 				6426203F1E80B56200263124 /* LCProgressHUD.m in Sources */,
 				D1E24E1C2437257900936962 /* LungHistoryChatController.swift in Sources */,
 				6425801F1E6D0CB90019AD06 /* JSONModel.m in Sources */,
+				D1755DB4244714DF008A5808 /* yuv420sp.fsh.c in Sources */,
 				D1B8DACE2276E6DE00643EC6 /* BlueDeviceListView.swift in Sources */,
 				642620381E80B56200263124 /* BlueToothManager.m in Sources */,
 				648A72DD228D60D100B8B430 /* UserInfoModel.swift in Sources */,
 				642580441E6D72270019AD06 /* PatientInfoViewController.m in Sources */,
 				BFDAC7921E7274FA00E17D7B /* JHTableChart.m in Sources */,
 				64E8EF3C228A918700B357D1 /* SURLMacro.swift in Sources */,
+				D1755DAB244714DF008A5808 /* common.c in Sources */,
 				644C9CB81E697DDA0030C3B9 /* UserViewController.m in Sources */,
 				644C9CB51E697DDA0030C3B9 /* TrainingThirdViewController.m in Sources */,
 				BF79D0F81E712E1C00EE468B /* DrugInfoViewController.m in Sources */,
@@ -1562,12 +1872,14 @@
 				BFDAC7881E7274FA00E17D7B /* JHChart.m in Sources */,
 				642620431E80B56200263124 /* FLDrawDataTool.m in Sources */,
 				644C9C361E6575F80030C3B9 /* MBProgressHUD+Add.m in Sources */,
+				D1755DAC244714DF008A5808 /* mvp.vsh.c in Sources */,
 				642580221E6D0CB90019AD06 /* JSONModelError.m in Sources */,
 				642580301E6D3E5C0019AD06 /* UserListViewController.m in Sources */,
+				D1755DAE244714DF008A5808 /* renderer_yuv420p.c in Sources */,
+				D1755D632446BC4A008A5808 /* SURLDoctor.swift in Sources */,
 				644C9C581E66B5BF0030C3B9 /* FLChartView.m in Sources */,
 				642580251E6D0CB90019AD06 /* JSONHTTPClient.m in Sources */,
 				BFE0CF621E825F9D00613473 /* BlueToothDataModel.m in Sources */,
-				D17688B0240CF1C8002D4433 /* HeadSelectView.swift in Sources */,
 				BF79D0F21E6FF69A00EE468B /* ValuePickerView.m in Sources */,
 				BFDAC78D1E7274FA00E17D7B /* JHPieItemsView.m in Sources */,
 				644C9CB11E697DDA0030C3B9 /* RetrainingViewController.m in Sources */,
@@ -1586,9 +1898,12 @@
 				6425803C1E6D515A0019AD06 /* HistoryValueTableViewCell.m in Sources */,
 				642580331E6D4AC80019AD06 /* HistoryViewController.m in Sources */,
 				642580001E6CFF740019AD06 /* DeviceStatusViewController.m in Sources */,
+				D1755DB0244714DF008A5808 /* shader.c in Sources */,
 				D188B7952421C8630087F342 /* FLCustomChartView.m in Sources */,
 				644C9C3A1E666A6D0030C3B9 /* FL_ScaleCircle.m in Sources */,
+				D1755DB8244714DF008A5808 /* ijksdl_timer.c in Sources */,
 				BF79D0F51E7101FF00EE468B /* AddPatientInfoTableViewController.m in Sources */,
+				D1755DAD244714DF008A5808 /* renderer_rgb.c in Sources */,
 				BFF420981EA76B630093BE8D /* FMDatabasePool.m in Sources */,
 				D1D14395226F0B7000BA5302 /* UIViewControllerEx.swift in Sources */,
 				64F664021E63CC6D00F4C9E7 /* RootViewController.m in Sources */,
@@ -1597,16 +1912,22 @@
 				BFF420971EA76B630093BE8D /* FMDatabaseAdditions.m in Sources */,
 				64F663C51E63C8A900F4C9E7 /* AppDelegate.m in Sources */,
 				BFF420961EA76B630093BE8D /* FMDatabase.m in Sources */,
+				D1755D5B2446B24C008A5808 /* UserInfoData+CoreDataProperties.swift in Sources */,
 				644C9CB21E697DDA0030C3B9 /* TrainingFirstViewController.m in Sources */,
 				642580281E6D0CB90019AD06 /* JSONValueTransformer.m in Sources */,
+				D1755DB6244714DF008A5808 /* color.c in Sources */,
 				64F663C21E63C8A900F4C9E7 /* main.m in Sources */,
 				D17F3ED9241A417600C9E8AF /* UIAlertControllerEx.swift in Sources */,
+				D1755DB3244714DF008A5808 /* yuv420p.fsh.c in Sources */,
 				642620401E80B56200263124 /* Model.m in Sources */,
 				BF79D0E81E6FAA7C00EE468B /* EditPatientInfoViewController.m in Sources */,
 				64CE06D02439BF5D00C8B131 /* SLungHistoryNumCell.swift in Sources */,
+				D1755D7024470EEC008A5808 /* NTESNetChatViewController.m in Sources */,
+				D1755D5E2446B85A008A5808 /* MembersListCell.swift in Sources */,
 				644C9CAE1E697DDA0030C3B9 /* ScanResultViewController.m in Sources */,
 				64E8EF38228A916300B357D1 /* SURLRequest.swift in Sources */,
 				6425802A1E6D0CB90019AD06 /* README.md in Sources */,
+				D174AB4C2445BA3400ADD3C7 /* MembersController.swift in Sources */,
 				644C9CAB1E697DDA0030C3B9 /* DeviceViewController.m in Sources */,
 				644C9C5C1E66B5BF0030C3B9 /* UIView+Common.m in Sources */,
 				64BBBAA41E82AD58008A40E5 /* BlueWriteData.m in Sources */,
@@ -1800,6 +2121,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Sprayer/Pneuma.entitlements;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = L5888F4Z42;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Sprayer/Config/PrefixHeader.pch";
@@ -1821,6 +2143,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Sprayer/Pneuma.entitlements;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = L5888F4Z42;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Sprayer/Config/PrefixHeader.pch";
@@ -1929,9 +2252,10 @@
 		64E8EF7E228AAD3300B357D1 /* Sprayer.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				D1755D532446AAAE008A5808 /* Sprayer1.xcdatamodel */,
 				64E8EF7F228AAD3300B357D1 /* Sprayer.xcdatamodel */,
 			);
-			currentVersion = 64E8EF7F228AAD3300B357D1 /* Sprayer.xcdatamodel */;
+			currentVersion = D1755D532446AAAE008A5808 /* Sprayer1.xcdatamodel */;
 			path = Sprayer.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

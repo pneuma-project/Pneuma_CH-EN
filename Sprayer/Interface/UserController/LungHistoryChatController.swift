@@ -285,7 +285,7 @@ extension LungHistoryChatController {
         countOneLabel.font = UIFont.systemFont(ofSize: 14)
         self.view.addSubview(countOneLabel)
         countOneLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(thirdChatView.snp.bottom).offset(20*IPONE_SCALE)
+            make.top.equalTo(thirdChatView.snp.bottom).offset(10*IPONE_SCALE)
             make.left.equalTo(20*IPONE_SCALE)
             make.height.equalTo(15*IPONE_SCALE)
         }
@@ -308,11 +308,13 @@ extension LungHistoryChatController {
         countTwoLabel.text = String.init(format: NSLocalizedString("fev1", comment: ""), FEV1Str)
         countTwoLabel.textColor = HEXCOLOR(h: 0x333333, alpha: 1)
         countTwoLabel.font = UIFont.systemFont(ofSize: 14)
+        countTwoLabel.numberOfLines = 0
         self.view.addSubview(countTwoLabel)
         countTwoLabel.snp.makeConstraints { (make) in
             make.top.equalTo(countOneLabel.snp.bottom).offset(10*IPONE_SCALE)
             make.left.equalTo(20*IPONE_SCALE)
-            make.height.equalTo(15*IPONE_SCALE)
+            make.right.equalTo(-20*IPONE_SCALE)
+//            make.height.equalTo(15*IPONE_SCALE)
         }
         
         var maxPEF = 0.0

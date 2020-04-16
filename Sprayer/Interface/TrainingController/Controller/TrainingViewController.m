@@ -40,8 +40,6 @@
 
 @property(nonatomic,strong)NSMutableArray * yNumArr;
 
-@property(nonatomic,strong)HeadSelectView *headView;
-
 @end
 
 @implementation TrainingViewController

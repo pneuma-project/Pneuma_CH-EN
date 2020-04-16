@@ -7,6 +7,7 @@ PODS:
   - NIMSDK (7.4.0)
   - SnapKit (4.2.0)
   - SwiftyJSON (4.2.0)
+  - Toast (3.1.0)
   - Toast-Swift (4.0.1)
 
 DEPENDENCIES:
@@ -16,6 +17,7 @@ DEPENDENCIES:
   - NIMSDK
   - SnapKit (= 4.2.0)
   - SwiftyJSON (= 4.2.0)
+  - Toast (~> 3.0)
   - Toast-Swift (= 4.0.1)
 
 SPEC REPOS:
@@ -28,6 +30,7 @@ SPEC REPOS:
     - Toast-Swift
   trunk:
     - NIMSDK
+    - Toast
 
 SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
@@ -36,8 +39,9 @@ SPEC CHECKSUMS:
   NIMSDK: 8759a66276dbeb633a62833d96ea57bdb046f611
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
+  Toast: 14a93686d6c8bfe2727afd342414e35660a8a1f3
   Toast-Swift: e42a638589a2f95036b4bb7626cfbdde7daf0393
 
-PODFILE CHECKSUM: 143416028e11f825dc157e64b9568daeb016c59e
+PODFILE CHECKSUM: f9351b9ead839da6f5372ba416e88f45fbdb7177
 
 COCOAPODS: 1.9.1

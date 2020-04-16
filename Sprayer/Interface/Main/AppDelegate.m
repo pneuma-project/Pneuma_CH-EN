@@ -11,6 +11,8 @@
 #import "UserDefaultsUtils.h"
 #import "Pneuma-Swift.h"
 #import "MagicalRecord.h"
+#import <UIView+Toast.h>
+#import <UserNotifications/UserNotifications.h>
 
 @interface AppDelegate ()
 
@@ -26,12 +28,10 @@
     self.window.rootViewController = loginVC;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    [self registerPushService];
     //初始化NIMSDK
-    NSString *appKey        = @"883ba07828988bf912ff75717de3b7a2";
-    NIMSDKOption *option    = [NIMSDKOption optionWithAppKey:appKey];
-    option.apnsCername      = @"your APNs cer name";
-    option.pkCername        = @"your pushkit cer name";
-    [[NIMSDK sharedSDK] registerWithOption:option];
+    [[SVideoChatTool shared] registerNIMManager];
+    
     //初始化 MagicalRecord
     [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"Sprayer.sqlite"];
     
@@ -45,6 +45,34 @@
 -(void)BleDisconnect
 {
     [[BlueToothManager getInstance]startScan];
+}
+
+- (void)registerPushService
+{
+    if (@available(iOS 11.0, *))
+    {
+        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        [center requestAuthorizationWithOptions:(UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert) completionHandler:^(BOOL granted, NSError * _Nullable error) {
+            if (!granted)
+            {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[UIApplication sharedApplication].keyWindow makeToast:@"请开启推送功能否则无法收到推送通知" duration:2.0 position:CSToastPositionCenter];
+                });
+            }
+        }];
+    }
+    else
+    {
+        UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types
+                                                                                 categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    }
+    
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
+    
+    // 注册push权限，用于显示本地推送
+    [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
