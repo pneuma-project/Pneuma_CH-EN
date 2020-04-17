@@ -265,7 +265,8 @@ class LoginViewController: UIViewController,UIGestureRecognizerDelegate {
                             if model.role == 0  {
                                 DoctorRequestObject.shared.requestGetDoctorInfo(doctorId: model.doctorId)
                             }
-                            weekself.loginSucceeAction(role: model.role)
+                            SMainBoardObject.shared().role = model.role
+                            weekself.loginSucceeAction()
                         }else {
                             weekself.view.makeToast("云信登录失败", duration: 1.0, position: .center)
                         }
@@ -312,16 +313,18 @@ class LoginViewController: UIViewController,UIGestureRecognizerDelegate {
     }
     
     //MARK: - 登录成功后的跳转
-    func loginSucceeAction(role:Int16) {
-        if role == 0 {
-            let rootVC = RootViewController()
-            UIApplication.shared.keyWindow?.rootViewController = rootVC
-        }else if role == 1 {
-            let memberVC = MembersController()
-            let navVC = BaseNavViewController.init(rootViewController: memberVC)
-            navVC.navigationBar.barTintColor = RGBCOLOR(r: 0, g: 83, b: 181, alpha: 1)
-            UIApplication.shared.keyWindow?.rootViewController = navVC
-        }
+    func loginSucceeAction() {
+//        if role == 0 {
+//            let rootVC = RootViewController()
+//            UIApplication.shared.keyWindow?.rootViewController = rootVC
+//        }else if role == 1 {
+//            let memberVC = MembersController()
+//            let navVC = BaseNavViewController.init(rootViewController: memberVC)
+//            navVC.navigationBar.barTintColor = RGBCOLOR(r: 0, g: 83, b: 181, alpha: 1)
+//            UIApplication.shared.keyWindow?.rootViewController = navVC
+//        }
+        let mainVC = SMainTabBarController()
+        UIApplication.shared.keyWindow?.rootViewController = mainVC
     }
 }
 

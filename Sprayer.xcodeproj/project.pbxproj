@@ -146,6 +146,8 @@
 		BFF420981EA76B630093BE8D /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF4208F1EA76B630093BE8D /* FMDatabasePool.m */; };
 		BFF420991EA76B630093BE8D /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF420911EA76B630093BE8D /* FMDatabaseQueue.m */; };
 		BFF4209A1EA76B630093BE8D /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF420941EA76B630093BE8D /* FMResultSet.m */; };
+		D108A07C24498FBD00158914 /* SMainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D108A07B24498FBD00158914 /* SMainTabBarController.swift */; };
+		D108A0802449969E00158914 /* SMainBoardObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D108A07F2449969E00158914 /* SMainBoardObject.swift */; };
 		D173D46624173568003697E4 /* SURLExhale.swift in Sources */ = {isa = PBXBuildFile; fileRef = D173D46524173568003697E4 /* SURLExhale.swift */; };
 		D173D468241736CC003697E4 /* ExhaleDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D173D467241736CC003697E4 /* ExhaleDataModel.swift */; };
 		D173D46D24179FF7003697E4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D173D46F24179FF7003697E4 /* Localizable.strings */; };
@@ -479,6 +481,8 @@
 		BFF420931EA76B630093BE8D /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		BFF420941EA76B630093BE8D /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		BFF420951EA76B630093BE8D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D108A07B24498FBD00158914 /* SMainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMainTabBarController.swift; sourceTree = "<group>"; };
+		D108A07F2449969E00158914 /* SMainBoardObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMainBoardObject.swift; sourceTree = "<group>"; };
 		D173D46524173568003697E4 /* SURLExhale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SURLExhale.swift; sourceTree = "<group>"; };
 		D173D467241736CC003697E4 /* ExhaleDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhaleDataModel.swift; sourceTree = "<group>"; };
 		D173D46B24179F6F003697E4 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
@@ -834,7 +838,7 @@
 			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
-		644C9C371E666A440030C3B9 /* View */ = {
+		644C9C371E666A440030C3B9 /* DrawView */ = {
 			isa = PBXGroup;
 			children = (
 				BF79D0EF1E6FF69A00EE468B /* PickerView */,
@@ -843,7 +847,7 @@
 				644C9C381E666A6D0030C3B9 /* FL_ScaleCircle.h */,
 				644C9C391E666A6D0030C3B9 /* FL_ScaleCircle.m */,
 			);
-			path = View;
+			path = DrawView;
 			sourceTree = "<group>";
 		};
 		644C9C4D1E66B5BF0030C3B9 /* FL_ChatView */ = {
@@ -1233,6 +1237,22 @@
 			path = FMDB;
 			sourceTree = "<group>";
 		};
+		D108A07D244995C700158914 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D108A07F2449969E00158914 /* SMainBoardObject.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		D108A07E2449965C00158914 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D1D143A4226F167F00BA5302 /* AniShowCloseView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		D173DFB22418D09800E8DBCA /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -1462,7 +1482,6 @@
 		D1D14387226F09A500BA5302 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
-				644C9C371E666A440030C3B9 /* View */,
 				D1D14388226F09D700BA5302 /* Main */,
 				648A72C5228D4F2800B8B430 /* Login */,
 				D174AB452445B44000ADD3C7 /* Doctor */,
@@ -1478,10 +1497,13 @@
 		D1D14388226F09D700BA5302 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				D108A07E2449965C00158914 /* View */,
+				D108A07D244995C700158914 /* ViewModel */,
 				64F663C31E63C8A900F4C9E7 /* AppDelegate.h */,
 				64F663C41E63C8A900F4C9E7 /* AppDelegate.m */,
 				64F664001E63CC6D00F4C9E7 /* RootViewController.h */,
 				64F664011E63CC6D00F4C9E7 /* RootViewController.m */,
+				D108A07B24498FBD00158914 /* SMainTabBarController.swift */,
 				64F663C91E63C8A900F4C9E7 /* Main.storyboard */,
 				64F663CE1E63C8A900F4C9E7 /* LaunchScreen.storyboard */,
 			);
@@ -1505,10 +1527,10 @@
 		D1D1439E226F162000BA5302 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				644C9C371E666A440030C3B9 /* DrawView */,
 				D1755D662446FDE2008A5808 /* VideoChat */,
 				648A72D2228D573200B8B430 /* KeyChain */,
 				644C9C1A1E655E560030C3B9 /* Category */,
-				D1D143A4226F167F00BA5302 /* AniShowCloseView.swift */,
 				D1D143A3226F167F00BA5302 /* Common.swift */,
 				648A72CE228D567500B8B430 /* FLUserDefaults.swift */,
 				648A72D0228D569C00B8B430 /* Tools.swift */,
@@ -1819,6 +1841,7 @@
 				BFDAC7911E7274FA00E17D7B /* JHShowInfoView.m in Sources */,
 				D1D141862292487300922483 /* SprayerDataModel.swift in Sources */,
 				BF0327BB1ED5847400D86F94 /* HistoryDetailViewController.m in Sources */,
+				D108A0802449969E00158914 /* SMainBoardObject.swift in Sources */,
 				D17F3ED52419DE5000C9E8AF /* SLungTestTipController.swift in Sources */,
 				64F663FE1E63CB8400F4C9E7 /* BaseViewController.m in Sources */,
 				644C9CB61E697DDA0030C3B9 /* TrainingViewController.m in Sources */,
@@ -1899,6 +1922,7 @@
 				642580331E6D4AC80019AD06 /* HistoryViewController.m in Sources */,
 				642580001E6CFF740019AD06 /* DeviceStatusViewController.m in Sources */,
 				D1755DB0244714DF008A5808 /* shader.c in Sources */,
+				D108A07C24498FBD00158914 /* SMainTabBarController.swift in Sources */,
 				D188B7952421C8630087F342 /* FLCustomChartView.m in Sources */,
 				644C9C3A1E666A6D0030C3B9 /* FL_ScaleCircle.m in Sources */,
 				D1755DB8244714DF008A5808 /* ijksdl_timer.c in Sources */,

@@ -195,9 +195,10 @@
 }
 
 -(IBAction)fullScreenAction:(UIButton*)sender{
-    self.view.frame = CGRectMake(screen_width-50, screen_height-80, 50, 80);
+    self.view.frame = CGRectMake(screen_width-80, screen_height-120-kSafeAreaBottomHeight, 80, 120);
+    self.bigVideoView.frame = CGRectMake(0, 0, 80, 120);
     self.fullScreenBtn.hidden = YES;
-    
+    self.navigationController.navigationBarHidden = NO;
 }
 
 #pragma mark - NIMNetCallManagerDelegate
