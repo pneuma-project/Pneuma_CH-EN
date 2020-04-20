@@ -163,7 +163,6 @@
 		D1755D612446BBD5008A5808 /* DoctorRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1755D602446BBD5008A5808 /* DoctorRequestObject.swift */; };
 		D1755D632446BC4A008A5808 /* SURLDoctor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1755D622446BC4A008A5808 /* SURLDoctor.swift */; };
 		D1755D652446F11C008A5808 /* MembersLungTestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1755D642446F11C008A5808 /* MembersLungTestController.swift */; };
-		D1755D6C24470E70008A5808 /* NTESVideoChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1755D6A24470E70008A5808 /* NTESVideoChatViewController.xib */; };
 		D1755D6D24470E70008A5808 /* NTESVideoChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1755D6B24470E70008A5808 /* NTESVideoChatViewController.m */; };
 		D1755D7024470EEC008A5808 /* NTESNetChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1755D6F24470EEC008A5808 /* NTESNetChatViewController.m */; };
 		D1755D7324470F77008A5808 /* NTESTimerHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = D1755D7124470F77008A5808 /* NTESTimerHolder.m */; };
@@ -202,6 +201,9 @@
 		D196C7692448453C009AB731 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D196C7682448453C009AB731 /* UserNotifications.framework */; };
 		D196C76B24484542009AB731 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D196C76A24484542009AB731 /* UserNotificationsUI.framework */; };
 		D196C76D24484550009AB731 /* CallKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D196C76C24484550009AB731 /* CallKit.framework */; };
+		D1A22D3A244D35000024B2DE /* CRHangView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A22D39244D34FF0024B2DE /* CRHangView.swift */; };
+		D1A22D3C244D36360024B2DE /* SVideoChatBoardObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A22D3B244D36360024B2DE /* SVideoChatBoardObject.swift */; };
+		D1A22D3D244D901E0024B2DE /* NTESVideoChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1A22D3F244D901E0024B2DE /* NTESVideoChatViewController.xib */; };
 		D1B8DACD2276E6DE00643EC6 /* BlueDeviceListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B8DACA2276E6DE00643EC6 /* BlueDeviceListCell.swift */; };
 		D1B8DACE2276E6DE00643EC6 /* BlueDeviceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B8DACB2276E6DE00643EC6 /* BlueDeviceListView.swift */; };
 		D1B8DACF2276E6DE00643EC6 /* BlueDeviceListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1B8DACC2276E6DE00643EC6 /* BlueDeviceListCell.xib */; };
@@ -509,7 +511,6 @@
 		D1755D622446BC4A008A5808 /* SURLDoctor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SURLDoctor.swift; sourceTree = "<group>"; };
 		D1755D642446F11C008A5808 /* MembersLungTestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembersLungTestController.swift; sourceTree = "<group>"; };
 		D1755D6924470E70008A5808 /* NTESVideoChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESVideoChatViewController.h; sourceTree = "<group>"; };
-		D1755D6A24470E70008A5808 /* NTESVideoChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NTESVideoChatViewController.xib; sourceTree = "<group>"; };
 		D1755D6B24470E70008A5808 /* NTESVideoChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESVideoChatViewController.m; sourceTree = "<group>"; };
 		D1755D6E24470EEC008A5808 /* NTESNetChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESNetChatViewController.h; sourceTree = "<group>"; };
 		D1755D6F24470EEC008A5808 /* NTESNetChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESNetChatViewController.m; sourceTree = "<group>"; };
@@ -575,6 +576,11 @@
 		D196C76A24484542009AB731 /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
 		D196C76C24484550009AB731 /* CallKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CallKit.framework; path = System/Library/Frameworks/CallKit.framework; sourceTree = SDKROOT; };
 		D196C76E24484A6F009AB731 /* Pneuma.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Pneuma.entitlements; sourceTree = "<group>"; };
+		D1A22D39244D34FF0024B2DE /* CRHangView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRHangView.swift; sourceTree = "<group>"; };
+		D1A22D3B244D36360024B2DE /* SVideoChatBoardObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVideoChatBoardObject.swift; sourceTree = "<group>"; };
+		D1A22D3E244D901E0024B2DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/NTESVideoChatViewController.xib; sourceTree = "<group>"; };
+		D1A22D41244D90230024B2DE /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/NTESVideoChatViewController.strings"; sourceTree = "<group>"; };
+		D1A22D43244D90260024B2DE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/NTESVideoChatViewController.strings; sourceTree = "<group>"; };
 		D1B8DACA2276E6DE00643EC6 /* BlueDeviceListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueDeviceListCell.swift; sourceTree = "<group>"; };
 		D1B8DACB2276E6DE00643EC6 /* BlueDeviceListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueDeviceListView.swift; sourceTree = "<group>"; };
 		D1B8DACC2276E6DE00643EC6 /* BlueDeviceListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BlueDeviceListCell.xib; sourceTree = "<group>"; };
@@ -1241,6 +1247,7 @@
 			isa = PBXGroup;
 			children = (
 				D108A07F2449969E00158914 /* SMainBoardObject.swift */,
+				D1A22D3B244D36360024B2DE /* SVideoChatBoardObject.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1249,6 +1256,7 @@
 			isa = PBXGroup;
 			children = (
 				D1D143A4226F167F00BA5302 /* AniShowCloseView.swift */,
+				D1A22D39244D34FF0024B2DE /* CRHangView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1336,7 +1344,7 @@
 				D1755D6F24470EEC008A5808 /* NTESNetChatViewController.m */,
 				D1755D6924470E70008A5808 /* NTESVideoChatViewController.h */,
 				D1755D6B24470E70008A5808 /* NTESVideoChatViewController.m */,
-				D1755D6A24470E70008A5808 /* NTESVideoChatViewController.xib */,
+				D1A22D3F244D901E0024B2DE /* NTESVideoChatViewController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1676,7 +1684,7 @@
 				64F663CB1E63C8A900F4C9E7 /* Main.storyboard in Resources */,
 				644C9C7A1E6918080030C3B9 /* noticeMusic.wav in Resources */,
 				7906CA4B1FBD399B00200B66 /* FlowValueSettingController.xib in Resources */,
-				D1755D6C24470E70008A5808 /* NTESVideoChatViewController.xib in Resources */,
+				D1A22D3D244D901E0024B2DE /* NTESVideoChatViewController.xib in Resources */,
 				D1B8DACF2276E6DE00643EC6 /* BlueDeviceListCell.xib in Resources */,
 				644C9C7D1E6918080030C3B9 /* scanLine@3x.png in Resources */,
 				644C9CBE1E697E980030C3B9 /* MedicalTableViewCell.xib in Resources */,
@@ -1826,6 +1834,7 @@
 				644C9C321E6575E80030C3B9 /* MBProgressHUD+Add.m in Sources */,
 				644C9CAD1E697DDA0030C3B9 /* lhScanQCodeViewController.m in Sources */,
 				6425804E1E6E991E0019AD06 /* PatientInfoTableViewCell.m in Sources */,
+				D1A22D3C244D36360024B2DE /* SVideoChatBoardObject.swift in Sources */,
 				642620421E80B56200263124 /* FLByteUtil.m in Sources */,
 				644C9C591E66B5BF0030C3B9 /* UIButton+EnlargeTouchArea.m in Sources */,
 				BFDAC78E1E7274FA00E17D7B /* JHRadarChart.m in Sources */,
@@ -1856,6 +1865,7 @@
 				D1755D652446F11C008A5808 /* MembersLungTestController.swift in Sources */,
 				D1755D7624471154008A5808 /* NTESNetCallChatInfo.m in Sources */,
 				D17F3ED72419EB2800C9E8AF /* SLungTestDateController.swift in Sources */,
+				D1A22D3A244D35000024B2DE /* CRHangView.swift in Sources */,
 				D1D143A6226F167F00BA5302 /* AniShowCloseView.swift in Sources */,
 				D1755DB5244714DF008A5808 /* rgb.fsh.c in Sources */,
 				64CF5F44228E8DD300595018 /* SURLLogin.swift in Sources */,
@@ -2046,6 +2056,16 @@
 				D173DFB12418BC3B00E8DBCA /* en */,
 			);
 			name = HistoryTableViewCell.xib;
+			sourceTree = "<group>";
+		};
+		D1A22D3F244D901E0024B2DE /* NTESVideoChatViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D1A22D3E244D901E0024B2DE /* Base */,
+				D1A22D41244D90230024B2DE /* zh-Hans */,
+				D1A22D43244D90260024B2DE /* en */,
+			);
+			name = NTESVideoChatViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

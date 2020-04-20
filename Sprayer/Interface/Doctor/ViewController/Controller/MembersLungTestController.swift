@@ -29,6 +29,8 @@ class MembersLungTestController: BaseViewController,CustemBBI {
     var xNumArr:[String] = []
     var thirdXNumArr:[String] = []
     var secondDataArr:[String] = []
+    
+    var timer:Timer?
    
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,26 +47,27 @@ class MembersLungTestController: BaseViewController,CustemBBI {
         super.viewWillAppear(animated)
         self.navigationItem.leftBarButtonItem = CustemNavItem.initWith(UIImage.init(named: "icon-back"), andTarget: self, andinfoStr: "first")
         self.navigationItem.rightBarButtonItem = CustemNavItem.initWith(UIImage.init(named: "multiTalkTipsBannerIcon"), andTarget: self, andinfoStr: "call")
-        self.requestData()
+        self.timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.requestData), userInfo: nil, repeats: true)
+        self.timer?.fireDate = Date.distantPast
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        self.timer?.fireDate = Date.distantFuture
     }
    
     func bbIdidClick(withName infoStr: String!) {
         if infoStr == "first" {
             self.navigationController?.popViewController(animated: true)
         }else if infoStr == "call" {
-            //由于音视频聊天里头有音频和视频聊天界面的切换，直接用present的话页面过渡会不太自然，这里还是用push，然后做出present的效果
-            let vc = NTESVideoChatViewController.init(callee: "pn"+"\(self.patientId)")
-            let transition = CATransition.init()
-            transition.duration = 0.25
-            transition.timingFunction = CAMediaTimingFunction.init(name: "default")
-            transition.type = kCATransitionPush
-            transition.subtype = kCATransitionFromTop
-            self.navigationController?.view.layer.add(transition, forKey: nil)
-            self.navigationController?.isNavigationBarHidden = true
-//            self.navigationController?.pushViewController(vc!, animated: false)
-            vc!.view.frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
-            UIViewController.getCurrentViewCtrl().view.addSubview(vc!.view)
-            UIViewController.getCurrentViewCtrl().addChildViewController(vc!)
+            if !SMainBoardObject.shared().isVideoChatExist {
+                guard let tabbarCtrl = UIApplication.shared.keyWindow?.rootViewController as? SMainTabBarController else {
+                    return
+                }
+                let vc = NTESVideoChatViewController.init(callee: "pn"+"\(self.patientId)")
+                tabbarCtrl.resetSubViewController(vc: vc!)
+                SVideoChatBoardObject.enterVideoChat()
+            }
+            
         }
     }
     
@@ -113,13 +116,16 @@ class MembersLungTestController: BaseViewController,CustemBBI {
 
 //数据回调
 extension MembersLungTestController {
-    func requestData() {
+    @objc func requestData() {
         DoctorRequestObject.shared.requestGetTmpExhaleData(patientSsId: patientId)
     }
     
     func requestDataBlock() {
         DoctorRequestObject.shared.requestGetTmpExhaleDataSuc = {[weak self](model) in
             if let weakself = self {
+                if model.exhaleData == weakself.dataList.joined(separator: ",") {
+                    return
+                }
                 let exhaleDataArr = model.exhaleData.components(separatedBy: ",")
                 weakself.XNumSetting(dataArr: exhaleDataArr)
                 weakself.settingTime(date: model.addDate)

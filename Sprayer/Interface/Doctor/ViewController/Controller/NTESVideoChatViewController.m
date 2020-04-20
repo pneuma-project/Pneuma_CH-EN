@@ -12,6 +12,7 @@
 #import "NTESNetCallChatInfo.h"
 #import "UIView+NTES.h"
 #import "NTESGLView.h"
+#import "Pneuma-Swift.h"
 
 @interface NTESVideoChatViewController ()
 
@@ -132,8 +133,9 @@
     self.refuseBtn.hidden   = YES;
     self.hungUpBtn.hidden   = NO;
     self.connectingLabel.hidden = NO;
-    self.connectingLabel.text = @"正在呼叫，请稍候...";
+    self.connectingLabel.text = NSLocalizedString(@"Calling_wait", nil);
     self.switchCameraBtn.hidden = NO;
+    self.fullScreenBtn.hidden = YES;
     [self.hungUpBtn removeTarget:self action:NULL forControlEvents:UIControlEventTouchUpInside];
     [self.hungUpBtn addTarget:self action:@selector(hangup) forControlEvents:UIControlEventTouchUpInside];
     self.localView = self.bigVideoView;
@@ -145,7 +147,7 @@
     self.refuseBtn.hidden   = NO;
     self.hungUpBtn.hidden   = YES;
     self.connectingLabel.hidden = NO;
-    self.connectingLabel.text = [NSString stringWithFormat:@"%@的来电",self.callInfo.message];
+    self.connectingLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Caller_information", nil),self.callInfo.message];
     self.switchCameraBtn.hidden = YES;
 }
 
@@ -155,7 +157,7 @@
     self.refuseBtn.hidden   = YES;
     self.hungUpBtn.hidden   = NO;
     self.connectingLabel.hidden = NO;
-    self.connectingLabel.text = @"正在连接对方...请稍后...";
+    self.connectingLabel.text = NSLocalizedString(@"Connecting_wait", nil);
     self.switchCameraBtn.hidden = YES;
     [self.hungUpBtn removeTarget:self action:NULL forControlEvents:UIControlEventTouchUpInside];
     [self.hungUpBtn addTarget:self action:@selector(hangup) forControlEvents:UIControlEventTouchUpInside];
@@ -169,6 +171,7 @@
     self.hungUpBtn.hidden   = NO;
     self.connectingLabel.hidden = YES;
     self.switchCameraBtn.hidden = NO;
+    self.fullScreenBtn.hidden = NO;
     [self.hungUpBtn removeTarget:self action:NULL forControlEvents:UIControlEventTouchUpInside];
     [self.hungUpBtn addTarget:self action:@selector(hangup) forControlEvents:UIControlEventTouchUpInside];
 //    self.localVideoLayer.hidden = NO;
@@ -195,10 +198,7 @@
 }
 
 -(IBAction)fullScreenAction:(UIButton*)sender{
-    self.view.frame = CGRectMake(screen_width-80, screen_height-120-kSafeAreaBottomHeight, 80, 120);
-    self.bigVideoView.frame = CGRectMake(0, 0, 80, 120);
-    self.fullScreenBtn.hidden = YES;
-    self.navigationController.navigationBarHidden = NO;
+    [SVideoChatBoardObject quitVideoChatWithCloseType:1];
 }
 
 #pragma mark - NIMNetCallManagerDelegate

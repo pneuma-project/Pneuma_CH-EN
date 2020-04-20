@@ -78,4 +78,21 @@ class DoctorRequestObject: NSObject {
             Dprint("URL_GetDoctorInfoError:\(error)")
         }
     }
+    
+    func requestSaveTmpExhaleData(medicineId:String,exhaleData:String,exhaleDataSum:Double,addDate:String) {
+        if let loginKey = UserInfoData.mr_findFirst()?.loginKey {
+            SURLRequest.sharedInstance.requestPostWithHeader(URL_SaveTmpExhaleData, param: ["loginKey":loginKey,"medicineId":medicineId,"exhaleData":exhaleData,"exhaleDataSum":exhaleDataSum,"addDate":addDate], checkSum: [loginKey,medicineId,exhaleData,"\(exhaleDataSum)",addDate], suc: { (data) in
+                Dprint("URL_SaveTmpExhaleData:\(data)")
+                let dataJson = JSON(data)
+                let code = dataJson["code"].stringValue
+                let message = dataJson["message"].stringValue
+                if message == "4000006" {
+                    let loginVC = LoginViewController()
+                    UIApplication.shared.keyWindow?.rootViewController = loginVC
+                }
+            }) { (error) in
+                Dprint("URL_SaveTmpExhaleDataError:\(error)")
+            }
+        }
+    }
 }

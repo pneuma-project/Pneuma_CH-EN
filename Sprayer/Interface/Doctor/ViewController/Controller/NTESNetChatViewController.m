@@ -163,7 +163,7 @@
     
     NIMNetCallOption *option = [[NIMNetCallOption alloc] init];
     option.extendMessage = UserInfoData.MR_findFirst.name;
-    option.apnsContent = @"视频聊天请求";
+    option.apnsContent = NSLocalizedString(@"Video_chat_request", nil);
     option.apnsSound = @"video_chat_tip_receiver.aac";
     [self fillUserSetting:option];
     
@@ -182,7 +182,7 @@
             });
         }else{
             if (error) {
-                [wself.navigationController.view makeToast:@"连接失败"
+                [wself.navigationController.view makeToast:NSLocalizedString(@"Connection failed", nil)
                                                   duration:2
                                                   position:CSToastPositionCenter];
             }else{
@@ -241,7 +241,7 @@
                 NSTimeInterval delay = 10.f; //10秒后判断下房间
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     if (wself.chatRoom.count == 1) {
-                        [wself.navigationController.view makeToast:@"通话失败"
+                        [wself.navigationController.view makeToast:NSLocalizedString(@"Call failed", nil)
                                                           duration:2
                                                           position:CSToastPositionCenter];
                         [wself hangup];
@@ -249,7 +249,7 @@
                 });
         }else{
             wself.chatRoom = nil;
-            [wself.navigationController.view makeToast:@"连接失败"
+            [wself.navigationController.view makeToast:NSLocalizedString(@"Connection failed", nil)
                                               duration:2
                                               position:CSToastPositionCenter];
             [wself dismiss:nil];
@@ -271,10 +271,11 @@
     transition.type = kCATransitionPush;
     transition.subtype  = kCATransitionFromBottom;
     [self.navigationController.view.layer addAnimation:transition forKey:nil];
-    self.navigationController.navigationBarHidden = NO;
+//    self.navigationController.navigationBarHidden = NO;
 //    [self.navigationController popViewControllerAnimated:NO];
-    [self.view removeFromSuperview];
-    [self removeFromParentViewController];
+//    [self.view removeFromSuperview];
+//    [self removeFromParentViewController];
+    [SVideoChatBoardObject quitVideoChatWithCloseType:0];
     [self setUpStatusBar:UIStatusBarStyleDefault];
     if (completion) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(transition.duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -331,7 +332,7 @@
                         [[NIMAVChatSDK sharedSDK].netCallManager hangup:callId];
                         wself.chatRoom = nil;
                         [wself playTimeoutRing];
-                        [wself.navigationController.view makeToast:@"无人接听"
+                        [wself.navigationController.view makeToast:NSLocalizedString(@"No one heard", nil)
                                                           duration:2
                                                           position:CSToastPositionCenter];
                         [wself dismiss:nil];
@@ -360,7 +361,7 @@
     if (self.callInfo.callID == callID) {
         if (!accepted) {
             self.chatRoom = nil;
-            [self.navigationController.view makeToast:@"对方拒绝接听"
+            [self.navigationController.view makeToast:NSLocalizedString(@"refuses_answer", nil)
                                              duration:2
                                              position:CSToastPositionCenter];
             [self playHangUpRing];
@@ -397,7 +398,7 @@
 
 - (void)onResponsedByOther:(UInt64)callID
                   accepted:(BOOL)accepted{
-    [self.view.window makeToast:@"已在其他端处理"
+    [self.view.window makeToast:NSLocalizedString(@"Processed on other end", nil)
                        duration:2
                        position:CSToastPositionCenter];
     [self dismiss:nil];
@@ -434,7 +435,7 @@
     }
     else if(holder == self.calleeResponseTimer) {
         if (!_calleeResponsed) {
-            [self.navigationController.view makeToast:@"接听超时"
+            [self.navigationController.view makeToast:NSLocalizedString(@"Answer timeout", nil)
                                               duration:2
                                               position:CSToastPositionCenter];
             [self response:NO];

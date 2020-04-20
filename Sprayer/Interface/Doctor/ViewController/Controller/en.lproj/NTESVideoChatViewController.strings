@@ -1,0 +1,6 @@
+
+/* Class = "UIButton"; normalTitle = "接听"; ObjectID = "JWH-En-CEa"; */
+"JWH-En-CEa.normalTitle" = "Answer";
+
+/* Class = "UIButton"; normalTitle = "拒接"; ObjectID = "SiS-XY-Kl1"; */
+"SiS-XY-Kl1.normalTitle" = "Reject";

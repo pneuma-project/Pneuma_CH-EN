@@ -33,4 +33,14 @@ class SMainTabBarController: UITabBarController {
             self.viewControllers = tabArray
         }
     }
+    
+    func resetSubViewController(vc:NTESVideoChatViewController) {
+        if SMainBoardObject.shared().role == 0 { //病人端
+            let tabArray = [self.viewControllers![0],vc]
+            self.viewControllers = tabArray
+        }else { //医生端
+            let tabArray = [self.viewControllers![0],vc]
+            self.viewControllers = tabArray
+        }
+    }
 }

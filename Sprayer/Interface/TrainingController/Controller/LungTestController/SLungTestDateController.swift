@@ -61,14 +61,6 @@ class SLungTestDateController: BaseViewController,CustemBBI {
         NotificationCenter.default.addObserver(self, selector: #selector(connectSucceedAction), name: NSNotification.Name(rawValue: BlueConnectSucceed), object: nil)
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        if timer != nil {
-            timer!.invalidate()
-            timer = nil
-        }
-    }
-    
     @objc func disconnectAction() {
         if timer != nil {
             timer?.fireDate = Date.distantFuture
@@ -77,7 +69,6 @@ class SLungTestDateController: BaseViewController,CustemBBI {
     
     @objc func connectSucceedAction() {
         if timer != nil {
-            
             timer?.fireDate = Date.distantPast
         }
     }
@@ -91,6 +82,10 @@ class SLungTestDateController: BaseViewController,CustemBBI {
     func bbIdidClick(withName infoStr: String!) {
         if infoStr == "first" {
             if dataList.count == 0 {
+                if timer != nil {
+                    timer!.invalidate()
+                    timer = nil
+                }
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopLungTrain"), object: nil, userInfo: nil)
                 self.writeStopDataAction()
                 self.navigationController?.popViewController(animated: true)
@@ -106,6 +101,10 @@ class SLungTestDateController: BaseViewController,CustemBBI {
                             //隐藏加载动画
                             weakself.view.hideToastActivity()
                             if code == "200" {
+                                if weakself.timer != nil {
+                                    weakself.timer!.invalidate()
+                                    weakself.timer = nil
+                                }
                                 LCProgressHUD.showSuccessText(NSLocalizedString("Upload success", comment: ""))
                                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopLungTrain"), object: nil, userInfo: nil)
                                 weakself.writeStopDataAction()
@@ -116,6 +115,10 @@ class SLungTestDateController: BaseViewController,CustemBBI {
                         }
                     }
                 }, cancelTitle: NSLocalizedString("Return", comment: "")) {
+                    if self.timer != nil {
+                        self.timer!.invalidate()
+                        self.timer = nil
+                    }
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopLungTrain"), object: nil, userInfo: nil)
                     self.writeStopDataAction()
                     self.navigationController?.popViewController(animated: true)
@@ -123,19 +126,14 @@ class SLungTestDateController: BaseViewController,CustemBBI {
                 self.present(alertVC, animated: true, completion: nil)
             }
         }else if infoStr == "call" {
-            //由于音视频聊天里头有音频和视频聊天界面的切换，直接用present的话页面过渡会不太自然，这里还是用push，然后做出present的效果
-            let vc = NTESVideoChatViewController.init(callee: "pn"+"\(DoctorBoardObject.shared().doctorSsId)")
-            let transition = CATransition.init()
-            transition.duration = 0.25
-            transition.timingFunction = CAMediaTimingFunction.init(name: "default")
-            transition.type = kCATransitionPush
-            transition.subtype = kCATransitionFromTop
-            self.navigationController?.view.layer.add(transition, forKey: nil)
-            self.navigationController?.isNavigationBarHidden = true
-//            self.navigationController?.pushViewController(vc!, animated: false)
-            vc!.view.frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
-            UIViewController.getCurrentViewCtrl().view.addSubview(vc!.view)
-            UIViewController.getCurrentViewCtrl().addChildViewController(vc!)
+            if !SMainBoardObject.shared().isVideoChatExist {
+                guard let tabbarCtrl = UIApplication.shared.keyWindow?.rootViewController as? SMainTabBarController else {
+                    return
+                }
+                let vc = NTESVideoChatViewController.init(callee: "pn"+"\(DoctorBoardObject.shared().doctorSsId)")
+                tabbarCtrl.resetSubViewController(vc: vc!)
+                SVideoChatBoardObject.enterVideoChat()
+            }
         }
     }
     
@@ -146,6 +144,7 @@ class SLungTestDateController: BaseViewController,CustemBBI {
         exhaleTime = objDict["exhaleTime"] as! String
         let exhaleDataArr = exhaleDataStr.components(separatedBy: ",")
         self.XNumSetting(dataArr: exhaleDataArr)
+        self.saveTmpData()
     }
     
     func XNumSetting(dataArr:[String]) {
@@ -188,6 +187,13 @@ class SLungTestDateController: BaseViewController,CustemBBI {
             thirdXNumArr.append(String.init(format: "%.1f", Double(i)*0.1))
         }
         self.setInterface()
+    }
+    
+    func saveTmpData() {
+        guard let exhaleDataSum = Double(self.secondDataArr[self.secondDataArr.count-1]) else {
+            return
+        }
+        DoctorRequestObject.shared.requestSaveTmpExhaleData(medicineId: self.medicineId, exhaleData: self.exhaleDataStr, exhaleDataSum: exhaleDataSum, addDate: self.exhaleTime)
     }
 }
 

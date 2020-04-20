@@ -125,3 +125,17 @@
 "finish_testing" = "完成本次测试";
 "start_testing_time" = "开始第%d次测试";
 "number_group" = "第%d组数据";
+
+///视频部分
+"Video_chat_request" = "视频聊天请求";
+"Call failed" = "通话失败";
+"No one heard" = "无人接听";
+"refuses_answer" = "对方拒绝接听";
+"Processed on other end" = "已在其他端处理";
+"Answer timeout" = "接听超时";
+"Calling_wait" = "正在呼叫，请稍候...";
+"Caller_information" = "%@的来电";
+"Connecting_wait" = "正在连接对方...请稍后...";
+"Start_call" = "发起视频通话";
+"Accout_logout" = "你的账号在另一端登录，请注意帐号信息安全";
+"calling" = "通话中...";

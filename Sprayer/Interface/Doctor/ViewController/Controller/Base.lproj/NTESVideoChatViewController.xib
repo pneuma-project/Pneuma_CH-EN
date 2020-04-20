@@ -113,11 +113,11 @@
                         <action selector="switchCamera:" destination="-1" eventType="touchUpInside" id="3ZC-0o-4jf"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dic-t9-YEs">
-                    <rect key="frame" x="30" y="70" width="38" height="38"/>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dic-t9-YEs">
+                    <rect key="frame" x="30" y="60" width="50" height="50"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="38" id="HcT-92-RCb"/>
-                        <constraint firstAttribute="width" constant="38" id="l3g-xz-PRP"/>
+                        <constraint firstAttribute="height" constant="50" id="HcT-92-RCb"/>
+                        <constraint firstAttribute="width" constant="50" id="l3g-xz-PRP"/>
                     </constraints>
                     <state key="normal" image="ws_FullScreen"/>
                     <connections>
@@ -142,7 +142,7 @@
                 <constraint firstAttribute="trailing" secondItem="3Zh-WU-GLj" secondAttribute="trailing" id="ZIP-nq-Hzg"/>
                 <constraint firstItem="Dic-t9-YEs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="at7-uG-Fs6"/>
                 <constraint firstItem="SiS-XY-Kl1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="29" id="eDP-ct-Sa4"/>
-                <constraint firstItem="Dic-t9-YEs" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="70" id="jPH-Qw-397"/>
+                <constraint firstItem="Dic-t9-YEs" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="60" id="jPH-Qw-397"/>
                 <constraint firstAttribute="bottom" secondItem="JWH-En-CEa" secondAttribute="bottom" constant="70" id="qfi-F4-JrB"/>
                 <constraint firstItem="Koi-8h-l2u" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="80" id="s1Z-En-8BV"/>
                 <constraint firstAttribute="trailing" secondItem="fO7-lJ-JAT" secondAttribute="trailing" id="uWF-yc-w5X"/>
@@ -150,7 +150,7 @@
                 <constraint firstAttribute="bottom" secondItem="R1h-Iv-Nox" secondAttribute="bottom" constant="50" id="yoA-QA-Dlx"/>
                 <constraint firstItem="R1h-Iv-Nox" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="80" id="z86-NY-dmA"/>
             </constraints>
-            <point key="canvasLocation" x="336.80000000000001" y="92.203898050974516"/>
+            <point key="canvasLocation" x="-42" y="53"/>
         </view>
     </objects>
     <resources>
@@ -162,6 +162,6 @@
         <image name="btn_turn_pressed.png" width="37" height="25"/>
         <image name="btn_vcancel_normal" width="30" height="30"/>
         <image name="netcall_bkg" width="375" height="667"/>
-        <image name="ws_FullScreen" width="38" height="38"/>
+        <image name="ws_FullScreen" width="19" height="19"/>
     </resources>
 </document>

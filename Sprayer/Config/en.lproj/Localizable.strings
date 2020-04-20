@@ -125,3 +125,17 @@
 "finish_testing" = "Finish this test";
 "start_testing_time" = "Start the %d test";
 "number_group" = "Group %d data";
+
+///视频部分
+"Video_chat_request" = "video chat request";
+"Call failed" = "Call failed";
+"No one heard" = "No one heard";
+"refuses_answer" = "The other party refuses to answer";
+"Processed on other end" = "Processed on other end";
+"Answer timeout" = "Answer timeout";
+"Calling_wait" = "Calling, please wait ...";
+"Caller_information" = "%@ call";
+"Connecting_wait" = "Connecting to the other party ... please wait ...";
+"Start_call" = "Start a video call";
+"Accout_logout" = "Your account is logged in at the other end, please pay attention to account information security";
+"calling" = "calling...";

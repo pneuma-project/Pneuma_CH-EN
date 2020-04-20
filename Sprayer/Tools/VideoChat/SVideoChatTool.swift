@@ -49,7 +49,10 @@ extension SVideoChatTool: NIMNetCallManagerDelegate {
         if UIViewController.getCurrentViewCtrl().isKind(of: NTESNetChatViewController.classForCoder()) {
             NIMAVChatSDK.shared().netCallManager.control(callID, type: .busyLine)
         }else {
-            var vc = UIViewController()
+            guard let tabbarCtrl = UIApplication.shared.keyWindow?.rootViewController as? SMainTabBarController else {
+                return
+            }
+            var vc = NTESVideoChatViewController()
             switch type {
             case .video:
                 vc = NTESVideoChatViewController.init(caller: caller, callId: callID, extendMessage: extendMessage)
@@ -57,19 +60,25 @@ extension SVideoChatTool: NIMNetCallManagerDelegate {
             default:
                 break
             }
+            tabbarCtrl.resetSubViewController(vc: vc)
             //由于音视频聊天里头有音频和视频聊天界面的切换，直接用present的话页面过渡会不太自然，这里还是用push，然后做出present的效果
-            let transition = CATransition.init()
-            transition.duration = 0.25
-            transition.timingFunction = CAMediaTimingFunction.init(name: "default")
-            transition.type = kCATransitionPush
-            transition.subtype = kCATransitionFromTop
-            UIViewController.getCurrentViewCtrl().navigationController?.view.layer.add(transition, forKey: nil)
-            UIViewController.getCurrentViewCtrl().navigationController?.isNavigationBarHidden = true
-//            UIViewController.getCurrentViewCtrl().navigationController?.pushViewController(vc, animated: false)
-            vc.view.frame = CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
-            UIViewController.getCurrentViewCtrl().view.addSubview(vc.view)
-            UIViewController.getCurrentViewCtrl().addChildViewController(vc)
+//            let transition = CATransition.init()
+//            transition.duration = 0.25
+//            transition.timingFunction = CAMediaTimingFunction.init(name: "default")
+//            transition.type = kCATransitionPush
+//            transition.subtype = kCATransitionFromTop
+//            UIViewController.getCurrentViewCtrl().navigationController?.view.layer.add(transition, forKey: nil)
+            SVideoChatBoardObject.enterVideoChat()
             
+            guard let name = extendMessage else {
+                return
+            }
+            let notification = UILocalNotification.init()
+            notification.alertBody = name+NSLocalizedString("Start_call", comment: "")
+            notification.fireDate = Date.init(timeIntervalSinceNow: 0.1)
+            notification.soundName = "in.caf"
+            notification.userInfo = ["aps":["alert":name+NSLocalizedString("Start_call", comment: ""),"sound":"default"],"sessionId":callID, "nickName":name as Any,"nim":"1"]
+            UIApplication.shared.scheduleLocalNotification(notification)
         }
         
     }
@@ -80,7 +89,7 @@ extension SVideoChatTool: NIMLoginManagerDelegate {
         var reason = ""
         switch code {
         case .byClient:
-            reason = "你的账号在另一端登录，请注意帐号信息安全"
+            reason = NSLocalizedString("Accout_logout", comment: "")
             break
         case .byServer:
             break
@@ -88,7 +97,7 @@ extension SVideoChatTool: NIMLoginManagerDelegate {
             break
         }
         NIMSDK.shared().loginManager.logout { (error) in
-            let alertVC = UIAlertController.alertAlert(title: "温馨提示", message: reason, okTitle: "确定") {
+            let alertVC = UIAlertController.alertAlert(title: NSLocalizedString("Reminder", comment: ""), message: reason, okTitle: NSLocalizedString("OK", comment: "")) {
                 let loginVC = LoginViewController()
                 UIApplication.shared.keyWindow?.rootViewController = loginVC
             }
