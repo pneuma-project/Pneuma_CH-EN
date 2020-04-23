@@ -25,12 +25,11 @@ SPEC REPOS:
     - Alamofire
     - CryptoSwift
     - MagicalRecord
+    - NIMSDK
     - SnapKit
     - SwiftyJSON
-    - Toast-Swift
-  trunk:
-    - NIMSDK
     - Toast
+    - Toast-Swift
 
 SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
@@ -42,6 +41,6 @@ SPEC CHECKSUMS:
   Toast: 14a93686d6c8bfe2727afd342414e35660a8a1f3
   Toast-Swift: e42a638589a2f95036b4bb7626cfbdde7daf0393
 
-PODFILE CHECKSUM: f9351b9ead839da6f5372ba416e88f45fbdb7177
+PODFILE CHECKSUM: 747b302d0cee4b5df34dceb5e12ea8d94f694536
 
 COCOAPODS: 1.9.1
