@@ -2,8 +2,8 @@
 //  AniShowCloseView.swift
 //  Sheng
 //
-//  Created by DS on 2017/12/29.
-//  Copyright © 2017年 First Cloud. All rights reserved.
+//  Created by FangLin on 2019/12/29.
+//  Copyright © 2019年 FangLin. All rights reserved.
 //
 
 import UIKit

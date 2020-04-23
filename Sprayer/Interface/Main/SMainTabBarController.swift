@@ -27,7 +27,7 @@ class SMainTabBarController: UITabBarController {
             self.viewControllers = tabArray
         }else { //医生端
             let memberVC = MembersController()
-            let navVC = BaseNavViewController.init(rootViewController: memberVC)
+            let navVC = UINavigationController.init(rootViewController: memberVC)
             navVC.navigationBar.barTintColor = RGBCOLOR(r: 0, g: 83, b: 181, alpha: 1)
             let tabArray = [navVC,videoVC]
             self.viewControllers = tabArray

@@ -2,8 +2,8 @@
 //  CRHangView.swift
 //  Sheng
 //
-//  Created by DS on 2017/8/4.
-//  Copyright © 2017年 First Cloud. All rights reserved.
+//  Created by fanglin on 2019/8/4.
+//  Copyright © 2019年 fanglin. All rights reserved.
 //
 
 /**
@@ -43,8 +43,6 @@ class CRHangView: UIView {
             make.width.height.equalTo(42*IPONE_SCALE)
         }
         
-//        closeBtn.setImage(UIImage.init(named: "CR_hangClose"), for: .normal)
-//        closeBtn.addTarget(self, action: #selector(closeBtnAction), for: .touchUpInside)
         self.addSubview(closeBtn)
         closeBtn.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()

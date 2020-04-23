@@ -314,15 +314,6 @@ class LoginViewController: UIViewController,UIGestureRecognizerDelegate {
     
     //MARK: - 登录成功后的跳转
     func loginSucceeAction() {
-//        if role == 0 {
-//            let rootVC = RootViewController()
-//            UIApplication.shared.keyWindow?.rootViewController = rootVC
-//        }else if role == 1 {
-//            let memberVC = MembersController()
-//            let navVC = BaseNavViewController.init(rootViewController: memberVC)
-//            navVC.navigationBar.barTintColor = RGBCOLOR(r: 0, g: 83, b: 181, alpha: 1)
-//            UIApplication.shared.keyWindow?.rootViewController = navVC
-//        }
         let mainVC = SMainTabBarController()
         UIApplication.shared.keyWindow?.rootViewController = mainVC
     }

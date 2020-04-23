@@ -46,6 +46,9 @@ class SVideoChatTool: NSObject {
 
 extension SVideoChatTool: NIMNetCallManagerDelegate {
     func onReceive(_ callID: UInt64, from caller: String, type: NIMNetCallMediaType, message extendMessage: String?) {
+        if SMainBoardObject.shared().role == 1 && UIViewController.getCurrentViewCtrl().isKind(of: MembersController.classForCoder()) {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: JumpPatientChartPage), object: ["SSID": caller], userInfo: nil)
+        }
         if UIViewController.getCurrentViewCtrl().isKind(of: NTESNetChatViewController.classForCoder()) {
             NIMAVChatSDK.shared().netCallManager.control(callID, type: .busyLine)
         }else {
@@ -61,13 +64,6 @@ extension SVideoChatTool: NIMNetCallManagerDelegate {
                 break
             }
             tabbarCtrl.resetSubViewController(vc: vc)
-            //由于音视频聊天里头有音频和视频聊天界面的切换，直接用present的话页面过渡会不太自然，这里还是用push，然后做出present的效果
-//            let transition = CATransition.init()
-//            transition.duration = 0.25
-//            transition.timingFunction = CAMediaTimingFunction.init(name: "default")
-//            transition.type = kCATransitionPush
-//            transition.subtype = kCATransitionFromTop
-//            UIViewController.getCurrentViewCtrl().navigationController?.view.layer.add(transition, forKey: nil)
             SVideoChatBoardObject.enterVideoChat()
             
             guard let name = extendMessage else {

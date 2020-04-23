@@ -26,10 +26,15 @@ class MembersController: BaseViewController {
 
         // Do any additional setup after loading the view.
         self.view.backgroundColor = .white
-        self.setNavTitle("患者列表")
+        self.setNavTitle(NSLocalizedString("patient_list", comment: ""))
         self.setInterface()
         self.requestData()
         self.setBlock()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(JumpPageAction), name: NSNotification.Name(rawValue: JumpPatientChartPage), object: nil)
     }
     
     func setInterface() {
@@ -39,6 +44,26 @@ class MembersController: BaseViewController {
             make.top.equalTo(NEWNAVHEIGHT)
         }
         tableView.register(UINib.init(nibName: "MembersListCell", bundle: nil), forCellReuseIdentifier: "MembersListCell")
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: JumpPatientChartPage), object: nil)
+    }
+    
+    @objc func JumpPageAction(obj: Notification) {
+        guard let objDict = obj.object as? [String : Any] else {
+            return
+        }
+        guard let ssId = objDict["SSID"] as? String else {
+            return
+        }
+        for item in dataArr {
+            if ssId.contains("\(item.ssId)") {
+                let lungVC = MembersLungTestController()
+                lungVC.patientId = item.ssId
+                self.navigationController?.pushViewController(lungVC, animated: true)
+            }
+        }
     }
 }
 

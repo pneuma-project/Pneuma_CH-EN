@@ -111,6 +111,7 @@ func Dprint<T>(_ message: T, filePath: String = #file, rowCount: Int = #line) {
 let currentLocale = Locale.current.identifier
 
 //MARK:关键字
-let PeripheralDidConnect = "peripheralDidConnect"//断开连接
-let BlueConnectSucceed = "ConnectSucceed"
+let PeripheralDidConnect = "peripheralDidConnect"//蓝牙断开连接
+let BlueConnectSucceed = "ConnectSucceed"  //蓝牙连接成功
+let JumpPatientChartPage = "JumpPatientChartPage"  //医生端接到视频通话时跳转到对应病人的曲线界面
 

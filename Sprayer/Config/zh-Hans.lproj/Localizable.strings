@@ -139,3 +139,5 @@
 "Start_call" = "发起视频通话";
 "Accout_logout" = "你的账号在另一端登录，请注意帐号信息安全";
 "calling" = "通话中...";
+"patient_list" = "患者列表";
+"patient_Lung_test" = "患者肺功能测试";

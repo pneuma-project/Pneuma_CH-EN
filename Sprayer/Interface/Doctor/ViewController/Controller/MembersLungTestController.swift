@@ -37,7 +37,7 @@ class MembersLungTestController: BaseViewController,CustemBBI {
 
         // Do any additional setup after loading the view.
         self.view.backgroundColor = .white
-        self.setNavTitle("患者肺功能测试")
+        self.setNavTitle(NSLocalizedString("patient_Lung_test", comment: ""))
         self.setHeadView()
         self.setInterface()
         self.requestDataBlock()
@@ -67,7 +67,6 @@ class MembersLungTestController: BaseViewController,CustemBBI {
                 tabbarCtrl.resetSubViewController(vc: vc!)
                 SVideoChatBoardObject.enterVideoChat()
             }
-            
         }
     }
     
@@ -76,7 +75,7 @@ class MembersLungTestController: BaseViewController,CustemBBI {
         xNumArr = []
         thirdXNumArr = []
         secondDataArr = []
-        
+    
         //计算x轴的数值
         if dataArr.count%10 == 0{
             for i in 0...dataArr.count {
@@ -126,15 +125,24 @@ extension MembersLungTestController {
                 if model.exhaleData == weakself.dataList.joined(separator: ",") {
                     return
                 }
-                let exhaleDataArr = model.exhaleData.components(separatedBy: ",")
-                weakself.XNumSetting(dataArr: exhaleDataArr)
-                weakself.settingTime(date: model.addDate)
+                if model.exhaleData == "" {
+                    weakself.dataList = []
+                    weakself.xNumArr = []
+                    weakself.thirdXNumArr = []
+                    weakself.secondDataArr = []
+                    weakself.setInterface()
+                    weakself.timeResultLabel.text = ""
+                }else {
+                    let exhaleDataArr = model.exhaleData.components(separatedBy: ",")
+                    weakself.XNumSetting(dataArr: exhaleDataArr)
+                    weakself.settingTime(date: model.addDate)
+                }
             }
         }
     }
     
     func settingTime(date:Int64) {
-        let timeStr = DisplayUtils.getTimeStamp(to: "HH:mm:ss", andTime: String.init(format: "%lld", date/1000))
+        let timeStr = DisplayUtils.getTimeStamp(to: "YYYY-MM-dd HH:mm:ss", andTime: String.init(format: "%lld", date/1000))
         guard let time = timeStr else {
             return
         }
@@ -241,7 +249,7 @@ extension MembersLungTestController {
         }
         countOneLabel = UILabel.init()
         countOneLabel.text = String.init(format: NSLocalizedString("fev", comment: ""), FEVStr)
-        countOneLabel.textColor = HEXCOLOR(h: 0x333333, alpha: 1)
+        countOneLabel.textColor = RGBCOLOR(r: 16, g: 101, b: 182, alpha: 1)
         countOneLabel.font = UIFont.systemFont(ofSize: 14)
         self.view.addSubview(countOneLabel)
         countOneLabel.snp.makeConstraints { (make) in
@@ -266,7 +274,7 @@ extension MembersLungTestController {
         }
         countTwoLabel = UILabel.init()
         countTwoLabel.text = String.init(format: NSLocalizedString("fev1", comment: ""), FEV1Str)
-        countTwoLabel.textColor = HEXCOLOR(h: 0x333333, alpha: 1)
+        countTwoLabel.textColor = RGBCOLOR(r: 16, g: 101, b: 182, alpha: 1)
         countTwoLabel.font = UIFont.systemFont(ofSize: 14)
         countTwoLabel.numberOfLines = 0
         self.view.addSubview(countTwoLabel)
@@ -296,7 +304,7 @@ extension MembersLungTestController {
         }
         countThreeLabel = UILabel.init()
         countThreeLabel.text = String.init(format: NSLocalizedString("pef", comment: ""), maxPEF)
-        countThreeLabel.textColor = HEXCOLOR(h: 0x333333, alpha: 1)
+        countThreeLabel.textColor = RGBCOLOR(r: 16, g: 101, b: 182, alpha: 1)
         countThreeLabel.font = UIFont.systemFont(ofSize: 14)
         self.view.addSubview(countThreeLabel)
         countThreeLabel.snp.makeConstraints { (make) in

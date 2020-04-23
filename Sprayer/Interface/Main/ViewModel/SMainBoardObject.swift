@@ -29,6 +29,6 @@ class SMainBoardObject: NSObject {
     //账号类型 ： 0：患者    1：医生  2：超级管理员
     var role:Int16 = 0
     
-    
+    /// 视频通话是否存在
     @objc var isVideoChatExist:Bool = false
 }
