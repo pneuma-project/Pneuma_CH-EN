@@ -2172,7 +2172,7 @@
 				INFOPLIST_FILE = Sprayer/Config/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.01;
+				MARKETING_VERSION = 1.02;
 				"OTHER_SWIFT_FLAGS[arch=*]" = "$(inherited) \"-D\" \"COCOAPODS\" -D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.FL.Pneuma.dev;
 				PRODUCT_NAME = Pneuma;
@@ -2195,7 +2195,7 @@
 				INFOPLIST_FILE = Sprayer/Config/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.01;
+				MARKETING_VERSION = 1.02;
 				PRODUCT_BUNDLE_IDENTIFIER = com.FL.Pneuma.dev;
 				PRODUCT_NAME = Pneuma;
 				SWIFT_OBJC_BRIDGING_HEADER = "Sprayer/Config/Sprayer-Bridging-Header.h";

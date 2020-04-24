@@ -97,9 +97,9 @@
     pointImageView.layer.mask = [DisplayUtils cornerRadiusGraph:pointImageView withSize:CGSizeMake(pointImageView.current_w/2, pointImageView.current_h/2)];
     [chatBgView addSubview:pointImageView];
     
-    NSString *titleStr = NSLocalizedString(@"The last best inspiration", nil);
-    CGSize size = [DisplayUtils stringWithWidth:titleStr withFont:17];
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(pointImageView.current_x_w+10, 5, size.width, 40)];
+    NSString *titleStr = NSLocalizedString(@"Training Reference Curve", nil);
+    CGSize size = [DisplayUtils stringWithWidth:titleStr withFont:16*IPONE_SCALE];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(pointImageView.current_x_w+10, 5, size.width+20, 40)];
     titleLabel.text = titleStr;
     titleLabel.textColor = RGBColor(8, 86, 184, 1.0);
     [chatBgView addSubview:titleLabel];
