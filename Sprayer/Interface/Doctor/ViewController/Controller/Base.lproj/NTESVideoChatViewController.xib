@@ -114,12 +114,12 @@
                     </connections>
                 </button>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dic-t9-YEs">
-                    <rect key="frame" x="30" y="60" width="50" height="50"/>
+                    <rect key="frame" x="20" y="40" width="66" height="66"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="50" id="HcT-92-RCb"/>
-                        <constraint firstAttribute="width" constant="50" id="l3g-xz-PRP"/>
+                        <constraint firstAttribute="height" constant="66" id="HcT-92-RCb"/>
+                        <constraint firstAttribute="width" constant="66" id="l3g-xz-PRP"/>
                     </constraints>
-                    <state key="normal" image="ws_FullScreen"/>
+                    <state key="normal" image="fullScreen"/>
                     <connections>
                         <action selector="fullScreenAction:" destination="-1" eventType="touchUpInside" id="WWn-fb-KxE"/>
                     </connections>
@@ -140,9 +140,9 @@
                 <constraint firstItem="R1h-Iv-Nox" firstAttribute="top" secondItem="nRA-Kd-y4F" secondAttribute="bottom" constant="10" id="YvS-Jr-iOy"/>
                 <constraint firstAttribute="bottom" secondItem="2Iy-dB-B1j" secondAttribute="bottom" constant="50" id="Z6U-3g-AAx"/>
                 <constraint firstAttribute="trailing" secondItem="3Zh-WU-GLj" secondAttribute="trailing" id="ZIP-nq-Hzg"/>
-                <constraint firstItem="Dic-t9-YEs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="at7-uG-Fs6"/>
+                <constraint firstItem="Dic-t9-YEs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="at7-uG-Fs6"/>
                 <constraint firstItem="SiS-XY-Kl1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="29" id="eDP-ct-Sa4"/>
-                <constraint firstItem="Dic-t9-YEs" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="60" id="jPH-Qw-397"/>
+                <constraint firstItem="Dic-t9-YEs" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="40" id="jPH-Qw-397"/>
                 <constraint firstAttribute="bottom" secondItem="JWH-En-CEa" secondAttribute="bottom" constant="70" id="qfi-F4-JrB"/>
                 <constraint firstItem="Koi-8h-l2u" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="80" id="s1Z-En-8BV"/>
                 <constraint firstAttribute="trailing" secondItem="fO7-lJ-JAT" secondAttribute="trailing" id="uWF-yc-w5X"/>
@@ -161,7 +161,7 @@
         <image name="btn_turn_normal" width="30" height="30"/>
         <image name="btn_turn_pressed.png" width="37" height="25"/>
         <image name="btn_vcancel_normal" width="30" height="30"/>
+        <image name="fullScreen" width="33" height="33"/>
         <image name="netcall_bkg" width="375" height="667"/>
-        <image name="ws_FullScreen" width="19" height="19"/>
     </resources>
 </document>

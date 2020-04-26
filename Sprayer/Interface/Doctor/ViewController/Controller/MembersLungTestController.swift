@@ -38,7 +38,6 @@ class MembersLungTestController: BaseViewController,CustemBBI {
         // Do any additional setup after loading the view.
         self.view.backgroundColor = .white
         self.setNavTitle(NSLocalizedString("patient_Lung_test", comment: ""))
-        self.setHeadView()
         self.setInterface()
         self.requestDataBlock()
     }
@@ -152,7 +151,12 @@ extension MembersLungTestController {
 
 /// 初始化界面
 extension MembersLungTestController {
-    fileprivate func setHeadView() {
+    
+    fileprivate func setInterface() {
+        for view in self.view.subviews {
+            view.removeFromSuperview()
+        }
+        
         timeResultLabel = UILabel.init()
         timeResultLabel.textColor = UIColor.black
         timeResultLabel.font = UIFont.systemFont(ofSize: CGFloat(16*IPONE_SCALE))
@@ -161,15 +165,6 @@ extension MembersLungTestController {
             make.top.equalTo(NEWNAVHEIGHT+CGFloat(20*IPONE_SCALE))
             make.left.equalTo(20*IPONE_SCALE)
             make.height.equalTo(16*IPONE_SCALE)
-        }
-    }
-    
-    fileprivate func setInterface() {
-        for view in self.view.subviews {
-            if !view.isKind(of: timeResultLabel.classForCoder) {
-               view.removeFromSuperview()
-               view.snp.removeConstraints()
-            }
         }
         
         scrollView = UIScrollView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: CGFloat(200*IPONE_SCALE)))
