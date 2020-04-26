@@ -141,3 +141,5 @@
 "calling" = "通话中...";
 "patient_list" = "患者列表";
 "patient_Lung_test" = "患者肺功能测试";
+
+"Push_Funtion" = "请开启推送功能否则无法收到推送通知";

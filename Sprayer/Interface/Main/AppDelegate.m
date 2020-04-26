@@ -56,7 +56,7 @@
             if (!granted)
             {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [[UIApplication sharedApplication].keyWindow makeToast:@"请开启推送功能否则无法收到推送通知" duration:2.0 position:CSToastPositionCenter];
+                    [[UIApplication sharedApplication].keyWindow makeToast:NSLocalizedString(@"Push_Funtion", nil) duration:2.0 position:CSToastPositionCenter];
                 });
             }
         }];
