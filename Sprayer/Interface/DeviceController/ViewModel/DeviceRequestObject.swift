@@ -209,9 +209,21 @@ class DeviceRequestObject: NSObject {
     
     //获取历史呼气数据
     @objc var requestGetHistoryExhaleDataSuc:((_ dataList:[ExhaleDataModel])->())?
-    @objc func requestGetHistoryExhaleData() {
+    @objc func requestGetHistoryExhaleData(ssId:Int32) {
         if let loginKey = UserInfoData.mr_findFirst()?.loginKey {
-            SURLRequest.sharedInstance.requestPostWithHeader(URL_GetHistoryExhaleData, param: ["loginKey":loginKey], checkSum: [loginKey], suc: { (data) in
+            var url = URL_GetHistoryExhaleData
+            var params:[String:Any] = [:]
+            var checkSum:[String] = []
+            if SMainBoardObject.shared().role == 0 {  //患者
+                url = URL_GetHistoryExhaleData
+                params = ["loginKey":loginKey]
+                checkSum = [loginKey]
+            }else {  //医生or超级管理员
+                url = URL_GetPatientHistoryExhaleData
+                params = ["loginKey":loginKey,"ssId":ssId]
+                checkSum = [loginKey,"\(ssId)"]
+            }
+            SURLRequest.sharedInstance.requestPostWithHeader(url, param: params, checkSum: checkSum, suc: { (data) in
                 Dprint("URL_GetHistoryExhaleData:\(data)")
                 let dataJson = JSON(data)
                 let code = dataJson["code"].stringValue
@@ -240,10 +252,22 @@ class DeviceRequestObject: NSObject {
     
     //获取某天呼气数据
     @objc var requestGetNowExhaleDataSuc:((_ dataList:[ExhaleNumberModel])->())?
-    @objc func requestGetNowExhaleData(addDate:String,endDate:String) {
+    @objc func requestGetNowExhaleData(ssId:Int32, addDate:String, endDate:String) {
         if let loginKey = UserInfoData.mr_findFirst()?.loginKey {
-            SURLRequest.sharedInstance.requestPostWithHeader(URL_GetNowDateExhaleV2Data, param: ["loginKey":loginKey,"addDate":addDate,"endDate":endDate], checkSum: [loginKey,addDate,endDate], suc: { (data) in
-                Dprint("URL_GetNowDateExhaleV2Data:\(data)")
+            var url = URL_GetHistoryExhaleData
+            var params:[String:Any] = [:]
+            var checkSum:[String] = []
+            if SMainBoardObject.shared().role == 0 {  //患者
+                url = URL_GetNowDateExhaleV2Data
+                params = ["loginKey":loginKey,"addDate":addDate,"endDate":endDate]
+                checkSum = [loginKey,addDate,endDate]
+            }else {  //医生or超级管理员
+                url = URL_GetPatientNowExhaleData
+                params = ["loginKey":loginKey,"ssId":ssId,"addDate":addDate,"endDate":endDate]
+                checkSum = [loginKey,"\(ssId)",addDate,endDate]
+            }
+            SURLRequest.sharedInstance.requestPostWithHeader(url, param: params, checkSum: checkSum, suc: { (data) in
+                Dprint("URL_GetNowDateExhaleData:\(data)")
                 let dataJson = JSON(data)
                 let code = dataJson["code"].stringValue
                 if code == "200" {
@@ -264,7 +288,7 @@ class DeviceRequestObject: NSObject {
                     }
                 }
             }) { (error) in
-                Dprint("URL_GetNowDateExhaleV2DataError:\(error)")
+                Dprint("URL_GetNowDateExhaleDataError:\(error)")
             }
         }
     }

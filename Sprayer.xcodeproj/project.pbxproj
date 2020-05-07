@@ -159,7 +159,6 @@
 		D1755D5A2446B24C008A5808 /* UserInfoData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1755D582446B24C008A5808 /* UserInfoData+CoreDataClass.swift */; };
 		D1755D5B2446B24C008A5808 /* UserInfoData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1755D592446B24C008A5808 /* UserInfoData+CoreDataProperties.swift */; };
 		D1755D5E2446B85A008A5808 /* MembersListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1755D5C2446B85A008A5808 /* MembersListCell.swift */; };
-		D1755D5F2446B85A008A5808 /* MembersListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1755D5D2446B85A008A5808 /* MembersListCell.xib */; };
 		D1755D612446BBD5008A5808 /* DoctorRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1755D602446BBD5008A5808 /* DoctorRequestObject.swift */; };
 		D1755D632446BC4A008A5808 /* SURLDoctor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1755D622446BC4A008A5808 /* SURLDoctor.swift */; };
 		D1755D652446F11C008A5808 /* MembersLungTestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1755D642446F11C008A5808 /* MembersLungTestController.swift */; };
@@ -188,6 +187,7 @@
 		D17F3ED52419DE5000C9E8AF /* SLungTestTipController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17F3ED42419DE5000C9E8AF /* SLungTestTipController.swift */; };
 		D17F3ED72419EB2800C9E8AF /* SLungTestDateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17F3ED62419EB2800C9E8AF /* SLungTestDateController.swift */; };
 		D17F3ED9241A417600C9E8AF /* UIAlertControllerEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17F3ED8241A417600C9E8AF /* UIAlertControllerEx.swift */; };
+		D18050FC2463EAC60050E01E /* MembersListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D18050FE2463EAC60050E01E /* MembersListCell.xib */; };
 		D188B7952421C8630087F342 /* FLCustomChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = D188B7942421C8630087F342 /* FLCustomChartView.m */; };
 		D196C75A2448001B009AB731 /* video_connect_chat_tip_sender.aac in Resources */ = {isa = PBXBuildFile; fileRef = D196C7522448001B009AB731 /* video_connect_chat_tip_sender.aac */; };
 		D196C75B2448001B009AB731 /* video_chat_tip_OnCall.aac in Resources */ = {isa = PBXBuildFile; fileRef = D196C7532448001B009AB731 /* video_chat_tip_OnCall.aac */; };
@@ -506,7 +506,6 @@
 		D1755D582446B24C008A5808 /* UserInfoData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserInfoData+CoreDataClass.swift"; sourceTree = "<group>"; };
 		D1755D592446B24C008A5808 /* UserInfoData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserInfoData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D1755D5C2446B85A008A5808 /* MembersListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembersListCell.swift; sourceTree = "<group>"; };
-		D1755D5D2446B85A008A5808 /* MembersListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MembersListCell.xib; sourceTree = "<group>"; };
 		D1755D602446BBD5008A5808 /* DoctorRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorRequestObject.swift; sourceTree = "<group>"; };
 		D1755D622446BC4A008A5808 /* SURLDoctor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SURLDoctor.swift; sourceTree = "<group>"; };
 		D1755D642446F11C008A5808 /* MembersLungTestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembersLungTestController.swift; sourceTree = "<group>"; };
@@ -561,6 +560,9 @@
 		D17F3ED42419DE5000C9E8AF /* SLungTestTipController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLungTestTipController.swift; sourceTree = "<group>"; };
 		D17F3ED62419EB2800C9E8AF /* SLungTestDateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLungTestDateController.swift; sourceTree = "<group>"; };
 		D17F3ED8241A417600C9E8AF /* UIAlertControllerEx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertControllerEx.swift; sourceTree = "<group>"; };
+		D18050FD2463EAC60050E01E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MembersListCell.xib; sourceTree = "<group>"; };
+		D18051002463EACF0050E01E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/MembersListCell.strings"; sourceTree = "<group>"; };
+		D18051022463EAD00050E01E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MembersListCell.strings; sourceTree = "<group>"; };
 		D188B7932421C8630087F342 /* FLCustomChartView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLCustomChartView.h; sourceTree = "<group>"; };
 		D188B7942421C8630087F342 /* FLCustomChartView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLCustomChartView.m; sourceTree = "<group>"; };
 		D196C7522448001B009AB731 /* video_connect_chat_tip_sender.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_connect_chat_tip_sender.aac; sourceTree = "<group>"; };
@@ -1356,7 +1358,7 @@
 				D1755D7D24471415008A5808 /* NTESGLView.h */,
 				D1755D7E24471415008A5808 /* NTESGLView.m */,
 				D1755D5C2446B85A008A5808 /* MembersListCell.swift */,
-				D1755D5D2446B85A008A5808 /* MembersListCell.xib */,
+				D18050FE2463EAC60050E01E /* MembersListCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1697,7 +1699,7 @@
 				D196C7602448001B009AB731 /* video_chat_tip_onTimer.aac in Resources */,
 				D196C75A2448001B009AB731 /* video_connect_chat_tip_sender.aac in Resources */,
 				7906CA4D1FBD733E00200B66 /* Assets.xcassets in Resources */,
-				D1755D5F2446B85A008A5808 /* MembersListCell.xib in Resources */,
+				D18050FC2463EAC60050E01E /* MembersListCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2056,6 +2058,16 @@
 				D173DFB12418BC3B00E8DBCA /* en */,
 			);
 			name = HistoryTableViewCell.xib;
+			sourceTree = "<group>";
+		};
+		D18050FE2463EAC60050E01E /* MembersListCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D18050FD2463EAC60050E01E /* Base */,
+				D18051002463EACF0050E01E /* zh-Hans */,
+				D18051022463EAD00050E01E /* en */,
+			);
+			name = MembersListCell.xib;
 			sourceTree = "<group>";
 		};
 		D1A22D3F244D901E0024B2DE /* NTESVideoChatViewController.xib */ = {

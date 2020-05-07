@@ -50,7 +50,7 @@ class SLungTestTipController: BaseViewController,CustemBBI {
         }
         let startStr = String.init(format: "%@ 00:00:00", dateTime)
         let endStr = String.init(format: "%@ 23:59:59", dateTime)
-        DeviceRequestObject.shared.requestGetNowExhaleData(addDate: startStr, endDate: endStr)
+        DeviceRequestObject.shared.requestGetNowExhaleData(ssId: 0, addDate: startStr, endDate: endStr)
     }
 }
 

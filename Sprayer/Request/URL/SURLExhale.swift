@@ -53,7 +53,7 @@ let URL_GetHistoryExhaleData = Base_Exhale_Url + "get/history/exhale/data/group/
 
 
 /**
-     * 获取某天呼气数据
+     * 获取某天呼气数据(废弃)
      * @param loginKey     用户凭证
      * @param addDate
      * @param endDate
@@ -130,3 +130,43 @@ let URL_GetTmpExhaleData = Base_Exhale_Url + "get/tmp/exhale/data"
 接口地址：http://localhost:7001/pneuma-api/pneuma/exhale/save/tmp/exhale/data
  */
 let URL_SaveTmpExhaleData = Base_Exhale_Url + "save/tmp/exhale/data"
+
+
+/**
+     * 获取病人某天呼气数据
+     *
+     * @param loginKey 用户凭证
+     * @param addDate
+     * @param endDate
+     * @param checkSum
+     * @return
+     * @throws ApiException
+    
+    @PostMapping(value = "get/patient/now/date/exhale/data")
+    @ResponseBody
+    public Result<List<PnExhaleDataListModel>> getPatientNowDateExhaleData(@RequestParam("loginKey") String loginKey,
+                                                                      @RequestParam("ssId") Long ssId,
+                                                                      @RequestParam("addDate") String addDate,
+                                                                      @RequestParam("endDate") String endDate,
+                                                                      @RequestHeader("checkSum") String checkSum) throws ApiException {
+地址：http://pneuma-admin.com/pneuma-api/pneuma/exhale/get/patient/now/date/exhale/data
+  */
+let URL_GetPatientNowExhaleData = Base_Exhale_Url + "get/patient/now/date/exhale/data"
+
+
+/**
+     * 获取病人历史呼气数据(根据日期分组)
+     *
+     * @param loginKey 用户凭证
+     * @param checkSum
+     * @return
+     * @throws ApiException
+     
+    @PostMapping(value = "get/patient/history/exhale/data/group/date")
+    @ResponseBody
+    public Result<List<PnExhaleDataModel>> getPatientHistoryExhaleDataGroupDate(@RequestParam("loginKey") String loginKey,
+                                                                         @RequestParam("ssId") Long ssId,
+                                                                         @RequestHeader("checkSum") String checkSum) throws ApiException {
+地址：http://pneuma-admin.com/pneuma-api/pneuma/exhale/get/patient/history/exhale/data/group/date
+*/
+let URL_GetPatientHistoryExhaleData = Base_Exhale_Url + "get/patient/history/exhale/data/group/date"

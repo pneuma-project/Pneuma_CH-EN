@@ -22,6 +22,8 @@ class MembersListCell: UITableViewCell {
     @IBOutlet weak var sexLabel: UILabel!
     @IBOutlet weak var phoneLabel: UILabel!
     @IBOutlet weak var lineView: UIView!
+    @IBOutlet weak var historyBtn: UIButton!
+    @IBOutlet weak var currentBtn: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -57,11 +59,49 @@ class MembersListCell: UITableViewCell {
             make.height.equalTo(14*IPONE_SCALE)
         }
         
+        currentBtn.layer.cornerRadius = 5
+        currentBtn.layer.masksToBounds = true
+        currentBtn.layer.borderColor = HEXCOLOR(h: 0x333333, alpha: 1).cgColor
+        currentBtn.layer.borderWidth = 1
+        currentBtn.backgroundColor = RGBCOLOR(r: 0, g: 83, b: 181, alpha: 1)
+        currentBtn.setTitleColor(.white, for: .normal)
+        currentBtn.snp.makeConstraints { (make) in
+            make.right.equalTo(-10*IPONE_SCALE)
+            make.centerY.equalToSuperview()
+            make.width.equalTo(60*IPONE_SCALE)
+            make.height.equalTo(30*IPONE_SCALE)
+        }
+        
+        historyBtn.layer.cornerRadius = 5
+        historyBtn.layer.masksToBounds = true
+        historyBtn.layer.borderColor = HEXCOLOR(h: 0x333333, alpha: 1).cgColor
+        historyBtn.layer.borderWidth = 1
+        historyBtn.backgroundColor = RGBCOLOR(r: 0, g: 83, b: 181, alpha: 1)
+        historyBtn.setTitleColor(.white, for: .normal)
+        historyBtn.snp.makeConstraints { (make) in
+            make.right.equalTo(currentBtn.snp.left).offset(-20*IPONE_SCALE)
+            make.centerY.equalToSuperview()
+            make.width.equalTo(60*IPONE_SCALE)
+            make.height.equalTo(30*IPONE_SCALE)
+        }
+        
         lineView.snp.makeConstraints { (make) in
             make.left.equalTo(20*IPONE_SCALE)
             make.bottom.equalToSuperview()
             make.right.equalToSuperview()
             make.height.equalTo(1)
         }
+    }
+    
+    @IBAction func historyAction(_ sender: Any) {
+        let vc = LungHistoryCountController()
+        vc.patientSsId = model.ssId
+        UIViewController.getCurrentViewCtrl().navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @IBAction func currentAction(_ sender: Any) {
+        let vc = MembersLungTestController()
+        vc.patientId = model.ssId
+        UIViewController.getCurrentViewCtrl().navigationController?.pushViewController(vc, animated: true)
     }
 }

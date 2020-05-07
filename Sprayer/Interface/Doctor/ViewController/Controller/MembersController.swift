@@ -101,10 +101,10 @@ extension MembersController: UITableViewDelegate,UITableViewDataSource {
         return CGFloat(60*IPONE_SCALE)
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = MembersLungTestController()
-        let model = dataArr[indexPath.row]
-        vc.patientId = model.ssId
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let vc = MembersLungTestController()
+//        let model = dataArr[indexPath.row]
+//        vc.patientId = model.ssId
+//        self.navigationController?.pushViewController(vc, animated: true)
+//    }
 }

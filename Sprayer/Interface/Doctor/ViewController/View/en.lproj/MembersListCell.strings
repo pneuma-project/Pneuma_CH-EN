@@ -1,0 +1,15 @@
+
+/* Class = "UILabel"; text = "性别"; ObjectID = "E3z-bX-uXb"; */
+"E3z-bX-uXb.text" = "Sex";
+
+/* Class = "UIButton"; normalTitle = "历史"; ObjectID = "XQq-fE-6C2"; */
+"XQq-fE-6C2.normalTitle" = "History";
+
+/* Class = "UIButton"; normalTitle = "当前"; ObjectID = "ZmU-ZB-plC"; */
+"ZmU-ZB-plC.normalTitle" = "Current";
+
+/* Class = "UILabel"; text = "手机号"; ObjectID = "pi5-55-fXu"; */
+"pi5-55-fXu.text" = "Phone";
+
+/* Class = "UILabel"; text = "姓名"; ObjectID = "pq0-Ay-T1e"; */
+"pq0-Ay-T1e.text" = "Name";

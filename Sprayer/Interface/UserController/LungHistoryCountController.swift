@@ -10,6 +10,8 @@ import UIKit
 
 class LungHistoryCountController: BaseViewController,CustemBBI {
     
+    var patientSsId:Int32 = 0
+    
     lazy var tableView:UITableView = {
         let tbView = UITableView.init(frame: .zero, style: .plain)
         tbView.separatorStyle = .none
@@ -51,7 +53,7 @@ class LungHistoryCountController: BaseViewController,CustemBBI {
     }
     
     func requestData() {
-        DeviceRequestObject.shared.requestGetHistoryExhaleData()
+        DeviceRequestObject.shared.requestGetHistoryExhaleData(ssId: patientSsId)
         DeviceRequestObject.shared.requestGetHistoryExhaleDataSuc = {[weak self](dataList) in
             if let weakself = self {
                 weakself.dataArr = dataList
@@ -108,6 +110,7 @@ extension LungHistoryCountController: UITableViewDelegate,UITableViewDataSource 
         let model = dataArr[indexPath.section]
         vc.dateStr = model.exhaleAddDate
         vc.indexPath = indexPath.row
+        vc.patientSsId = patientSsId
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

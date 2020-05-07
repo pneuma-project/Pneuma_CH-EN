@@ -10,6 +10,8 @@ import UIKit
 import Toast_Swift
 
 class LungHistoryChatController: BaseViewController,CustemBBI {
+    
+    var patientSsId:Int32 = 0
 
     var dateStr = ""  //点击时间是哪一天
     var indexPath = 0 //点击了是当天的第几次肺功能测试
@@ -105,7 +107,7 @@ extension LungHistoryChatController {
     func requestData() {
         let startStr = String.init(format: "%@ 00:00:00", dateStr)
         let endStr = String.init(format: "%@ 23:59:59", dateStr)
-        DeviceRequestObject.shared.requestGetNowExhaleData(addDate: startStr, endDate: endStr)
+        DeviceRequestObject.shared.requestGetNowExhaleData(ssId: patientSsId, addDate: startStr, endDate: endStr)
     }
     
     func requestDataBlock() {
