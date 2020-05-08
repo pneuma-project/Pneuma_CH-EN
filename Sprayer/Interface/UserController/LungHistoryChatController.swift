@@ -186,6 +186,14 @@ extension LungHistoryChatController {
             make.width.equalTo(SCREEN_WIDTH-CGFloat(40*IPONE_SCALE))
             make.height.equalTo(35*IPONE_SCALE)
         }
+    }
+    
+    fileprivate func setInterface() {
+        for view in self.view.subviews {
+            if !view.isKind(of: HistoryExhaleHeadView.classForCoder()) {
+               view.removeFromSuperview()
+            }
+        }
         
         timeResultLabel = UILabel.init()
         timeResultLabel.textColor = UIColor.black
@@ -195,15 +203,6 @@ extension LungHistoryChatController {
             make.top.equalTo(NEWNAVHEIGHT+CGFloat(70*IPONE_SCALE))
             make.left.equalTo(20*IPONE_SCALE)
             make.height.equalTo(16*IPONE_SCALE)
-        }
-    }
-    
-    fileprivate func setInterface() {
-        for view in self.view.subviews {
-            if !view.isKind(of: HistoryExhaleHeadView.classForCoder()) && !view.isKind(of: timeResultLabel.classForCoder) {
-               view.removeFromSuperview()
-               view.snp.removeConstraints()
-            }
         }
         
         scrollView = UIScrollView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: CGFloat(200*IPONE_SCALE)))

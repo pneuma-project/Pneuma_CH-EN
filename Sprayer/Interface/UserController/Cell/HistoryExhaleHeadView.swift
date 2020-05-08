@@ -10,24 +10,6 @@ import UIKit
 
 class HistoryExhaleHeadView: UIView {
     
-    var number = 1 {
-        didSet{
-            if number == 1 {
-                oneButton.isHidden = false
-                twoButton.isHidden = true
-                threeButton.isHidden = true
-            }else if number == 2 {
-                oneButton.isHidden = false
-                twoButton.isHidden = false
-                threeButton.isHidden = true
-            }else if number == 3 {
-                oneButton.isHidden = false
-                twoButton.isHidden = false
-                threeButton.isHidden = false
-            }
-        }
-    }
-    
     var index = 1 {
         didSet{
             if index == 1 {
