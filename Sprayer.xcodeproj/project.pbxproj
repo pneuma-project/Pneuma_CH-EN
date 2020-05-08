@@ -892,7 +892,7 @@
 			path = ScanView;
 			sourceTree = "<group>";
 		};
-		644C9C8D1E697DDA0030C3B9 /* DeviceController */ = {
+		644C9C8D1E697DDA0030C3B9 /* Device */ = {
 			isa = PBXGroup;
 			children = (
 				642580011E6D0C5E0019AD06 /* Model */,
@@ -913,29 +913,29 @@
 				BF79D0F91E71425B00EE468B /* HistoricalDrugViewController.h */,
 				BF79D0FA1E71425B00EE468B /* HistoricalDrugViewController.m */,
 			);
-			path = DeviceController;
+			path = Device;
 			sourceTree = "<group>";
 		};
-		644C9C961E697DDA0030C3B9 /* SprayController */ = {
+		644C9C961E697DDA0030C3B9 /* Spray */ = {
 			isa = PBXGroup;
 			children = (
 				BFE0CF5C1E825F3600613473 /* Model */,
 				644C9C971E697DDA0030C3B9 /* SprayViewController.h */,
 				644C9C981E697DDA0030C3B9 /* SprayViewController.m */,
 			);
-			path = SprayController;
+			path = Spray;
 			sourceTree = "<group>";
 		};
-		644C9C991E697DDA0030C3B9 /* TrainingController */ = {
+		644C9C991E697DDA0030C3B9 /* Training */ = {
 			isa = PBXGroup;
 			children = (
 				D173DFB22418D09800E8DBCA /* Controller */,
 				D17688AB240CF147002D4433 /* View */,
 			);
-			path = TrainingController;
+			path = Training;
 			sourceTree = "<group>";
 		};
-		644C9CA61E697DDA0030C3B9 /* UserController */ = {
+		644C9CA61E697DDA0030C3B9 /* User */ = {
 			isa = PBXGroup;
 			children = (
 				6425803E1E6D5F250019AD06 /* Model */,
@@ -968,7 +968,7 @@
 				D1E24E192436E8AF00936962 /* LungHistoryCountController.swift */,
 				D1E24E1B2437257900936962 /* LungHistoryChatController.swift */,
 			);
-			path = UserController;
+			path = User;
 			sourceTree = "<group>";
 		};
 		644C9CB91E697E6A0030C3B9 /* Cell */ = {
@@ -1153,7 +1153,7 @@
 			path = SprayerUITests;
 			sourceTree = "<group>";
 		};
-		64F663F31E63C95800F4C9E7 /* BaseViewController */ = {
+		64F663F31E63C95800F4C9E7 /* Base */ = {
 			isa = PBXGroup;
 			children = (
 				64F663F91E63CB8400F4C9E7 /* BaseNavViewController.h */,
@@ -1161,7 +1161,7 @@
 				64F663FB1E63CB8400F4C9E7 /* BaseViewController.h */,
 				64F663FC1E63CB8400F4C9E7 /* BaseViewController.m */,
 			);
-			path = BaseViewController;
+			path = Base;
 			sourceTree = "<group>";
 		};
 		BF79D0EF1E6FF69A00EE468B /* PickerView */ = {
@@ -1495,11 +1495,11 @@
 				D1D14388226F09D700BA5302 /* Main */,
 				648A72C5228D4F2800B8B430 /* Login */,
 				D174AB452445B44000ADD3C7 /* Doctor */,
-				644C9C8D1E697DDA0030C3B9 /* DeviceController */,
-				644C9C991E697DDA0030C3B9 /* TrainingController */,
-				644C9C961E697DDA0030C3B9 /* SprayController */,
-				644C9CA61E697DDA0030C3B9 /* UserController */,
-				64F663F31E63C95800F4C9E7 /* BaseViewController */,
+				644C9C8D1E697DDA0030C3B9 /* Device */,
+				644C9C991E697DDA0030C3B9 /* Training */,
+				644C9C961E697DDA0030C3B9 /* Spray */,
+				644C9CA61E697DDA0030C3B9 /* User */,
+				64F663F31E63C95800F4C9E7 /* Base */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -2184,7 +2184,7 @@
 				INFOPLIST_FILE = Sprayer/Config/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.04;
+				MARKETING_VERSION = 1.05;
 				"OTHER_SWIFT_FLAGS[arch=*]" = "$(inherited) \"-D\" \"COCOAPODS\" -D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.FL.Pneuma.dev;
 				PRODUCT_NAME = Pneuma;
@@ -2207,7 +2207,7 @@
 				INFOPLIST_FILE = Sprayer/Config/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.04;
+				MARKETING_VERSION = 1.05;
 				PRODUCT_BUNDLE_IDENTIFIER = com.FL.Pneuma.dev;
 				PRODUCT_NAME = Pneuma;
 				SWIFT_OBJC_BRIDGING_HEADER = "Sprayer/Config/Sprayer-Bridging-Header.h";

@@ -13,6 +13,9 @@
 #import "MagicalRecord.h"
 #import <UIView+Toast.h>
 #import <UserNotifications/UserNotifications.h>
+#import <Bugly/Bugly.h>
+
+#define Bugly_AppId @"1bd127bc0b"
 
 @interface AppDelegate ()
 
@@ -24,10 +27,23 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    //bugly初始化
+    BuglyConfig *config = [[BuglyConfig alloc] init];
+    config.channel = @"bugly";
+    config.debugMode = YES;
+    config.consolelogEnable = NO;
+    config.viewControllerTrackingEnable = YES;
+    config.reportLogLevel = BuglyLogLevelWarn;
+    [Bugly startWithAppId:Bugly_AppId config:config];
+    [Bugly setUserIdentifier:UIDevice.currentDevice.name];
+    [Bugly setUserValue:NSProcessInfo.processInfo.processName forKey:@"Process"];
+    
     LoginViewController *loginVC = [[LoginViewController alloc] initWithNibName: @"LoginViewController" bundle:nil];
     self.window.rootViewController = loginVC;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    //注册push
     [self registerPushService];
     //初始化NIMSDK
     [[SVideoChatTool shared] registerNIMManager];

@@ -24,6 +24,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
+## Bugly
+
+Copyright (C) 2017 Tencent Bugly, Inc. All rights reserved.
+
+
 ## CryptoSwift
 
 Copyright (C) 2014-2017 Marcin Krzyżanowski <marcin.krzyzanowski@gmail.com>
@@ -70,7 +75,7 @@ Permission is granted to anyone to use this software for any purpose,including c
 
 ## NIMSDK
 
-Copyright 2020 Netease 
+Copyright 2019 Netease 
 
 ## SnapKit
 
