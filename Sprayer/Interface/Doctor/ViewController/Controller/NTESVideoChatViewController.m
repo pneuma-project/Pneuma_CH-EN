@@ -98,7 +98,9 @@
 #pragma mark - Call Life
 - (void)startByCaller{
     [super startByCaller];
-    [self startInterface];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self startInterface];
+    });
 }
 
 - (void)startByCallee{
@@ -109,12 +111,16 @@
 }
 - (void)onCalling{
     [super onCalling];
-    [self videoCallingInterface];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self videoCallingInterface];
+    });
 }
 
 - (void)waitForConnectiong{
     [super waitForConnectiong];
-    [self connectingInterface];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self connectingInterface];
+    });
 }
 
 - (void)onCalleeBusy

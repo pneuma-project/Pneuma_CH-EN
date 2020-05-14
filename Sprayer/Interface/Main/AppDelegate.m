@@ -53,14 +53,7 @@
     
     [UserDefaultsUtils saveBoolValue:NO withKey:IsDisplayMedInfo];
     
-    //接收蓝牙断开通知
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(BleDisconnect) name:AutoConnect object:nil];
     return YES;
-}
-//接收到蓝牙断开通知后自动连接
--(void)BleDisconnect
-{
-    [[BlueToothManager getInstance]startScan];
 }
 
 - (void)registerPushService

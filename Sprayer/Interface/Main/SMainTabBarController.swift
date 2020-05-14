@@ -19,6 +19,23 @@ class SMainTabBarController: UITabBarController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //接收蓝牙断开通知自动连接
+        if SMainBoardObject.shared().role == 0 {
+            NotificationCenter.default.addObserver(self, selector: #selector(BleDisconnectAutoConnect), name: NSNotification.Name(rawValue: AutoConnect), object: nil)
+        }
+    }
+    
+    //接收到蓝牙断开通知后自动连接
+    @objc func BleDisconnectAutoConnect() {
+        BlueToothManager.getInstance()?.startScan()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: AutoConnect), object: nil)
+    }
+    
     func setSubViewController() {
         let videoVC = NTESVideoChatViewController.init()
         if SMainBoardObject.shared().role == 0 { //病人端

@@ -94,6 +94,8 @@ extension SVideoChatTool: NIMLoginManagerDelegate {
         }
         NIMSDK.shared().loginManager.logout { (error) in
             let alertVC = UIAlertController.alertAlert(title: NSLocalizedString("Reminder", comment: ""), message: reason, okTitle: NSLocalizedString("OK", comment: "")) {
+                SVideoChatBoardObject.destroy()
+                SMainBoardObject.destroy()
                 let loginVC = LoginViewController()
                 UIApplication.shared.keyWindow?.rootViewController = loginVC
             }
