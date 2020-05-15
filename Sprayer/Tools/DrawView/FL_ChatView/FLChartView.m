@@ -404,10 +404,10 @@
             leftLabel.font = [UIFont systemFontOfSize:10.0f];
             leftLabel.textColor = RGBColor(57, 106, 195, 1.0);
             if (i==bottomArr.count) {
-               leftLabel.text = bottomArr[i-1];
+               leftLabel.text = [NSString stringWithFormat:@"%.f",[bottomArr[i-1] floatValue]];
             }else
             {
-               leftLabel.text = bottomArr[i];
+               leftLabel.text = [NSString stringWithFormat:@"%.f",[bottomArr[i] floatValue]];
             }
             leftLabel.textAlignment = NSTextAlignmentCenter;
             [UIView addSubview:leftLabel];

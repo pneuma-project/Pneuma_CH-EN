@@ -154,14 +154,14 @@ class SLungTestDateController: BaseViewController,CustemBBI {
         secondDataArr = []
         
         //计算x轴的数值
-        if dataArr.count%10 == 0{
+        if dataArr.count%20 == 0{
             for i in 0...dataArr.count {
-                xNumArr.append(String.init(format: "%.1f", Double(i)*0.05))
+                xNumArr.append(String.init(format: "%.2f", Double(i)*0.05))
             }
         }else {
-            let baseNum = (dataArr.count/10)+1
-            for i in 0...(baseNum*10) {
-                xNumArr.append(String.init(format: "%.1f", Double(i)*0.05))
+            let baseNum = (dataArr.count/20)+2
+            for i in 0...(baseNum*20) {
+                xNumArr.append(String.init(format: "%.2f", Double(i)*0.05))
             }
         }
         dataList = dataArr
@@ -217,7 +217,6 @@ extension SLungTestDateController {
     fileprivate func setInterface() {
         for view in self.view.subviews {
             view.removeFromSuperview()
-            view.snp.removeConstraints()
         }
         
         self.setNavTitle(String.init(format: NSLocalizedString("test_time_group", comment: ""), testNum+1,testGroupNum+1))
