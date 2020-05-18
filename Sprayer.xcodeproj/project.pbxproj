@@ -184,6 +184,7 @@
 		D1755DB6244714DF008A5808 /* color.c in Sources */ = {isa = PBXBuildFile; fileRef = D1755D97244714DF008A5808 /* color.c */; };
 		D1755DB7244714DF008A5808 /* IJKSDLGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = D1755DA1244714DF008A5808 /* IJKSDLGLView.m */; };
 		D1755DB8244714DF008A5808 /* ijksdl_timer.c in Sources */ = {isa = PBXBuildFile; fileRef = D1755DA9244714DF008A5808 /* ijksdl_timer.c */; };
+		D179F569247267EC001A0056 /* SMainRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D179F568247267EC001A0056 /* SMainRequestObject.swift */; };
 		D17F3ED52419DE5000C9E8AF /* SLungTestTipController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17F3ED42419DE5000C9E8AF /* SLungTestTipController.swift */; };
 		D17F3ED72419EB2800C9E8AF /* SLungTestDateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17F3ED62419EB2800C9E8AF /* SLungTestDateController.swift */; };
 		D17F3ED9241A417600C9E8AF /* UIAlertControllerEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17F3ED8241A417600C9E8AF /* UIAlertControllerEx.swift */; };
@@ -557,6 +558,7 @@
 		D1755DA7244714DF008A5808 /* ijksdl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl.h; sourceTree = "<group>"; };
 		D1755DA8244714DF008A5808 /* ijksdl_error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_error.h; sourceTree = "<group>"; };
 		D1755DA9244714DF008A5808 /* ijksdl_timer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ijksdl_timer.c; sourceTree = "<group>"; };
+		D179F568247267EC001A0056 /* SMainRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMainRequestObject.swift; sourceTree = "<group>"; };
 		D17F3ED42419DE5000C9E8AF /* SLungTestTipController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLungTestTipController.swift; sourceTree = "<group>"; };
 		D17F3ED62419EB2800C9E8AF /* SLungTestDateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLungTestDateController.swift; sourceTree = "<group>"; };
 		D17F3ED8241A417600C9E8AF /* UIAlertControllerEx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertControllerEx.swift; sourceTree = "<group>"; };
@@ -1250,6 +1252,7 @@
 			children = (
 				D108A07F2449969E00158914 /* SMainBoardObject.swift */,
 				D1A22D3B244D36360024B2DE /* SVideoChatBoardObject.swift */,
+				D179F568247267EC001A0056 /* SMainRequestObject.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1832,6 +1835,7 @@
 				BFDAC7931E7274FA00E17D7B /* JHTableDataRowModel.m in Sources */,
 				BFF420991EA76B630093BE8D /* FMDatabaseQueue.m in Sources */,
 				644C9CB71E697DDA0030C3B9 /* BasicInformationViewController.m in Sources */,
+				D179F569247267EC001A0056 /* SMainRequestObject.swift in Sources */,
 				644C9C2A1E6571B50030C3B9 /* DisplayUtils.m in Sources */,
 				644C9C321E6575E80030C3B9 /* MBProgressHUD+Add.m in Sources */,
 				644C9CAD1E697DDA0030C3B9 /* lhScanQCodeViewController.m in Sources */,

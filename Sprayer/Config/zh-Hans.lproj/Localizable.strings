@@ -10,6 +10,9 @@
 "Training" = "训练";
 "Spray" = "实时";
 "User" = "用户";
+"sign out" = "退出登录";
+"determine_logout" = "确定退出登录？";
+"cancel" = "取消";
 
 "Phone number cannot be empty" = "手机号不能为空";
 "Password cannot be empty" = "密码不能为空";

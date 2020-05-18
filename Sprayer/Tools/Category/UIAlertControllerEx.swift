@@ -21,7 +21,7 @@ extension UIAlertController {
     ///   - okTitle: 确定按钮的文字
     ///   - okComplete: 回调事件
     /// - Returns: alertController 实例
-    class func alertAlert(title: String?, message: String?, okTitle: String, cancelTitle: String? = nil, okComplete: AlertCompleteOptional) -> UIAlertController{
+    @objc class func alertAlert(title: String?, message: String?, okTitle: String, cancelTitle: String? = nil, okComplete: AlertCompleteOptional) -> UIAlertController{
         
         let alertVC = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         let alertAction = UIAlertAction(title: okTitle, style: .default, handler: { (_) in
@@ -47,7 +47,7 @@ extension UIAlertController {
     ///   - okComplete: 回调事件
     ///   - cancelComplete: 回调事件
     /// - Returns: alertController 实例
-    class func alertAlert(title: String?, message: String?, okTitle: String, okComplete: AlertCompleteOptional, cancelTitle: String? = nil, cancelComplete: AlertCancelOptional) -> UIAlertController{
+    @objc class func alertAlert(title: String?, message: String?, okTitle: String, okComplete: AlertCompleteOptional, cancelTitle: String? = nil, cancelComplete: AlertCancelOptional) -> UIAlertController{
         
         let alertVC = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         let alertAction = UIAlertAction(title: okTitle, style: .default, handler: { (_) in
@@ -74,7 +74,7 @@ extension UIAlertController {
     ///   - okTitle: 确定按钮的文字
     ///   - okComplete: 回调事件
     /// - Returns: alertController 实例
-    class func alertAlert(title: String?, message: String?, okTitle: String, okComplete: AlertCompleteOptional) -> UIAlertController{
+    @objc class func alertAlert(title: String?, message: String?, okTitle: String, okComplete: AlertCompleteOptional) -> UIAlertController{
         
         let alertVC = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         let alertAction = UIAlertAction(title: okTitle, style: .default, handler: { (_) in

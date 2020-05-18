@@ -22,7 +22,7 @@ class SMainBoardObject: NSObject {
         return instance
     }
     
-    class func destroy() {
+    @objc class func destroy() {
         _sharedInstance = nil
     }
     

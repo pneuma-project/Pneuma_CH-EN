@@ -40,8 +40,8 @@
     [self setNavTitle:NSLocalizedString(@"My Profile", nil)];
     [self createHeadView];
     
-    imageArr = @[@"my-profile-icon-basic-information",@"my-profile-icon-history",@"my-profile-icon-history",@"my-profile-icon-FlowValue"];   //@"my-profile-icon-patient-information",,@"my-profile-icon-basic-information"
-    titleArr = @[NSLocalizedString(@"Basic Information", nil),NSLocalizedString(@"History", nil),NSLocalizedString(@"Pulmonary Function Test History", nil),NSLocalizedString(@"Pressure VS Flow Rate Equation", nil)];//@"Patient Information",,@"Drug Information"
+    imageArr = @[@"my-profile-icon-basic-information",@"my-profile-icon-history",@"my-profile-icon-history",@"my-profile-icon-FlowValue",@"logout"];   //@"my-profile-icon-patient-information",,@"my-profile-icon-basic-information"
+    titleArr = @[NSLocalizedString(@"Basic Information", nil),NSLocalizedString(@"History", nil),NSLocalizedString(@"Pulmonary Function Test History", nil),NSLocalizedString(@"Pressure VS Flow Rate Equation", nil),NSLocalizedString(@"sign out", nil)];//@"Patient Information",,@"Drug Information"
     
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -179,7 +179,7 @@
     }else if (indexPath.row == 3){
         FlowValueSettingController *FlowValueVC = [[FlowValueSettingController alloc]init];
         [self.navigationController pushViewController:FlowValueVC animated:YES];
-    }else if (indexPath.row == 4){
+    }else if (indexPath.row == 5){
         NSString *medicineInfo = @"";
         if (![[NSUserDefaults standardUserDefaults] objectForKey:@"MedicineInfo"]) {
             medicineInfo = @"No cartridge";
@@ -198,7 +198,20 @@
         [alertControllerMessageStr addAttribute:NSParagraphStyleAttributeName value:ps range:NSMakeRange(0, medicineInfo.length)];
         [alerVC setValue:alertControllerMessageStr forKey:@"attributedMessage"];
         [self presentViewController:alerVC animated:YES completion:nil];
+    }else if (indexPath.row == 4){ //退出登录
+        UIAlertController * alertVC = [UIAlertController alertAlertWithTitle:@"" message:NSLocalizedString(@"determine_logout", nil) okTitle:NSLocalizedString(@"YES", nil) cancelTitle:NSLocalizedString(@"cancel", nil) okComplete:^{
+            [SMainRequestObject.shared requestLogoutObjWithSucBlock:^(NSString * _Nonnull code) {
+                if ([code isEqualToString:@"200"]) {
+                    [SVideoChatBoardObject destroy];
+                    [SMainBoardObject destroy];
+                    LoginViewController *loginVC = [[LoginViewController alloc] initWithNibName: @"LoginViewController" bundle:nil];
+                    [UIApplication sharedApplication].keyWindow.rootViewController = loginVC;
+                }
+            }];
+        }];
+        [self presentViewController:alertVC animated:YES completion:nil];
     }
+        
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

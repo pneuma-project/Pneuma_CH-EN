@@ -10,6 +10,9 @@
 "Training" = "Training";
 "Spray" = "Spray";
 "User" = "User";
+"sign out" = "sign out";
+"determine_logout" = "Are you sure you want to log out";
+"cancel" = "cancel";
 
 "Phone number cannot be empty" = "Phone number cannot be empty";
 "Password cannot be empty" = "Password cannot be empty";
