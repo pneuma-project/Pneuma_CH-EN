@@ -186,7 +186,9 @@ class SLungTestDateController: BaseViewController,CustemBBI {
         for i in 0...(Int(maxNum)*10) {
             thirdXNumArr.append(String.init(format: "%.1f", Double(i)*0.1))
         }
-        self.setInterface()
+        DispatchQueue.main.async {
+            self.setInterface()
+        }
     }
     
     func saveTmpData() {
