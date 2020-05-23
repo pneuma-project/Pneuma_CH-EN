@@ -12,6 +12,6 @@ target 'Sprayer' do
   pod 'CryptoSwift', '0.7.1'          #Md5加密
   pod 'MagicalRecord', '2.3.2'        #CoreData
   pod 'NIMSDK', '7.5.0'          #网易云信
-  pod 'Toast', '~> 3.0'
-  pod 'Bugly'
+  pod 'Toast', '3.0'
+  pod 'Bugly', '2.5.2'
 end

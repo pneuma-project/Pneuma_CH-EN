@@ -179,7 +179,8 @@
 
 //-----------------呼气数据相关-----------------//
 +(NSString *)exhaleDataToNSString:(NSData *)data{
-    NSMutableArray *dataArr = [[NSMutableArray alloc] init];
+    NSMutableArray *slmArr = [[NSMutableArray alloc] init];
+    NSMutableArray *yaliArr = [[NSMutableArray alloc] init];
     NSMutableArray *yaliOneArr = [[NSMutableArray alloc] init];
     for (int i = 0; i<data.length; i+=2) {
         NSInteger yaliData = abs([self signedDataTointWithData:[data subdataWithRange:NSMakeRange(i, 2)] Location:0 Offset:2]);//[self input0x16String:[FLDrawDataTool hexStringFromData:[data subdataWithRange:NSMakeRange(i, 2)]]]
@@ -188,16 +189,25 @@
     }
     
     for (int i = 0; i<yaliOneArr.count; i+=1) {
-        float yaliValue = 0.0;
-        if (i == 0) {
-            yaliValue = [yaliOneArr[i] floatValue]/2;
-        }else {
-            yaliValue = ([yaliOneArr[i-1] floatValue]+[yaliOneArr[i] floatValue])/2;
-        }
-        float yaliData = [self exhaleDataCalculate:yaliValue];
-        [dataArr addObject:[NSString stringWithFormat:@"%.3f",yaliData]];
+//        float yaliValue = 0.0;
+//        if (i == 0) {
+//            yaliValue = [yaliOneArr[i] floatValue]/2;
+//        }else {
+//            yaliValue = ([yaliOneArr[i-1] floatValue]+[yaliOneArr[i] floatValue])/2;
+//        }
+        float yaliData = [self exhaleDataCalculate:[yaliOneArr[i] floatValue]];
+        [yaliArr addObject:[NSString stringWithFormat:@"%.5f",yaliData]];
     }
-    NSString *yaliStr=[dataArr componentsJoinedByString:@","];
+    for (int j = 0; j<yaliArr.count; j++) {
+        float slmValue = 0.0;
+        if (j == 0) {
+            slmValue = [yaliArr[j] floatValue]/2;
+        }else {
+            slmValue = ([yaliArr[j-1] floatValue]+[yaliArr[j] floatValue])/2;
+        }
+        [slmArr addObject:[NSString stringWithFormat:@"%.4f",slmValue]];
+    }
+    NSString *yaliStr=[slmArr componentsJoinedByString:@","];
     return yaliStr;
 }
 
@@ -205,14 +215,28 @@
 +(float)exhaleDataCalculate:(float)exhaleData
 {
     float rate = 0.0;
-    if (exhaleData <= 90) {
-        rate = 0.0004*powf(exhaleData, 3) - 0.0588*powf(exhaleData, 2) + 4.4107*exhaleData;
-    }else if (exhaleData > 90 && exhaleData <= 194) {
-        rate = 0.000004*powf(exhaleData, 3) - 0.0047*powf(exhaleData, 2) + 2.7935*exhaleData;
-    }else if (exhaleData > 194 && exhaleData <= 326) {
-        rate = exhaleData + 200;
+//    if (exhaleData <= 90) {
+//        rate = 0.0004*powf(exhaleData, 3) - 0.0588*powf(exhaleData, 2) + 4.4107*exhaleData;
+//    }else if (exhaleData > 90 && exhaleData <= 194) {
+//        rate = 0.000004*powf(exhaleData, 3) - 0.0047*powf(exhaleData, 2) + 2.7935*exhaleData;
+//    }else if (exhaleData > 194 && exhaleData <= 326) {
+//        rate = exhaleData + 200;
+//    }else {
+//        rate = exhaleData + (416/exhaleData)*157;
+//    }
+    if (exhaleData >= 546) {
+        rate = 546;
     }else {
-        rate = exhaleData + (416/exhaleData)*157;
+        NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"lungTestData" ofType:@"plist"];
+        NSMutableDictionary *plistDic = [[NSMutableDictionary alloc]initWithContentsOfFile:plistPath];
+        
+        if (floorf(exhaleData) == exhaleData) {
+            rate = [[plistDic objectForKey:[NSString stringWithFormat:@"%.0f",exhaleData]] floatValue];
+        }else {
+            float slm1 = [[plistDic objectForKey:[NSString stringWithFormat:@"%.0f",floorf(exhaleData)]] floatValue];
+            float slm2 = [[plistDic objectForKey:[NSString stringWithFormat:@"%.0f",ceilf(exhaleData)]] floatValue];
+            rate = slm1 + ((exhaleData-floorf(exhaleData)) * (slm2-slm1));
+        }
     }
     return rate;
 }
