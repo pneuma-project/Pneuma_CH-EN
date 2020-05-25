@@ -205,15 +205,16 @@
 +(float)exhaleDataCalculate:(float)exhaleData
 {
     float rate = 0.0;
-    if (exhaleData <= 90) {
-        rate = 0.0004*powf(exhaleData, 3) - 0.0588*powf(exhaleData, 2) + 4.4107*exhaleData;
-    }else if (exhaleData > 90 && exhaleData <= 194) {
-        rate = 0.000004*powf(exhaleData, 3) - 0.0047*powf(exhaleData, 2) + 2.7935*exhaleData;
-    }else if (exhaleData > 194 && exhaleData <= 326) {
-        rate = exhaleData + 200;
-    }else {
-        rate = exhaleData + (416/exhaleData)*157;
-    }
+    rate = 5*pow(10, -11)*powf(exhaleData, 5) - 7*pow(10, -8)*powf(exhaleData, 4) + 4*pow(10, -5)*powf(exhaleData, 3) - 0.0114*powf(exhaleData, 2) + 1.9867*exhaleData;
+//    if (exhaleData <= 90) {
+//        rate = 0.0004*powf(exhaleData, 3) - 0.0588*powf(exhaleData, 2) + 4.4107*exhaleData;
+//    }else if (exhaleData > 90 && exhaleData <= 194) {
+//        rate = 0.000004*powf(exhaleData, 3) - 0.0047*powf(exhaleData, 2) + 2.7935*exhaleData;
+//    }else if (exhaleData > 194 && exhaleData <= 326) {
+//        rate = exhaleData + 200;
+//    }else {
+//        rate = exhaleData + (416/exhaleData)*157;
+//    }
     return rate;
 }
 

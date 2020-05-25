@@ -5,3 +5,6 @@
 
 2.api请求域名：http://pneuma-admin.com/pneuma-api/               
 3.管理后台请求域名：http://pneuma-admin.com/pneuma-manager/      
+
+
+develop分支：肺功能测试曲线支持负值
