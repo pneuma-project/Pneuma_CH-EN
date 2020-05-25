@@ -224,12 +224,12 @@
 //    }else {
 //        rate = exhaleData + (416/exhaleData)*157;
 //    }
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"lungTestData" ofType:@"plist"];
+    NSMutableDictionary *plistDic = [[NSMutableDictionary alloc]initWithContentsOfFile:plistPath];
+    
     if (exhaleData >= 546) {
-        rate = 546;
+        rate = [[plistDic objectForKey:@"546"] floatValue];;
     }else {
-        NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"lungTestData" ofType:@"plist"];
-        NSMutableDictionary *plistDic = [[NSMutableDictionary alloc]initWithContentsOfFile:plistPath];
-        
         if (floorf(exhaleData) == exhaleData) {
             rate = [[plistDic objectForKey:[NSString stringWithFormat:@"%.0f",exhaleData]] floatValue];
         }else {
