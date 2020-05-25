@@ -14,24 +14,19 @@ import Foundation
 
 func getUUID()->String{
     
-    
     let UUIDDate = SSKeychain.passwordData(forService: "com.dzkj.hanxs.xinsen1", account: "com.dzkj.hanxs.xinsen1")
     
-    
-    var UUID : NSString!
+    var UUID : String!
     if UUIDDate != nil{
-        
-        UUID = NSString(data: UUIDDate!, encoding: String.Encoding.utf8.rawValue)
+        UUID = String.init(data: UUIDDate!, encoding: String.Encoding.utf8)
     }
-    
     
     if(UUID == nil){
         
-        UUID = UIDevice.current.identifierForVendor?.uuidString as NSString!
-        
+        UUID = UIDevice.current.identifierForVendor?.uuidString
         
         SSKeychain.setPassword(UUID as String, forService: "com.dzkj.hanxs.xinsen1", account: "com.dzkj.hanxs.xinsen1")
     }
-    UUID = UUID.replacingOccurrences(of: "-", with: "") as NSString!
-    return UUID as String
+    UUID = UUID.replacingOccurrences(of: "-", with: "")
+    return UUID
 }

@@ -84,7 +84,6 @@ class DoctorRequestObject: NSObject {
             SURLRequest.sharedInstance.requestPostWithHeader(URL_SaveTmpExhaleData, param: ["loginKey":loginKey,"medicineId":medicineId,"exhaleData":exhaleData,"exhaleDataSum":exhaleDataSum,"addDate":addDate], checkSum: [loginKey,medicineId,exhaleData,"\(exhaleDataSum)",addDate], suc: { (data) in
                 Dprint("URL_SaveTmpExhaleData:\(data)")
                 let dataJson = JSON(data)
-                let code = dataJson["code"].stringValue
                 let message = dataJson["message"].stringValue
                 if message == "4000006" {
                     let loginVC = LoginViewController()

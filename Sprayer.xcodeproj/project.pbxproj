@@ -2200,6 +2200,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Sprayer/Config/Sprayer-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
+				WARNING_CFLAGS = "-Wno-documentation";
 			};
 			name = Debug;
 		};
@@ -2222,6 +2223,7 @@
 				PRODUCT_NAME = Pneuma;
 				SWIFT_OBJC_BRIDGING_HEADER = "Sprayer/Config/Sprayer-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
+				WARNING_CFLAGS = "-Wno-documentation";
 			};
 			name = Release;
 		};

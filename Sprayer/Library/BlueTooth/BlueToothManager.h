@@ -51,7 +51,7 @@
 /**
  *  连接设备
  *
- *  @param per 选择的设备
+ *  @param 选择的设备
  */
 -(void)connectPeripheralWith:(Model *)model;
 
@@ -68,7 +68,7 @@
 /**
  *  发送信息给蓝牙
  *
- *  @param str 遵循通信协议的设定
+ *  @param 遵循通信协议的设定
  */
 - (void)sendDataWithString:(NSData *)data;
 

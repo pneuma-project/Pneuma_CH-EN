@@ -10,7 +10,7 @@
 #import "UIImage+Common.h"
 #import "UIButton+EnlargeTouchArea.h"
 #import "UIView+Common.h"
-#import "UIColor+Expanded.h"
+#import "UIColor+expanded.h"
 
 #define btnW 12
 #define titleWOfY 30
