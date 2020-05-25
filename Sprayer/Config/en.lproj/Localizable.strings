@@ -121,8 +121,8 @@
 "test_time_group" = "The %d Group %d test";
 "time_test_result" = "Group %d test result";
 "finish_first" = "Finish the current test first";
-"fev" = "1. Maximum forced vital capacity (FVC)：%.1f L";
-"fev1" = "2. Maximum expiratory volume in the first second(FEV1): %.1f L";
+"fev" = "1. Maximum forced vital capacity (FVC)：%.2f L";
+"fev1" = "2. Maximum expiratory volume in the first second(FEV1): %.2f L";
 "pef" = "3. Peak expiratory flow (PEF)：%.1f L/min";
 "save_time" = "This test will be saved as %d group test";
 "finish_testing" = "Finish this test";

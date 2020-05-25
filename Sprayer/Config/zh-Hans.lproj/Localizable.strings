@@ -121,8 +121,8 @@
 "test_time_group" = "第%d次第%d组测试";
 "time_test_result" = "第%d组测试结果";
 "finish_first" = "请先完成当前测试";
-"fev" = "1、最大用力肺活量(FVC)：%.1f L";
-"fev1" = "2、第一秒最大呼气量(FEV1)：%.1f L";
+"fev" = "1、最大用力肺活量(FVC)：%.2f L";
+"fev1" = "2、第一秒最大呼气量(FEV1)：%.2f L";
 "pef" = "3、尖峰呼气流速(PEF)：%.1f L/min";
 "save_time" = "此次测试将保存为第%d组测试";
 "finish_testing" = "完成本次测试";
