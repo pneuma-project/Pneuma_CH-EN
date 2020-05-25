@@ -93,6 +93,7 @@
 		64CD9987242F2FC60019EEEE /* SLungTestNumCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64CD9985242F2FC60019EEEE /* SLungTestNumCell.xib */; };
 		64CE06D02439BF5D00C8B131 /* SLungHistoryNumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CE06CE2439BF5D00C8B131 /* SLungHistoryNumCell.swift */; };
 		64CE06D12439BF5D00C8B131 /* SLungHistoryNumCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64CE06CF2439BF5D00C8B131 /* SLungHistoryNumCell.xib */; };
+		64CE1CC324780CAB00F896F7 /* lungTestData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 64CE1CC224780CAB00F896F7 /* lungTestData.plist */; };
 		64CF5F44228E8DD300595018 /* SURLLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CF5F43228E8DD300595018 /* SURLLogin.swift */; };
 		64CF5F46228E90AE00595018 /* SURLSuckFog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CF5F45228E90AE00595018 /* SURLSuckFog.swift */; };
 		64CF5F48228E956E00595018 /* DeviceRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CF5F47228E956E00595018 /* DeviceRequestObject.swift */; };
@@ -381,6 +382,7 @@
 		64CD9985242F2FC60019EEEE /* SLungTestNumCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLungTestNumCell.xib; sourceTree = "<group>"; };
 		64CE06CE2439BF5D00C8B131 /* SLungHistoryNumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLungHistoryNumCell.swift; sourceTree = "<group>"; };
 		64CE06CF2439BF5D00C8B131 /* SLungHistoryNumCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLungHistoryNumCell.xib; sourceTree = "<group>"; };
+		64CE1CC224780CAB00F896F7 /* lungTestData.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = lungTestData.plist; sourceTree = "<group>"; };
 		64CF5F43228E8DD300595018 /* SURLLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SURLLogin.swift; sourceTree = "<group>"; };
 		64CF5F45228E90AE00595018 /* SURLSuckFog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SURLSuckFog.swift; sourceTree = "<group>"; };
 		64CF5F47228E956E00595018 /* DeviceRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRequestObject.swift; sourceTree = "<group>"; };
@@ -1533,6 +1535,7 @@
 				64F663C11E63C8A900F4C9E7 /* main.m */,
 				64E8EF7E228AAD3300B357D1 /* Sprayer.xcdatamodeld */,
 				D173D46F24179FF7003697E4 /* Localizable.strings */,
+				64CE1CC224780CAB00F896F7 /* lungTestData.plist */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -1700,6 +1703,7 @@
 				6426203E1E80B56200263124 /* hud_success@2x.png in Resources */,
 				D196C7612448001B009AB731 /* video_chat_push.mp3 in Resources */,
 				D196C7602448001B009AB731 /* video_chat_tip_onTimer.aac in Resources */,
+				64CE1CC324780CAB00F896F7 /* lungTestData.plist in Resources */,
 				D196C75A2448001B009AB731 /* video_connect_chat_tip_sender.aac in Resources */,
 				7906CA4D1FBD733E00200B66 /* Assets.xcassets in Resources */,
 				D18050FC2463EAC60050E01E /* MembersListCell.xib in Resources */,
@@ -2127,7 +2131,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -2168,7 +2172,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -2187,7 +2191,7 @@
 				DEVELOPMENT_TEAM = L5888F4Z42;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Sprayer/Config/PrefixHeader.pch";
 				INFOPLIST_FILE = Sprayer/Config/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.06;
 				"OTHER_SWIFT_FLAGS[arch=*]" = "$(inherited) \"-D\" \"COCOAPODS\" -D DEBUG";
@@ -2211,7 +2215,7 @@
 				DEVELOPMENT_TEAM = L5888F4Z42;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Sprayer/Config/PrefixHeader.pch";
 				INFOPLIST_FILE = Sprayer/Config/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.06;
 				PRODUCT_BUNDLE_IDENTIFIER = com.FL.Pneuma.dev;
