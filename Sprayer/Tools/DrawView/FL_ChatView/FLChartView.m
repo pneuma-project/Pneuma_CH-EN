@@ -14,6 +14,8 @@
 
 #define btnW 12
 #define titleWOfY 30
+#define POINT(_INDEX_) [(NSValue *)[self.leftPointArr objectAtIndex:_INDEX_] CGPointValue]
+
 @interface FLChartView ()<UIScrollViewDelegate>
 {
     CGFloat currentPage;//当前页数
@@ -176,24 +178,47 @@
     bezier1.lineJoinStyle = kCGLineJoinMiter;
     [bezier1 moveToPoint:p1];
     
-    
-    for (int i = 0;i<self.leftPointArr.count;i++ ) {
-        if (i != 0) {
+//    for (int i = 0;i<self.leftPointArr.count;i++ ) {
+//        if (i != 0) {
+//
+//            CGPoint prePoint = [[self.leftPointArr objectAtIndex:i-1] CGPointValue];
+//            CGPoint nowPoint = [[self.leftPointArr objectAtIndex:i] CGPointValue];
+//            //            [beizer addLineToPoint:point];
+//            [beizer addCurveToPoint:nowPoint controlPoint1:CGPointMake((nowPoint.x+prePoint.x)/2, (nowPoint.y+prePoint.y)/2) controlPoint2:CGPointMake((nowPoint.x+prePoint.x)/2, (nowPoint.y+prePoint.y)/2)];
+//
+//
+//            //            [bezier1 addLineToPoint:nowPoint];
+//            [bezier1 addCurveToPoint:nowPoint controlPoint1:CGPointMake((nowPoint.x+prePoint.x)/2, (nowPoint.y+prePoint.y)/2) controlPoint2:CGPointMake((nowPoint.x+prePoint.x)/2, (nowPoint.y+prePoint.y)/2)];
+//
+//            if (i == self.leftPointArr.count-1) {
+//                [beizer moveToPoint:nowPoint];//添加连线
+//                lastPoint = nowPoint;
+//            }
+//        }
+//    }
+    for (NSUInteger index = 1; index < self.leftPointArr.count - 2; index++) {
+        CGPoint p0 = POINT(index - 1);
+        CGPoint p1 = POINT(index);
+        CGPoint p2 = POINT(index + 1);
+        CGPoint p3 = POINT(index + 2);
+        
+        // now add n points starting at p1 + dx/dy up until p2 using Catmull-Rom splines
+        for (int i = 1; i < 3; i++) {
             
-            CGPoint prePoint = [[self.leftPointArr objectAtIndex:i-1] CGPointValue];
-            CGPoint nowPoint = [[self.leftPointArr objectAtIndex:i] CGPointValue];
-            //            [beizer addLineToPoint:point];
-            [beizer addCurveToPoint:nowPoint controlPoint1:CGPointMake((nowPoint.x+prePoint.x)/2, (nowPoint.y+prePoint.y)/2) controlPoint2:CGPointMake((nowPoint.x+prePoint.x)/2, (nowPoint.y+prePoint.y)/2)];
+            float t = (float) i * (1.0f / 3);
+            float tt = t * t;
+            float ttt = tt * t;
             
-            
-            //            [bezier1 addLineToPoint:nowPoint];
-            [bezier1 addCurveToPoint:nowPoint controlPoint1:CGPointMake((nowPoint.x+prePoint.x)/2, (nowPoint.y+prePoint.y)/2) controlPoint2:CGPointMake((nowPoint.x+prePoint.x)/2, (nowPoint.y+prePoint.y)/2)];
-            
-            if (i == self.leftPointArr.count-1) {
-                [beizer moveToPoint:nowPoint];//添加连线
-                lastPoint = nowPoint;
-            }
+            CGPoint pi; // intermediate point
+            pi.x = 0.5 * (2*p1.x+(p2.x-p0.x)*t + (2*p0.x-5*p1.x+4*p2.x-p3.x)*tt + (3*p1.x-p0.x-3*p2.x+p3.x)*ttt);
+            pi.y = 0.5 * (2*p1.y+(p2.y-p0.y)*t + (2*p0.y-5*p1.y+4*p2.y-p3.y)*tt + (3*p1.y-p0.y-3*p2.y+p3.y)*ttt);
+            [beizer addLineToPoint:pi];
+            [bezier1 addLineToPoint:pi];
         }
+        
+        // Now add p2
+        [beizer addLineToPoint:p2];
+        [bezier1 addLineToPoint:p2];
     }
     
     CGFloat bgViewHeight = self.bgView1.bounds.size.height;
@@ -252,7 +277,7 @@
     shapeLayer.path = beizer.CGPath;
     shapeLayer.fillColor = [UIColor clearColor].CGColor;
     shapeLayer.strokeColor = RGBColor(57, 106, 195, 1.0).CGColor;
-    shapeLayer.lineWidth = 2;
+    shapeLayer.lineWidth = 1.5;
     [self.scrollBgView1.layer addSublayer:shapeLayer];
     
     

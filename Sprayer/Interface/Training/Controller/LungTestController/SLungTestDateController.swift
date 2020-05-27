@@ -144,7 +144,6 @@ class SLungTestDateController: BaseViewController,CustemBBI {
         exhaleTime = objDict["exhaleTime"] as! String
         let exhaleDataArr = exhaleDataStr.components(separatedBy: ",")
         self.XNumSetting(dataArr: exhaleDataArr)
-        self.saveTmpData()
     }
     
     func XNumSetting(dataArr:[String]) {
@@ -186,9 +185,10 @@ class SLungTestDateController: BaseViewController,CustemBBI {
         for i in 0...(Int(maxNum)*10) {
             thirdXNumArr.append(String.init(format: "%.1f", Double(i)*0.1))
         }
-        DispatchQueue.main.async {
+//        DispatchQueue.main.async {
             self.setInterface()
-        }
+//        }
+        self.saveTmpData()
     }
     
     func saveTmpData() {
