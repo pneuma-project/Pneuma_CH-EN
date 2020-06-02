@@ -13,6 +13,7 @@
 #import "SqliteUtils.h"
 #import "AddPatientInfoModel.h"
 #import "UserDefaultsUtils.h"
+#import <XMLReader/XMLReader.h>
 
 @implementation FLWrapJson
 
@@ -224,20 +225,42 @@
 //    }else {
 //        rate = exhaleData + (416/exhaleData)*157;
 //    }
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"lungTestData" ofType:@"plist"];
-    NSMutableDictionary *plistDic = [[NSMutableDictionary alloc]initWithContentsOfFile:plistPath];
-    
-    if (exhaleData >= 546) {
-        rate = [[plistDic objectForKey:@"546"] floatValue];;
-    }else {
-        if (floorf(exhaleData) == exhaleData) {
-            rate = [[plistDic objectForKey:[NSString stringWithFormat:@"%.0f",exhaleData]] floatValue];
+//    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"lungTestData" ofType:@"plist"];
+//    NSMutableDictionary *plistDic = [[NSMutableDictionary alloc]initWithContentsOfFile:plistPath];
+//    
+//    if (exhaleData >= 546) {
+//        rate = [[plistDic objectForKey:@"546"] floatValue];;
+//    }else {
+//        if (floorf(exhaleData) == exhaleData) {
+//            rate = [[plistDic objectForKey:[NSString stringWithFormat:@"%.0f",exhaleData]] floatValue];
+//        }else {
+//            float slm1 = [[plistDic objectForKey:[NSString stringWithFormat:@"%.0f",floorf(exhaleData)]] floatValue];
+//            float slm2 = [[plistDic objectForKey:[NSString stringWithFormat:@"%.0f",ceilf(exhaleData)]] floatValue];
+//            rate = slm1 + ((exhaleData-floorf(exhaleData)) * (slm2-slm1));
+//        }
+//    }
+    NSString *xmlFileString = [[NSBundle mainBundle] pathForResource:@"pneuma_model" ofType:@"xml"];
+    NSData *xmlData = [NSData dataWithContentsOfFile:xmlFileString];
+    NSError *error = nil;
+    if (error) {
+        NSLog(@"error : %@", error);
+    }
+    NSDictionary *result = [XMLReader dictionaryForXMLData:xmlData error:&error];
+    NSArray *itemArr = result[@"resources"][@"string-array"][@"item"];
+    if (itemArr.count == 547) {
+        if (exhaleData >= 546) {
+            rate = [itemArr[546][@"text"] floatValue];
         }else {
-            float slm1 = [[plistDic objectForKey:[NSString stringWithFormat:@"%.0f",floorf(exhaleData)]] floatValue];
-            float slm2 = [[plistDic objectForKey:[NSString stringWithFormat:@"%.0f",ceilf(exhaleData)]] floatValue];
-            rate = slm1 + ((exhaleData-floorf(exhaleData)) * (slm2-slm1));
+            if (floorf(exhaleData) == exhaleData) {
+                rate = [[itemArr objectAtIndex:[[NSString stringWithFormat:@"%.0f",exhaleData] integerValue]][@"text"] floatValue];
+            }else {
+                float slm1 = [[itemArr objectAtIndex:[[NSString stringWithFormat:@"%.0f",floorf(exhaleData)] integerValue]][@"text"] floatValue];
+                float slm2 = [[itemArr objectAtIndex:[[NSString stringWithFormat:@"%.0f",ceilf(exhaleData)] integerValue]][@"text"] floatValue];
+                rate = slm1 + ((exhaleData-floorf(exhaleData)) * (slm2-slm1));
+            }
         }
     }
+    
     return rate;
 }
 

@@ -13,5 +13,6 @@ target 'Sprayer' do
   pod 'MagicalRecord', '2.3.2'        #CoreData
   pod 'NIMSDK', '7.5.0'          #网易云信
   pod 'Toast', '3.0'
-  pod 'Bugly', '2.5.2'
+  pod 'Bugly', '2.5.0'
+  pod 'XMLReader', '0.0.2'    #xml文件解析
 end

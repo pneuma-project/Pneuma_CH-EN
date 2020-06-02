@@ -8,19 +8,21 @@ PODS:
   - NIMSDK (7.5.0)
   - SnapKit (4.2.0)
   - SwiftyJSON (4.2.0)
-  - Toast (3.1.0)
+  - Toast (3.0)
   - Toast-Swift (4.0.1)
+  - XMLReader (0.0.2)
 
 DEPENDENCIES:
   - Alamofire (= 4.5.0)
-  - Bugly
+  - Bugly (= 2.5.0)
   - CryptoSwift (= 0.7.1)
   - MagicalRecord (= 2.3.2)
   - NIMSDK (= 7.5.0)
   - SnapKit (= 4.2.0)
   - SwiftyJSON (= 4.2.0)
-  - Toast (~> 3.0)
+  - Toast (= 3.0)
   - Toast-Swift (= 4.0.1)
+  - XMLReader (= 0.0.2)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -33,6 +35,7 @@ SPEC REPOS:
     - SwiftyJSON
     - Toast
     - Toast-Swift
+    - XMLReader
 
 SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
@@ -42,9 +45,10 @@ SPEC CHECKSUMS:
   NIMSDK: a43eb9b8bf83ddb0338c51ae2d756b683edc0cb8
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
-  Toast: 14a93686d6c8bfe2727afd342414e35660a8a1f3
+  Toast: 32c59229abfcf41850162b83bb9259dc84372473
   Toast-Swift: e42a638589a2f95036b4bb7626cfbdde7daf0393
+  XMLReader: c7e54b707c368e2fa545d8313276b4de13a36ff5
 
-PODFILE CHECKSUM: 74023bb2842de3d812be3bbd7b3070245d406412
+PODFILE CHECKSUM: 51c9235de6b927a215d16f1005f4d6b0e1c02aa2
 
 COCOAPODS: 1.9.1
