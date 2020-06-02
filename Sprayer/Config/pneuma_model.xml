@@ -1,665 +1,665 @@
 <resources>
     <string-array name="data_model">
         <!--0-10-->
-        <item>0.000000</item>
+        <item>0.00000</item>
         <item>20.00000</item>
         <item>35.00000</item>
         <item>40.00000</item>
         <item>45.00000</item>
         <item>50.00000</item>
-        <item>55.00000</item>
-        <item>57.50000</item>
+        <item>52.00000</item>
+        <item>55.50000</item>
         <item>60.00000</item>
-        <item>61.66667</item>
-        <item>63.33334</item>
+        <item>62.50000</item>
+        <item>65.00000</item>
 
         <!--11-20-->
-        <item>65.00000</item>
         <item>67.50000</item>
         <item>70.00000</item>
         <item>72.50000</item>
         <item>75.00000</item>
-        <item>76.66667</item>
-        <item>78.33334</item>
+        <item>77.50000</item>
         <item>80.00000</item>
         <item>82.50000</item>
         <item>85.00000</item>
-
-        <!--21-30-->
         <item>87.50000</item>
         <item>90.00000</item>
-        <item>91.66667</item>
-        <item>93.33334</item>
+
+        <!--21-30-->
         <item>95.00000</item>
         <item>97.50000</item>
         <item>100.00000</item>
-        <item>101.66667</item>
-        <item>103.33334</item>
         <item>105.00000</item>
-
-        <!--31-39-->
         <item>107.50000</item>
         <item>110.00000</item>
-        <item>111.66667</item>
-        <item>113.33334</item>
+        <item>112.50000</item>
         <item>115.00000</item>
         <item>117.50000</item>
         <item>120.00000</item>
-        <item>122.50000</item>
-        <item>125.00000</item>
 
-        <!--40-49-->
-        <item>126.00000</item>
-        <item>127.00000</item>
-        <item>128.50000</item>
+        <!--31-39-->
+        <item>121.66667</item>
+        <item>123.33334</item>
+        <item>125.00000</item>
+        <item>126.66667</item>
+        <item>128.33334</item>
         <item>130.00000</item>
         <item>131.66667</item>
         <item>133.33334</item>
         <item>135.00000</item>
-        <item>136.66667</item>
-        <item>138.33334</item>
-        <item>140.00000</item>
 
-        <!--50-59-->
-        <item>141.25000</item>
-        <item>142.50000</item>
-        <item>143.75000</item>
+        <!--40-49-->
+        <item>137.50000</item>
+        <item>140.00000</item>
+        <item>141.66667</item>
+        <item>143.33334</item>
         <item>145.00000</item>
-        <item>146.66667</item>
-        <item>148.33334</item>
+        <item>147.50000</item>
         <item>150.00000</item>
         <item>151.66667</item>
         <item>153.33334</item>
         <item>155.00000</item>
 
-        <!--60-69-->
+        <!--50-59-->
         <item>157.50000</item>
         <item>160.00000</item>
-        <item>161.66670</item>
-        <item>163.33340</item>
+        <item>162.50000</item>
         <item>165.00000</item>
         <item>167.50000</item>
         <item>170.00000</item>
         <item>171.25000</item>
         <item>172.50000</item>
         <item>173.75000</item>
-
-        <!--70-79-->
         <item>175.00000</item>
-        <item>176.66667</item>
-        <item>178.33334</item>
+
+        <!--60-69-->
+        <item>177.50000</item>
         <item>180.00000</item>
         <item>182.50000</item>
         <item>185.00000</item>
-        <item>186.25000</item>
-        <item>187.50000</item>
-        <item>188.75000</item>
+        <item>186.66667</item>
+        <item>188.33334</item>
         <item>190.00000</item>
-
-        <!--80-90-->
         <item>191.66667</item>
         <item>193.33334</item>
         <item>195.00000</item>
+
+        <!--70-79-->
         <item>196.66667</item>
         <item>198.33334</item>
         <item>200.00000</item>
-        <item>202.50000</item>
+        <item>201.66667</item>
+        <item>203.33334</item>
         <item>205.00000</item>
-        <item>206.66667</item>
-        <item>208.33334</item>
+        <item>207.50000</item>
         <item>210.00000</item>
+        <item>211.66667</item>
+        <item>213.33334</item>
 
-        <!--91-99-->
-        <item>211.25000</item>
-        <item>212.50000</item>
-        <item>213.75000</item>
+        <!--80-90-->
         <item>215.00000</item>
         <item>216.66667</item>
         <item>218.33334</item>
         <item>220.00000</item>
         <item>222.50000</item>
         <item>225.00000</item>
-
-        <!--100-109-->
         <item>226.25000</item>
         <item>227.50000</item>
         <item>228.75000</item>
         <item>230.00000</item>
-        <item>231.66667</item>
-        <item>233.33334</item>
+        <item>232.50000</item>
+
+        <!--91-99-->
         <item>235.00000</item>
         <item>236.66667</item>
         <item>238.33334</item>
         <item>240.00000</item>
-
-        <!--110-119-->
         <item>241.66667</item>
         <item>243.33334</item>
         <item>245.00000</item>
-        <item>246.66667</item>
-        <item>248.33334</item>
+        <item>246.25000</item>
+        <item>247.50000</item>
+
+        <!--100-109-->
+        <item>248.75000</item>
         <item>250.00000</item>
         <item>251.66667</item>
         <item>253.33334</item>
         <item>255.00000</item>
-        <item>256.66667</item>
-
-        <!--120-129-->
-        <item>258.33334</item>
+        <item>256.25000</item>
+        <item>257.50000</item>
+        <item>258.75000</item>
         <item>260.00000</item>
         <item>261.66667</item>
+
+        <!--110-119-->
         <item>263.33334</item>
         <item>265.00000</item>
         <item>266.66667</item>
         <item>268.33334</item>
         <item>270.00000</item>
-        <item>271.25000</item>
-        <item>272.50000</item>
+        <item>271.66667</item>
+        <item>273.33334</item>
+        <item>275.00000</item>
+        <item>276.25000</item>
+        <item>277.50000</item>
+
+        <!--120-129-->
+        <item>278.75000</item>
+        <item>280.00000</item>
+        <item>281.25000</item>
+        <item>282.50000</item>
+        <item>283.75000</item>
+        <item>285.00000</item>
+        <item>286.25000</item>
+        <item>287.50000</item>
+        <item>288.75000</item>
+        <item>290.00000</item>
 
         <!--130-139-->
-        <item>273.75000</item>
-        <item>275.00000</item>
-        <item>276.66667</item>
-        <item>278.33334</item>
-        <item>280.00000</item>
-        <item>281.66667</item>
-        <item>283.33334</item>
-        <item>285.00000</item>
-        <item>286.66667</item>
-        <item>288.33334</item>
-
-        <!--140-149-->
-        <item>290.00000</item>
-        <item>291.25000</item>
-        <item>292.50000</item>
-        <item>293.75000</item>
+        <item>291.66667</item>
+        <item>293.33334</item>
         <item>295.00000</item>
         <item>296.25000</item>
         <item>297.50000</item>
         <item>298.75000</item>
         <item>300.00000</item>
-        <item>301.66667</item>
+        <item>301.25000</item>
+        <item>302.50000</item>
+        <item>303.75000</item>
 
-        <!--150-159-->
-        <item>303.33334</item>
+        <!--140-149-->
         <item>305.00000</item>
-        <item>317.50000</item>
-        <item>330.00000</item>
-        <item>342.50000</item>
+        <item>306.00000</item>
+        <item>307.00000</item>
+        <item>308.00000</item>
+        <item>309.00000</item>
         <item>310.00000</item>
         <item>311.25000</item>
         <item>312.50000</item>
         <item>313.75000</item>
         <item>315.00000</item>
 
-        <!--160-169-->
-        <item>316.66667</item>
-        <item>318.33334</item>
+        <!--150-159-->
+        <item>316.25000</item>
+        <item>317.50000</item>
+        <item>318.75000</item>
         <item>320.00000</item>
         <item>321.25000</item>
         <item>322.50000</item>
         <item>323.75000</item>
         <item>325.00000</item>
-        <item>326.00000</item>
-        <item>327.00000</item>
-        <item>328.00000</item>
+        <item>326.25000</item>
+        <item>327.50000</item>
+
+        <!--160-169-->
+        <item>328.75000</item>
+        <item>330.00000</item>
+        <item>331.25000</item>
+        <item>332.50000</item>
+        <item>333.75000</item>
+        <item>335.00000</item>
+        <item>336.25000</item>
+        <item>337.50000</item>
+        <item>338.75000</item>
+        <item>340.00000</item>
 
         <!--170-179-->
-        <item>329.00000</item>
-        <item>330.00000</item>
-        <item>331.66667</item>
-        <item>333.33334</item>
-        <item>335.00000</item>
-        <item>336.66667</item>
-        <item>338.33334</item>
-        <item>340.00000</item>
-        <item>341.66667</item>
-        <item>343.33334</item>
-
-        <!--180-189-->
+        <item>341.25000</item>
+        <item>342.50000</item>
+        <item>343.75000</item>
         <item>345.00000</item>
         <item>346.00000</item>
         <item>347.00000</item>
         <item>348.00000</item>
         <item>349.00000</item>
         <item>350.00000</item>
-        <item>351.66667</item>
-        <item>353.33334</item>
+        <item>351.25000</item>
+
+        <!--180-189-->
+        <item>352.50000</item>
+        <item>353.75000</item>
         <item>355.00000</item>
-        <item>356.00000</item>
+        <item>357.25000</item>
+        <item>360.00000</item>
+        <item>360.55556</item>
+        <item>361.11112</item>
+        <item>361.66668</item>
+        <item>362.22224</item>
+        <item>362.77780</item>
 
         <!--190-199-->
-        <item>357.00000</item>
-        <item>358.00000</item>
-        <item>359.00000</item>
-        <item>360.00000</item>
-        <item>362.00000</item>
-        <item>363.50000</item>
+        <item>363.33336</item>
+        <item>363.88892</item>
+        <item>364.44448</item>
         <item>365.00000</item>
-        <item>366.25000</item>
-        <item>367.50000</item>
-        <item>368.75000</item>
+        <item>366.00000</item>
+        <item>367.00000</item>
+        <item>368.00000</item>
+        <item>369.00000</item>
+        <item>370.00000</item>
+        <item>370.71429</item>
 
         <!--200-209-->
-        <item>370.00000</item>
-        <item>371.00000</item>
-        <item>372.00000</item>
-        <item>373.00000</item>
-        <item>374.00000</item>
+        <item>371.42858</item>
+        <item>372.14287</item>
+        <item>372.85716</item>
+        <item>373.57145</item>
+        <item>374.28574</item>
         <item>375.00000</item>
-        <item>376.00000</item>
-        <item>377.00000</item>
-        <item>378.00000</item>
-        <item>378.66667</item>
+        <item>375.83333</item>
+        <item>376.66666</item>
+        <item>377.49999</item>
+        <item>378.33332</item>
 
         <!--210-219-->
-        <item>379.33334</item>
+        <item>379.16665</item>
         <item>380.00000</item>
-        <item>381.00000</item>
-        <item>382.00000</item>
-        <item>383.00000</item>
-        <item>384.00000</item>
+        <item>381.25000</item>
+        <item>382.50000</item>
+        <item>383.75000</item>
         <item>385.00000</item>
-        <item>386.25000</item>
-        <item>387.50000</item>
-        <item>388.75000</item>
+        <item>385.83333</item>
+        <item>386.66666</item>
+        <item>387.49999</item>
+        <item>388.33332</item>
 
         <!--220-229-->
+        <item>389.16665</item>
         <item>390.00000</item>
-        <item>391.00000</item>
-        <item>392.00000</item>
-        <item>393.00000</item>
-        <item>394.00000</item>
+        <item>390.83333</item>
+        <item>391.66666</item>
+        <item>392.49999</item>
+        <item>393.33332</item>
+        <item>394.16665</item>
         <item>395.00000</item>
-        <item>396.66667</item>
-        <item>398.33334</item>
-        <item>400.00000</item>
-        <item>401.25000</item>
+        <item>396.25000</item>
+        <item>397.50000</item>
 
         <!--230-239-->
-        <item>402.50000</item>
-        <item>403.75000</item>
+        <item>398.75000</item>
+        <item>400.00000</item>
+        <item>401.66667</item>
+        <item>403.33334</item>
         <item>405.00000</item>
-        <item>406.66667</item>
-        <item>408.33334</item>
+        <item>406.00000</item>
+        <item>407.00000</item>
+        <item>408.00000</item>
+        <item>409.00000</item>
         <item>410.00000</item>
+
+        <!--240-249-->
         <item>411.25000</item>
         <item>412.50000</item>
         <item>413.75000</item>
         <item>415.00000</item>
-
-        <!--240-249-->
-        <item>417.50000</item>
+        <item>416.66667</item>
+        <item>418.33334</item>
         <item>420.00000</item>
-        <item>421.66667</item>
-        <item>423.33334</item>
+        <item>423.00000</item>
+        <item>424.00000</item>
         <item>425.00000</item>
-        <item>426.66667</item>
-        <item>428.33334</item>
+
+        <!--250-259-->
+        <item>426.25000</item>
+        <item>427.50000</item>
+        <item>428.75000</item>
         <item>430.00000</item>
         <item>431.66667</item>
         <item>433.33334</item>
-
-        <!--250-259-->
         <item>435.00000</item>
         <item>436.66667</item>
         <item>438.33334</item>
         <item>440.00000</item>
-        <item>441.66667</item>
-        <item>443.33334</item>
+
+        <!--260-269-->
+        <item>441.50000</item>
+        <item>443.00000</item>
+        <item>444.00000</item>
         <item>445.00000</item>
         <item>446.66667</item>
         <item>448.33334</item>
         <item>450.00000</item>
+        <item>451.00000</item>
+        <item>452.00000</item>
+        <item>453.00000</item>
 
-        <!--260-269-->
-        <item>451.25000</item>
-        <item>452.50000</item>
-        <item>453.75000</item>
+        <!--270-279-->
+        <item>454.00000</item>
         <item>455.00000</item>
-        <item>456.66667</item>
-        <item>458.33334</item>
+        <item>456.00000</item>
+        <item>457.00000</item>
+        <item>458.50000</item>
         <item>460.00000</item>
         <item>461.66667</item>
         <item>463.33334</item>
         <item>465.00000</item>
+        <item>466.00000</item>
 
-        <!--270-279-->
+        <!--280-289-->
         <item>467.00000</item>
-        <item>468.50000</item>
+        <item>468.00000</item>
+        <item>469.00000</item>
         <item>470.00000</item>
-        <item>471.50000</item>
-        <item>473.00000</item>
+        <item>471.66667</item>
+        <item>473.33334</item>
         <item>475.00000</item>
         <item>476.50000</item>
         <item>478.00000</item>
         <item>479.00000</item>
-        <item>480.00000</item>
-
-        <!--280-289-->
-        <item>481.00000</item>
-        <item>482.00000</item>
-        <item>483.50000</item>
-        <item>485.00000</item>
-        <item>486.66667</item>
-        <item>488.33334</item>
-        <item>490.00000</item>
-        <item>493.00000</item>
-        <item>494.00000</item>
-        <item>495.00000</item>
 
         <!--290-299-->
+        <item>480.00000</item>
+        <item>481.25000</item>
+        <item>482.50000</item>
+        <item>483.75000</item>
+        <item>485.00000</item>
+        <item>486.00000</item>
+        <item>487.00000</item>
+        <item>488.00000</item>
+        <item>489.00000</item>
+        <item>490.00000</item>
+
+        <!--300-309-->
+        <item>492.50000</item>
+        <item>495.00000</item>
+        <item>496.00000</item>
         <item>497.00000</item>
-        <item>498.50000</item>
+        <item>498.00000</item>
+        <item>499.00000</item>
         <item>500.00000</item>
         <item>501.00000</item>
         <item>502.00000</item>
-        <item>503.00000</item>
+        <item>503.50000</item>
+
+        <!--310-319-->
         <item>505.00000</item>
         <item>506.00000</item>
         <item>507.00000</item>
-        <item>508.50000</item>
-
-        <!--300-309-->
+        <item>508.00000</item>
+        <item>509.00000</item>
         <item>510.00000</item>
         <item>511.00000</item>
         <item>512.00000</item>
         <item>513.00000</item>
-        <item>514.00000</item>
-        <item>515.00000</item>
-        <item>516.50000</item>
-        <item>518.00000</item>
-        <item>519.00000</item>
-        <item>520.00000</item>
-
-        <!--310-319-->
-        <item>521.00000</item>
-        <item>522.00000</item>
-        <item>523.00000</item>
-        <item>524.00000</item>
-        <item>525.00000</item>
-        <item>526.66667</item>
-        <item>528.33334</item>
-        <item>530.00000</item>
-        <item>531.50000</item>
-        <item>533.00000</item>
+        <item>513.80000</item>
 
         <!--320-329-->
+        <item>514.60000</item>
+        <item>515.40000</item>
+        <item>516.20000</item>
+        <item>517.00000</item>
+        <item>518.14286</item>
+        <item>519.28572</item>
+        <item>520.42858</item>
+        <item>521.57144</item>
+        <item>522.71430</item>
+        <item>523.85716</item>
+
+        <!--330-339-->
+        <item>525.00000</item>
+        <item>525.66667</item>
+        <item>526.33334</item>
+        <item>527.00000</item>
+        <item>528.50000</item>
+        <item>530.00000</item>
+        <item>531.00000</item>
+        <item>532.00000</item>
+        <item>533.00000</item>
         <item>534.00000</item>
+
+        <!--340-349-->
         <item>535.00000</item>
         <item>536.00000</item>
         <item>537.00000</item>
         <item>538.00000</item>
         <item>539.00000</item>
         <item>540.00000</item>
-        <item>541.00000</item>
-        <item>542.00000</item>
+        <item>541.50000</item>
         <item>543.00000</item>
-
-        <!--330-339-->
-        <item>544.00000</item>
         <item>545.00000</item>
-        <item>546.00000</item>
-        <item>547.00000</item>
+        <item>545.75000</item>
+
+        <!--350-359-->
+        <item>546.50000</item>
+        <item>547.25000</item>
+        <item>548.00000</item>
         <item>548.50000</item>
+        <item>549.00000</item>
+        <item>549.50000</item>
         <item>550.00000</item>
         <item>551.00000</item>
         <item>552.00000</item>
-        <item>553.50000</item>
-        <item>555.00000</item>
-
-        <!--340-349-->
-        <item>556.50000</item>
-        <item>558.00000</item>
-        <item>560.00000</item>
-        <item>560.50000</item>
-        <item>561.00000</item>
-        <item>561.50000</item>
-        <item>562.00000</item>
-        <item>563.00000</item>
-        <item>564.00000</item>
-        <item>565.00000</item>
-
-        <!--350-359-->
-        <item>566.50000</item>
-        <item>568.00000</item>
-        <item>568.50000</item>
-        <item>569.00000</item>
-        <item>569.50000</item>
-        <item>570.00000</item>
-        <item>571.00000</item>
-        <item>572.00000</item>
-        <item>573.00000</item>
-        <item>574.00000</item>
+        <item>553.00000</item>
 
         <!--360-369-->
-        <item>575.00000</item>
-        <item>575.75000</item>
-        <item>576.50000</item>
-        <item>577.25000</item>
-        <item>578.00000</item>
-        <item>579.00000</item>
-        <item>580.00000</item>
-        <item>581.50000</item>
-        <item>583.00000</item>
-        <item>584.00000</item>
+        <item>554.00000</item>
+        <item>555.00000</item>
+        <item>556.00000</item>
+        <item>557.00000</item>
+        <item>558.00000</item>
+        <item>559.00000</item>
+        <item>560.00000</item>
+        <item>561.00000</item>
+        <item>562.00000</item>
+        <item>563.00000</item>
 
 
         <!--370-379-->
-        <item>585.00000</item>
-        <item>585.66667</item>
-        <item>586.33334</item>
-        <item>587.00000</item>
-        <item>588.00000</item>
-        <item>589.00000</item>
-        <item>590.00000</item>
-        <item>591.00000</item>
-        <item>592.00000</item>
-        <item>593.00000</item>
+        <item>563.75000</item>
+        <item>564.50000</item>
+        <item>565.25000</item>
+        <item>566.00000</item>
+        <item>567.33333</item>
+        <item>568.66666</item>
+        <item>570.00000</item>
+        <item>570.66667</item>
+        <item>571.33334</item>
+        <item>572.00001</item>
 
 
         <!--380-389-->
-        <item>594.00000</item>
-        <item>595.00000</item>
+        <item>572.66668</item>
+        <item>573.33335</item>
+        <item>574.00000</item>
+        <item>575.00000</item>
+        <item>576.00000</item>
+        <item>577.00000</item>
+        <item>578.50000</item>
+        <item>580.00000</item>
+        <item>581.00000</item>
+        <item>582.00000</item>
+
+        <!--390-399-->
+        <item>583.00000</item>
+        <item>584.00000</item>
+        <item>584.75000</item>
+        <item>585.50000</item>
+        <item>586.25000</item>
+        <item>587.00000</item>
+        <item>587.75000</item>
+        <item>588.50000</item>
+        <item>589.25000</item>
+        <item>590.00000</item>
+
+        <!--400-409-->
+        <item>591.20000</item>
+        <item>592.40000</item>
+        <item>593.60000</item>
+        <item>594.80000</item>
         <item>596.00000</item>
-        <item>597.00000</item>
-        <item>598.50000</item>
+        <item>596.80000</item>
+        <item>597.60000</item>
+        <item>598.40000</item>
+        <item>599.20000</item>
         <item>600.00000</item>
+
+        <!--410-419-->
         <item>601.00000</item>
         <item>602.00000</item>
         <item>603.00000</item>
         <item>604.00000</item>
-
-        <!--390-399-->
         <item>605.00000</item>
-        <item>606.50000</item>
+        <item>606.00000</item>
+        <item>607.00000</item>
         <item>608.00000</item>
         <item>608.66667</item>
         <item>609.33334</item>
-        <item>610.00000</item>
-        <item>611.00000</item>
-        <item>612.00000</item>
-        <item>612.60000</item>
-        <item>613.20000</item>
-
-        <!--400-409-->
-        <item>613.80000</item>
-        <item>614.40000</item>
-        <item>615.00000</item>
-        <item>616.00000</item>
-        <item>617.00000</item>
-        <item>618.00000</item>
-        <item>619.00000</item>
-        <item>620.00000</item>
-        <item>621.00000</item>
-        <item>622.00000</item>
-
-        <!--410-419-->
-        <item>623.00000</item>
-        <item>623.20000</item>
-        <item>623.40000</item>
-        <item>623.60000</item>
-        <item>623.80000</item>
-        <item>624.00000</item>
-        <item>624.20000</item>
-        <item>624.40000</item>
-        <item>624.60000</item>
-        <item>624.80000</item>
 
         <!--420-429-->
+        <item>610.00001</item>
+        <item>610.66668</item>
+        <item>611.33335</item>
+        <item>612.00000</item>
+        <item>613.00000</item>
+        <item>614.00000</item>
+        <item>615.00000</item>
+        <item>615.66667</item>
+        <item>616.33334</item>
+        <item>617.00000</item>
+
+        <!--430-439-->
+        <item>618.50000</item>
+        <item>620.00000</item>
+        <item>620.75000</item>
+        <item>621.50000</item>
+        <item>622.25000</item>
+        <item>623.00000</item>
         <item>625.00000</item>
-        <item>626.00000</item>
         <item>627.00000</item>
         <item>628.00000</item>
         <item>629.00000</item>
-        <item>630.00000</item>
-        <item>631.00000</item>
-        <item>632.00000</item>
-        <item>633.00000</item>
-        <item>634.00000</item>
-
-        <!--430-439-->
-        <item>635.00000</item>
-        <item>635.66667</item>
-        <item>636.33334</item>
-        <item>637.00000</item>
-        <item>638.50000</item>
-        <item>640.00000</item>
-        <item>641.00000</item>
-        <item>642.00000</item>
-        <item>643.00000</item>
-        <item>644.00000</item>
 
         <!--440-449-->
-        <item>645.00000</item>
-        <item>646.50000</item>
-        <item>648.00000</item>
-        <item>648.50000</item>
-        <item>649.00000</item>
-        <item>649.50000</item>
-        <item>650.00000</item>
-        <item>650.66667</item>
-        <item>651.33334</item>
-        <item>652.00000</item>
+        <item>630.00000</item>
+        <item>630.60000</item>
+        <item>631.20000</item>
+        <item>631.80000</item>
+        <item>632.40000</item>
+        <item>633.00000</item>
+        <item>634.00000</item>
+        <item>635.00000</item>
+        <item>636.00000</item>
+        <item>637.00000</item>
 
         <!--450-459-->
-        <item>653.50000</item>
-        <item>655.00000</item>
-        <item>655.66667</item>
-        <item>656.33334</item>
-        <item>657.00000</item>
-        <item>658.50000</item>
-        <item>660.00000</item>
-        <item>660.66667</item>
-        <item>661.33334</item>
-        <item>662.00000</item>
+        <item>637.75000</item>
+        <item>638.50000</item>
+        <item>639.25000</item>
+        <item>640.00000</item>
+        <item>641.50000</item>
+        <item>643.00000</item>
+        <item>643.66667</item>
+        <item>644.33334</item>
+        <item>645.00000</item>
+        <item>645.66667</item>
 
         <!--460-469-->
-        <item>663.00000</item>
-        <item>664.00000</item>
+        <item>646.33334</item>
+        <item>647.00000</item>
+        <item>648.50000</item>
+        <item>650.00000</item>
+        <item>650.75000</item>
+        <item>651.50000</item>
+        <item>652.25000</item>
+        <item>653.00000</item>
+        <item>654.25000</item>
+        <item>655.50000</item>
+
+        <!--470-479-->
+        <item>656.75000</item>
+        <item>658.00000</item>
+        <item>658.66667</item>
+        <item>659.33334</item>
+        <item>660.00000</item>
+        <item>660.83333</item>
+        <item>661.66666</item>
+        <item>662.49999</item>
+        <item>663.33332</item>
+        <item>664.16665</item>
+
+
+        <!--480-489-->
         <item>665.00000</item>
-        <item>665.66667</item>
-        <item>666.33334</item>
+        <item>665.40000</item>
+        <item>666.20000</item>
+        <item>666.20000</item>
+        <item>666.60000</item>
         <item>667.00000</item>
         <item>667.75000</item>
         <item>668.50000</item>
         <item>669.25000</item>
         <item>670.00000</item>
 
-        <!--470-479-->
-        <item>670.66667</item>
-        <item>671.33334</item>
+
+        <!--490-499-->
+        <item>671.00000</item>
         <item>672.00000</item>
+        <item>673.00000</item>
         <item>673.50000</item>
+        <item>674.00000</item>
+        <item>674.50000</item>
         <item>675.00000</item>
-        <item>675.50000</item>
-        <item>676.00000</item>
+        <item>675.33333</item>
+        <item>675.66666</item>
+        <item>675.99999</item>
+
+        <!--500-509-->
+        <item>676.66665</item>
+        <item>676.66665</item>
         <item>677.00000</item>
+        <item>677.50000</item>
         <item>678.00000</item>
         <item>678.50000</item>
-
-
-        <!--480-489-->
         <item>679.00000</item>
         <item>679.50000</item>
         <item>680.00000</item>
         <item>681.00000</item>
-        <item>682.00000</item>
-        <item>683.00000</item>
-        <item>684.00000</item>
-        <item>685.00000</item>
-        <item>685.50000</item>
-        <item>686.00000</item>
-
-
-        <!--490-499-->
-        <item>686.50000</item>
-        <item>687.00000</item>
-        <item>687.25000</item>
-        <item>687.50000</item>
-        <item>687.75000</item>
-        <item>688.00000</item>
-        <item>688.50000</item>
-        <item>689.00000</item>
-        <item>689.50000</item>
-        <item>690.00000</item>
-
-        <!--500-509-->
-        <item>690.50000</item>
-        <item>691.00000</item>
-        <item>691.50000</item>
-        <item>692.00000</item>
-        <item>692.50000</item>
-        <item>693.00000</item>
-        <item>693.50000</item>
-        <item>694.00000</item>
-        <item>694.50000</item>
-        <item>695.00000</item>
 
         <!--510-519-->
-        <item>695.50000</item>
-        <item>696.00000</item>
-        <item>696.50000</item>
-        <item>697.00000</item>
-        <item>697.50000</item>
-        <item>698.00000</item>        
-        <item>698.50000</item>
-        <item>699.00000</item>
-        <item>699.50000</item>
-        <item>700.00000</item>
+        <item>681.00000</item>
+        <item>681.50000</item>
+        <item>682.00000</item>
+        <item>682.50000</item>
+        <item>683.00000</item>
+        <item>683.50000</item>
+        <item>684.00000</item>
+        <item>684.50000</item>
+        <item>685.00000</item>
+        <item>685.42857</item>
 
         <!--520-529-->
-        <item>700.50000</item>
-        <item>701.00000</item>
-        <item>701.50000</item>
-        <item>702.00000</item>
-        <item>702.50000</item>
-        <item>703.00000</item>
-        <item>703.50000</item>
-        <item>704.00000</item>
-        <item>704.50000</item>
-        <item>705.00000</item>
+        <item>685.85714</item>
+        <item>686.28571</item>
+        <item>686.71428</item>
+        <item>687.14285</item>
+        <item>687.57142</item>
+        <item>688.00000</item>
+        <item>689.00000</item>
+        <item>690.00000</item>
+        <item>691.00000</item>
+        <item>692.00000</item>
 
         <!--530-539-->
-        <item>705.50000</item>
-        <item>706.00000</item>
-        <item>706.50000</item>
-        <item>707.00000</item>
-        <item>707.50000</item>
-        <item>708.00000</item>
-        <item>708.50000</item>
-        <item>709.00000</item>
-        <item>709.50000</item>
-        <item>710.00000</item>
+        <item>693.00000</item>
+        <item>694.00000</item>
+        <item>695.00000</item>
+        <item>696.00000</item>
+        <item>697.00000</item>
+        <item>698.00000</item>
+        <item>699.00000</item>
+        <item>700.00000</item>
+        <item>701.00000</item>
+        <item>702.00000</item>
 
         <!--540-546-->
-        <item>710.50000</item>
-        <item>711.00000</item>
-        <item>711.50000</item>
-        <item>712.00000</item>
-        <item>712.50000</item>
-        <item>713.00000</item>
-        <item>713.50000</item>
+        <item>703.00000</item>
+        <item>704.00000</item>
+        <item>705.00000</item>
+        <item>706.00000</item>
+        <item>707.00000</item>
+        <item>708.00000</item>
+        <item>709.00000</item>
             
     </string-array>
 </resources>
