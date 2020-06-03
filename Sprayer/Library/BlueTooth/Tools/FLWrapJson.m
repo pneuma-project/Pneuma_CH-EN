@@ -259,6 +259,13 @@
                 rate = slm1 + ((exhaleData-floorf(exhaleData)) * (slm2-slm1));
             }
         }
+        if (exhaleData > 10) {
+            rate = rate * 1.05;
+        }else if (exhaleData <= 10 && exhaleData > 0.1) {
+            rate = rate * 0.85;
+        }else if (exhaleData <= 0.1) {
+            rate = rate * 0.25;
+        }
     }
     
     return rate;
