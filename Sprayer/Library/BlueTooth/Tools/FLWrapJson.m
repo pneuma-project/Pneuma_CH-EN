@@ -185,7 +185,7 @@
     NSMutableArray *yaliOneArr = [[NSMutableArray alloc] init];
     for (int i = 0; i<data.length; i+=2) {
         NSInteger yaliData = abs([self signedDataTointWithData:[data subdataWithRange:NSMakeRange(i, 2)] Location:0 Offset:2]);//[self input0x16String:[FLDrawDataTool hexStringFromData:[data subdataWithRange:NSMakeRange(i, 2)]]]
-        float yaliNum = yaliData/60.0;
+        float yaliNum = yaliData/20.0;
         [yaliOneArr addObject:@(yaliNum)];
     }
     
@@ -247,9 +247,9 @@
     }
     NSDictionary *result = [XMLReader dictionaryForXMLData:xmlData error:&error];
     NSArray *itemArr = result[@"resources"][@"string-array"][@"item"];
-    if (itemArr.count == 547) {
-        if (exhaleData >= 546) {
-            rate = [itemArr[546][@"text"] floatValue];
+    if (itemArr.count == 1640) {
+        if (exhaleData >= 1639) {
+            rate = [itemArr[1639][@"text"] floatValue];
         }else {
             if (floorf(exhaleData) == exhaleData) {
                 rate = [[itemArr objectAtIndex:[[NSString stringWithFormat:@"%.0f",exhaleData] integerValue]][@"text"] floatValue];
@@ -259,12 +259,13 @@
                 rate = slm1 + ((exhaleData-floorf(exhaleData)) * (slm2-slm1));
             }
         }
-        if (exhaleData > 10) {
-            rate = rate * 1.05;
-        }else if (exhaleData <= 10 && exhaleData > 0.1) {
-            rate = rate * 0.95;
-        }else if (exhaleData <= 0.1) {
-            rate = rate * 0.25;
+//        if (exhaleData > 10) {
+//            rate = rate * 1.05;
+//        }else if (exhaleData <= 10 && exhaleData > 0.1) {
+//            rate = rate * 0.95;
+//        }else
+        if (exhaleData <= 0.1) {
+            rate = rate * 0.2;
         }
     }
     

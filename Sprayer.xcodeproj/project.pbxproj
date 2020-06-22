@@ -89,6 +89,7 @@
 		648A72D7228D574E00B8B430 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 648A72D4228D574E00B8B430 /* SSKeychain.m */; };
 		648A72DD228D60D100B8B430 /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648A72DC228D60D100B8B430 /* UserInfoModel.swift */; };
 		64BBBAA41E82AD58008A40E5 /* BlueWriteData.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BBBAA31E82AD58008A40E5 /* BlueWriteData.m */; };
+		64C62FBA249F7D9900709330 /* pneuma_model.xml in Resources */ = {isa = PBXBuildFile; fileRef = 64C62FB9249F7D9900709330 /* pneuma_model.xml */; };
 		64CD9986242F2FC60019EEEE /* SLungTestNumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CD9984242F2FC60019EEEE /* SLungTestNumCell.swift */; };
 		64CD9987242F2FC60019EEEE /* SLungTestNumCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64CD9985242F2FC60019EEEE /* SLungTestNumCell.xib */; };
 		64CE06D02439BF5D00C8B131 /* SLungHistoryNumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CE06CE2439BF5D00C8B131 /* SLungHistoryNumCell.swift */; };
@@ -191,7 +192,6 @@
 		D17F3ED9241A417600C9E8AF /* UIAlertControllerEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17F3ED8241A417600C9E8AF /* UIAlertControllerEx.swift */; };
 		D18050FC2463EAC60050E01E /* MembersListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D18050FE2463EAC60050E01E /* MembersListCell.xib */; };
 		D188B7952421C8630087F342 /* FLCustomChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = D188B7942421C8630087F342 /* FLCustomChartView.m */; };
-		D190F0BA2485EC98008B8FB4 /* pneuma_model.xml in Resources */ = {isa = PBXBuildFile; fileRef = D190F0B92485EC98008B8FB4 /* pneuma_model.xml */; };
 		D196C75A2448001B009AB731 /* video_connect_chat_tip_sender.aac in Resources */ = {isa = PBXBuildFile; fileRef = D196C7522448001B009AB731 /* video_connect_chat_tip_sender.aac */; };
 		D196C75B2448001B009AB731 /* video_chat_tip_OnCall.aac in Resources */ = {isa = PBXBuildFile; fileRef = D196C7532448001B009AB731 /* video_chat_tip_OnCall.aac */; };
 		D196C75C2448001B009AB731 /* video_chat_tip_sender.aac in Resources */ = {isa = PBXBuildFile; fileRef = D196C7542448001B009AB731 /* video_chat_tip_sender.aac */; };
@@ -379,6 +379,7 @@
 		648A72DC228D60D100B8B430 /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		64BBBAA21E82AD58008A40E5 /* BlueWriteData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlueWriteData.h; sourceTree = "<group>"; };
 		64BBBAA31E82AD58008A40E5 /* BlueWriteData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlueWriteData.m; sourceTree = "<group>"; };
+		64C62FB9249F7D9900709330 /* pneuma_model.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = pneuma_model.xml; sourceTree = "<group>"; };
 		64CD9984242F2FC60019EEEE /* SLungTestNumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLungTestNumCell.swift; sourceTree = "<group>"; };
 		64CD9985242F2FC60019EEEE /* SLungTestNumCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLungTestNumCell.xib; sourceTree = "<group>"; };
 		64CE06CE2439BF5D00C8B131 /* SLungHistoryNumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLungHistoryNumCell.swift; sourceTree = "<group>"; };
@@ -570,7 +571,6 @@
 		D18051022463EAD00050E01E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MembersListCell.strings; sourceTree = "<group>"; };
 		D188B7932421C8630087F342 /* FLCustomChartView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLCustomChartView.h; sourceTree = "<group>"; };
 		D188B7942421C8630087F342 /* FLCustomChartView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLCustomChartView.m; sourceTree = "<group>"; };
-		D190F0B92485EC98008B8FB4 /* pneuma_model.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = pneuma_model.xml; sourceTree = "<group>"; };
 		D196C7522448001B009AB731 /* video_connect_chat_tip_sender.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_connect_chat_tip_sender.aac; sourceTree = "<group>"; };
 		D196C7532448001B009AB731 /* video_chat_tip_OnCall.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_chat_tip_OnCall.aac; sourceTree = "<group>"; };
 		D196C7542448001B009AB731 /* video_chat_tip_sender.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_chat_tip_sender.aac; sourceTree = "<group>"; };
@@ -1530,6 +1530,7 @@
 		D1D14389226F0A4100BA5302 /* Config */ = {
 			isa = PBXGroup;
 			children = (
+				64C62FB9249F7D9900709330 /* pneuma_model.xml */,
 				D196C7512448001B009AB731 /* Sounds */,
 				64F663D11E63C8A900F4C9E7 /* Info.plist */,
 				D1D14393226F0B6F00BA5302 /* Sprayer-Bridging-Header.h */,
@@ -1538,7 +1539,6 @@
 				64E8EF7E228AAD3300B357D1 /* Sprayer.xcdatamodeld */,
 				D173D46F24179FF7003697E4 /* Localizable.strings */,
 				64CE1CC224780CAB00F896F7 /* lungTestData.plist */,
-				D190F0B92485EC98008B8FB4 /* pneuma_model.xml */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -1684,7 +1684,7 @@
 				64CE06D12439BF5D00C8B131 /* SLungHistoryNumCell.xib in Resources */,
 				BF79D1011E7232CE00EE468B /* HistoricalDrugTableViewCell.xib in Resources */,
 				6425803D1E6D515A0019AD06 /* HistoryValueTableViewCell.xib in Resources */,
-				D190F0BA2485EC98008B8FB4 /* pneuma_model.xml in Resources */,
+				64C62FBA249F7D9900709330 /* pneuma_model.xml in Resources */,
 				64F663D01E63C8A900F4C9E7 /* LaunchScreen.storyboard in Resources */,
 				644C9C791E6918080030C3B9 /* lightSelect.png in Resources */,
 				6426203B1E80B56200263124 /* hud_info.png in Resources */,
