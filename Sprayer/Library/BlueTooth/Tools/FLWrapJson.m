@@ -187,8 +187,8 @@
         NSInteger yaliData = abs([self signedDataTointWithData:[data subdataWithRange:NSMakeRange(i, 2)] Location:0 Offset:2]);//[self input0x16String:[FLDrawDataTool hexStringFromData:[data subdataWithRange:NSMakeRange(i, 2)]]]
         float yaliNum = yaliData/20.0;
         [yaliOneArr addObject:@(yaliNum)];
+        
     }
-    
     for (int i = 0; i<yaliOneArr.count; i+=1) {
 //        float yaliValue = 0.0;
 //        if (i == 0) {
@@ -248,7 +248,7 @@
     NSDictionary *result = [XMLReader dictionaryForXMLData:xmlData error:&error];
     NSArray *itemArr = result[@"resources"][@"string-array"][@"item"];
     if (itemArr.count == 1640) {
-        if (exhaleData >= 1639) {
+        if (exhaleData >= 771) {
             rate = [itemArr[1639][@"text"] floatValue];
         }else {
             if (floorf(exhaleData) == exhaleData) {

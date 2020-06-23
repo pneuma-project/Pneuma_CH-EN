@@ -1530,7 +1530,6 @@
 		D1D14389226F0A4100BA5302 /* Config */ = {
 			isa = PBXGroup;
 			children = (
-				64C62FB9249F7D9900709330 /* pneuma_model.xml */,
 				D196C7512448001B009AB731 /* Sounds */,
 				64F663D11E63C8A900F4C9E7 /* Info.plist */,
 				D1D14393226F0B6F00BA5302 /* Sprayer-Bridging-Header.h */,
@@ -1539,6 +1538,7 @@
 				64E8EF7E228AAD3300B357D1 /* Sprayer.xcdatamodeld */,
 				D173D46F24179FF7003697E4 /* Localizable.strings */,
 				64CE1CC224780CAB00F896F7 /* lungTestData.plist */,
+				64C62FB9249F7D9900709330 /* pneuma_model.xml */,
 			);
 			path = Config;
 			sourceTree = "<group>";

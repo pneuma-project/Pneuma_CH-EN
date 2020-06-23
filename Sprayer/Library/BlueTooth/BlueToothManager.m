@@ -406,7 +406,20 @@ typedef enum _TTGState{
                         }
                         NSData *newData = [NSData dataWithBytes:newbt
                                                          length:sizeof(newbt)];
-                        NSLog(@"newdata = %@",newData);
+                        NSLog(@"newdata ====== %@",newData);
+//                        unsigned long index = 0;
+//                        if (newData.length%20==0) {
+//                            index = newData.length/20;
+//                        }else {
+//                            index = (newData.length/20)+1;
+//                        }
+//                        for (int i=0; i<index; i++) {
+//                            int length = 20;
+//                            if (i == index - 1) {
+//                                length = newData.length%20;
+//                            }
+//                            NSLog(@"exhaleData-----%@",[newData subdataWithRange:NSMakeRange(0+(i*20), length)]);
+//                        }
                         self.putData = nil;
                         NSInteger type = [FLDrawDataTool NSDataToNSInteger:[newData subdataWithRange:NSMakeRange(0, 1)]];
                         //压力值数据长度
