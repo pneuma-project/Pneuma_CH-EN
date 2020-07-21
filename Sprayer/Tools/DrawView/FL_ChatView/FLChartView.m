@@ -420,9 +420,8 @@
     if ([bottomArr[10] floatValue] == 1.0) {
         divisorNum = 10;
     }else {
-        divisorNum = 20;
+        divisorNum = OneSecondData;
     }
-    
     for (int i = 0;i<= bottomArr.count;i++) {
         if(i%divisorNum == 0){
             UILabel *leftLabel = [[UILabel alloc]initWithFrame:CGRectMake(i*Xmargin, (self.dataArrOfY.count-1)*Ymargin, 25, 20)];
@@ -430,8 +429,7 @@
             leftLabel.textColor = RGBColor(57, 106, 195, 1.0);
             if (i==bottomArr.count) {
                leftLabel.text = [NSString stringWithFormat:@"%.f",[bottomArr[i-1] floatValue]];
-            }else
-            {
+            }else{
                leftLabel.text = [NSString stringWithFormat:@"%.f",[bottomArr[i] floatValue]];
             }
             leftLabel.textAlignment = NSTextAlignmentCenter;

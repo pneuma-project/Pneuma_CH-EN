@@ -115,3 +115,6 @@ let PeripheralDidConnect = "peripheralDidConnect"//蓝牙断开连接
 let BlueConnectSucceed = "ConnectSucceed"  //蓝牙连接成功
 let JumpPatientChartPage = "JumpPatientChartPage"  //医生端接到视频通话时跳转到对应病人的曲线界面
 let AutoConnect = "autoConnect"
+
+//一秒钟之内的呼气数据个数
+let OneSecondData = 40

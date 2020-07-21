@@ -66,15 +66,9 @@ class LungHistoryChatController: BaseViewController,CustemBBI {
         secondDataArr = []
         
         //计算x轴的数值
-        if dataArr.count%20 == 0{
-            for i in 0...dataArr.count {
-                xNumArr.append(String.init(format: "%.2f", Double(i)*0.05))
-            }
-        }else {
-            let baseNum = (dataArr.count/20)+2
-            for i in 0...(baseNum*20) {
-                xNumArr.append(String.init(format: "%.2f", Double(i)*0.05))
-            }
+        let baseNum = (dataArr.count/OneSecondData)+2
+        for i in 0...(baseNum*OneSecondData) {
+            xNumArr.append(String.init(format: "%.3f", Double(i)*Double(1.0/Double(OneSecondData))))
         }
         dataList = dataArr
         
@@ -85,7 +79,7 @@ class LungHistoryChatController: BaseViewController,CustemBBI {
                 return
             }
             secondSum += dataNum
-            secondDataArr.append(String.init(format: "%.3f", secondSum/1200))
+            secondDataArr.append(String.init(format: "%.3f", secondSum/60000*26))
         }
         //计算thirdChatView 的y轴坐标数值
         guard let lastDataStr = secondDataArr.last else {
@@ -228,7 +222,11 @@ extension LungHistoryChatController {
         firstChatView.leftDataArr = dataList
         firstChatView.dataArrOfY = yNumArr
         if xNumArr.count == 0 {
-            firstChatView.dataArrOfX = ["0","0.05","0.1","0.15","0.2","0.25","0.3","0.35","0.4","0.45","0.5","0.55","0.6","0.65","0.7","0.75","0.8","0.85","0.9","0.95","1.0","1.05","1.1","1.15","1.2","1.25","1.3","1.35","1.4","1.45","1.5","1.55","1.6","1.65","1.7","1.75","1.8","1.85","1.9","1.95","2.0","2.05","2.1","2.15","2.2","2.25","2.3","2.35","2.4","2.45","2.5","2.55","2.6","2.65","2.7","2.75","2.8","2.85","2.9","2.95","3.0"]//拿到X轴坐标
+            var defaultNumArr1:[String] = []
+            for i in 0...(3*OneSecondData) {
+                defaultNumArr1.append(String.init(format: "%.3f", Double(i)*Double(1.0/Double(OneSecondData))))
+            }
+            firstChatView.dataArrOfX = defaultNumArr1//拿到X轴坐标
         }else {
             firstChatView.dataArrOfX = xNumArr
         }
@@ -245,7 +243,11 @@ extension LungHistoryChatController {
         secondChatView.leftDataArr = secondDataArr
         secondChatView.dataArrOfY = secondYNumArr
         if xNumArr.count == 0 {
-            secondChatView.dataArrOfX = ["0","0.05","0.1","0.15","0.2","0.25","0.3","0.35","0.4","0.45","0.5","0.55","0.6","0.65","0.7","0.75","0.8","0.85","0.9","0.95","1.0","1.05","1.1","1.15","1.2","1.25","1.3","1.35","1.4","1.45","1.5","1.55","1.6","1.65","1.7","1.75","1.8","1.85","1.9","1.95","2.0","2.05","2.1","2.15","2.2","2.25","2.3","2.35","2.4","2.45","2.5","2.55","2.6","2.65","2.7","2.75","2.8","2.85","2.9","2.95","3.0"]//拿到X轴坐标
+            var defaultNumArr2:[String] = []
+            for i in 0...(3*OneSecondData) {
+                defaultNumArr2.append(String.init(format: "%.3f", Double(i)*Double(1.0/Double(OneSecondData))))
+            }
+            secondChatView.dataArrOfX = defaultNumArr2//拿到X轴坐标
         }else {
             secondChatView.dataArrOfX = xNumArr
         }
@@ -293,8 +295,8 @@ extension LungHistoryChatController {
         
         var FEV1Str = 0.0
         if secondDataArr.count > 0{
-            if secondDataArr.count > 20 {
-                guard let maxNum = Double(secondDataArr[19]) else {
+            if secondDataArr.count > OneSecondData {
+                guard let maxNum = Double(secondDataArr[OneSecondData-1]) else {
                     return
                 }
                 FEV1Str = maxNum

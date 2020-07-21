@@ -84,6 +84,7 @@
 #define IsDisplayMedInfo @"IsDisplayMedInfo" //是否显示了药瓶信息
 #define AutoConnect @"autoConnect"    //蓝牙自动连接
 
-
+//一秒钟之内的呼气数据个数
+#define OneSecondData 40
 
 #endif /* PrefixHeader_pch */

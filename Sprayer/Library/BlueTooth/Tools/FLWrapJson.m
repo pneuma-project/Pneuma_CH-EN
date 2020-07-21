@@ -239,7 +239,7 @@
 //            rate = slm1 + ((exhaleData-floorf(exhaleData)) * (slm2-slm1));
 //        }
 //    }
-    NSString *xmlFileString = [[NSBundle mainBundle] pathForResource:@"pneuma_model" ofType:@"xml"];
+    NSString *xmlFileString = [[NSBundle mainBundle] pathForResource:@"Pneuma_FEVnew_single_wan_xz4" ofType:@"xml"];
     NSData *xmlData = [NSData dataWithContentsOfFile:xmlFileString];
     NSError *error = nil;
     if (error) {
@@ -247,10 +247,10 @@
     }
     NSDictionary *result = [XMLReader dictionaryForXMLData:xmlData error:&error];
     NSArray *itemArr = result[@"resources"][@"string-array"][@"item"];
-    if (itemArr.count == 1640) {
-        if (exhaleData >= 771) {
-            rate = [itemArr[1639][@"text"] floatValue];
-        }else {
+    if (itemArr.count != 0) {
+//        if (exhaleData >= [itemArr.lastObject[@"text"] floatValue]) {
+//            rate = [itemArr.lastObject[@"text"] floatValue];
+//        }else {
             if (floorf(exhaleData) == exhaleData) {
                 rate = [[itemArr objectAtIndex:[[NSString stringWithFormat:@"%.0f",exhaleData] integerValue]][@"text"] floatValue];
             }else {
@@ -258,7 +258,7 @@
                 float slm2 = [[itemArr objectAtIndex:[[NSString stringWithFormat:@"%.0f",ceilf(exhaleData)] integerValue]][@"text"] floatValue];
                 rate = slm1 + ((exhaleData-floorf(exhaleData)) * (slm2-slm1));
             }
-        }
+//        }
 //        if (exhaleData > 10) {
 //            rate = rate * 1.05;
 //        }else if (exhaleData <= 10 && exhaleData > 0.1) {

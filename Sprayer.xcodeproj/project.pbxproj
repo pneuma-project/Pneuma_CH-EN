@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		425D17051250175BD9BB56B0 /* Pods_Sprayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F1056E38D5B2B9DFB9B7F8B /* Pods_Sprayer.framework */; };
+		6416F2A724C5834300755504 /* Pneuma_FEVnew_single_wan_xz4.xml in Resources */ = {isa = PBXBuildFile; fileRef = 6416F2A624C5834200755504 /* Pneuma_FEVnew_single_wan_xz4.xml */; };
+		6416F2A924C5834800755504 /* Pneuma_FEVnew_double_tube_xz1.xml in Resources */ = {isa = PBXBuildFile; fileRef = 6416F2A824C5834800755504 /* Pneuma_FEVnew_double_tube_xz1.xml */; };
+		6416F2AB24C5834C00755504 /* Pneuma_FEVnew_double_singel_xz1.xml in Resources */ = {isa = PBXBuildFile; fileRef = 6416F2AA24C5834B00755504 /* Pneuma_FEVnew_double_singel_xz1.xml */; };
 		642580001E6CFF740019AD06 /* DeviceStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64257FFF1E6CFF740019AD06 /* DeviceStatusViewController.m */; };
 		6425801F1E6D0CB90019AD06 /* JSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 642580061E6D0CB90019AD06 /* JSONModel.m */; };
 		642580201E6D0CB90019AD06 /* JSONModelArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 642580081E6D0CB90019AD06 /* JSONModelArray.m */; };
@@ -88,8 +91,8 @@
 		648A72D6228D574E00B8B430 /* KeychainUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648A72D3228D574E00B8B430 /* KeychainUtils.swift */; };
 		648A72D7228D574E00B8B430 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 648A72D4228D574E00B8B430 /* SSKeychain.m */; };
 		648A72DD228D60D100B8B430 /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648A72DC228D60D100B8B430 /* UserInfoModel.swift */; };
+		64B9D23A24C545CC003DCBF5 /* Pneuma_FEVnew_single_xz1.xml in Resources */ = {isa = PBXBuildFile; fileRef = 64B9D23924C545CC003DCBF5 /* Pneuma_FEVnew_single_xz1.xml */; };
 		64BBBAA41E82AD58008A40E5 /* BlueWriteData.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BBBAA31E82AD58008A40E5 /* BlueWriteData.m */; };
-		64C62FBA249F7D9900709330 /* pneuma_model.xml in Resources */ = {isa = PBXBuildFile; fileRef = 64C62FB9249F7D9900709330 /* pneuma_model.xml */; };
 		64CD9986242F2FC60019EEEE /* SLungTestNumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CD9984242F2FC60019EEEE /* SLungTestNumCell.swift */; };
 		64CD9987242F2FC60019EEEE /* SLungTestNumCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64CD9985242F2FC60019EEEE /* SLungTestNumCell.xib */; };
 		64CE06D02439BF5D00C8B131 /* SLungHistoryNumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CE06CE2439BF5D00C8B131 /* SLungHistoryNumCell.swift */; };
@@ -239,6 +242,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6416F2A624C5834200755504 /* Pneuma_FEVnew_single_wan_xz4.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Pneuma_FEVnew_single_wan_xz4.xml; sourceTree = "<group>"; };
+		6416F2A824C5834800755504 /* Pneuma_FEVnew_double_tube_xz1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Pneuma_FEVnew_double_tube_xz1.xml; sourceTree = "<group>"; };
+		6416F2AA24C5834B00755504 /* Pneuma_FEVnew_double_singel_xz1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Pneuma_FEVnew_double_singel_xz1.xml; sourceTree = "<group>"; };
 		64257FFE1E6CFF740019AD06 /* DeviceStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceStatusViewController.h; sourceTree = "<group>"; };
 		64257FFF1E6CFF740019AD06 /* DeviceStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceStatusViewController.m; sourceTree = "<group>"; };
 		642580051E6D0CB90019AD06 /* JSONModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModel.h; sourceTree = "<group>"; };
@@ -377,9 +383,9 @@
 		648A72D4228D574E00B8B430 /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
 		648A72D5228D574E00B8B430 /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
 		648A72DC228D60D100B8B430 /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
+		64B9D23924C545CC003DCBF5 /* Pneuma_FEVnew_single_xz1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Pneuma_FEVnew_single_xz1.xml; sourceTree = "<group>"; };
 		64BBBAA21E82AD58008A40E5 /* BlueWriteData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlueWriteData.h; sourceTree = "<group>"; };
 		64BBBAA31E82AD58008A40E5 /* BlueWriteData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlueWriteData.m; sourceTree = "<group>"; };
-		64C62FB9249F7D9900709330 /* pneuma_model.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = pneuma_model.xml; sourceTree = "<group>"; };
 		64CD9984242F2FC60019EEEE /* SLungTestNumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLungTestNumCell.swift; sourceTree = "<group>"; };
 		64CD9985242F2FC60019EEEE /* SLungTestNumCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLungTestNumCell.xib; sourceTree = "<group>"; };
 		64CE06CE2439BF5D00C8B131 /* SLungHistoryNumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLungHistoryNumCell.swift; sourceTree = "<group>"; };
@@ -1538,7 +1544,10 @@
 				64E8EF7E228AAD3300B357D1 /* Sprayer.xcdatamodeld */,
 				D173D46F24179FF7003697E4 /* Localizable.strings */,
 				64CE1CC224780CAB00F896F7 /* lungTestData.plist */,
-				64C62FB9249F7D9900709330 /* pneuma_model.xml */,
+				64B9D23924C545CC003DCBF5 /* Pneuma_FEVnew_single_xz1.xml */,
+				6416F2A624C5834200755504 /* Pneuma_FEVnew_single_wan_xz4.xml */,
+				6416F2A824C5834800755504 /* Pneuma_FEVnew_double_tube_xz1.xml */,
+				6416F2AA24C5834B00755504 /* Pneuma_FEVnew_double_singel_xz1.xml */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -1677,14 +1686,15 @@
 				6426203A1E80B56200263124 /* hud_error@2x.png in Resources */,
 				D173D4782417A1BA003697E4 /* DeviceViewController.xib in Resources */,
 				D196C75B2448001B009AB731 /* video_chat_tip_OnCall.aac in Resources */,
+				6416F2AB24C5834C00755504 /* Pneuma_FEVnew_double_singel_xz1.xml in Resources */,
 				D173D46D24179FF7003697E4 /* Localizable.strings in Resources */,
 				644C9C7E1E6918080030C3B9 /* scanscanBg.png in Resources */,
 				644C9CAF1E697DDA0030C3B9 /* ScanResultViewController.xib in Resources */,
 				D196C75F2448001B009AB731 /* video_chat_tip_receiver.aac in Resources */,
+				6416F2A924C5834800755504 /* Pneuma_FEVnew_double_tube_xz1.xml in Resources */,
 				64CE06D12439BF5D00C8B131 /* SLungHistoryNumCell.xib in Resources */,
 				BF79D1011E7232CE00EE468B /* HistoricalDrugTableViewCell.xib in Resources */,
 				6425803D1E6D515A0019AD06 /* HistoryValueTableViewCell.xib in Resources */,
-				64C62FBA249F7D9900709330 /* pneuma_model.xml in Resources */,
 				64F663D01E63C8A900F4C9E7 /* LaunchScreen.storyboard in Resources */,
 				644C9C791E6918080030C3B9 /* lightSelect.png in Resources */,
 				6426203B1E80B56200263124 /* hud_info.png in Resources */,
@@ -1709,8 +1719,10 @@
 				D196C7602448001B009AB731 /* video_chat_tip_onTimer.aac in Resources */,
 				64CE1CC324780CAB00F896F7 /* lungTestData.plist in Resources */,
 				D196C75A2448001B009AB731 /* video_connect_chat_tip_sender.aac in Resources */,
+				6416F2A724C5834300755504 /* Pneuma_FEVnew_single_wan_xz4.xml in Resources */,
 				7906CA4D1FBD733E00200B66 /* Assets.xcassets in Resources */,
 				D18050FC2463EAC60050E01E /* MembersListCell.xib in Resources */,
+				64B9D23A24C545CC003DCBF5 /* Pneuma_FEVnew_single_xz1.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2199,9 +2211,9 @@
 				INFOPLIST_FILE = Sprayer/Config/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.10;
+				MARKETING_VERSION = 1.11;
 				"OTHER_SWIFT_FLAGS[arch=*]" = "$(inherited) \"-D\" \"COCOAPODS\" -D DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = com.FL.Pneuma.dev;
+				PRODUCT_BUNDLE_IDENTIFIER = com.FL.Pneuma.dev.sw;
 				PRODUCT_NAME = Pneuma;
 				SWIFT_OBJC_BRIDGING_HEADER = "Sprayer/Config/Sprayer-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -2224,8 +2236,8 @@
 				INFOPLIST_FILE = Sprayer/Config/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.10;
-				PRODUCT_BUNDLE_IDENTIFIER = com.FL.Pneuma.dev;
+				MARKETING_VERSION = 1.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.FL.Pneuma.dev.sw;
 				PRODUCT_NAME = Pneuma;
 				SWIFT_OBJC_BRIDGING_HEADER = "Sprayer/Config/Sprayer-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
