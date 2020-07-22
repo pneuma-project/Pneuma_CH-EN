@@ -272,7 +272,7 @@ class LoginViewController: UIViewController,UIGestureRecognizerDelegate {
                         }
                     }
                 }else {
-                    let code = jsonDict["code"].stringValue
+                    let code = jsonDict["message"].stringValue
                     if code == "4000000" {
                         weekself.view.makeToast("用户名为空", duration: 1.0, position: .center)
                     }else if code == "4000001" {

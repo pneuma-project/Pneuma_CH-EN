@@ -48,6 +48,7 @@ class SLungTestDateController: BaseViewController,CustemBBI {
         // Do any additional setup after loading the view.
         self.view.backgroundColor = .white
         self.setNavTitle(String.init(format: NSLocalizedString("test_time_group", comment: ""), testNum+1,testGroupNum+1))
+        self.setScrollView()
         self.setInterface()
         self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.writeStartDataAction), userInfo: nil, repeats: true)
     }
@@ -212,8 +213,27 @@ extension SLungTestDateController {
 /// 初始化界面
 extension SLungTestDateController {
     
+    func setScrollView() {
+        scrollView = UIScrollView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: CGFloat(200*IPONE_SCALE)))
+        scrollView.backgroundColor = .white
+        self.view.addSubview(scrollView)
+        scrollView.isPagingEnabled = true
+        scrollView.bounces = false
+        scrollView.contentSize = CGSize.init(width: 2*SCREEN_WIDTH, height: CGFloat(200*IPONE_SCALE))
+        scrollView.snp.makeConstraints { (make) in
+            make.left.right.equalToSuperview()
+            make.top.equalTo(NEWNAVHEIGHT+CGFloat(10*IPONE_SCALE)+18)
+            make.height.equalTo(200*IPONE_SCALE)
+        }
+    }
+    
     fileprivate func setInterface() {
         for view in self.view.subviews {
+            if !(view.isKind(of: UIScrollView.classForCoder())) {
+                view.removeFromSuperview()
+            }
+        }
+        for view in scrollView.subviews {
             view.removeFromSuperview()
         }
         
@@ -227,18 +247,6 @@ extension SLungTestDateController {
             make.top.equalTo(NEWNAVHEIGHT+CGFloat(10*IPONE_SCALE))
             make.centerX.equalToSuperview()
             make.height.equalTo(18)
-        }
-        
-        scrollView = UIScrollView.init(frame: CGRect.init(x: 0, y: 0, width: SCREEN_WIDTH, height: CGFloat(200*IPONE_SCALE)))
-        scrollView.backgroundColor = .white
-        self.view.addSubview(scrollView)
-        scrollView.isPagingEnabled = true
-        scrollView.bounces = false
-        scrollView.contentSize = CGSize.init(width: 2*SCREEN_WIDTH, height: CGFloat(200*IPONE_SCALE))
-        scrollView.snp.makeConstraints { (make) in
-            make.left.right.equalToSuperview()
-            make.top.equalTo(numResultLabel.snp.bottom)
-            make.height.equalTo(200*IPONE_SCALE)
         }
         
         var yNumArr:[String] = []
