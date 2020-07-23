@@ -260,6 +260,8 @@ typedef enum _TTGState{
     [_per discoverServices:nil];
     [UserDefaultsUtils saveBoolValue:YES withKey:@"isConnect"];
 //    [self.timer invalidate];
+    //停止扫描
+    [self stopScan];
 }
 
 
