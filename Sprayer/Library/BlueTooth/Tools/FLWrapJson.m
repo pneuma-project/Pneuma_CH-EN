@@ -239,7 +239,7 @@
 //            rate = slm1 + ((exhaleData-floorf(exhaleData)) * (slm2-slm1));
 //        }
 //    }
-    NSString *xmlFileString = [[NSBundle mainBundle] pathForResource:@"Pneuma_FEVnew_double_tube_xz1" ofType:@"xml"];
+    NSString *xmlFileString = [[NSBundle mainBundle] pathForResource:@"Pneuma_FEVnew_double_singel_xz1" ofType:@"xml"];
     NSData *xmlData = [NSData dataWithContentsOfFile:xmlFileString];
     NSError *error = nil;
     if (error) {

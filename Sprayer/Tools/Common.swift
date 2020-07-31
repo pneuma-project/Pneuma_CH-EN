@@ -117,4 +117,4 @@ let JumpPatientChartPage = "JumpPatientChartPage"  //医生端接到视频通话
 let AutoConnect = "autoConnect"
 
 //一秒钟之内的呼气数据个数
-let OneSecondData = 40
+let OneSecondData = 38

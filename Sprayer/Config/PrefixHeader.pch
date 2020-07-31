@@ -85,6 +85,6 @@
 #define AutoConnect @"autoConnect"    //蓝牙自动连接
 
 //一秒钟之内的呼气数据个数
-#define OneSecondData 40
+#define OneSecondData 38
 
 #endif /* PrefixHeader_pch */

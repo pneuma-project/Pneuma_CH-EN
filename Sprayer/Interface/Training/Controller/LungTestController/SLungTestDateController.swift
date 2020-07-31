@@ -167,7 +167,7 @@ class SLungTestDateController: BaseViewController,CustemBBI {
                 return
             }
             secondSum += dataNum
-            secondDataArr.append(String.init(format: "%.3f", secondSum/60000*26))
+            secondDataArr.append(String.init(format: "%.4f", secondSum/60000*26))
         }
         //计算thirdChatView 的y轴坐标数值
         guard let lastDataStr = secondDataArr.last else {
